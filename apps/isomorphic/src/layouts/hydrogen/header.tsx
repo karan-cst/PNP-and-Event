@@ -9,9 +9,11 @@ import StickyHeader from '@/layouts/sticky-header';
 import SearchWidget from '@/app/shared/search/search';
 import { Switch } from 'rizzui/switch';
 import { useLayout } from '../use-layout';
+import { useSession } from 'next-auth/react';
 
 export default function Header() {
   const { layout, setLayout } = useLayout();
+  const { data: session } = useSession();
   return (
     <StickyHeader className="z-[990] border-b-2 2xl:py-5 3xl:px-8 4xl:px-10">
       <div className="flex w-full max-w-2xl items-center">
@@ -26,8 +28,14 @@ export default function Header() {
           <Logo iconOnly={true} />
         </Link>
         <div>
-          <h6>Super Admin</h6>
-          <p className="font-normal">PNP & Event Management</p>
+          <h6>{session?.user?.name || 'Super Admin'}</h6>
+          <p className="font-normal">
+            {session?.user?.role == 'pnpAdmin'
+              ? 'PNP Management'
+              : session?.user?.role == 'eventAdmin'
+                ? 'Event Management'
+                : 'PNP & Event Management'}
+          </p>
         </div>
         <Switch
           checked={layout === 'beryllium'}

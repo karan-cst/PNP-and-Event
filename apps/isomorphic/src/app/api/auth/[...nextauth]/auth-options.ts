@@ -15,22 +15,30 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async session({ session, token }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.idToken as string,
-        },
-      };
-    },
     async jwt({ token, user }) {
       if (user) {
         // return user as JWT
-        token.user = user;
+        // token.user = user;
+        token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
+    async session({ session, token }) {
+      if (token) {
+        session.user.role = token.role!;
+        session.user.id = token.id as string;
+      }
+      return session;
+      // return {
+      //   ...session,
+      //   user: {
+      //     ...session.user,
+      //     id: token.idToken as string,
+      //   },
+      // };
+    },
+
     async redirect({ url, baseUrl }) {
       // const parsedUrl = new URL(url, baseUrl);
       // if (parsedUrl.searchParams.has('callbackUrl')) {
@@ -51,20 +59,49 @@ export const authOptions: NextAuthOptions = {
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
         // that is false/null if the credentials are invalid
-        const user = {
-          email: 'admin@admin.com',
-          password: 'admin',
-        };
+        const { email, password } = credentials as any;
+        // const user = {
+        //   email: 'admin@admin.com',
+        //   password: 'admin',
+        // };
 
-        if (
-          isEqual(user, {
-            email: credentials?.email,
-            password: credentials?.password,
-          })
-        ) {
-          return user as any;
+        // if (
+        //   isEqual(user, {
+        //     email: credentials?.email,
+        //     password: credentials?.password,
+        //   })
+        // ) {
+        //   return user as any;
+        // }
+        if (email === 'super@admin.com' && password === 'admin') {
+          return {
+            id: '1',
+            name: 'Super Admin',
+            email,
+            role: 'superAdmin',
+          };
         }
+
+        if (email === 'pnp@admin.com' && password === 'admin') {
+          return {
+            id: '2',
+            name: 'PNP Admin',
+            email,
+            role: 'pnpAdmin',
+          };
+        }
+
+        if (email === 'event@admin.com' && password === 'admin') {
+          return {
+            id: '3',
+            name: 'Event Admin',
+            email,
+            role: 'eventAdmin',
+          };
+        }
+
         return null;
+        // return null;
       },
     }),
     GoogleProvider({

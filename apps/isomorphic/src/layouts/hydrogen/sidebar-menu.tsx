@@ -9,13 +9,36 @@ import cn from '@core/utils/class-names';
 import { PiCaretDownBold } from 'react-icons/pi';
 import { menuItems } from '@/layouts/hydrogen/menu-items';
 import StatusBadge from '@core/components/get-status-badge';
+import { useSession } from 'next-auth/react';
 
 export function SidebarMenu() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  console.log('session', session);
+  if (!session?.user?.role) return null;
+
+  const role = session.user.role;
+
+  const filteredMenu = menuItems
+    .filter((item) => {
+      // if no roles defined → allow
+      if (!item.roles) return true;
+
+      return item.roles.includes(role);
+    })
+    .map((item) => ({
+      ...item,
+      dropdownItems: item.dropdownItems?.filter((sub) => {
+        // if no roles defined → allow
+        if (!sub.roles) return true;
+
+        return sub.roles.includes(role);
+      }),
+    }));
 
   return (
     <div className="mt-4 pb-3 3xl:mt-6">
-      {menuItems.map((item, index) => {
+      {filteredMenu.map((item, index) => {
         const isActive = pathname === (item?.href as string);
         const pathnameExistInDropdowns: any = item?.dropdownItems?.filter(
           (dropdownItem) => dropdownItem.href === pathname

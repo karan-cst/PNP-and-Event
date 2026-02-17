@@ -67,26 +67,31 @@ export const menuItems = [
     name: 'Dashboard',
     href: '/dashboard',
     icon: <PiChartPieSliceDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
   },
   {
     name: 'User Types',
     href: '#',
     icon: <PiUsersDuotone />,
+    roles: ['superAdmin'],
     dropdownItems: [
       {
         name: 'Event Team Users',
         href: routes.usertypes.event,
         badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
       },
       {
         name: 'P&P Team Users',
         href: routes.usertypes.pnp,
         badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
       },
       {
         name: 'Finance Team Users',
         href: routes.usertypes.finance,
         badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
       },
     ],
   },
@@ -94,21 +99,25 @@ export const menuItems = [
     name: 'User Management',
     href: routes.userManagement.users,
     icon: <PiUserCircleGearDuotone />,
+    roles: ['superAdmin'],
   },
   {
     name: 'Vendor Management',
     href: '#',
     icon: <PiPackageDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
     dropdownItems: [
       {
         name: 'PNP Vendors',
         href: routes.vendorManagement.pnp,
         badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
       },
       {
         name: 'Event Vendors',
         href: routes.vendorManagement.event,
         badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
       },
     ],
   },
@@ -116,16 +125,19 @@ export const menuItems = [
     name: 'Client Management',
     href: '#',
     icon: <PiBriefcaseDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
     dropdownItems: [
       {
         name: 'PNP Clients',
         href: routes.clientManagement.pnp,
         badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
       },
       {
         name: 'Event Clients',
         href: routes.clientManagement.event,
         badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
       },
     ],
   },
@@ -133,6 +145,7 @@ export const menuItems = [
     name: 'PNP Master',
     href: '#',
     icon: <PiFolderUserDuotone />,
+    roles: ['superAdmin', 'pnpAdmin'],
     dropdownItems: [
       {
         name: 'HSN Code',
@@ -165,6 +178,7 @@ export const menuItems = [
     name: 'Event Master',
     href: '#',
     icon: <PiFolderUserDuotone />,
+    roles: ['superAdmin', 'eventAdmin'],
     dropdownItems: [
       {
         name: 'Project Categories',
@@ -192,16 +206,19 @@ export const menuItems = [
     name: 'Job Management',
     href: '#',
     icon: <PiShapesDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
     dropdownItems: [
       {
         name: 'Event Jobs',
         href: routes.jobManagement.event,
         badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
       },
       {
         name: 'PNP Jobs',
         href: routes.jobManagement.pnp,
         badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
       },
     ],
   },
@@ -209,16 +226,19 @@ export const menuItems = [
     name: 'Reports',
     href: '#',
     icon: <PiChartLineUpDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
     dropdownItems: [
       {
         name: 'Event Reports',
         href: routes.reports.event,
         badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
       },
       {
         name: 'PNP Reports',
         href: routes.reports.pnp,
         badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
       },
     ],
   },
