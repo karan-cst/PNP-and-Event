@@ -1,0 +1,73 @@
+import { z } from 'zod';
+
+export const eventFormSchema = z.object({
+  // 1️⃣ Basic Info
+  eventType: z.enum(['Conference', 'Stall', 'briefing meeting'], {
+    required_error: 'Event type is required',
+  }),
+
+  eventName: z.string().min(1, 'Event name is required'),
+
+  startDate: z.date({
+    required_error: 'Start date is required',
+  }),
+
+  endDate: z.date({
+    required_error: 'End date is required',
+  }),
+
+  // 2️⃣ Venue Details
+  location: z.object({
+    addressLine1: z.string().min(1, 'Address Line 1 is required'),
+    addressLine2: z.string().optional(),
+    pincode: z.string().min(6, 'Valid pincode required'),
+    state: z.string().min(1, 'State is required'),
+    city: z.string().min(1, 'City is required'),
+  }),
+
+  // 3️⃣ Scope of Work
+  scope: z.object({
+    title: z.string().min(1, 'Scope title is required'),
+    tentativeCost: z.coerce
+      .number()
+      .min(1, 'Tentative cost must be greater than 0'),
+  }),
+
+  // 4️⃣ Elements (Dynamic Items)
+  elements: z
+    .array(
+      z.object({
+        standardElementName: z.string().min(1, 'Element name required'),
+        quantity: z.coerce.number().min(1, 'Quantity must be at least 1'),
+        standardRate: z.coerce.number().min(0),
+        total: z.coerce.number().min(0),
+      })
+    )
+    .min(1, 'At least one element is required'),
+
+  // 5️⃣ Client Section
+  client: z.object({
+    clientId: z.string().min(1, 'Client is required'),
+    divisionName: z.string().optional(),
+  }),
+  // client: z
+  //   .object({
+  //     clientName: z.string().min(1),
+  //     address: z.string().optional(),
+  //     contactName: z.string().optional(),
+  //     contactNumber: z.string().optional(),
+  //     isPharma: z.boolean(),
+  //   })
+  //   .optional(),
+  // divisionName: z.string().optional(),
+
+  // 6️⃣ Project Priority
+  priority: z.enum(['Low', 'Medium', 'High'], {
+    required_error: 'Priority is required',
+  }),
+
+  // // 7️⃣ Coordinator Transfer
+  // coordinatorId: z.string().optional(),
+});
+
+export type CreateEventInput = z.infer<typeof eventFormSchema>;

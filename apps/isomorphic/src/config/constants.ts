@@ -40,22 +40,22 @@ export const ROLES = {
 } as const;
 
 export const USERTYPE = {
-  SuperAdmin: 'SuperAdmin',
+  SuperAdmin: 'Super Admin',
   Admin: 'Admin',
-  EventTeam: 'EventTeamUser',
-  OperationHeadEvent: 'OperationHeadEvent',
-  EventHead: 'EventHead',
+  EventTeam: 'Event Team - User',
+  OperationHeadEvent: 'Operation Head - Event',
+  EventHead: 'Event Head',
   CS: 'CS',
-  OperationHeadPnP: 'OperationHeadPnP',
-  BusinessHeadPnp: 'BusinessHeadPnP',
-  PrintExecutivePnP: 'PrintExecutivePnP',
-  PrintManagerPnP: 'PrintManagerPnP',
-  GiftManagerPnP: 'GiftManagerPnP',
-  PNPHead: 'PNPHead',
-  DeliveryManagerPnP: 'DeliveryManagerPnP',
-  FinanceExecutive: 'FinanceExecutive',
-  FinanaceManager: 'FinanaceManager',
-  FinanceHead: 'FinanceHead',
+  OperationHeadPnP: 'Operation Head - PnP',
+  BusinessHeadPnp: 'Business Head - PnP',
+  PrintExecutivePnP: 'Print Executive - PnP',
+  PrintManagerPnP: 'Print Manager - PnP',
+  GiftManagerPnP: 'Gift Manager - PnP',
+  PNPHead: 'PNP Head',
+  DeliveryManagerPnP: 'Delivery Manager - PnP',
+  FinanceExecutive: 'Finance Executive',
+  FinanaceManager: 'Finanace Manager',
+  FinanceHead: 'Finance Head',
 } as const;
 
 export const VENDORTYPE = {

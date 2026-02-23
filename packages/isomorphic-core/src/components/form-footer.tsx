@@ -25,7 +25,7 @@ export default function FormFooter({
       className={cn(
         "sticky bottom-0 left-0 right-0 z-10 -mb-8 flex items-center justify-end gap-4 border-t bg-white px-4 py-4 md:px-5 lg:px-6 3xl:px-8 4xl:px-10 dark:bg-gray-50",
         className,
-        negMargin
+        negMargin,
       )}
     >
       <Button

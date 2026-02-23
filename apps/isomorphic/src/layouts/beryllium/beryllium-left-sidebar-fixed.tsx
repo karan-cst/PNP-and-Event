@@ -12,6 +12,7 @@ import {
 import { useWindowSize } from '@core/hooks/use-window-size';
 import cn from '@core/utils/class-names';
 import { useAtom, useSetAtom } from 'jotai';
+import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { PiTextIndent } from 'react-icons/pi';
@@ -50,11 +51,41 @@ function MenuItem({ menu }: { menu: MenuItemsType }) {
 }
 
 function MenuItems() {
+  const { data: session } = useSession();
+  if (!session?.user?.role) return null;
+  const role = session.user.role;
+
+  const filteredMenu = berylliumMenuItems
+    // 1️⃣ Filter top-level sections
+    .filter((section) => {
+      if (!section.roles) return true;
+      return section.roles.includes(role);
+    })
+    .map((section) => ({
+      ...section,
+
+      // 2️⃣ Filter second level
+      menuItems: section.menuItems
+        ?.filter((item) => {
+          if (!item.roles) return true;
+          return item.roles.includes(role);
+        })
+        .map((item) => ({
+          ...item,
+
+          // 3️⃣ Filter third level (subMenuItems)
+          subMenuItems: item.subMenuItems?.filter((sub) => {
+            if (!sub.roles) return true;
+            return sub.roles.includes(role);
+          }),
+        })),
+    }));
+
   return (
     <menu className="flex w-full justify-center">
-      <div className="custom-scrollbar overflow-y-auto scroll-smooth h-[calc(100vh_-_105px)] w-full pb-5">
+      <div className="custom-scrollbar h-[calc(100vh_-_105px)] w-full overflow-y-auto scroll-smooth pb-5">
         <ul className="flex flex-col gap-6">
-          {berylliumMenuItems.map((menu) => (
+          {filteredMenu.map((menu) => (
             <MenuItem key={menu.id} menu={menu} />
           ))}
         </ul>

@@ -43,6 +43,7 @@ export type DatePickerProps = ReactDatePickerProps & {
 
 export const DatePicker = ({
   inputProps,
+  error,
   customInput,
   onCalendarOpen,
   onCalendarClose,
@@ -51,7 +52,7 @@ export const DatePicker = ({
   dateFormat = "d MMMM yyyy",
   showPopperArrow = false,
   ...props
-}: DatePickerProps) => {
+}: DatePickerProps & { error?: string }) => {
   const [isCalenderOpen, setIsCalenderOpen] = useState(false);
   const handleCalenderOpen = () => setIsCalenderOpen(true);
   const handleCalenderClose = () => setIsCalenderOpen(false);
@@ -59,7 +60,7 @@ export const DatePicker = ({
     <div
       className={cn(
         "flex [&_.react-datepicker-wrapper]:flex [&_.react-datepicker-wrapper]:w-full",
-        props?.className
+        props?.className,
       )}
     >
       <ReactDatePicker
@@ -71,12 +72,25 @@ export const DatePicker = ({
                 <PiCaretDownBold
                   className={cn(
                     "h-4 w-4 text-gray-500 transition",
-                    isCalenderOpen && "rotate-180"
+                    isCalenderOpen && "rotate-180",
                   )}
                 />
               }
+              error={error} // 👈 important
               {...inputProps}
             />
+            // <Input
+            //   prefix={<PiCalendarBlank className="w-5 h-5 text-gray-500" />}
+            //   suffix={
+            //     <PiCaretDownBold
+            //       className={cn(
+            //         "h-4 w-4 text-gray-500 transition",
+            //         isCalenderOpen && "rotate-180",
+            //       )}
+            //     />
+            //   }
+            //   {...inputProps}
+            // />
           )
         }
         onCalendarOpen={onCalendarOpen || handleCalenderOpen}
@@ -91,7 +105,7 @@ export const DatePicker = ({
           prevNextButtonClasses.children.border,
           prevNextButtonClasses.children.size,
           timeOnlyClasses.base,
-          calendarClassName
+          calendarClassName,
         )}
         popperClassName={cn(popperClasses.base, popperClassName)}
         dateFormat={dateFormat}

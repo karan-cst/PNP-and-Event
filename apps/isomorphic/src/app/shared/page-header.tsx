@@ -18,7 +18,8 @@ export default function PageHeader({
     <header
       className={cn('mb-6 @container xs:-mt-2 md:mt-4 lg:mb-3', className)}
     >
-      <div className="flex items-center justify-between gap-4">
+      {/* <div className="flex items-center justify-between gap-4"> */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         {/* LEFT: Title + Breadcrumb */}
         <div className="flex min-w-0">
           <Title as="h2" className="text-[22px] lg:text-lg 4xl:text-[26px]">
@@ -42,7 +43,7 @@ export default function PageHeader({
         </div>
 
         {/* RIGHT: Actions */}
-        <div className="flex flex-wrap items-center justify-end gap-4">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:justify-end">
           {children}
         </div>
       </div>

@@ -13,8 +13,7 @@ import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
-import { cityTireDataType } from './citytier-list/table';
-import StandardRateTable from './citytier-list/table';
+import CityTierTable, { cityTireDataType } from './citytier-list/table';
 import CreateCityTier from './create-citytier/createRate';
 
 export function CreateCitytierModalView({
@@ -101,7 +100,7 @@ export default function StandardRatePageHeader<T extends Record<string, any>>({
                   view: (
                     <FullScreenWrapper>
                       {/** Re-render SAME table here */}
-                      <StandardRateTable pageSize={10} />
+                      <CityTierTable pageSize={10} />
                     </FullScreenWrapper>
                   ),
                   size: 'full',

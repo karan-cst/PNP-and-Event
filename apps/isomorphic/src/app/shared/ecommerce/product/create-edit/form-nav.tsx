@@ -3,6 +3,8 @@ import { Link } from 'react-scroll';
 
 export const formParts = {
   summary: 'summary',
+  location: 'location',
+  scope: 'scope',
   media: 'media',
   pricingInventory: 'pricingInventory',
   productIdentifiers: 'productIdentifiers',
@@ -17,6 +19,10 @@ export const menuItems = [
   {
     label: 'Summary',
     value: formParts.summary,
+  },
+  {
+    label: 'Location',
+    value: formParts.location,
   },
   {
     label: 'Images & Gallery',
@@ -56,7 +62,7 @@ export default function FormNav({ className }: FormNavProps) {
         className
       )}
     >
-      <div className='custom-scrollbar overflow-x-auto scroll-smooth'>
+      <div className="custom-scrollbar overflow-x-auto scroll-smooth">
         <div className="inline-grid grid-flow-col gap-5 md:gap-7 lg:gap-10">
           {menuItems.map((tab, idx) => (
             <Link

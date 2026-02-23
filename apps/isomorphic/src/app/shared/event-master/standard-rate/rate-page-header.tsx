@@ -13,9 +13,8 @@ import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
-import { standardRateDataType } from './rate-list/table';
 import CreateStandardRate from './create-rate/createRate';
-import StandardRateTable from './rate-list/table';
+import StandardRateTable, { standardRateDataType } from './rate-list/table';
 
 export function CreateStandardrateModalView({
   standardRate,

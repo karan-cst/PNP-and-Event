@@ -156,13 +156,13 @@ export default function CreateClient({
                       ]}
                       onChange={onChange}
                       value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        [
-                          { label: 'PNP Client', value: 'pnpClient' },
-                          { label: 'EVENT Client', value: 'eventClient' },
-                        ]?.find((r) => r.value === selected)?.label ?? ''
-                      }
+                      getOptionValue={(option) => option.label}
+                      // displayValue={(selected) =>
+                      //   [
+                      //     { label: 'PNP Client', value: 'pnpClient' },
+                      //     { label: 'EVENT Client', value: 'eventClient' },
+                      //   ]?.find((r) => r.value === selected)?.label ?? ''
+                      // }
                       error={errors?.clientType?.message as string}
                     />
                   )}
@@ -171,29 +171,32 @@ export default function CreateClient({
                 <Controller
                   control={control}
                   name="clientFrom"
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      label="Client From"
-                      inPortal={false}
-                      labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
-                      placeholder="Select ..."
-                      options={[
-                        { label: 'Pharma', value: 'pharma' },
-                        { label: 'Non Pharma', value: 'non-pharma' },
-                      ]}
-                      onChange={onChange}
-                      value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        [
+                  render={({ field: { value, onChange } }) => {
+                    console.log('value', value);
+                    return (
+                      <Select
+                        label="Client From"
+                        inPortal={false}
+                        labelClassName="text-sm font-medium text-gray-900"
+                        dropdownClassName="h-auto"
+                        placeholder="Select ..."
+                        options={[
                           { label: 'Pharma', value: 'pharma' },
                           { label: 'Non Pharma', value: 'non-pharma' },
-                        ]?.find((r) => r.value === selected)?.label ?? ''
-                      }
-                      error={errors?.clientFrom?.message as string}
-                    />
-                  )}
+                        ]}
+                        onChange={onChange}
+                        value={value}
+                        getOptionValue={(option) => option.label}
+                        // displayValue={(selected) =>
+                        //   [
+                        //     { label: 'Pharma', value: 'pharma' },
+                        //     { label: 'Non Pharma', value: 'non-pharma' },
+                        //   ]?.find((r) => r.value === selected)?.label ?? ''
+                        // }
+                        error={errors?.clientFrom?.message as string}
+                      />
+                    );
+                  }}
                 />
 
                 <Controller

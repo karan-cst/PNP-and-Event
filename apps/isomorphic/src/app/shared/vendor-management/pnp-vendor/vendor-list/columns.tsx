@@ -1,6 +1,6 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
+import { ActionIcon, Avatar, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
 import { VendorDataType } from './table';
 import cn from '@core/utils/class-names';
 import DateCell from '@core/ui/date-cell';
@@ -15,34 +15,40 @@ const columnHelper = createColumnHelper<VendorDataType>();
 export const VendorListColumns = [
   columnHelper.display({
     id: 'id',
-    size: 150,
+    size: 100,
     header: 'Vendor Id',
     cell: ({ row }) => <Text className="text-sm">{row.original.id}</Text>,
   }),
+
   columnHelper.accessor('companyName', {
     id: 'companyName',
-    size: 170,
+    size: 200,
     header: 'Vendor Name',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.companyName}`}
-        </Title>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const { companyName, name } = row.original;
+
+      return (
+        <div className="flex items-center gap-3">
+          {/* Avatar */}
+          <Avatar
+            name={`${companyName}`}
+            size="sm"
+            color="primary"
+            className="bg-[#F1F1F1] !text-black"
+          />
+
+          {/* Name + Role */}
+          <div className="flex flex-col leading-tight">
+            <span className="text-sm font-medium text-gray-900">
+              {companyName}
+            </span>
+            <span className="text-xs text-gray-500">{name}</span>
+          </div>
+        </div>
+      );
+    },
   }),
-  columnHelper.accessor('name', {
-    id: 'name',
-    size: 170,
-    header: 'Name',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.name}`}
-        </Title>
-      </div>
-    ),
-  }),
+
   columnHelper.display({
     id: 'email',
     size: 190,
@@ -84,35 +90,9 @@ export const VendorListColumns = [
     }) => (
       <Flex align="center" justify="start" gap="3" className="pe-4">
         <VendorEdit vendor={row.original} />
-
-        {/* <DeletePopover
-          title={`Delete the vendor person`}
-          description={`Are you sure you want to delete this #${row.original.name}?`}
-          onDelete={() =>
-            meta?.handleDeleteRow && meta?.handleDeleteRow(row.original)
-          }
-        /> */}
       </Flex>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'isActive',
-  //   size: 120,
-  //   header: 'Is Active',
-  //   cell: ({ row }) => (
-  //     <Switch
-  //       // label="Free Shipping"
-  //       className="col-span-full"
-  //       value={row.original.isActive ? 'true' : 'false'}
-  //       checked={row.original.isActive}
-  //       onChange={(e) =>
-  //         e.target.value == 'true'
-  //           ? (row.original.isActive = true)
-  //           : (row.original.isActive = false)
-  //       }
-  //     />
-  //   ),
-  // }),
 ];
 
 const VendorEdit = ({ vendor }: { vendor: VendorDataType }) => {

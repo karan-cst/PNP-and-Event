@@ -29,7 +29,7 @@ export const STATUSES = {
 export const clientData = [
   {
     id: 'C001',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Altis',
     clientFrom: null,
     name: 'Ankit Shah',
@@ -43,7 +43,7 @@ export const clientData = [
   },
   {
     id: 'C002',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Arron',
     clientFrom: null,
     name: 'Rohan Patel',
@@ -57,7 +57,7 @@ export const clientData = [
   },
   {
     id: 'C003',
-    companyName: 'Intas',
+    companyName: 'Intas Pharam',
     division: 'Altis',
     clientFrom: 'pharma',
     name: 'Ankit Shah',
@@ -71,7 +71,7 @@ export const clientData = [
   },
   {
     id: 'C004',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Arron',
     clientFrom: 'pharma',
     name: 'Rohan Patel',
@@ -113,7 +113,7 @@ export const clientData = [
   },
   {
     id: 'C003',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Altis',
     clientFrom: 'pharma',
     name: 'Ankit Shah',
@@ -127,7 +127,7 @@ export const clientData = [
   },
   {
     id: 'C004',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Arron',
     clientFrom: 'pharma',
     name: 'Rohan Patel',
@@ -169,7 +169,7 @@ export const clientData = [
   },
   {
     id: 'C003',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Altis',
     clientFrom: 'pharma',
     name: 'Ankit Shah',
@@ -183,7 +183,7 @@ export const clientData = [
   },
   {
     id: 'C004',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Arron',
     clientFrom: 'pharma',
     name: 'Rohan Patel',
@@ -225,7 +225,7 @@ export const clientData = [
   },
   {
     id: 'C003',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Altis',
     clientFrom: 'pharma',
     name: 'Ankit Shah',
@@ -239,7 +239,7 @@ export const clientData = [
   },
   {
     id: 'C004',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Arron',
     clientFrom: 'pharma',
     name: 'Rohan Patel',
@@ -281,7 +281,7 @@ export const clientData = [
   },
   {
     id: 'C003',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Altis',
     clientFrom: 'pharma',
     name: 'Ankit Shah',
@@ -295,7 +295,7 @@ export const clientData = [
   },
   {
     id: 'C004',
-    companyName: 'Intas',
+    companyName: 'Intas Pharma',
     division: 'Arron',
     clientFrom: 'pharma',
     name: 'Rohan Patel',

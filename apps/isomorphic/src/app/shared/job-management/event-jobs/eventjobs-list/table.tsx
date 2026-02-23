@@ -67,7 +67,7 @@ export default function EventjobsTable({
     // optional but recommended
     table.resetRowSelection();
     table.setPageIndex(0);
-  }, [isPharma]);
+  }, [isPharma, setData, table]);
 
   const selectedData = table
     .getSelectedRowModel()

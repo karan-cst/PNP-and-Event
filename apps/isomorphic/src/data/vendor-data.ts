@@ -54,8 +54,8 @@ export const vendorData = [
   },
   {
     id: 'V003',
-    companyName: 'Aurum',
-    name: 'Ankit',
+    companyName: 'Aurum Medcom',
+    name: 'Ankit Gandhi',
     email: 'Ankit.shah@aurum.com',
     vendorType: VENDORTYPE.EVENTVendor,
     createdAt: '2026-02-10T16:01:40.021Z',
@@ -68,7 +68,7 @@ export const vendorData = [
   {
     id: 'V004',
     companyName: 'ABC pvt ltd',
-    name: 'Rohan',
+    name: 'Rohan Tyagi',
     email: 'rohan.patel@abc.com',
     vendorType: VENDORTYPE.EVENTVendor,
     createdAt: '2026-02-10T16:01:40.021Z',

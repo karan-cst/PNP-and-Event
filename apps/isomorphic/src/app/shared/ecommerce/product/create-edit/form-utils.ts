@@ -1,4 +1,5 @@
 import { CreateProductInput } from '@/validators/create-product.schema';
+import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import isEmpty from 'lodash/isEmpty';
 
 export const customFields = [

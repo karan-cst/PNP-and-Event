@@ -13,9 +13,8 @@ import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
-import { GlCodeDataType } from './glcode-list/table';
 import CreateGLCode from './create-glcode/createGLCode';
-import GLCodeTable from './glcode-list/table';
+import GLCodeTable, { GlCodeDataType } from './glcode-list/table';
 
 export function CreateGLCodeModalView({ glcode }: { glcode: GlCodeDataType }) {
   const { closeModal } = useModal();

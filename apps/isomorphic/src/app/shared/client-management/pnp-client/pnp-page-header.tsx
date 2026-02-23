@@ -18,13 +18,13 @@ import CreateClient from './create-client/createClient';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
 
-export function CreateClientModalView({ client }: { client: ClientDataType }) {
+export function CreateClientModalView({ client }: { client?: ClientDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          Add Vendor
+          {client?.id ? 'Update' : 'Add'} Client
         </Title>
         <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
           <PiXBold className="h-auto w-5" />
@@ -32,6 +32,7 @@ export function CreateClientModalView({ client }: { client: ClientDataType }) {
       </div>
       <CreateClient
         isModalView={false}
+        id={client?.id ? client.id : undefined}
         client={
           client || {
             companyName: '',
@@ -41,7 +42,7 @@ export function CreateClientModalView({ client }: { client: ClientDataType }) {
             clientType: '',
             city: '',
             address: '',
-            clientFrom: null,
+            clientFrom: '',
             division: '',
           }
         }

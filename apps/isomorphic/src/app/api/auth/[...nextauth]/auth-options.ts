@@ -99,6 +99,14 @@ export const authOptions: NextAuthOptions = {
             role: 'eventAdmin',
           };
         }
+        if (email === 'event@user.com' && password === 'admin') {
+          return {
+            id: '3',
+            name: 'Event User',
+            email,
+            role: 'eventUser',
+          };
+        }
 
         return null;
         // return null;

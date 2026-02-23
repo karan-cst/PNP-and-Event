@@ -17,13 +17,13 @@ import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
 import VendorTable from '../../pnp-master/hsn-management/hsn-list/table';
 
-export function CreateVendorModalView({ vendor }: { vendor: VendorDataType }) {
+export function CreateVendorModalView({ vendor }: { vendor?: VendorDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          Add Vendor
+          {vendor?.id ? 'Update' : 'Add'} Vendor
         </Title>
         <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
           <PiXBold className="h-auto w-5" />
@@ -31,6 +31,7 @@ export function CreateVendorModalView({ vendor }: { vendor: VendorDataType }) {
       </div>
       <CreateVendor
         isModalView={false}
+        id={vendor?.id}
         vendor={
           vendor || {
             companyName: '',

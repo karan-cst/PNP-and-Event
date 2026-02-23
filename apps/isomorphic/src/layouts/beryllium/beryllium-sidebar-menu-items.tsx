@@ -10,11 +10,14 @@ import {
   PiBinoculars,
   PiBoundingBox,
   PiBriefcase,
+  PiBriefcaseDuotone,
   PiBrowser,
   PiCalendar,
   PiChartBar,
   PiChartLineUp,
+  PiChartLineUpDuotone,
   PiChartPieSlice,
+  PiChartPieSliceDuotone,
   PiChatCenteredDots,
   PiClipboardText,
   PiCodesandboxLogo,
@@ -26,6 +29,7 @@ import {
   PiFolder,
   PiFolderLock,
   PiFolderUser,
+  PiFolderUserDuotone,
   PiGridFour,
   PiHammer,
   PiHeadset,
@@ -36,12 +40,14 @@ import {
   PiNewspaperClipping,
   PiNoteBlank,
   PiPackage,
+  PiPackageDuotone,
   PiPokerChip,
   PiPresentationChart,
   PiPushPin,
   PiRocketLaunch,
   PiScales,
   PiShapes,
+  PiShapesDuotone,
   PiShieldCheck,
   PiShootingStar,
   PiShoppingCart,
@@ -53,12 +59,193 @@ import {
   PiTable,
   PiUser,
   PiUserCircle,
+  PiUserCircleGearDuotone,
   PiUserGear,
   PiUserPlus,
+  PiUsersDuotone,
 } from 'react-icons/pi';
 
 // Note: do not add href in the label object, it is rendering as label
 export const berylliumSidebarMenuItems = [
+  {
+    name: 'Dashboard',
+    href: '/dashboard',
+    icon: <PiChartPieSliceDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+  },
+  {
+    name: 'User Types',
+    href: '#',
+    icon: <PiUsersDuotone />,
+    roles: ['superAdmin'],
+    dropdownItems: [
+      {
+        name: 'Event Team Users',
+        href: routes.usertypes.event,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+      {
+        name: 'P&P Team Users',
+        href: routes.usertypes.pnp,
+        badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
+      },
+      {
+        name: 'Finance Team Users',
+        href: routes.usertypes.finance,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+    ],
+  },
+  {
+    name: 'User Management',
+    href: routes.userManagement.users,
+    icon: <PiUserCircleGearDuotone />,
+    roles: ['superAdmin'],
+  },
+  {
+    name: 'Vendor Management',
+    href: '#',
+    icon: <PiPackageDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    dropdownItems: [
+      {
+        name: 'PNP Vendors',
+        href: routes.vendorManagement.pnp,
+        badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
+      },
+      {
+        name: 'Event Vendors',
+        href: routes.vendorManagement.event,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+    ],
+  },
+  {
+    name: 'Client Management',
+    href: '#',
+    icon: <PiBriefcaseDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    dropdownItems: [
+      {
+        name: 'PNP Clients',
+        href: routes.clientManagement.pnp,
+        badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
+      },
+      {
+        name: 'Event Clients',
+        href: routes.clientManagement.event,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+    ],
+  },
+  {
+    name: 'PNP Master',
+    href: '#',
+    icon: <PiFolderUserDuotone />,
+    roles: ['superAdmin', 'pnpAdmin'],
+    dropdownItems: [
+      {
+        name: 'HSN Code',
+        href: routes.pnpMaster.hsn,
+        badge: '',
+      },
+      {
+        name: 'Division Code and CC',
+        href: routes.pnpMaster.division,
+        badge: '',
+      },
+      {
+        name: 'Delivery Location',
+        href: routes.pnpMaster.delivery,
+        badge: '',
+      },
+      {
+        name: 'GL Code',
+        href: routes.pnpMaster.gl,
+        badge: '',
+      },
+      {
+        name: 'Job Types',
+        href: routes.pnpMaster.job,
+        badge: '',
+      },
+    ],
+  },
+  {
+    name: 'Event Master',
+    href: '#',
+    icon: <PiFolderUserDuotone />,
+    roles: ['superAdmin', 'eventAdmin'],
+    dropdownItems: [
+      {
+        name: 'Project Categories',
+        href: routes.eventMaster.project,
+        badge: '',
+      },
+      {
+        name: 'Event Types',
+        href: routes.eventMaster.type,
+        badge: '',
+      },
+      {
+        name: 'Standard Rates',
+        href: routes.eventMaster.rate,
+        badge: '',
+      },
+      {
+        name: 'City Tier',
+        href: routes.eventMaster.city,
+        badge: '',
+      },
+    ],
+  },
+  {
+    name: 'Job Management',
+    href: '#',
+    icon: <PiShapesDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    dropdownItems: [
+      {
+        name: 'Event Jobs',
+        href: routes.jobManagement.event,
+        badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
+      },
+      {
+        name: 'PNP Jobs',
+        href: routes.jobManagement.pnp,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+    ],
+  },
+  {
+    name: 'Reports',
+    href: '#',
+    icon: <PiChartLineUpDuotone />,
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    dropdownItems: [
+      {
+        name: 'Event Reports',
+        href: routes.reports.event,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+      {
+        name: 'PNP Reports',
+        href: routes.reports.pnp,
+        badge: '',
+        roles: ['superAdmin', 'pnpAdmin'],
+      },
+    ],
+  },
   // label start
   {
     name: 'Overview',

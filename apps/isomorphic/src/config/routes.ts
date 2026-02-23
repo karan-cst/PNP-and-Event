@@ -1,3 +1,5 @@
+import POManagement from '@/app/(hydrogen)/po-management/page';
+
 export const routes = {
   dashbard: {
     home: '/dashboard',
@@ -40,6 +42,21 @@ export const routes = {
     event: '/report-management/event-report',
     pnp: '/report-management/pnp-reports',
   },
+  eventManagement: {
+    event: '/event-management',
+    create: '/event-management/create-event',
+    client: '/client-approval',
+    eventApprove: '/event-management/event-approval',
+    eventTracker: '/event-management/event-tracker',
+  },
+  POManagement: {
+    po: '/po-management',
+  },
+  InvoiceManagement: {
+    invoice: '/invoice-management',
+  },
+
+  // *************OLD************** //
   eCommerce: {
     dashboard: '/ecommerce',
     products: '/ecommerce/products',

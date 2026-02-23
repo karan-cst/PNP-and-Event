@@ -1,6 +1,6 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
+import { ActionIcon, Avatar, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
 import { ClientDataType } from './table';
 import cn from '@core/utils/class-names';
 import DateCell from '@core/ui/date-cell';
@@ -27,14 +27,37 @@ export const ClientListColumns = [
     id: 'companyName',
     size: 200,
     header: 'Client Name',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.companyName}`}
-        </Title>
-        <Text className="text-sm">{row.original?.clientFrom || ''}</Text>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const { companyName, clientFrom } = row.original;
+
+      return (
+        <div className="flex items-center gap-3">
+          {/* Avatar */}
+          <Avatar
+            name={`${companyName}`}
+            size="sm"
+            color="primary"
+            className="bg-[#F1F1F1] !text-black"
+          />
+
+          {/* Name + Role */}
+          <div className="flex flex-col leading-tight">
+            <span className="text-sm font-medium text-gray-900">
+              {companyName}
+            </span>
+            <span className="text-xs text-gray-500">{clientFrom}</span>
+          </div>
+        </div>
+      );
+    },
+    //   (
+    //   <div className={cn('grid gap-1')}>
+    //     <Title as="h5" className="!text-sm font-medium">
+    //       {`${row.original.companyName}`}
+    //     </Title>
+    //     <Text className="text-sm">{row.original?.clientFrom || ''}</Text>
+    //   </div>
+    // ),
   }),
   columnHelper.accessor('name', {
     id: 'name',
@@ -42,20 +65,21 @@ export const ClientListColumns = [
     header: 'Name',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{row.original?.name || ''}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('division', {
-    id: 'division',
-    size: 150,
-    header: 'Division',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
+        <Text className="text-sm font-medium">{row.original?.name || ''}</Text>
         <Text className="text-sm">{row.original?.division || ''}</Text>
       </div>
     ),
   }),
+  // columnHelper.accessor('division', {
+  //   id: 'division',
+  //   size: 150,
+  //   header: 'Division',
+  //   cell: ({ row }) => (
+  //     <div className={cn('grid gap-1')}>
+  //       <Text className="text-sm">{row.original?.division || ''}</Text>
+  //     </div>
+  //   ),
+  // }),
   columnHelper.display({
     id: 'email',
     size: 180,

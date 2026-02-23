@@ -59,7 +59,9 @@ import {
   PiUserPlusDuotone,
   PiUserCircleGearDuotone,
   PiUsersDuotone,
+  PiListChecksDuotone,
 } from 'react-icons/pi';
+import { AiTwotoneFileText } from 'react-icons/ai';
 
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
@@ -212,13 +214,13 @@ export const menuItems = [
         name: 'Event Jobs',
         href: routes.jobManagement.event,
         badge: '',
-        roles: ['superAdmin', 'pnpAdmin'],
+        roles: ['superAdmin', 'eventAdmin'],
       },
       {
         name: 'PNP Jobs',
         href: routes.jobManagement.pnp,
         badge: '',
-        roles: ['superAdmin', 'eventAdmin'],
+        roles: ['superAdmin', 'pnpAdmin'],
       },
     ],
   },
@@ -241,6 +243,42 @@ export const menuItems = [
         roles: ['superAdmin', 'pnpAdmin'],
       },
     ],
+  },
+  {
+    name: 'Event Management',
+    href: routes.eventManagement.event,
+    icon: <PiCalendarPlusDuotone />,
+    roles: ['eventTeam', 'superAdmin'],
+  },
+  {
+    name: 'Client Approve',
+    href: routes.eventManagement.client,
+    icon: <PiNewspaperClippingDuotone />,
+    roles: ['eventTeam', 'superAdmin'],
+  },
+  {
+    name: 'Event Approve',
+    href: routes.eventManagement.eventApprove,
+    icon: <PiClipboardTextDuotone />,
+    roles: ['eventTeam', 'superAdmin'],
+  },
+  {
+    name: 'Event Tracker',
+    href: routes.eventManagement.eventTracker,
+    icon: <PiListChecksDuotone />,
+    roles: ['eventTeam', 'superAdmin'],
+  },
+  {
+    name: 'PO Management',
+    href: routes.POManagement.po,
+    icon: <PiClipboardTextDuotone />,
+    roles: ['eventTeam', 'superAdmin'],
+  },
+  {
+    name: 'Invoice Management',
+    href: routes.InvoiceManagement.invoice,
+    icon: <AiTwotoneFileText />,
+    roles: ['eventTeam', 'superAdmin'],
   },
 
   // label start

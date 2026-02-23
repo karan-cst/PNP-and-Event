@@ -8,7 +8,6 @@ import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
-import HSNPageHeader from '../rate-page-header';
 import { standardRateData } from '@/data/eventrate-data';
 import StandardRatePageHeader from '../rate-page-header';
 

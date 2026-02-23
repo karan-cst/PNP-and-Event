@@ -15,20 +15,55 @@ import CreateUser from './createUser';
 import UsersTable, { UserDataType } from '../users-list/table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
+import USerPasswordChange from '../password-change';
 
-export function CreateUserModalView({ user }: { user: UserDataType }) {
+export function CreateUserModalView({ user }: { user?: UserDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          Add User
+          {user?.id ? 'Update' : 'Add'} User
         </Title>
         <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
           <PiXBold className="h-auto w-5" />
         </ActionIcon>
       </div>
       <CreateUser
+        isModalView={false}
+        id={user?.id}
+        user={
+          user || {
+            firstName: '',
+            lastName: '',
+            email: '',
+            mobile: '',
+            userType: '',
+            address: '',
+            isActive: false,
+          }
+        }
+      />
+    </div>
+  );
+}
+export function CreatePasswordChangeModalView({
+  user,
+}: {
+  user: UserDataType;
+}) {
+  const { closeModal } = useModal();
+  return (
+    <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+      <div className="mb-7 flex items-center justify-between">
+        <Title as="h4" className="font-semibold">
+          Change Password
+        </Title>
+        <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
+          <PiXBold className="h-auto w-5" />
+        </ActionIcon>
+      </div>
+      <USerPasswordChange
         isModalView={false}
         id={user?.id}
         user={

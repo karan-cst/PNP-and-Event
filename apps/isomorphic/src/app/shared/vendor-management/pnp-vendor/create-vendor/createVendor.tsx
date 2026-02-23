@@ -155,13 +155,13 @@ export default function CreateVendor({
                       ]}
                       onChange={onChange}
                       value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        [
-                          { label: 'PNP Vendor', value: 'pnpVendor' },
-                          { label: 'EVENT Vendor', value: 'eventVendor' },
-                        ]?.find((r) => r.value === selected)?.label ?? ''
-                      }
+                      getOptionValue={(option) => option.label}
+                      // displayValue={(selected) =>
+                      //   [
+                      //     { label: 'PNP Vendor', value: 'pnpVendor' },
+                      //     { label: 'EVENT Vendor', value: 'eventVendor' },
+                      //   ]?.find((r) => r.value === selected)?.label ?? ''
+                      // }
                       error={errors?.vendorType?.message as string}
                     />
                   )}
@@ -183,13 +183,13 @@ export default function CreateVendor({
                       ]}
                       onChange={onChange}
                       value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        [
-                          { label: 'Ahmedabad', value: 'Ahemdabad' },
-                          { label: 'Surat', value: 'Surat' },
-                        ]?.find((r) => r.value === selected)?.label ?? ''
-                      }
+                      getOptionValue={(option) => option.label}
+                      // displayValue={(selected) =>
+                      //   [
+                      //     { label: 'Ahmedabad', value: 'Ahemdabad' },
+                      //     { label: 'Surat', value: 'Surat' },
+                      //   ]?.find((r) => r.value === selected)?.label ?? ''
+                      // }
                       error={errors?.vendorType?.message as string}
                     />
                   )}

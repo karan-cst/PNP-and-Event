@@ -13,8 +13,8 @@ import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import FullScreenWrapper from '../../tables/fullscreen-wrapper';
-import { DeliveryLocationType } from './division-list/table';
-import DivisionTable from './division-list/table';
+
+import DivisionTable, { DeliveryLocationType } from './division-list/table';
 import CreateDeliveryLocation from './create-hsn/createDeliveryLocation';
 
 export function CreateDeliveryLocationModalView({

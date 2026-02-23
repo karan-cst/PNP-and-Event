@@ -4,6 +4,7 @@ import { berylliumSidebarMenuItems } from '@/layouts/beryllium/beryllium-sidebar
 import StatusBadge from '@core/components/get-status-badge';
 import Logo from '@core/components/logo';
 import cn from '@core/utils/class-names';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
@@ -12,6 +13,28 @@ import { Collapse, Title } from 'rizzui';
 
 export default function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  console.log('session', session);
+  if (!session?.user?.role) return null;
+
+  const role = session.user.role;
+
+  const filteredMenu = berylliumSidebarMenuItems
+    .filter((item) => {
+      // if no roles defined → allow
+      if (!item.roles) return true;
+
+      return item.roles.includes(role);
+    })
+    .map((item) => ({
+      ...item,
+      dropdownItems: item.dropdownItems?.filter((sub) => {
+        // if no roles defined → allow
+        if (!sub.roles) return true;
+
+        return sub.roles.includes(role);
+      }),
+    }));
   return (
     <aside
       className={cn(
@@ -29,9 +52,9 @@ export default function Sidebar({ className }: { className?: string }) {
         </Link>
       </div>
 
-      <div className="custom-scrollbar overflow-y-auto scroll-smooth h-[calc(100%-80px)]">
+      <div className="custom-scrollbar h-[calc(100%-80px)] overflow-y-auto scroll-smooth">
         <div className="mt-4 pb-3 3xl:mt-6">
-          {berylliumSidebarMenuItems.map((item, index) => {
+          {filteredMenu.map((item, index) => {
             const isActive = pathname === (item?.href as string);
             const pathnameExistInDropdowns: any = item?.dropdownItems?.filter(
               (dropdownItem) => dropdownItem.href === pathname

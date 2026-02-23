@@ -7,18 +7,18 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
-      role: 'superAdmin' | 'pnpAdmin' | 'eventAdmin';
+      role: 'superAdmin' | 'pnpAdmin' | 'eventAdmin' | 'eventUser';
     } & DefaultSession['user'];
   }
 
   interface User {
-    role: 'superAdmin' | 'pnpAdmin' | 'eventAdmin';
+    role: 'superAdmin' | 'pnpAdmin' | 'eventAdmin' | 'eventUser';
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    role?: 'superAdmin' | 'pnpAdmin' | 'eventAdmin';
+    role?: 'superAdmin' | 'pnpAdmin' | 'eventAdmin' | 'eventUser';
     id?: string;
   }
 }
