@@ -25,9 +25,10 @@ export default function BerylliumLayout({
             expandedLeft ? 'xl:ps-[414px]' : 'xl:ps-[110px]'
           )}
         >
-          <div className="grow xl:mt-4">{children}</div>
+          <div className="grow">{children}</div>
         </div>
       </div>
     </main>
   );
 }
+// xl:mt-2

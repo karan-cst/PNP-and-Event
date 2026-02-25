@@ -22,4 +22,14 @@ export const EventTypesListColumns = [
       </Title>
     ),
   }),
+  columnHelper.display({
+    id: 'finish',
+    size: 100,
+    header: 'Finished Projects',
+    cell: ({ row }) => (
+      <Title as="h6" className="!text-sm font-medium">
+        {Math.floor(Math.random() * 100)}
+      </Title>
+    ),
+  }),
 ];

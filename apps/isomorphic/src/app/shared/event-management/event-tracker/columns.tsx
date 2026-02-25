@@ -5,6 +5,9 @@ import { EventTrackerDataType } from './table';
 import cn from '@core/utils/class-names';
 import { PiDownloadDuotone, PiEyeBold } from 'react-icons/pi';
 import { AiOutlineExport } from 'react-icons/ai';
+import { formatPrice } from '@/config/format-pricing';
+import { useModal } from '../../modal-views/use-modal';
+import { VendorViewModalView } from '../vendor-view/vendorViewModal';
 
 const columnHelper = createColumnHelper<EventTrackerDataType>();
 
@@ -31,16 +34,6 @@ export const EventTrackerListColumns = [
       <Text className="text-sm">{row.original.eventName}</Text>
     ),
   }),
-  // columnHelper.accessor('name', {
-  //   id: 'name',
-  //   size: 150,
-  //   header: 'Client Coordinator',
-  //   cell: ({ row }) => (
-  //     <div className={cn('grid gap-1')}>
-  //       <Text className="text-sm">{row.original?.name}</Text>
-  //     </div>
-  //   ),
-  // }),
   columnHelper.accessor('status', {
     id: 'status',
     size: 150,
@@ -64,39 +57,20 @@ export const EventTrackerListColumns = [
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Text className="text-sm">{row.original?.vendorName}</Text>
-        <Tooltip
-          size="sm"
-          content={'View Prices'}
-          placement="top"
-          color="invert"
-        >
-          <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-            Rs. {row.original?.venodrCost}
-            <span>
-              <AiOutlineExport />
-            </span>
-          </Text>
-        </Tooltip>
+        <ShowPrice EventTrackerData={row.original} />
       </div>
     ),
   }),
-  // columnHelper.accessor('venodrCost', {
-  //   id: 'venodrCost',
-  //   size: 150,
-  //   header: 'Venodr Cost',
-  //   cell: ({ row }) => (
-  //     <div className={cn('grid gap-1')}>
-  //       <Text className="text-sm">Rs. {row.original?.venodrCost}</Text>
-  //     </div>
-  //   ),
-  // }),
   columnHelper.accessor('clientCost', {
     id: 'clientCost',
     size: 150,
     header: 'Client Cost',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">Rs. {row.original?.clientCost}</Text>
+        <Text className="text-sm">
+          {' '}
+          {formatPrice(row.original?.clientCost)}
+        </Text>
       </div>
     ),
   }),
@@ -123,3 +97,29 @@ export const EventTrackerListColumns = [
     ),
   }),
 ];
+
+export const ShowPrice = ({
+  EventTrackerData,
+}: {
+  EventTrackerData: EventTrackerDataType;
+}) => {
+  const { openModal } = useModal();
+  return (
+    <Tooltip size="sm" content={'View Prices'} placement="top" color="invert">
+      <Text
+        className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+        onClick={() => {
+          openModal({
+            view: <VendorViewModalView />,
+            customSize: 900,
+          });
+        }}
+      >
+        {formatPrice(EventTrackerData?.venodrCost)}
+        <span>
+          <AiOutlineExport />
+        </span>
+      </Text>
+    </Tooltip>
+  );
+};

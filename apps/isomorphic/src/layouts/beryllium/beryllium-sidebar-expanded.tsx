@@ -127,7 +127,7 @@ function CollapsibleMenuItem({ item }: { item: ItemType }) {
 }
 
 export default function BerylliumLeftSidebarExpandable() {
-  const { expandedLeft } = useBerylliumSidebars();
+  const { expandedLeft, setExpandedLeft } = useBerylliumSidebars();
   const selectedMenu = useAtomValue(berylliumMenuItemAtom);
 
   return (
@@ -136,8 +136,9 @@ export default function BerylliumLeftSidebarExpandable() {
         'fixed start-[104px] top-[91px] z-50 hidden h-full w-0 overflow-x-hidden duration-200 xl:flex',
         !!expandedLeft && 'w-[294px]'
       )}
+      onMouseLeave={() => setExpandedLeft(false)}
     >
-      <div className="custom-scrollbar overflow-y-auto scroll-smooth h-[calc(100vh_-_100px)] min-w-[294px] pe-2.5">
+      <div className="custom-scrollbar h-[calc(100vh_-_100px)] min-w-[294px] overflow-y-auto scroll-smooth pe-2.5">
         <p className="mb-3 font-lexend text-xs font-normal uppercase tracking-widest text-gray-500">
           {selectedMenu.title}
         </p>

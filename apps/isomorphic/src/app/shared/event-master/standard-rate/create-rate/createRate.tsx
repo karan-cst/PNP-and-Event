@@ -9,6 +9,9 @@ import {
   StandardRateFormInput,
   StandardRateFormSchema,
 } from '@/validators/NEW/create-standardRate.schema';
+import UploadZone from '@core/ui/file-upload/upload-zone';
+import FileInput from '@/app/shared/logistics/shipment/create-edit/file-input';
+import { UploadDropzone } from '@core/utils/uploadthing';
 
 // a reusable form wrapper component
 function HorizontalFormBlockWrapper({
@@ -64,6 +67,7 @@ export default function CreateStandardRate({
   console.log('standardRate', standardRate);
   const [reset, setReset] = useState({});
   const [isLoading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
   const onSubmit: SubmitHandler<StandardRateFormInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
@@ -114,40 +118,34 @@ export default function CreateStandardRate({
                   {...register('eventType')}
                   error={errors.eventType?.message}
                 />
-
                 <Input
                   label="Element Type"
                   {...register('elementType')}
                   error={errors.elementType?.message}
                 />
-
                 <Input
                   label="Element Item"
                   {...register('elementItem')}
                   error={errors.elementItem?.message}
                 />
-
                 <Input
                   label="Tier 1 Price"
                   type="number"
                   {...register('tier1Price')}
                   error={errors.tier1Price?.message}
                 />
-
                 <Input
                   label="Tier 2 Price"
                   type="number"
                   {...register('tier2Price')}
                   error={errors.tier2Price?.message}
                 />
-
                 <Input
                   label="Tier 3 Price"
                   type="number"
                   {...register('tier3Price')}
                   error={errors.tier3Price?.message}
                 />
-
                 <Controller
                   control={control}
                   name="isActive"
@@ -175,6 +173,16 @@ export default function CreateStandardRate({
                     />
                   )}
                 />
+                {standardRate?.id ? null : (
+                  <UploadZone
+                    label="Upload File"
+                    name="src"
+                    getValues={getValues}
+                    setValue={setValue}
+                    className="col-span-2"
+                    accept="image/jpeg,image/png"
+                  />
+                )}
               </HorizontalFormBlockWrapper>
             </div>
           </div>

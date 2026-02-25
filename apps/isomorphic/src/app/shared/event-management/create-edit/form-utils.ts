@@ -60,7 +60,7 @@ export function eventDefaultValues(event?: CreateEventInput) {
     divisionName: event?.divisionName ?? '',
 
     client: {
-      clientName: event?.client?.clientName ?? '',
+      clientName: event?.client?.clientId ?? '',
       address: event?.client?.address ?? '',
       contactName: event?.client?.contactName ?? '',
       contactNumber: event?.client?.contactNumber ?? '',

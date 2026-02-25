@@ -1,5 +1,5 @@
 import { metaObject } from '@/config/site.config';
-import InvoiceTable from '@/app/shared/invoice-management/table';
+import POTable from '@/app/shared/po-management/table';
 
 export const metadata = {
   ...metaObject('Products'),
@@ -8,7 +8,7 @@ export const metadata = {
 export default function InvoiceManagement() {
   return (
     <>
-      <InvoiceTable pageSize={10} />
+      <POTable pageSize={10} />
     </>
   );
 }

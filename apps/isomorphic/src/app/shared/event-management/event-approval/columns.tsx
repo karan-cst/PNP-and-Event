@@ -1,10 +1,28 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Text, Title, Tooltip } from 'rizzui';
+import {
+  ActionIcon,
+  Button,
+  Flex,
+  Input,
+  Select,
+  Text,
+  Title,
+  Tooltip,
+} from 'rizzui';
 import { EventApproveDataType } from './table';
 import cn from '@core/utils/class-names';
-import { PiDownloadDuotone, PiEyeBold } from 'react-icons/pi';
+import {
+  PiCheckFatDuotone,
+  PiDownloadDuotone,
+  PiEyeBold,
+  PiXBold,
+} from 'react-icons/pi';
 import { AiOutlineExport } from 'react-icons/ai';
+import { formatPrice } from '@/config/format-pricing';
+import { VendorViewModalView } from '../vendor-view/vendorViewModal';
+import { useModal } from '../../modal-views/use-modal';
+import { useState } from 'react';
 
 const columnHelper = createColumnHelper<EventApproveDataType>();
 
@@ -31,16 +49,6 @@ export const EventApproveListColumns = [
       <Text className="text-sm">{row.original.eventName}</Text>
     ),
   }),
-  // columnHelper.accessor('name', {
-  //   id: 'name',
-  //   size: 150,
-  //   header: 'Client Coordinator',
-  //   cell: ({ row }) => (
-  //     <div className={cn('grid gap-1')}>
-  //       <Text className="text-sm">{row.original?.name}</Text>
-  //     </div>
-  //   ),
-  // }),
   columnHelper.accessor('UserName', {
     id: 'UserName',
     size: 150,
@@ -66,9 +74,10 @@ export const EventApproveListColumns = [
     size: 150,
     header: 'Venodr Cost',
     cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">Rs. {row.original?.venodrCost}</Text>
-      </div>
+      <ShowPrice EventApproveData={row.original} />
+      // <div className={cn('grid gap-1')}>
+      //   <Text className="text-sm">{formatPrice(row.original?.venodrCost)}</Text>
+      // </div>
     ),
   }),
   columnHelper.accessor('firstLevelStatus', {
@@ -76,22 +85,11 @@ export const EventApproveListColumns = [
     size: 150,
     header: '1st Level Status (FM)',
     cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Tooltip
-          size="sm"
-          content={'View Comment'}
-          placement="top"
-          color="invert"
-        >
-          <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-            {row.original?.firstLevelStatus}{' '}
-            <span>
-              <AiOutlineExport />
-            </span>
-          </Text>
-        </Tooltip>
-        <Text className="text-sm">{row.original?.firstLevelBy}</Text>
-      </div>
+      <ShowComment
+        status={row.original?.firstLevelStatus}
+        by={row.original?.firstLevelBy}
+        comment={row.original?.firstLevelComment}
+      />
     ),
   }),
   columnHelper.accessor('secondLevelStatus', {
@@ -99,24 +97,11 @@ export const EventApproveListColumns = [
     size: 150,
     header: '2nd Level Status (FH)',
     cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        {row.original?.secondLevelStatus && (
-          <Tooltip
-            size="sm"
-            content={'View Comment'}
-            placement="top"
-            color="invert"
-          >
-            <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-              {row.original?.secondLevelStatus}
-              <span>
-                <AiOutlineExport />
-              </span>
-            </Text>
-          </Tooltip>
-        )}
-        <Text className="text-sm">{row.original?.secondLevelBy}</Text>
-      </div>
+      <ShowComment
+        status={row.original?.secondLevelStatus}
+        by={row.original?.secondLevelBy}
+        comment={row.original?.secondLevelComment}
+      />
     ),
   }),
   columnHelper.accessor('poStatus', {
@@ -124,7 +109,7 @@ export const EventApproveListColumns = [
     size: 150,
     header: 'PO Status',
     cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
+      <Flex align="center" gap="3">
         <Tooltip
           size="sm"
           content={'Download PO'}
@@ -136,12 +121,176 @@ export const EventApproveListColumns = [
             size="sm"
             variant="outline"
             aria-label={'Download PO'}
-            onClick={() => {}}
+            onClick={() => {
+              window.open('/templates/dummy_po.pdf', '_blank');
+            }}
           >
-            <PiDownloadDuotone className="h-4 w-4" />
+            <PiDownloadDuotone className="h-6 w-6" />
           </ActionIcon>
         </Tooltip>
-      </div>
+        <Action data={row.original} />
+      </Flex>
     ),
   }),
 ];
+
+export const ShowPrice = ({
+  EventApproveData,
+}: {
+  EventApproveData: EventApproveDataType;
+}) => {
+  const { openModal } = useModal();
+  return (
+    <Tooltip size="sm" content={'View Prices'} placement="top" color="invert">
+      <Text
+        className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+        onClick={() => {
+          openModal({
+            view: <VendorViewModalView />,
+            customSize: 900,
+          });
+        }}
+      >
+        {formatPrice(EventApproveData?.venodrCost)}
+        <span>
+          <AiOutlineExport />
+        </span>
+      </Text>
+    </Tooltip>
+  );
+};
+
+export const ShowComment = ({
+  comment,
+  status,
+  by,
+}: {
+  comment: string;
+  status: string;
+  by: string;
+}) => {
+  const { openModal, closeModal } = useModal();
+
+  const handleOpen = () => {
+    openModal({
+      view: (
+        <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+          <div className="mb-5 flex items-center justify-between">
+            <Title as="h4" className="font-semibold">
+              Comment
+            </Title>
+            <ActionIcon size="sm" variant="text" onClick={closeModal}>
+              <PiXBold className="h-auto w-5" />
+            </ActionIcon>
+          </div>
+
+          <Text className="text-sm leading-relaxed text-gray-700">
+            {comment || 'No comment provided.'}
+          </Text>
+        </div>
+      ),
+      customSize: 500,
+    });
+  };
+
+  return (
+    <div className={cn('grid gap-1')}>
+      {status.length > 0 ? (
+        <Tooltip
+          size="sm"
+          content="View Comment"
+          placement="top"
+          color="invert"
+        >
+          <Text
+            className={cn(
+              'flex items-center gap-1 text-sm font-semibold',
+              comment
+                ? 'cursor-pointer text-blue-600 hover:underline'
+                : 'cursor-not-allowed text-gray-400'
+            )}
+            onClick={comment ? handleOpen : undefined}
+          >
+            {status}
+            <span>
+              <AiOutlineExport />
+            </span>
+          </Text>
+        </Tooltip>
+      ) : null}
+
+      <Text className="text-sm text-gray-600">{by}</Text>
+    </div>
+  );
+};
+export const Action = ({ data }: { data: EventApproveDataType }) => {
+  const { openModal, closeModal } = useModal();
+
+  const [isApprove, setIsApprove] = useState<boolean>(true);
+  const [comment, setComment] = useState<string>('');
+
+  const handleOpen = () => {
+    const approveOptions = [
+      { label: 'Approve', value: true },
+      { label: 'Reject', value: false },
+    ];
+
+    openModal({
+      view: (
+        <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+          <div className="mb-5 flex items-center justify-between">
+            <Title as="h4" className="font-semibold">
+              Comment
+            </Title>
+            <ActionIcon size="sm" variant="text" onClick={closeModal}>
+              <PiXBold className="h-auto w-5" />
+            </ActionIcon>
+          </div>
+
+          <div className="space-y-4">
+            <Select
+              label="Approve or Reject"
+              inPortal={false}
+              labelClassName="text-sm font-medium text-gray-900"
+              dropdownClassName="h-auto"
+              placeholder="Approve or Reject"
+              options={approveOptions}
+              value={isApprove}
+              onChange={(e: boolean) => setIsApprove(e)}
+              getOptionValue={(option) => option.value}
+              displayValue={(selected) =>
+                approveOptions.find((r) => r.value === selected)?.label ?? ''
+              }
+            />
+            <Input
+              label="Your Comments"
+              placeholder="Comments...."
+              className="col-span-full"
+              onChange={(e) => setComment(e.target.value)}
+              // {...register('location.addressLine1')}
+              // error={errors?.location?.addressLine1?.message}
+            />
+          </div>
+
+          <div className="flex justify-end gap-3 pt-3">
+            <Button onClick={() => {}}>Submit</Button>
+          </div>
+        </div>
+      ),
+      customSize: 500,
+    });
+  };
+
+  return (
+    <div className={cn('grid gap-1')}>
+      <Tooltip
+        size="sm"
+        content="Approve or Reject"
+        placement="top"
+        color="invert"
+      >
+        <PiCheckFatDuotone className="h-6 w-6" onClick={handleOpen} />
+      </Tooltip>
+    </div>
+  );
+};

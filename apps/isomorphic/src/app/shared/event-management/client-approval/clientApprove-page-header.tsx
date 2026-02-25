@@ -13,7 +13,7 @@ import {
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import { useRouter } from 'next/navigation';
-import FullScreenWrapper from '../../tables/fullscreen-wrapper';
+
 import ClientApproveTable from './table';
 
 type PageHeaderTypes<T extends Record<string, any>> = {
@@ -53,57 +53,9 @@ export default function ClientApprovePageHeader<T extends Record<string, any>>({
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />
-          {/* <Select
-            placeholder="All"
-            options={[
-              { label: 'All', value: null },
-              { label: 'Pharma', value: true },
-              { label: 'Non Pharma', value: false },
-            ]}
-            value={type}
-            onChange={(option: { value: boolean | null }) =>
-              setType(option.value)
-            }
-            displayValue={(value: boolean | null) =>
-              value ? 'Pharma' : 'Non Pharma'
-            }
-            dropdownClassName="z-[10000]"
-            className="w-[50%]"
-          /> */}
+
           <div className="flex items-center gap-4">
-            {/* <Button
-              as="span"
-              className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-full @lg:mt-0 @lg:w-auto"
-              onClick={() => router.push('/event-management/create-event')}
-            >
-              <PiPlusBold className="h-[15px] w-[15px]" />
-            </Button> */}
             <ToggleColumns table={table} />
-            <ActionIcon
-              size="sm"
-              variant="text"
-              onClick={() => {
-                if (isOpen) {
-                  closeModal();
-                } else {
-                  openModal({
-                    view: (
-                      <FullScreenWrapper>
-                        {/** Re-render SAME table here */}
-                        <ClientApproveTable pageSize={10} />
-                      </FullScreenWrapper>
-                    ),
-                    size: 'full',
-                  });
-                }
-              }}
-            >
-              {isOpen ? (
-                <PiXBold className="h-5 w-5" />
-              ) : (
-                <PiArrowsOutBold className="h-5 w-5" />
-              )}
-            </ActionIcon>
           </div>
         </Flex>
       </PageHeader>

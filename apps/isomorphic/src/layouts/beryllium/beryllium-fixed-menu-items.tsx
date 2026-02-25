@@ -21,6 +21,7 @@ import {
   PiChartPieSliceDuotone,
   PiChatCenteredDots,
   PiClipboardText,
+  PiClipboardTextDuotone,
   PiCodesandboxLogo,
   PiCreditCard,
   PiCurrencyCircleDollar,
@@ -38,10 +39,12 @@ import {
   PiHouse,
   PiHouseLine,
   PiLightning,
+  PiListChecksDuotone,
   PiLockKey,
   PiMagicWand,
   PiMapPinLine,
   PiNewspaperClipping,
+  PiNewspaperClippingDuotone,
   PiNoteBlank,
   PiNotePencil,
   PiPackage,
@@ -68,6 +71,7 @@ import {
   PiUserPlus,
   PiUsersDuotone,
 } from 'react-icons/pi';
+import { AiTwotoneFileText } from 'react-icons/ai';
 
 export interface SubMenuItemType {
   name: string;
@@ -94,6 +98,7 @@ export interface MenuItemsType {
   icon: IconType;
   menuItems: ItemType[];
   roles?: string[] | null | undefined;
+  isExpnad?: boolean;
 }
 
 export const berylliumMenuItems: MenuItemsType[] = [
@@ -102,13 +107,34 @@ export const berylliumMenuItems: MenuItemsType[] = [
     name: 'Home',
     title: 'Overview',
     icon: PiHouse,
-    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    roles: [
+      'superAdmin',
+      'pnpAdmin',
+      'eventAdmin',
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventHead',
+      'operationHead',
+      'eventUser',
+    ],
+    isExpnad: false,
     menuItems: [
       {
         name: 'Dashboard',
         href: '/dashboard',
         icon: PiChartPieSliceDuotone,
-        roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+        roles: [
+          'superAdmin',
+          'pnpAdmin',
+          'eventAdmin',
+          'financeExecutive',
+          'financeManager',
+          'financeHead',
+          'eventHead',
+          'operationHead',
+          'eventUser',
+        ],
       },
     ],
   },
@@ -118,6 +144,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
     title: 'Overview',
     icon: PiUser,
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    isExpnad: true,
     menuItems: [
       {
         name: 'User Types',
@@ -159,6 +186,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
     title: 'Vendor Management',
     icon: PiPackageDuotone,
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    isExpnad: true,
     menuItems: [
       {
         name: 'Vendor Management',
@@ -188,6 +216,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
     title: 'Client Management',
     icon: PiBriefcaseDuotone,
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    isExpnad: true,
     menuItems: [
       {
         name: 'Client Management',
@@ -217,12 +246,14 @@ export const berylliumMenuItems: MenuItemsType[] = [
     title: 'PNP Master',
     icon: PiFolderUserDuotone,
     roles: ['superAdmin', 'pnpAdmin'],
+    isExpnad: true,
     menuItems: [
       {
         name: 'PNP Master',
         description: 'Master pages for PNP',
         icon: PiFolderUserDuotone,
         roles: ['superAdmin', 'pnpAdmin'],
+
         subMenuItems: [
           {
             name: 'HSN Code',
@@ -259,6 +290,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
     title: 'Job Management',
     icon: PiShapesDuotone,
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    isExpnad: true,
     menuItems: [
       {
         name: 'Job Management',
@@ -288,10 +320,11 @@ export const berylliumMenuItems: MenuItemsType[] = [
     title: 'Reports',
     icon: PiChartLineUpDuotone,
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    isExpnad: true,
     menuItems: [
       {
         name: 'Reports',
-        href: '#',
+        description: 'Repoorts',
         icon: PiChartLineUpDuotone,
         roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
         subMenuItems: [
@@ -312,17 +345,98 @@ export const berylliumMenuItems: MenuItemsType[] = [
     ],
   },
   {
-    id: '9',
-    name: 'Event',
-    title: 'Event',
+    id: '9a',
+    name: 'Events',
+    title: 'Events',
     icon: PiFolderUserDuotone,
-    roles: ['eventUser'],
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    isExpnad: false,
     menuItems: [
       {
         name: 'Event Management',
         href: routes.eventManagement.event,
         icon: PiCalendarPlusDuotone,
-        roles: ['eventUser'],
+        roles: ['eventUser', 'operationHead', 'eventHead'],
+      },
+    ],
+  },
+  {
+    id: '9b',
+    name: 'Approvals',
+    title: 'Events Approve',
+    icon: PiClipboardTextDuotone,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Event Approve',
+        href: routes.eventManagement.eventApprove,
+        icon: PiClipboardTextDuotone,
+        roles: ['eventUser', 'operationHead', 'eventHead'],
+      },
+    ],
+  },
+  {
+    id: '9c',
+    name: 'Tracks',
+    title: 'Events Tracker',
+    icon: PiListChecksDuotone,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Event Tracker',
+        href: routes.eventManagement.eventTracker,
+        icon: PiListChecksDuotone,
+        roles: ['eventUser', 'operationHead', 'eventHead'],
+      },
+    ],
+  },
+  {
+    id: '10',
+    name: 'Client',
+    title: 'Client',
+    icon: PiFolderUserDuotone,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Client Approval',
+        href: routes.eventManagement.client,
+        icon: PiNewspaperClippingDuotone,
+        roles: ['eventUser', 'operationHead', 'eventHead'],
+      },
+    ],
+  },
+  {
+    id: '11',
+    name: 'PO',
+    title: 'PO',
+    icon: PiClipboardTextDuotone,
+    roles: ['financeExecutive', 'financeManager', 'financeHead'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'PO Management',
+        href: routes.POManagement.po,
+        icon: PiClipboardTextDuotone,
+        roles: ['financeExecutive', 'financeManager', 'financeHead'],
+      },
+    ],
+  },
+  {
+    id: '12',
+    name: 'Invoice',
+    title: 'Invoice',
+    icon: AiTwotoneFileText,
+    roles: ['financeExecutive', 'financeManager', 'financeHead'],
+    isExpnad: true,
+    menuItems: [
+      {
+        name: 'Invoice Management',
+        href: routes.InvoiceManagement.invoice,
+        icon: AiTwotoneFileText,
+        roles: ['financeExecutive', 'financeManager', 'financeHead'],
       },
     ],
   },

@@ -90,7 +90,6 @@ export const authOptions: NextAuthOptions = {
             role: 'pnpAdmin',
           };
         }
-
         if (email === 'event@admin.com' && password === 'admin') {
           return {
             id: '3',
@@ -101,10 +100,50 @@ export const authOptions: NextAuthOptions = {
         }
         if (email === 'event@user.com' && password === 'admin') {
           return {
-            id: '3',
+            id: '4',
             name: 'Event User',
             email,
             role: 'eventUser',
+          };
+        }
+        if (email === 'operation@user.com' && password === 'admin') {
+          return {
+            id: '5',
+            name: 'Operational Head',
+            email,
+            role: 'operationHead',
+          };
+        }
+        if (email === 'eventhead@user.com' && password === 'admin') {
+          return {
+            id: '6',
+            name: 'Event Head',
+            email,
+            role: 'eventHead',
+          };
+        }
+        if (email === 'financeExecutive@finance.com' && password === 'admin') {
+          return {
+            id: '7',
+            name: 'Finance Executive',
+            email,
+            role: 'financeExecutive',
+          };
+        }
+        if (email === 'financeManager@finance.com' && password === 'admin') {
+          return {
+            id: '8',
+            name: 'Finance Manager',
+            email,
+            role: 'financeManager',
+          };
+        }
+        if (email === 'financeHead@finance.com' && password === 'admin') {
+          return {
+            id: '9',
+            name: 'Finance Head',
+            email,
+            role: 'financeHead',
           };
         }
 

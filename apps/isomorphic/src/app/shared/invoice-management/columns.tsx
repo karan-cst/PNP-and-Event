@@ -4,7 +4,13 @@ import { ActionIcon, Flex, Text, Title, Tooltip } from 'rizzui';
 import cn from '@core/utils/class-names';
 import { PODataType } from './table';
 import { AiOutlineExport } from 'react-icons/ai';
-import { PiDownloadDuotone, PiUploadDuotone } from 'react-icons/pi';
+import {
+  PiCheckFatDuotone,
+  PiDownloadDuotone,
+  PiUploadDuotone,
+  PiXLogoDuotone,
+} from 'react-icons/pi';
+import { formatPrice } from '@/config/format-pricing';
 
 const columnHelper = createColumnHelper<PODataType>();
 
@@ -30,16 +36,6 @@ export const POColumns = [
       <Text className="text-sm">{row.original.eventName}</Text>
     ),
   }),
-  // columnHelper.accessor('name', {
-  //   id: 'name',
-  //   size: 150,
-  //   header: 'Client Coordinator',
-  //   cell: ({ row }) => (
-  //     <div className={cn('grid gap-1')}>
-  //       <Text className="text-sm">{row.original?.name}</Text>
-  //     </div>
-  //   ),
-  // }),
   columnHelper.accessor('UserName', {
     id: 'UserName',
     size: 150,
@@ -74,7 +70,7 @@ export const POColumns = [
           color="invert"
         >
           <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-            Rs. {row.original?.venodrCost}
+            {formatPrice(row.original?.venodrCost)}
             <span>
               <AiOutlineExport />
             </span>
@@ -165,7 +161,7 @@ export const POColumns = [
           placement="top"
           color="invert"
         >
-          <PiDownloadDuotone className="h-4 w-4" />
+          <PiDownloadDuotone className="h-6 w-6" />
         </Tooltip>
         <Tooltip
           size="sm"
@@ -173,7 +169,32 @@ export const POColumns = [
           placement="top"
           color="invert"
         >
-          <PiUploadDuotone className="h-4 w-4" />
+          <PiUploadDuotone className="h-6 w-6" />
+        </Tooltip>
+      </Flex>
+    ),
+  }),
+  columnHelper.accessor('poStatus', {
+    id: 'poStatus',
+    size: 150,
+    header: 'Invoice',
+    cell: ({ row }) => (
+      <Flex align="center" justify="start" gap="3" className="pe-4">
+        <Tooltip
+          size="sm"
+          content={'Approve Invoice'}
+          placement="top"
+          color="invert"
+        >
+          <PiCheckFatDuotone className="h-6 w-6" />
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={'Reject Invoice'}
+          placement="top"
+          color="invert"
+        >
+          <PiXLogoDuotone className="h-6 w-6" />
         </Tooltip>
       </Flex>
     ),

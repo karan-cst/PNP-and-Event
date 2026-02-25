@@ -5,6 +5,7 @@ import cn from '@core/utils/class-names';
 import { PODataType } from './table';
 import { AiOutlineExport } from 'react-icons/ai';
 import { PiDownloadDuotone, PiUploadDuotone } from 'react-icons/pi';
+import { formatPrice } from '@/config/format-pricing';
 
 const columnHelper = createColumnHelper<PODataType>();
 
@@ -74,7 +75,7 @@ export const POColumns = [
           color="invert"
         >
           <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-            Rs. {row.original?.venodrCost}
+            {formatPrice(row.original?.venodrCost)}
             <span>
               <AiOutlineExport />
             </span>

@@ -42,7 +42,7 @@ export default function EventApproveTable({
         name: 'Event Management',
       },
       {
-        name: 'Client Approval',
+        name: 'Event Approval',
       },
     ],
   };

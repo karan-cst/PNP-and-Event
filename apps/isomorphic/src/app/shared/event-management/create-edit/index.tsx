@@ -29,14 +29,6 @@ const MAP_STEP_TO_COMPONENT = {
   [formParts.scope]: EventScope,
   [formParts.element]: EventElements,
   [formParts.client]: EventClient,
-  // [formParts.media]: ProductMedia,
-  // [formParts.pricingInventory]: PricingInventory,
-  // [formParts.productIdentifiers]: ProductIdentifiers,
-  // [formParts.shipping]: ShippingInfo,
-  // [formParts.seo]: ProductSeo,
-  // [formParts.deliveryEvent]: DeliveryEvent,
-  // [formParts.variantOptions]: ProductVariants,
-  // [formParts.tagsAndCategory]: ProductTaxonomies,
 };
 
 interface IndexProps {

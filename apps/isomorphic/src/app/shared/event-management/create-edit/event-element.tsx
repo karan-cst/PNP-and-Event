@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import { Input, Select, Button, ActionIcon } from 'rizzui';
 import { PiPlusBold, PiTrashBold } from 'react-icons/pi';
 import FormGroup from '@/app/shared/form-group';
 import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import cn from '@core/utils/class-names';
+import { formatPrice } from '@/config/format-pricing';
 
 const standardElementsFromBackend = [
   { name: 'Stage Setup', rate: 5000 },
@@ -44,6 +45,11 @@ export default function EventElements({ className }: { className?: string }) {
     setQuantity(1);
   };
 
+  useEffect(() => {
+    if (fields.length === 1 && !fields[0]?.standardElementName) {
+      remove(0); // ✅ RHF-safe
+    }
+  }, [fields, remove]);
   return (
     <FormGroup
       title="Elements"
@@ -118,9 +124,9 @@ export default function EventElements({ className }: { className?: string }) {
               {fields.map((item, index) => (
                 <tr key={item.id} className="border-t">
                   <td className="p-3">{item.standardElementName}</td>
-                  <td className="p-3">₹{item.standardRate}</td>
+                  <td className="p-3">{formatPrice(item.standardRate)}</td>
                   <td className="p-3">{item.quantity}</td>
-                  <td className="p-3">₹{item.total}</td>
+                  <td className="p-3">{formatPrice(item.total)}</td>
                   <td className="p-3">
                     <ActionIcon variant="text" onClick={() => remove(index)}>
                       <PiTrashBold className="h-4 w-4 text-red-500" />

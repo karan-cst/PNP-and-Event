@@ -26,7 +26,8 @@ export const EventApproveData = [
     venodrCost: 12000,
     firstLevelStatus: 'Rejected by',
     firstLevelBy: 'Ankit gandhi',
-    firstLevelComment: '',
+    firstLevelComment:
+      'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
     secondLevelStatus: '',
     secondLevelBy: '',
     secondLevelComment: '',
@@ -42,10 +43,12 @@ export const EventApproveData = [
     venodrCost: 12000,
     firstLevelStatus: 'Approved by',
     firstLevelBy: 'Ankit gandhi',
-    firstLevelComment: '',
+    firstLevelComment:
+      'Event details and vendor cost look appropriate. Approved from first level.',
     secondLevelStatus: 'Approved by',
     secondLevelBy: 'Amulakh Mistry',
-    secondLevelComment: '',
+    secondLevelComment:
+      'All validations completed. Approved for PO generation.',
     poStatus: '',
   },
 ];

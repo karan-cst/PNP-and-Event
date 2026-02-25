@@ -2,19 +2,11 @@
 
 import React, { Dispatch, SetStateAction } from 'react';
 import PageHeader from '@/app/shared/page-header';
-import { Button, Title, ActionIcon, Flex, Input, Select } from 'rizzui';
+import { Flex, Input, Select } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
-import {
-  PiArrowsOutBold,
-  PiMagnifyingGlassBold,
-  PiPlusBold,
-  PiXBold,
-} from 'react-icons/pi';
+import { PiMagnifyingGlassBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
-import FullScreenWrapper from '../tables/fullscreen-wrapper';
-import { useRouter } from 'next/navigation';
-import POTable from './table';
 
 type PageHeaderTypes<T extends Record<string, any>> = {
   title: string;
@@ -33,8 +25,6 @@ export default function InvoicePageHeader<T extends Record<string, any>>({
   type = false,
   setType,
 }: PageHeaderTypes<T>) {
-  const router = useRouter();
-  const { isOpen, openModal, closeModal } = useModal();
   return (
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} className={className}>
@@ -71,39 +61,7 @@ export default function InvoicePageHeader<T extends Record<string, any>>({
             className="w-[50%]"
           />
           <div className="flex items-center gap-4">
-            {/* <Button
-              as="span"
-              className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-full @lg:mt-0 @lg:w-auto"
-              onClick={() => router.push('/event-management/create-event')}
-            >
-              <PiPlusBold className="h-[15px] w-[15px]" />
-            </Button> */}
             <ToggleColumns table={table} />
-            <ActionIcon
-              size="sm"
-              variant="text"
-              onClick={() => {
-                if (isOpen) {
-                  closeModal();
-                } else {
-                  openModal({
-                    view: (
-                      <FullScreenWrapper>
-                        {/** Re-render SAME table here */}
-                        <POTable pageSize={10} />
-                      </FullScreenWrapper>
-                    ),
-                    size: 'full',
-                  });
-                }
-              }}
-            >
-              {isOpen ? (
-                <PiXBold className="h-5 w-5" />
-              ) : (
-                <PiArrowsOutBold className="h-5 w-5" />
-              )}
-            </ActionIcon>
           </div>
         </Flex>
       </PageHeader>

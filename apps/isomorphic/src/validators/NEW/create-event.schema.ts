@@ -58,8 +58,8 @@ export const eventFormSchema = z.object({
   //     contactNumber: z.string().optional(),
   //     isPharma: z.boolean(),
   //   })
-  //   .optional(),
-  // divisionName: z.string().optional(),
+  // .optional(),
+  divisionName: z.string().optional(),
 
   // 6️⃣ Project Priority
   priority: z.enum(['Low', 'Medium', 'High'], {

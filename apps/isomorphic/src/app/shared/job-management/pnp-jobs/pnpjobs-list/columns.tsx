@@ -4,6 +4,7 @@ import { Text, Title } from 'rizzui';
 import { PNPJobsDataType } from './table';
 import DateCell from '@core/ui/date-cell';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
+import { formatPrice } from '@/config/format-pricing';
 
 const columnHelper = createColumnHelper<PNPJobsDataType>();
 
@@ -61,7 +62,9 @@ export const PNPJobListColumns = [
     header: 'Vendor Cost',
     cell: ({ row }) => (
       <Text className="text-sm">
-        {row.original.vendorCost !== null ? `₹${row.original.vendorCost}` : '-'}
+        {row.original.vendorCost !== null
+          ? `${formatPrice(row.original.vendorCost)}`
+          : '-'}
       </Text>
     ),
   }),
@@ -73,7 +76,9 @@ export const PNPJobListColumns = [
     header: 'Client Cost',
     cell: ({ row }) => (
       <Text className="text-sm">
-        {row.original.clientCost !== null ? `₹${row.original.clientCost}` : '-'}
+        {row.original.clientCost !== null
+          ? `${formatPrice(row.original.clientCost)}`
+          : '-'}
       </Text>
     ),
   }),

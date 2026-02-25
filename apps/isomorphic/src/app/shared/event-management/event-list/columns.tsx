@@ -9,6 +9,7 @@ import { PiEyeBold, PiMicrosoftExcelLogo, PiPlusBold } from 'react-icons/pi';
 import { useModal } from '../../modal-views/use-modal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { useRouter } from 'next/navigation';
+import { formatPrice } from '@/config/format-pricing';
 
 const columnHelper = createColumnHelper<EventDataType>();
 
@@ -34,10 +35,10 @@ export const EventListColumns = [
   }),
   columnHelper.display({
     id: 'stdTotal',
-    size: 150,
+    size: 120,
     header: 'Std Total',
     cell: ({ row }) => (
-      <Text className="text-sm">{`Rs. ${row.original.stdTotal}`}</Text>
+      <Text className="text-sm">{formatPrice(row.original.stdTotal)}</Text>
     ),
   }),
   columnHelper.accessor('lowestVendorName', {
@@ -94,12 +95,6 @@ export const EventListColumns = [
       </div>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'status',
-  //   size: 150,
-  //   header: 'Status',
-  //   cell: ({ row }) => getStatusBadge(true ? 'Active' : 'Deactive'),
-  // }),
   columnHelper.display({
     id: 'action',
     size: 150,
@@ -134,7 +129,7 @@ const Action = ({ event }: { event: EventDataType }) => {
 
   return (
     <Flex align="center" justify="start" gap="3" className="pe-4">
-      <EventEdit event={row.original} />
+      <EventEdit event={event} />
       <Tooltip
         size="sm"
         content={'Download Excel'}
@@ -146,7 +141,9 @@ const Action = ({ event }: { event: EventDataType }) => {
           size="sm"
           variant="outline"
           aria-label={'Edit Product'}
-          onClick={() => {}}
+          onClick={() => {
+            window.open('/templates/events.xlsx', '_blank');
+          }}
         >
           <PiMicrosoftExcelLogo className="h-4 w-4" />
         </ActionIcon>

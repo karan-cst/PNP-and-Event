@@ -2,6 +2,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { Text, Title } from 'rizzui';
 import { ProjectCategoriesTableDataType } from './table';
+import { formatPrice } from '@/config/format-pricing';
 
 const columnHelper = createColumnHelper<ProjectCategoriesTableDataType>();
 
@@ -27,7 +28,7 @@ export const ProjectCategoriesListColumns = [
     size: 150,
     header: 'Min Range',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.min_range}</Text>
+      <Text className="text-sm">{formatPrice(row.original.min_range)}</Text>
     ),
   }),
   columnHelper.accessor('max_range', {
@@ -35,7 +36,7 @@ export const ProjectCategoriesListColumns = [
     size: 150,
     header: 'Max Range',
     cell: ({ row }) => (
-      <Text className="text-sm"> {row.original.max_range}</Text>
+      <Text className="text-sm"> {formatPrice(row.original.max_range)}</Text>
     ),
   }),
   columnHelper.accessor('vendorSelectionBy', {

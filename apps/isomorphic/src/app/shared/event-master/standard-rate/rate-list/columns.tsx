@@ -1,6 +1,6 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
+import { ActionIcon, Avatar, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
 import { standardRateDataType } from './table';
 import cn from '@core/utils/class-names';
 import DateCell from '@core/ui/date-cell';
@@ -8,6 +8,7 @@ import PencilIcon from '@core/components/icons/pencil';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import { CreateStandardrateModalView } from '../rate-page-header';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
+import { formatPrice } from '@/config/format-pricing';
 
 const columnHelper = createColumnHelper<standardRateDataType>();
 
@@ -43,7 +44,14 @@ export const HSNListColumns = [
     size: 150,
     header: 'Element Item',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.elementItem}</Text>
+      <div className="flex items-center gap-3">
+        <Avatar
+          name={row.original.elementItem}
+          size="md"
+          src={row.original.src}
+        />
+        <Text className="text-sm">{row.original.elementItem}</Text>
+      </div>
     ),
   }),
   columnHelper.accessor('tier1Price', {
@@ -52,7 +60,7 @@ export const HSNListColumns = [
     header: 'Tier 1',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">Rs. {row.original.tier1Price}</Text>
+        <Text className="text-sm">{formatPrice(row.original.tier1Price)}</Text>
       </div>
     ),
   }),
@@ -62,7 +70,7 @@ export const HSNListColumns = [
     header: 'Tier 2',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">Rs. {row.original.tier2Price}</Text>
+        <Text className="text-sm">{formatPrice(row.original.tier2Price)}</Text>
       </div>
     ),
   }),
@@ -72,7 +80,7 @@ export const HSNListColumns = [
     header: 'Tier 3',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">Rs. {row.original.tier3Price}</Text>
+        <Text className="text-sm">{formatPrice(row.original.tier3Price)}</Text>
       </div>
     ),
   }),

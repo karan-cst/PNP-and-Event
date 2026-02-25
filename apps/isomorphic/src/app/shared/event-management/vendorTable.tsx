@@ -4,12 +4,17 @@ import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import { AiTwotoneMail } from 'react-icons/ai';
-import { PiEyeBold, PiMicrosoftExcelLogo } from 'react-icons/pi';
+import {
+  PiEyeBold,
+  PiMicrosoftExcelLogo,
+  PiCheckFatDuotone,
+} from 'react-icons/pi';
 import { ActionIcon } from 'rizzui/action-icon';
 import { Flex } from 'rizzui/flex';
 import { Tooltip } from 'rizzui/tooltip';
 import { useModal } from '../modal-views/use-modal';
 import { VendorViewModalView } from './vendor-view/vendorViewModal';
+import VendorUploadModal from './vendor-upload/vendorUpload';
 
 const columns = [
   {
@@ -74,17 +79,27 @@ const columns = [
   {
     header: 'Action',
     id: 'action',
-    cell: ({ row }: any) => <Action />,
+    cell: ({ row }: any) => <Action row={row} />,
   },
 ];
 
-const Action = () => {
-  const { openModal } = useModal();
+const Action = ({ row }: { row: null }) => {
+  const { openModal, closeModal } = useModal();
 
   return (
     <Flex align="center" gap="3">
       <Tooltip size="sm" content="Edit Vendor" placement="top" color="invert">
-        <ActionIcon size="sm" variant="outline" onClick={() => {}}>
+        <ActionIcon
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            openModal({
+              view: (
+                <VendorUploadModal rowData={row} onClose={() => closeModal()} />
+              ),
+            });
+          }}
+        >
           <PencilIcon className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
@@ -100,6 +115,16 @@ const Action = () => {
           }}
         >
           <PiEyeBold className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+      <Tooltip
+        size="sm"
+        content="Approve Vendor"
+        placement="top"
+        color="invert"
+      >
+        <ActionIcon size="sm" variant="outline" onClick={() => {}}>
+          <PiCheckFatDuotone className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
     </Flex>

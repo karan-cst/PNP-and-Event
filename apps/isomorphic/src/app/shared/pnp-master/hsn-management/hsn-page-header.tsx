@@ -3,17 +3,12 @@
 import React from 'react';
 import PageHeader from '@/app/shared/page-header';
 import { Button, Title, ActionIcon, Input, Flex } from 'rizzui';
-import {
-  PiArrowsOutBold,
-  PiMagnifyingGlassBold,
-  PiPlusBold,
-  PiXBold,
-} from 'react-icons/pi';
+import { PiMagnifyingGlassBold, PiPlusBold, PiXBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
-import FullScreenWrapper from '../../tables/fullscreen-wrapper';
-import VendorTable, { HSNDataType } from './hsn-list/table';
+
+import { HSNDataType } from './hsn-list/table';
 import CreateHSN from './create-hsn/createHSN';
 
 export function CreateHSNModalView({ hsn }: { hsn: HSNDataType }) {
@@ -58,7 +53,7 @@ export default function HSNPageHeader<T extends Record<string, any>>({
   className,
   table,
 }: PageHeaderTypes<T>) {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { openModal } = useModal();
   return (
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} className={className}>
@@ -86,31 +81,6 @@ export default function HSNPageHeader<T extends Record<string, any>>({
             <PiPlusBold className="h-[17px] w-[17px]" />
           </Button>
           <ToggleColumns table={table} />
-          <ActionIcon
-            size="sm"
-            variant="text"
-            onClick={() => {
-              if (isOpen) {
-                closeModal();
-              } else {
-                openModal({
-                  view: (
-                    <FullScreenWrapper>
-                      {/** Re-render SAME table here */}
-                      <VendorTable pageSize={10} />
-                    </FullScreenWrapper>
-                  ),
-                  size: 'full',
-                });
-              }
-            }}
-          >
-            {isOpen ? (
-              <PiXBold className="h-5 w-5" />
-            ) : (
-              <PiArrowsOutBold className="h-5 w-5" />
-            )}
-          </ActionIcon>
         </Flex>
       </PageHeader>
     </>
