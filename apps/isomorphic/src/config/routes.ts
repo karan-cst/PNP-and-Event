@@ -37,6 +37,14 @@ export const routes = {
   jobManagement: {
     event: '/job-management/event-jobs',
     pnp: '/job-management/pnp-jobs',
+    job: '/job-management',
+    create: '/job-management/create-job',
+    tracker: '/job-management/job-tracker',
+    view: '/job-management/job-view',
+  },
+  inquiryManagement: {
+    inquiry: '/inquiry-management',
+    create: '/inquiry-management/create-inquiry',
   },
   reports: {
     event: '/report-management/event-report',

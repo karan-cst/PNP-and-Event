@@ -146,6 +146,14 @@ export const authOptions: NextAuthOptions = {
             role: 'financeHead',
           };
         }
+        if (email === 'cs@pnp.com' && password === 'admin') {
+          return {
+            id: '9',
+            name: 'CS User',
+            email,
+            role: 'csUser',
+          };
+        }
 
         return null;
         // return null;
