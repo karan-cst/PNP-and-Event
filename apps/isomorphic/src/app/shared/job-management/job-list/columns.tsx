@@ -6,20 +6,25 @@ import PencilIcon from '@core/components/icons/pencil';
 import { formatPrice } from '@/config/format-pricing';
 import { JobFormDataType } from '@/data/jobpnp-data';
 import DateCell from '@core/ui/date-cell';
+import { AiOutlineExport } from 'react-icons/ai';
+import { PiEyeBold } from 'react-icons/pi';
+import { useRouter } from 'next/navigation';
 
 const columnHelper = createColumnHelper<JobFormDataType>();
 
 export const JobListColumns = [
   columnHelper.accessor('jobName', {
     id: 'jobName',
-    size: 180,
+    size: 160,
     header: 'Job Details',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Title as="h5" className="!text-sm font-medium">
           {`${row.original.jobName}`}
         </Title>
-        <Text className="text-sm">{row.original?.division}</Text>
+        <Text className="text-sm">
+          {row.original?.division}-{row.original.jobType}
+        </Text>
       </div>
     ),
   }),
@@ -29,12 +34,7 @@ export const JobListColumns = [
     header: 'Created Date',
     cell: ({ row }) => <DateCell date={new Date(row.original?.createdAt)} />,
   }),
-  columnHelper.display({
-    id: 'jobType',
-    size: 80,
-    header: 'Job Type',
-    cell: ({ row }) => <Text className="text-sm">{row.original?.jobType}</Text>,
-  }),
+
   columnHelper.display({
     id: 'jobNo',
     size: 70,
@@ -44,8 +44,13 @@ export const JobListColumns = [
   columnHelper.display({
     id: 'totalQty',
     size: 50,
-    header: 'Qty',
-    cell: ({ row }) => <Text className="text-sm">{row.original.totalQty}</Text>,
+    header: 'Std Total/Qty',
+    cell: ({ row }) => (
+      <>
+        <Text className="text-sm">{formatPrice(row.original.stdTotal)}</Text>
+        <Text className="text-sm">{row.original.totalQty}</Text>
+      </>
+    ),
   }),
   columnHelper.display({
     id: 'PrintExecutiveStatus',
@@ -62,6 +67,29 @@ export const JobListColumns = [
     cell: ({ row }) => <DateCell date={new Date(row.original.deliveryDate)} />,
   }),
   columnHelper.display({
+    id: 'finalizedVendor',
+    size: 80,
+    header: 'Finalized Vendor',
+    cell: ({ row }) => (
+      <>
+        <Text className="text-sm">{row.original?.finalizedVendor}</Text>
+        <Text
+          className={cn(
+            'flex items-center gap-1 text-sm font-semibold',
+            row.original?.finalizedVendor
+              ? 'cursor-pointer text-blue-600 hover:underline'
+              : 'cursor-not-allowed text-gray-400'
+          )}
+        >
+          {formatPrice(row.original?.finalizedVendorCost)}
+          <span>
+            <AiOutlineExport />
+          </span>
+        </Text>
+      </>
+    ),
+  }),
+  columnHelper.display({
     id: 'action',
     size: 50,
     header: 'Action',
@@ -75,18 +103,32 @@ export const JobListColumns = [
 ];
 
 const EventEdit = ({ job }: { job: JobFormDataType }) => {
+  const router = useRouter();
   return (
-    <Tooltip size="sm" content={'Edit Event'} placement="top" color="invert">
-      <ActionIcon
-        as="span"
-        size="sm"
-        variant="outline"
-        aria-label={'Edit Product'}
-        onClick={() => {}}
-      >
-        <PencilIcon className="h-4 w-4" />
-      </ActionIcon>
-    </Tooltip>
+    <Flex>
+      <Tooltip size="sm" content={'Edit Job'} placement="top" color="invert">
+        <ActionIcon
+          as="span"
+          size="sm"
+          variant="outline"
+          aria-label={'Edit Job'}
+          onClick={() => {}}
+        >
+          <PencilIcon className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+      <Tooltip size="sm" content={'View Job'} placement="top" color="invert">
+        <ActionIcon
+          as="span"
+          size="sm"
+          variant="outline"
+          aria-label={'View Job'}
+          onClick={() => router.push('/job-management/vendors')}
+        >
+          <PiEyeBold className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+    </Flex>
   );
 };
 

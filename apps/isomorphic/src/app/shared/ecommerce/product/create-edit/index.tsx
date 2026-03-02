@@ -10,7 +10,7 @@ import cn from '@core/utils/class-names';
 import FormNav, {
   formParts,
 } from '@/app/shared/ecommerce/product/create-edit/form-nav';
-import ProductSummary from '@/app/shared/ecommerce/product/create-edit/event-summary';
+// import ProductSummary from '@/app/shared/ecommerce/product/create-edit/event-summary';
 import { defaultValues } from '@/app/shared/ecommerce/product/create-edit/form-utils';
 import ProductMedia from '@/app/shared/ecommerce/product/create-edit/product-media';
 import PricingInventory from '@/app/shared/ecommerce/product/create-edit/pricing-inventory';
@@ -29,7 +29,7 @@ import { useLayout } from '@/layouts/use-layout';
 import { LAYOUT_OPTIONS } from '@/config/enums';
 
 const MAP_STEP_TO_COMPONENT = {
-  [formParts.summary]: ProductSummary,
+  // [formParts.summary]: ProductSummary,
   [formParts.media]: ProductMedia,
   [formParts.pricingInventory]: PricingInventory,
   [formParts.productIdentifiers]: ProductIdentifiers,

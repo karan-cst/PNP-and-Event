@@ -6,7 +6,7 @@ export type HSN = {
   subtitle: string;
   gst: number;
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
 };
 
 export const HSNData = [
@@ -18,7 +18,7 @@ export const HSNData = [
     subtitle: 'SOUVENIER',
     gst: 12,
     createdAt: '2026-02-10T16:01:40.021Z',
-    isActive: false,
+    isActive: 'active',
   },
   {
     id: 'HSN002',
@@ -28,6 +28,6 @@ export const HSNData = [
     subtitle: 'VISUAL AID',
     gst: 12,
     createdAt: '2026-02-10T16:01:40.021Z',
-    isActive: false,
+    isActive: 'inactive',
   },
 ];

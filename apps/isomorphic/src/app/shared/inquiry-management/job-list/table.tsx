@@ -8,7 +8,6 @@ import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
-import JobPageHeader from './job-page-header';
 import { dummyInquiryData, InquiryTableType } from '@/data/jobInquiry.data';
 import InquiryPageHeader from './job-page-header';
 
@@ -57,7 +56,8 @@ export default function InquiryTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          setData((prev) => prev.filter((r) => r.id !== row.id));
+          // setData((prev) => prev.filter((r) => r.id !== row.id));
+          setData((prev) => prev);
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));

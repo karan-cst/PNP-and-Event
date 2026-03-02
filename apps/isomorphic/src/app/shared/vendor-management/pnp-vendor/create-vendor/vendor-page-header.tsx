@@ -8,7 +8,7 @@ import { useModal } from '@/app/shared/modal-views/use-modal';
 import CreateUser from './createVendor';
 import { VendorDataType } from '../vendor-list/table';
 
-export function CreateUserModalView({ vendor }: { vendor: VendorDataType }) {
+export function CreateUserModalView({ vendor }: { vendor?: VendorDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
@@ -30,6 +30,7 @@ export function CreateUserModalView({ vendor }: { vendor: VendorDataType }) {
             mobile: '',
             vendorType: '',
             city: '',
+            address: '',
           }
         }
       />

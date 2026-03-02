@@ -14,7 +14,7 @@ import CreateDivisin from './create-hsn/createHSN';
 export function CreateDivisionModalView({
   division,
 }: {
-  division: DivisionDataType;
+  division?: DivisionDataType;
 }) {
   const { closeModal } = useModal();
   return (
@@ -33,7 +33,7 @@ export function CreateDivisionModalView({
           division || {
             divisionCode: '',
             ccCode: '',
-            isActive: false,
+            isActive: 'inactive',
           }
         }
       />

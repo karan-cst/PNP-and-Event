@@ -14,7 +14,7 @@ import CreateCityTier from './create-citytier/createRate';
 export function CreateCitytierModalView({
   cityTier,
 }: {
-  cityTier: cityTireDataType;
+  cityTier?: cityTireDataType;
 }) {
   const { closeModal } = useModal();
   return (

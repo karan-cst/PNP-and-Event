@@ -9,7 +9,7 @@ export type Vendor = {
   email: string;
   vendorType: keyof typeof VENDORTYPE; //TODO Define ROLES type
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
   address: string;
 };
 
@@ -34,7 +34,7 @@ export const vendorData = [
     vendorType: VENDORTYPE.PNPVendor,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: false,
+    isActive: 'inactive',
     city: 'Ahmedabad',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
@@ -47,7 +47,7 @@ export const vendorData = [
     vendorType: VENDORTYPE.PNPVendor,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     city: 'Surat',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
@@ -60,7 +60,7 @@ export const vendorData = [
     vendorType: VENDORTYPE.EVENTVendor,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     city: 'Ahmedabad',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
@@ -73,7 +73,7 @@ export const vendorData = [
     vendorType: VENDORTYPE.EVENTVendor,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     city: 'Surat',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',

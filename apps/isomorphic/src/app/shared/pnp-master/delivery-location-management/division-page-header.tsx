@@ -14,7 +14,7 @@ import CreateDeliveryLocation from './create-hsn/createDeliveryLocation';
 export function CreateDeliveryLocationModalView({
   deliveryLocation,
 }: {
-  deliveryLocation: DeliveryLocationType;
+  deliveryLocation?: DeliveryLocationType;
 }) {
   const { closeModal } = useModal();
   return (
@@ -34,6 +34,7 @@ export function CreateDeliveryLocationModalView({
             location: '',
             division: '',
             deliveryDays: [],
+            isActive: 'active',
           }
         }
       />

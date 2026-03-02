@@ -2,13 +2,12 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { JobTypeListColumns, ProjectCategoriesListColumns } from './columns';
+import { ProjectCategoriesListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
-import { JobtypeData } from '@/data/jobtypes-data';
 import { ProjectCategoryData } from '@/data/projectcategories-data';
 
 export type ProjectCategoriesTableDataType =

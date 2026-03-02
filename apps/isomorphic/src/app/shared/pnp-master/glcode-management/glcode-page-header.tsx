@@ -11,7 +11,7 @@ import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import CreateGLCode from './create-glcode/createGLCode';
 import { GlCodeDataType } from './glcode-list/table';
 
-export function CreateGLCodeModalView({ glcode }: { glcode: GlCodeDataType }) {
+export function CreateGLCodeModalView({ glcode }: { glcode?: GlCodeDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
@@ -29,7 +29,7 @@ export function CreateGLCodeModalView({ glcode }: { glcode: GlCodeDataType }) {
           glcode || {
             glCode: 0,
             jobPurpose: '',
-            isActive: false,
+            isActive: 'active',
           }
         }
       />

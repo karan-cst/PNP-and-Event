@@ -13,6 +13,7 @@ export type JobFormDataType = {
   division: string;
 
   totalQty: number;
+  stdTotal: number;
   deliveryPlace: string;
   deliveryDate: string;
   packageQty: number;
@@ -43,6 +44,8 @@ export type JobFormDataType = {
   createdAt: string;
   jobType: JobType;
   PrintExecutiveStatus: PrintExecutiveStatus;
+  finalizedVendor?: string;
+  finalizedVendorCost?: number;
 };
 export type JobType = 'print' | 'gift' | 'printngift';
 export type PrintExecutiveStatus = 'Approved' | 'Rejected';
@@ -63,6 +66,7 @@ export const dummyJobData: JobFormDataType[] = [
     division: 'ADRINA',
 
     totalQty: 4000,
+    stdTotal: 10000,
     deliveryPlace: 'Matoda',
     deliveryDate: '2026-03-30',
     packageQty: 100,
@@ -93,6 +97,8 @@ export const dummyJobData: JobFormDataType[] = [
     createdAt: '2026-02-10',
     jobType: 'print',
     PrintExecutiveStatus: 'Approved',
+    finalizedVendor: 'ABC',
+    finalizedVendorCost: 12000,
   },
 ];
 

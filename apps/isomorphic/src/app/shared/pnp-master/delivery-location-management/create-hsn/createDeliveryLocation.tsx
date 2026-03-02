@@ -186,16 +186,16 @@ export default function CreateDeliveryLocation({
                       dropdownClassName="h-auto"
                       placeholder="Select..."
                       options={[
-                        { label: 'Active', value: true },
-                        { label: 'Deactive', value: false },
+                        { label: 'Active', value: 'active' },
+                        { label: 'Deactive', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
                         [
-                          { label: 'Active', value: true },
-                          { label: 'Deactive', value: false },
+                          { label: 'Active', value: 'active' },
+                          { label: 'Deactive', value: 'inactive' },
                         ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}

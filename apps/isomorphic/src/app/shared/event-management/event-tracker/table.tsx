@@ -59,7 +59,8 @@ export default function EventTrackerTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          setData((prev) => prev.filter((r) => r.id !== row.id));
+          // setData((prev) => prev.filter((r) => r.id !== row.id));
+          setData((prev) => prev);
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));

@@ -2,16 +2,12 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { ClientApproveListColumns, EventListColumns } from './columns';
+import { ClientApproveListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
-import { exportToCSV } from '@core/utils/export-to-csv';
-import UserPageHeader from '../user-page-header';
-import { eventDummyData } from '@/data/event-management.data';
-import { useEffect, useState } from 'react';
-import { boolean } from 'zod';
+import { useState } from 'react';
 import { clientApproveData } from '@/data/clientApprove-data';
 import ClientApprovePageHeader from './clientApprove-page-header';
 
@@ -63,7 +59,8 @@ export default function ClientApproveTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          setData((prev) => prev.filter((r) => r.id !== row.id));
+          setData((prev) => prev);
+          // setData((prev) => prev.filter((r) => r.id !== row.id));
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));

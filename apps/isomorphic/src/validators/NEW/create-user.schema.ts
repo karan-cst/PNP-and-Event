@@ -12,7 +12,7 @@ export const userFormSchema = z.object({
   }),
   userType: z.string().min(1, { message: messages.roleIsRequired }),
   address: z.string().min(10, { message: 'Address is required' }),
-  isActive: z.boolean({ required_error: 'Please select user status' }),
+  isActive: z.string(),
 });
 
 // generate form types from zod validation schema

@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction } from 'react';
 import PageHeader from '@/app/shared/page-header';
 import { Input, Flex, Select } from 'rizzui';
 import { PiMagnifyingGlassBold } from 'react-icons/pi';
-import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 
@@ -13,8 +12,8 @@ type PageHeaderTypes<T extends Record<string, any>> = {
   breadcrumb: { name: string; href?: string }[];
   className?: string;
   table: ReactTableType<T>;
-  type: boolean;
-  setType: Dispatch<SetStateAction<boolean>>;
+  type: string;
+  setType: Dispatch<SetStateAction<string>>;
 };
 
 export default function EventjobPageHeader<T extends Record<string, any>>({
@@ -22,7 +21,7 @@ export default function EventjobPageHeader<T extends Record<string, any>>({
   breadcrumb,
   className,
   table,
-  type = false,
+  type = 'non-pharma',
   setType,
 }: PageHeaderTypes<T>) {
   return (
@@ -42,12 +41,14 @@ export default function EventjobPageHeader<T extends Record<string, any>>({
           <Select
             placeholder="Select..."
             options={[
-              { label: 'Pharma', value: true },
-              { label: 'Non Pharma', value: false },
+              { label: 'Pharma', value: 'pharma' },
+              { label: 'Non Pharma', value: 'non-pharma' },
             ]}
             value={type}
-            onChange={(option: { value: boolean }) => setType(option.value)}
-            displayValue={(value: boolean) => (value ? 'Pharma' : 'Non Pharma')}
+            onChange={(option: { value: string }) => setType(option.value)}
+            displayValue={(value: string) =>
+              value == 'pharma' ? 'Pharma' : 'Non Pharma'
+            }
             dropdownClassName="z-[10000]"
             className="h-9"
           />

@@ -7,26 +7,53 @@ import { PiPlusBold } from 'react-icons/pi';
 import VendorUploadModal from '@/app/shared/event-management/vendor-upload/vendorUpload';
 import VendorsTable from '@/app/shared/event-management/vendorTable';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import { VendorDataType } from '@/app/shared/vendor-management/pnp-vendor/vendor-list/table';
 
 export default function Vendors() {
-  const [vendors, setVendors] = useState<VendorDataType[]>([]);
+  const [vendors, setVendors] = useState<any[]>([
+    {
+      id: 1,
+      vendorName: 'ABC Technologies',
+      name: 'Ankit Gandhi',
+      total: 45000,
+      emlFileUrl: '/uploads/xml/abc.xml',
+      excelFileUrl: '/uploads/excel/abc.xlsx',
+    },
+    {
+      id: 2,
+      vendorName: 'Skyline Solutions',
+      name: 'Karan Jain',
+      total: 72000,
+      emlFileUrl: null,
+      excelFileUrl: '/uploads/excel/skyline.xlsx',
+    },
+    {
+      id: 3,
+      vendorName: 'Prime Event Services',
+      name: 'Amulakh Mistry',
+      total: 38000,
+      emlFileUrl: '/uploads/xml/prime.xml',
+      excelFileUrl: null,
+    },
+  ]);
   const eventDetails = {
-    eventType: 'Stall',
-    eventName: 'Cardio Annual Summit 2026',
-    city: 'Ahmedabad',
-    fromDate: '19/02/2026',
-    toDate: '21/02/2026',
-    tier: 1,
+    Type: 'Printing',
+    Name: 'Pamphlet_Gaurav Gupta',
+    deliveryDate: '30/03/2026',
+    jobId: 'ADR67101JUN/25-26',
+    qty: 4000,
+    // city: 'Ahmedabad',
+    // fromDate: '19/02/2026',
+    // toDate: '21/02/2026',
+    // tier: 1,
     stdTotal: 100000,
   };
   const { openModal, closeModal } = useModal();
 
   const pageHeader = {
-    title: 'Vendors',
+    title: 'Vendor Management',
     breadcrumb: [
-      { href: '#', name: 'Event Management' },
-      { href: '/event-management', name: 'Events' },
+      { href: '#', name: 'Job Management' },
+      { href: '/job-management', name: 'Jobs' },
       { name: 'Vendors' },
     ],
   };
@@ -45,7 +72,7 @@ export default function Vendors() {
         <div className="mb-4 flex justify-end">
           <Button onClick={() => handleOpenModal()}>
             <PiPlusBold className="mr-2" />
-            Add Vendor
+            Upload Rate
           </Button>
         </div>
       </PageHeader>
@@ -54,35 +81,27 @@ export default function Vendors() {
         <div className="flex flex-wrap items-center gap-6 text-sm">
           <div>
             <span className="text-gray-500">Type:</span>{' '}
-            <span className="font-medium">{eventDetails.eventType}</span>
+            <span className="font-medium">{eventDetails.Type}</span>
           </div>
 
           <div>
-            <span className="text-gray-500">Event:</span>{' '}
-            <span className="font-medium">{eventDetails.eventName}</span>
+            <span className="text-gray-500">Job:</span>{' '}
+            <span className="font-medium">{eventDetails.Name}</span>
           </div>
 
           <div>
-            <span className="text-gray-500">Std Total:</span>{' '}
+            <span className="text-gray-500">Job Id:</span>{' '}
             <span className="font-medium">
-              Rs. {eventDetails?.stdTotal || '-'}
+              Rs. {eventDetails?.jobId || '-'}
             </span>
           </div>
-
           <div>
-            <span className="text-gray-500">City:</span>{' '}
-            <span className="font-medium">{eventDetails.city}</span>
+            <span className="text-gray-500">Delivery Date:</span>{' '}
+            <span className="font-medium">{eventDetails.deliveryDate}</span>
           </div>
           <div>
-            <span className="text-gray-500">Tier:</span>{' '}
-            <span className="font-medium">{eventDetails.tier}</span>
-          </div>
-
-          <div>
-            <span className="text-gray-500">Duration:</span>{' '}
-            <span className="font-medium">
-              {eventDetails.fromDate} - {eventDetails.toDate}
-            </span>
+            <span className="text-gray-500">Quantity:</span>{' '}
+            <span className="font-medium">{eventDetails.qty}</span>
           </div>
         </div>
       </div>

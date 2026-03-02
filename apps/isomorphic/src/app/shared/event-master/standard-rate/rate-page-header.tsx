@@ -14,7 +14,7 @@ import { standardRateDataType } from './rate-list/table';
 export function CreateStandardrateModalView({
   standardRate,
 }: {
-  standardRate: standardRateDataType;
+  standardRate?: standardRateDataType;
 }) {
   const { closeModal } = useModal();
   return (
@@ -38,7 +38,7 @@ export function CreateStandardrateModalView({
             tier1Price: 0,
             tier2Price: 0,
             tier3Price: 0,
-            isActive: false,
+            isActive: 'inactive',
           }
         }
       />

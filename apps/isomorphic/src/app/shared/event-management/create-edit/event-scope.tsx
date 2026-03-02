@@ -22,7 +22,7 @@ export default function EventScope({ className }: { className?: string }) {
         label="Title"
         placeholder="Title"
         {...register('scope.titleeventName')}
-        error={errors?.scope?.title?.message}
+        error={errors?.scope?.titleeventName?.message}
       />
       <Input
         label="Tentative Cost"

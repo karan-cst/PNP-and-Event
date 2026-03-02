@@ -7,18 +7,48 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
-      role: 'superAdmin' | 'pnpAdmin' | 'eventAdmin' | 'eventUser';
+      role:
+        | 'superAdmin'
+        | 'pnpAdmin'
+        | 'eventAdmin'
+        | 'eventUser'
+        | 'operationHead'
+        | 'eventHead'
+        | 'financeExecutive'
+        | 'financeManager'
+        | 'financeHead'
+        | 'csUser';
     } & DefaultSession['user'];
   }
 
   interface User {
-    role: 'superAdmin' | 'pnpAdmin' | 'eventAdmin' | 'eventUser';
+    role:
+      | 'superAdmin'
+      | 'pnpAdmin'
+      | 'eventAdmin'
+      | 'eventUser'
+      | 'operationHead'
+      | 'eventHead'
+      | 'financeExecutive'
+      | 'financeManager'
+      | 'financeHead'
+      | 'csUser';
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    role?: 'superAdmin' | 'pnpAdmin' | 'eventAdmin' | 'eventUser';
+    role?:
+      | 'superAdmin'
+      | 'pnpAdmin'
+      | 'eventAdmin'
+      | 'eventUser'
+      | 'operationHead'
+      | 'eventHead'
+      | 'financeExecutive'
+      | 'financeManager'
+      | 'financeHead'
+      | 'csUser';
     id?: string;
   }
 }

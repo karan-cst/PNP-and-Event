@@ -26,8 +26,8 @@ export const StandardRateFormSchema = z.object({
     .number()
     .min(0, { message: 'Tier 3 price must be 0 or greater' }),
 
-  createdAt: z.string().datetime({ message: 'Invalid date format' }),
+  // createdAt: z.string().datetime({ message: 'Invalid date format' }),
 
-  isActive: z.boolean(),
+  isActive: z.string(),
 });
 export type StandardRateFormInput = z.infer<typeof StandardRateFormSchema>;

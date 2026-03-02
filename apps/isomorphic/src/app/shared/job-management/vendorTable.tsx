@@ -15,8 +15,7 @@ import { Tooltip } from 'rizzui/tooltip';
 import { useModal } from '../modal-views/use-modal';
 import { VendorViewModalView } from './vendor-view/vendorViewModal';
 import VendorUploadModal from './vendor-upload/vendorUpload';
-import { Vendor, vendorData } from '@/data/vendor-data';
-import { VendorDataType } from '../vendor-management/pnp-vendor/vendor-list/table';
+import { vendorData } from '@/data/vendor-data';
 
 const columns = [
   {
@@ -146,7 +145,7 @@ export default function VendorsTable({
   },
   paginationClassName,
 }: {
-  vendors: VendorDataType[];
+  vendors?: string[];
   pageSize?: number;
   hideFilters?: boolean;
   hideHeader?: boolean;

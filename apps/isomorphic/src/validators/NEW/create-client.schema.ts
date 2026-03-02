@@ -12,8 +12,8 @@ export const clientFormSchema = z.object({
   clientType: z.string().min(1, { message: 'Vendor type is required' }),
   division: z.string().min(1, { message: 'City is required' }),
   address: z.string().min(10, { message: 'Address is required' }),
-  clientFrom: z.string().min(1, { message: 'Client from is required' }),
-  isActive: z.boolean({ required_error: 'Client status is required' }),
+  clientFrom: z.string().optional(),
+  isActive: z.string({ required_error: 'Client status is required' }),
 });
 
 // generate form types from zod validation schema

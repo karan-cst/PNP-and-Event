@@ -78,7 +78,7 @@ export default function CreateClient({
         clientFrom: '',
         clientType: '',
         address: '',
-        isActive: false,
+        isActive: 'active',
       });
     }, 600);
   };
@@ -210,16 +210,16 @@ export default function CreateClient({
                       dropdownClassName="h-auto"
                       placeholder="Select..."
                       options={[
-                        { label: 'Active', value: true },
-                        { label: 'Deactivate', value: false },
+                        { label: 'Active', value: 'active' },
+                        { label: 'InActivate', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
                         [
-                          { label: 'Active', value: true },
-                          { label: 'Deactivate', value: false },
+                          { label: 'Active', value: 'active' },
+                          { label: 'InActivate', value: 'inactive' },
                         ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}

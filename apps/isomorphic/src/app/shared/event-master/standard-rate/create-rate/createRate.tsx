@@ -81,7 +81,7 @@ export default function CreateStandardRate({
         tier1Price: 0,
         tier2Price: 0,
         tier3Price: 0,
-        isActive: false,
+        isActive: 'inactive',
       });
     }, 600);
   };
@@ -157,30 +157,30 @@ export default function CreateStandardRate({
                       dropdownClassName="h-auto"
                       placeholder="Select..."
                       options={[
-                        { label: 'Active', value: true },
-                        { label: 'Inactive', value: false },
+                        { label: 'Active', value: 'active' },
+                        { label: 'Inactive', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
                         [
-                          { label: 'Active', value: true },
-                          { label: 'Inactive', value: false },
+                          { label: 'Active', value: 'active' },
+                          { label: 'Inactive', value: 'inactive' },
                         ].find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}
                     />
                   )}
                 />
-                {standardRate?.id ? null : (
+                {id ? null : (
                   <UploadZone
                     label="Upload File"
                     name="src"
                     getValues={getValues}
                     setValue={setValue}
                     className="col-span-2"
-                    accept="image/jpeg,image/png"
+                    // accept="image/jpeg,image/png"
                   />
                 )}
               </HorizontalFormBlockWrapper>

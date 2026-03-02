@@ -23,7 +23,7 @@ const allStatus = {
   approved: statusColors.success,
   rejected: statusColors.danger,
   active: statusColors.success,
-  deactive: statusColors.danger,
+  inactive: statusColors.danger,
   deactivated: statusColors.danger,
   on_going: statusColors.warning,
   at_risk: statusColors.danger,

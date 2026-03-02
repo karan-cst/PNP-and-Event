@@ -21,7 +21,7 @@ export const productVariants = [
   },
 ];
 
-export function jobDefaultValues(event?: CreateJobInput) {
+export function jobDefaultValues(job?: CreateJobInput) {
   return {
     // 1️⃣ Basic Job Info
     jobName: 'Product Brochure Printing',
@@ -74,8 +74,8 @@ export function jobDefaultValues(event?: CreateJobInput) {
     createdAt: new Date(),
 
     // 7️⃣ Job Type
-    jobType: 'print',
-    PrintExecutiveStatus: 'Approved',
+    jobType: job?.jobType ?? 'print',
+    PrintExecutiveStatus: job?.PrintExecutiveStatus ?? 'Approved',
   };
 }
 

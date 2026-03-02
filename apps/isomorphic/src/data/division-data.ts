@@ -3,7 +3,7 @@ export type Division = {
   divisionCode: string;
   ccCode: string;
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
 };
 
 export const DivisionData = [
@@ -12,13 +12,13 @@ export const DivisionData = [
     divisionCode: 'ARRON',
     ccCode: '1199',
     createdAt: '2026-02-10T16:01:40.021Z',
-    isActive: false,
+    isActive: 'active',
   },
   {
     id: 'DC002',
     divisionCode: 'Altis',
     ccCode: '1198',
     createdAt: '2026-02-10T16:01:40.021Z',
-    isActive: false,
+    isActive: 'inactive',
   },
 ];

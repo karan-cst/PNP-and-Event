@@ -2,7 +2,7 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { HSNListColumns, VendorListColumns } from './columns';
+import { HSNListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';

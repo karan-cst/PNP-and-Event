@@ -6,7 +6,7 @@ export type DeliveryLocation = {
   division: string;
   deliveryDays: [keyof typeof WEEKDAYTYPE];
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
 };
 
 export const DeliveryLocationData = [
@@ -16,6 +16,6 @@ export const DeliveryLocationData = [
     division: 'Arron',
     deliveryDays: ['Mon', 'Wed'],
     createdAt: '2026-02-10T16:01:40.021Z',
-    isActive: false,
+    isActive: 'inactive',
   },
 ];

@@ -8,7 +8,7 @@ import { useModal } from '@/app/shared/modal-views/use-modal';
 import CreateHSN from './createHSN';
 import { HSNDataType } from '../hsn-list/table';
 
-export function CreateHSNModalView({ hsn }: { hsn: HSNDataType }) {
+export function CreateHSNModalView({ hsn }: { hsn?: HSNDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
@@ -28,8 +28,8 @@ export function CreateHSNModalView({ hsn }: { hsn: HSNDataType }) {
             title: '',
             subtitle: '',
             description: '',
-            gst: '',
-            isActive: false,
+            gst: 0,
+            isActive: 'inactive',
           }
         }
       />

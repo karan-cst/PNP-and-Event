@@ -14,6 +14,10 @@ const standardElementsFromBackend = [
   { name: 'LED Screen', rate: 12000 },
   { name: 'Sound System', rate: 8000 },
 ];
+const option = standardElementsFromBackend.map((el) => ({
+  label: `${el.name} - ₹${el.rate}`,
+  value: el.name,
+}));
 
 export default function EventElements({ className }: { className?: string }) {
   const {
@@ -61,10 +65,7 @@ export default function EventElements({ className }: { className?: string }) {
         <div className="col-span-6">
           <Select
             label="Standard Element"
-            options={standardElementsFromBackend.map((el) => ({
-              label: `${el.name} - ₹${el.rate}`,
-              value: el,
-            }))}
+            options={option}
             value={
               selectedItem
                 ? {
@@ -73,8 +74,12 @@ export default function EventElements({ className }: { className?: string }) {
                   }
                 : null
             }
-            onChange={(option) => setSelectedItem(option?.value)}
-            displayValue={(option) => option?.label}
+            onChange={(option: { value: string; label: string }) =>
+              setSelectedItem(option?.value)
+            }
+            displayValue={(option: { value: string; label: string }) =>
+              option?.label
+            }
           />
         </div>
 

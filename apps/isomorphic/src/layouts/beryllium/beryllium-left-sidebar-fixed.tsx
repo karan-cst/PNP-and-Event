@@ -153,7 +153,7 @@ export default function BerylliumLeftSidebarFixed() {
   // }, [width, pathname]);
   useEffect(() => {
     setExpandedLeft(false);
-  }, [pathname]);
+  }, [pathname, setExpandedLeft]);
 
   return (
     <aside className="fixed start-0 top-0 z-50 hidden h-screen w-[88px] flex-col items-center gap-10 bg-gray-900 py-3.5 dark:bg-gray-0 xl:flex">

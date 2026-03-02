@@ -33,7 +33,7 @@ export default function EventjobsTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [isPharma, setIsPharma] = useState(false);
+  const [isPharma, setIsPharma] = useState('pharma');
 
   const { table, setData } = useTanStackTable<EventJobsDataType>({
     tableData: EventJobsData.filter((e) => e.isPharma !== isPharma),

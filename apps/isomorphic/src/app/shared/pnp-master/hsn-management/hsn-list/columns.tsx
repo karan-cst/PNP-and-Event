@@ -87,35 +87,9 @@ export const HSNListColumns = [
     }) => (
       <Flex align="center" justify="start" gap="3" className="pe-4">
         <HSNEdit hsn={row.original} />
-
-        {/* <DeletePopover
-          title={`Delete the vendor person`}
-          description={`Are you sure you want to delete this #${row.original.name}?`}
-          onDelete={() =>
-            meta?.handleDeleteRow && meta?.handleDeleteRow(row.original)
-          }
-        /> */}
       </Flex>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'isActive',
-  //   size: 120,
-  //   header: 'Is Active',
-  //   cell: ({ row }) => (
-  //     <Switch
-  //       // label="Free Shipping"
-  //       className="col-span-full"
-  //       value={row.original.isActive ? 'true' : 'false'}
-  //       checked={row.original.isActive}
-  //       onChange={(e) =>
-  //         e.target.value == 'true'
-  //           ? (row.original.isActive = true)
-  //           : (row.original.isActive = false)
-  //       }
-  //     />
-  //   ),
-  // }),
 ];
 
 const HSNEdit = ({ hsn }: { hsn: HSNDataType }) => {

@@ -46,8 +46,7 @@ export const DivisionListColumns = [
     id: 'status',
     size: 150,
     header: 'Status',
-    cell: ({ row }) =>
-      getStatusBadge(row.original.isActive ? 'Active' : 'Deactive'),
+    cell: ({ row }) => getStatusBadge(row.original.isActive),
   }),
   columnHelper.display({
     id: 'action',

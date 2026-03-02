@@ -7,18 +7,26 @@ import FormGroup from '@/app/shared/form-group';
 import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import cn from '@core/utils/class-names';
 
+type Option = {
+  label: string;
+  value: string;
+};
 const clients = [
   { id: '1', name: 'Intas', isPharma: true },
   { id: '2', name: 'Sun Pharma', isPharma: false },
   { id: '3', name: 'Cipla', isPharma: false },
 ];
+const clientOptions: Option[] = clients.map((c) => ({
+  label: c.name,
+  value: c.id,
+}));
 
-const divisionOptions = [
+const divisionOptions: Option[] = [
   { label: 'Cardio Division', value: 'cardio' },
   { label: 'Neuro Division', value: 'neuro' },
   { label: 'Gastro Division', value: 'gastro' },
 ];
-const priorityOptions = [
+const priorityOptions: Option[] = [
   { label: 'Low', value: 'Low' },
   { label: 'Medium', value: 'Medium' },
   { label: 'High', value: 'High' },
@@ -51,20 +59,13 @@ export default function EventClient({ className }: { className?: string }) {
       <Controller
         name="client.clientId"
         control={control}
-        render={({ field, fieldState }) => (
+        render={({ field: { value, onChange }, fieldState }) => (
           <Select
             label="Client"
-            options={clients.map((c) => ({
-              label: c.name,
-              value: c.id,
-            }))}
-            value={
-              clients
-                .map((c) => ({ label: c.name, value: c.id }))
-                .find((opt) => opt.value === field.value) ?? null
-            }
-            onChange={(option) => field.onChange(option?.value)}
-            displayValue={(option) => option?.label}
+            options={clientOptions}
+            value={clientOptions.find((opt) => opt.value === value) ?? null}
+            onChange={(option: Option) => onChange(option?.value)}
+            displayValue={(option: Option) => option?.label}
             error={fieldState.error?.message}
           />
         )}
@@ -82,8 +83,8 @@ export default function EventClient({ className }: { className?: string }) {
               value={
                 divisionOptions.find((opt) => opt.value === field.value) ?? null
               }
-              onChange={(option) => field.onChange(option?.value)}
-              displayValue={(option) => option?.label}
+              onChange={(option: Option) => field.onChange(option?.value)}
+              displayValue={(option: Option) => option?.label}
               error={fieldState.error?.message}
             />
           )}
@@ -100,8 +101,8 @@ export default function EventClient({ className }: { className?: string }) {
             value={
               priorityOptions.find((opt) => opt.value === field.value) ?? null
             }
-            onChange={(option) => field.onChange(option?.value)}
-            displayValue={(option) => option?.label}
+            onChange={(option: Option) => field.onChange(option?.value)}
+            displayValue={(option: Option) => option?.label}
             error={fieldState.error?.message}
           />
         )}

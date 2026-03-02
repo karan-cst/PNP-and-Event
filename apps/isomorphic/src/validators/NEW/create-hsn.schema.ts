@@ -11,13 +11,12 @@ export const HSNFormSchema = z.object({
   title: z.string().trim().min(1, { message: 'Title is required' }),
   subtitle: z.string().trim().min(1, { message: 'Sub Title is required' }),
   description: z.string().trim().min(1, { message: 'Description is required' }),
-  gst: z
-    .string()
-    .trim()
-    .regex(/^\d+(\.\d{1,2})?$/, {
-      message: 'GST must be a valid number',
-    }),
-  isActive: z.boolean(),
+  gst: z.number(),
+  // .trim()
+  // .regex(/^\d+(\.\d{1,2})?$/, {
+  //   message: 'GST must be a valid number',
+  // }),
+  isActive: z.string(),
 });
 
 // generate form types from zod validation schema

@@ -3,7 +3,7 @@ export type GlCode = {
   glCode: number;
   jobPurpose: string;
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
 };
 
 export const GlCodeData = [
@@ -12,6 +12,6 @@ export const GlCodeData = [
     glCode: 110101,
     jobPurpose: 'ABC',
     createdAt: '2026-02-10T16:01:40.021Z',
-    isActive: false,
+    isActive: 'active',
   },
 ];

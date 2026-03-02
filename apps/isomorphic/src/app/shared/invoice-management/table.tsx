@@ -58,7 +58,8 @@ export default function InvoiceTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          setData((prev) => prev.filter((r) => r.id !== row.id));
+          // setData((prev) => prev.filter((r) => r.id !== row.id));
+          setData((prev) => prev);
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));

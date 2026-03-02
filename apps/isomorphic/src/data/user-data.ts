@@ -8,7 +8,7 @@ export type User = {
   mobile: string;
   userType: keyof typeof USERTYPE; //TODO Define ROLES type
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
   address: string;
   // permissions: keyof typeof PERMISSIONS;
   // status: keyof typeof STATUSES;
@@ -37,7 +37,7 @@ export const userData = [
     mobile: '7894561234',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-    isActive: false,
+    isActive: 'inactive',
   },
   {
     id: 'U002',
@@ -47,7 +47,7 @@ export const userData = [
     userType: USERTYPE.OperationHeadEvent,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -59,7 +59,7 @@ export const userData = [
     userType: USERTYPE.EventHead,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -71,7 +71,7 @@ export const userData = [
     userType: USERTYPE.CS,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -83,7 +83,7 @@ export const userData = [
     userType: USERTYPE.OperationHeadPnP,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: false,
+    isActive: 'inactive',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -95,7 +95,7 @@ export const userData = [
     userType: USERTYPE.BusinessHeadPnp,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: false,
+    isActive: 'inactive',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -107,7 +107,7 @@ export const userData = [
     userType: USERTYPE.PrintExecutivePnP,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -119,7 +119,7 @@ export const userData = [
     userType: USERTYPE.PrintManagerPnP,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -131,7 +131,7 @@ export const userData = [
     userType: USERTYPE.GiftManagerPnP,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -143,7 +143,7 @@ export const userData = [
     userType: USERTYPE.PNPHead,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -155,7 +155,7 @@ export const userData = [
     userType: USERTYPE.DeliveryManagerPnP,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: false,
+    isActive: 'inactive',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -167,7 +167,7 @@ export const userData = [
     userType: USERTYPE.FinanceExecutive,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -179,7 +179,7 @@ export const userData = [
     userType: USERTYPE.FinanaceManager,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -191,7 +191,7 @@ export const userData = [
     userType: USERTYPE.FinanceHead,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: false,
+    isActive: 'inactive',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -203,7 +203,7 @@ export const userData = [
     userType: USERTYPE.Admin,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -215,7 +215,7 @@ export const userData = [
     userType: USERTYPE.SuperAdmin,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '7894561234',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },

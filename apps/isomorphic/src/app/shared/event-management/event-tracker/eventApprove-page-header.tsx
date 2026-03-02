@@ -49,14 +49,16 @@ export default function EventApprovePageHeader<T extends Record<string, any>>({
           <Select
             placeholder="All"
             options={[
-              { label: 'All', value: null },
-              { label: 'Pharma', value: true },
-              { label: 'Non Pharma', value: false },
+              { label: 'All', value: 'all' },
+              { label: 'Pharma', value: 'pharma' },
+              { label: 'Non Pharma', value: 'non-pharma' },
             ]}
             value={type}
-            onChange={(option: { value: boolean | null }) =>
-              setType(option.value)
-            }
+            onChange={(option: { value: boolean | null }) => {
+              if (setType) {
+                setType(option.value);
+              }
+            }}
             displayValue={(value: boolean | null) =>
               value ? 'Pharma' : 'Non Pharma'
             }

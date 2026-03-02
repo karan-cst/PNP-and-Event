@@ -266,6 +266,9 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
+      swapy:
+        specifier: ^1.0.5
+        version: 1.0.5
       swiper:
         specifier: ^11.2.6
         version: 11.2.6

@@ -4,8 +4,9 @@ import { ProductType } from '@/data/products-data';
 import { createColumnHelper } from '@tanstack/react-table';
 
 import { Text, Title } from 'rizzui';
+import { RolesDataType } from './role';
 
-const columnHelper = createColumnHelper<ProductType>();
+const columnHelper = createColumnHelper<RolesDataType>();
 
 export const RolesListColumns = [
   columnHelper.accessor('name', {

@@ -7,7 +7,7 @@ export const DivisionFormSchema = z.object({
     .trim()
     .min(1, { message: 'Division code is required' }),
   ccCode: z.string().trim().min(1, { message: 'CC Code is required' }),
-  isActive: z.boolean(),
+  isActive: z.string(),
 });
 
 // generate form types from zod validation schema

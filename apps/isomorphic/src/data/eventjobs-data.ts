@@ -11,8 +11,8 @@ export type EventJobsType = {
   invoiceStatus: string | null;
   paymentStatus: string | null;
   vendorName: string | null;
-  isPharma: boolean; // 👈 Intas / Pharma vs Non-Pharma
-  isActive: boolean;
+  isPharma: string; // 👈 Intas / Pharma vs Non-Pharma
+  isActive: string;
   createdAt: string;
 };
 
@@ -31,8 +31,8 @@ export const EventJobsData: EventJobsType[] = [
     invoiceStatus: null,
     paymentStatus: null,
     vendorName: null,
-    isPharma: true,
-    isActive: true,
+    isPharma: 'pharma',
+    isActive: 'active',
     createdAt: '2026-02-16T10:30:00Z',
   },
   {
@@ -48,8 +48,8 @@ export const EventJobsData: EventJobsType[] = [
     invoiceStatus: 'Awaiting',
     paymentStatus: 'Awaiting',
     vendorName: 'XYZ Event',
-    isPharma: true,
-    isActive: true,
+    isPharma: 'pharma',
+    isActive: 'active',
     createdAt: '2026-02-16T10:30:00Z',
   },
 
@@ -67,8 +67,8 @@ export const EventJobsData: EventJobsType[] = [
     invoiceStatus: null,
     paymentStatus: null,
     vendorName: null,
-    isPharma: false,
-    isActive: true,
+    isPharma: 'non-pharma',
+    isActive: 'active',
     createdAt: '2026-02-16T10:30:00Z',
   },
   {
@@ -84,8 +84,8 @@ export const EventJobsData: EventJobsType[] = [
     invoiceStatus: 'Awaiting',
     paymentStatus: 'Awaiting',
     vendorName: 'XYZ Event',
-    isPharma: false,
-    isActive: true,
+    isPharma: 'non-pharma',
+    isActive: 'active',
     createdAt: '2026-02-16T10:30:00Z',
   },
 ];

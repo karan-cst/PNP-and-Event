@@ -1,9 +1,12 @@
 'use client';
-import { JobType } from '@/data/job-feed-data';
 
 import { createColumnHelper } from '@tanstack/react-table';
 
 import { Text, Title } from 'rizzui';
+export type JobType = {
+  id: string; // recommended for table row key
+  type: string;
+};
 
 const columnHelper = createColumnHelper<JobType>();
 

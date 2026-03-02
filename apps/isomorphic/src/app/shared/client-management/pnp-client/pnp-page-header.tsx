@@ -39,10 +39,10 @@ export function CreateClientModalView({ client }: { client?: ClientDataType }) {
             email: '',
             mobile: '',
             clientType: '',
-            city: '',
             address: '',
             clientFrom: '',
             division: '',
+            isActive: 'active',
           }
         }
       />

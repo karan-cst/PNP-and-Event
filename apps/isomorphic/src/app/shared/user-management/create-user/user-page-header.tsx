@@ -35,7 +35,7 @@ export function CreateUserModalView({ user }: { user?: UserDataType }) {
             mobile: '',
             userType: '',
             address: '',
-            isActive: false,
+            isActive: 'active',
           }
         }
       />

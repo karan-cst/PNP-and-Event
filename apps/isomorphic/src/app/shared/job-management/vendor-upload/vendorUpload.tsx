@@ -55,7 +55,7 @@ export default function VendorUploadModal({
             { label: 'Vendor B', value: 'vendorB' },
           ]}
           value={vendor}
-          onChange={(value: string) => setVendor(value || 'vendorA')}
+          onChange={(value: string) => setVendor?.(value || 'vendorA')}
           placeholder="Choose vendor"
         />
 
@@ -63,7 +63,7 @@ export default function VendorUploadModal({
         <FileInput
           label="Upload Quotation (Excel)"
           accept=".xlsx,.xls"
-          onChange={(file) => {
+          onChange={(file: unknown) => {
             if (file instanceof File) {
               setQuotationFile(file);
             } else {
@@ -76,7 +76,7 @@ export default function VendorUploadModal({
         <FileInput
           label="Upload Email File (JPG / PDF)"
           accept=".jpg,.jpeg,.png,.pdf"
-          onChange={(file) => {
+          onChange={(file: unknown) => {
             if (file instanceof File) {
               setEmailFile(file);
             } else {

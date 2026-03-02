@@ -6,9 +6,9 @@ import { Button, Title, ActionIcon } from 'rizzui';
 import { PiPlusBold, PiXBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import CreateHSN from './createGLCode';
-import { HSNDataType } from '../glcode-list/table';
+import { GlCodeDataType } from '../glcode-list/table';
 
-export function CreateHSNModalView({ hsn }: { hsn: HSNDataType }) {
+export function CreateHSNModalView({ glcode }: { glcode?: GlCodeDataType }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
@@ -22,14 +22,11 @@ export function CreateHSNModalView({ hsn }: { hsn: HSNDataType }) {
       </div>
       <CreateHSN
         isModalView={false}
-        hsn={
-          hsn || {
-            HSNCode: '',
-            title: '',
-            subtitle: '',
-            description: '',
-            gst: '',
-            isActive: false,
+        glcode={
+          glcode || {
+            glCode: 0,
+            jobPurpose: '',
+            isActive: 'active',
           }
         }
       />

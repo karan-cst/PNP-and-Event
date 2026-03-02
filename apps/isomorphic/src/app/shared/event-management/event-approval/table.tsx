@@ -33,7 +33,7 @@ export default function EventApproveTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<boolean | null>(true);
+  const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'Events',
     breadcrumb: [
@@ -59,7 +59,8 @@ export default function EventApproveTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          setData((prev) => prev.filter((r) => r.id !== row.id));
+          // setData((prev) => prev.filter((r) => r.id !== row.id));
+          setData((prev) => prev);
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));

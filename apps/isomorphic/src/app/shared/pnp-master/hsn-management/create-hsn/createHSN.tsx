@@ -6,10 +6,6 @@ import { Button, Input, Select, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
 import { Form } from '@core/ui/form';
 import {
-  VendorFormInput,
-  vendorFormSchema,
-} from '@/validators/NEW/create-vendor.schema';
-import {
   HSNFormInput,
   HSNFormSchema,
 } from '@/validators/NEW/create-hsn.schema';
@@ -80,7 +76,7 @@ export default function CreateHSN({
         subtitle: '',
         description: '',
         gst: '',
-        isActive: false,
+        isActive: 'inactive',
       });
     }, 600);
   };
@@ -152,16 +148,16 @@ export default function CreateHSN({
                       dropdownClassName="h-auto"
                       placeholder="Select..."
                       options={[
-                        { label: 'Active', value: true },
-                        { label: 'Deactive', value: false },
+                        { label: 'Active', value: 'active' },
+                        { label: 'Deactive', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
                         [
-                          { label: 'Active', value: true },
-                          { label: 'Deactive', value: false },
+                          { label: 'Active', value: 'active' },
+                          { label: 'Deactive', value: 'inactive' },
                         ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}

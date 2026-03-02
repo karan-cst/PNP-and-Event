@@ -23,7 +23,7 @@ export const productVariants = [
 export function eventDefaultValues(event?: CreateEventInput) {
   return {
     // 1️⃣ Basic Info
-    eventType: event?.eventType ?? undefined,
+    eventType: event?.eventType ?? 'Conference',
     eventName: event?.eventName ?? '',
     startDate: event?.startDate ?? undefined,
     endDate: event?.endDate ?? undefined,
@@ -56,21 +56,21 @@ export function eventDefaultValues(event?: CreateEventInput) {
       : event?.elements,
 
     // 5️⃣ Client Section
-    isPharma: event?.isPharma ?? true,
     divisionName: event?.divisionName ?? '',
 
     client: {
       clientName: event?.client?.clientId ?? '',
-      address: event?.client?.address ?? '',
-      contactName: event?.client?.contactName ?? '',
-      contactNumber: event?.client?.contactNumber ?? '',
+      divisionName: event?.client?.divisionName ?? '',
+      // address: event?.client?.address ?? '',
+      // contactName: event?.client?.contactName ?? '',
+      // contactNumber: event?.client?.contactNumber ?? '',
     },
 
     // 6️⃣ Priority
     priority: event?.priority ?? 'Low',
 
     // 7️⃣ Coordinator
-    coordinatorId: event?.coordinatorId ?? '',
+    // coordinatorId: event?.coordinatorId ?? '',
   };
 }
 

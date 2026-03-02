@@ -7,7 +7,7 @@ export const DeliveryLocationFormSchema = z.object({
   deliveryDays: z
     .array(z.string().min(1))
     .min(1, { message: 'At least one delivery day is required' }),
-  isActive: z.boolean(),
+  isActive: z.string(),
 });
 
 // generate form types from zod validation schema

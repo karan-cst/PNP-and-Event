@@ -5,12 +5,12 @@ export type Client = {
   clientName: string;
   name: string;
   mobile: string;
-  division: string | null;
+  division?: string;
   email: string;
   clientType: keyof typeof CLIENTTYPE; //TODO Define ROLES type
-  clientFrom: string | null;
+  clientFrom?: string | ' ';
   createdAt: Date;
-  isActive: boolean;
+  isActive: string;
   address: string;
 };
 
@@ -31,13 +31,13 @@ export const clientData = [
     id: 'C001',
     companyName: 'Intas Pharma',
     division: 'Altis',
-    clientFrom: null,
+    clientFrom: ' ',
     name: 'Ankit Shah',
     email: 'Ankit.shah@intas.com',
     clientType: CLIENTTYPE.PNPClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -45,13 +45,13 @@ export const clientData = [
     id: 'C002',
     companyName: 'Intas Pharma',
     division: 'Arron',
-    clientFrom: null,
+    clientFrom: ' ',
     name: 'Rohan Patel',
     email: 'Rohan.patel@intas.com',
     clientType: CLIENTTYPE.PNPClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -65,7 +65,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -79,7 +79,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -87,13 +87,13 @@ export const clientData = [
     id: 'C005',
     companyName: 'Milcent Appliances',
     name: 'Ankit Shah',
-    division: null,
+    division: ' ',
     clientFrom: 'non-pharma',
     email: 'Ankit.shah@intas.com',
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -102,12 +102,12 @@ export const clientData = [
     companyName: 'Kitchen Express',
     name: 'Rohan Patel',
     email: 'Rohan.patel@intas.com',
-    division: null,
+    division: ' ',
     clientFrom: 'non-pharma',
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -121,7 +121,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -135,7 +135,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -143,13 +143,13 @@ export const clientData = [
     id: 'C005',
     companyName: 'Milcent Appliances',
     name: 'Ankit Shah',
-    division: null,
+    division: ' ',
     clientFrom: 'non-pharma',
     email: 'Ankit.shah@intas.com',
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -158,12 +158,12 @@ export const clientData = [
     companyName: 'Kitchen Express',
     name: 'Rohan Patel',
     email: 'Rohan.patel@intas.com',
-    division: null,
+    division: ' ',
     clientFrom: 'non-pharma',
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -177,7 +177,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -191,7 +191,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -199,13 +199,13 @@ export const clientData = [
     id: 'C005',
     companyName: 'Milcent Appliances',
     name: 'Ankit Shah',
-    division: null,
+    division: ' ',
     clientFrom: 'non-pharma',
     email: 'Ankit.shah@intas.com',
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -214,12 +214,12 @@ export const clientData = [
     companyName: 'Kitchen Express',
     name: 'Rohan Patel',
     email: 'Rohan.patel@intas.com',
-    division: null,
+    division: ' ',
     clientFrom: 'non-pharma',
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -233,7 +233,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
@@ -247,91 +247,7 @@ export const clientData = [
     clientType: CLIENTTYPE.EVENTClient,
     createdAt: '2026-02-10T16:01:40.021Z',
     mobile: '789456123',
-    isActive: true,
-    address:
-      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-  },
-  {
-    id: 'C005',
-    companyName: 'Milcent Appliances',
-    name: 'Ankit Shah',
-    division: null,
-    clientFrom: 'non-pharma',
-    email: 'Ankit.shah@intas.com',
-    clientType: CLIENTTYPE.EVENTClient,
-    createdAt: '2026-02-10T16:01:40.021Z',
-    mobile: '789456123',
-    isActive: true,
-    address:
-      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-  },
-  {
-    id: 'C006',
-    companyName: 'Kitchen Express',
-    name: 'Rohan Patel',
-    email: 'Rohan.patel@intas.com',
-    division: null,
-    clientFrom: 'non-pharma',
-    clientType: CLIENTTYPE.EVENTClient,
-    createdAt: '2026-02-10T16:01:40.021Z',
-    mobile: '789456123',
-    isActive: true,
-    address:
-      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-  },
-  {
-    id: 'C003',
-    companyName: 'Intas Pharma',
-    division: 'Altis',
-    clientFrom: 'pharma',
-    name: 'Ankit Shah',
-    email: 'Ankit.shah@intas.com',
-    clientType: CLIENTTYPE.EVENTClient,
-    createdAt: '2026-02-10T16:01:40.021Z',
-    mobile: '789456123',
-    isActive: true,
-    address:
-      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-  },
-  {
-    id: 'C004',
-    companyName: 'Intas Pharma',
-    division: 'Arron',
-    clientFrom: 'pharma',
-    name: 'Rohan Patel',
-    email: 'Rohan.patel@intas.com',
-    clientType: CLIENTTYPE.EVENTClient,
-    createdAt: '2026-02-10T16:01:40.021Z',
-    mobile: '789456123',
-    isActive: true,
-    address:
-      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-  },
-  {
-    id: 'C005',
-    companyName: 'Milcent Appliances',
-    name: 'Ankit Shah',
-    division: null,
-    clientFrom: 'non-pharma',
-    email: 'Ankit.shah@intas.com',
-    clientType: CLIENTTYPE.EVENTClient,
-    createdAt: '2026-02-10T16:01:40.021Z',
-    mobile: '789456123',
-    isActive: true,
-    address:
-      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-  },
-  {
-    id: 'C006',
-    companyName: 'Kitchen Express',
-    name: 'Rohan Patel',
-    email: 'Rohan.patel@intas.com',
-    division: null,
-    clientFrom: 'non-pharma',
-    clientType: CLIENTTYPE.EVENTClient,
-    createdAt: '2026-02-10T16:01:40.021Z',
-    mobile: '789456123',
-    isActive: true,
+    isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
