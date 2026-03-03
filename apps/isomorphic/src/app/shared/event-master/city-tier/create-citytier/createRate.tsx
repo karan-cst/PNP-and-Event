@@ -166,16 +166,16 @@ export default function CreateCityTier({
                       dropdownClassName="h-auto"
                       placeholder="Select..."
                       options={[
-                        { label: 'Active', value: true },
-                        { label: 'Inactive', value: false },
+                        { label: 'Active', value: 'active' },
+                        { label: 'Inactive', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
                         [
-                          { label: 'Active', value: true },
-                          { label: 'Inactive', value: false },
+                          { label: 'Active', value: 'active' },
+                          { label: 'Inactive', value: 'inactive' },
                         ].find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}

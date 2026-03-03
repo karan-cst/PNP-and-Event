@@ -5,7 +5,7 @@ import PageHeader from '@/app/shared/page-header';
 import { Button, Title, ActionIcon } from 'rizzui';
 import { PiPlusBold, PiXBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import CreateHSN from './createGLCode';
+import CreateGLCode from './createGLCode';
 import { GlCodeDataType } from '../glcode-list/table';
 
 export function CreateHSNModalView({ glcode }: { glcode?: GlCodeDataType }) {
@@ -20,7 +20,7 @@ export function CreateHSNModalView({ glcode }: { glcode?: GlCodeDataType }) {
           <PiXBold className="h-auto w-5" />
         </ActionIcon>
       </div>
-      <CreateHSN
+      <CreateGLCode
         isModalView={false}
         glcode={
           glcode || {

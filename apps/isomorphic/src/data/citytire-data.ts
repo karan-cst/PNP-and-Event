@@ -4,7 +4,7 @@ export type cityTireType = {
   city: string;
   state: string;
   minimumProfitMargin: number;
-  isActive: boolean;
+  isActive: string;
   createdAt: string;
 };
 
@@ -15,7 +15,7 @@ export const cityTireData: cityTireType[] = [
     city: 'Ahmedabad',
     state: 'Gujarat',
     minimumProfitMargin: 15,
-    isActive: true,
+    isActive: 'active',
     createdAt: '2026-02-16T10:30:00Z',
   },
   {
@@ -24,7 +24,7 @@ export const cityTireData: cityTireType[] = [
     city: 'Surat',
     state: 'Gujarat',
     minimumProfitMargin: 15,
-    isActive: true,
+    isActive: 'active',
     createdAt: '2026-02-16T10:30:00Z',
   },
   {
@@ -33,7 +33,7 @@ export const cityTireData: cityTireType[] = [
     city: 'Vadodara',
     state: 'Gujarat',
     minimumProfitMargin: 15,
-    isActive: false,
+    isActive: 'inactive',
     createdAt: '2026-02-16T10:30:00Z',
   },
 ];

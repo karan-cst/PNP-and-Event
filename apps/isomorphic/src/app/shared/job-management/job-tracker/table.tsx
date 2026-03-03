@@ -7,9 +7,6 @@ import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
-import { useState } from 'react';
-import ClientApprovePageHeader from './jobApprove-page-header';
-
 import { dummyJobTrackerData, JobTrackerTableType } from '@/data/jobpnp-data';
 import JobApprovePageHeader from './jobApprove-page-header';
 

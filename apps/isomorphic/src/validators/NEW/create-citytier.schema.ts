@@ -13,6 +13,6 @@ export const CityTierFormSchema = z.object({
     .min(0, { message: 'Profit margin must be 0 or greater' })
     .max(100, { message: 'Profit margin cannot exceed 100%' }),
 
-  isActive: z.boolean(),
+  isActive: z.string(),
 });
 export type CityTierFormInput = z.infer<typeof CityTierFormSchema>;
