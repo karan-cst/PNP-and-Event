@@ -52,7 +52,13 @@ export default function EventApprovePageHeader<T extends Record<string, any>>({
             ]}
             value={type}
             onChange={(value: string) => setType?.(value || 'all')}
-            displayValue={(value: string) => (value ? 'Pharma' : 'Non Pharma')}
+            displayValue={(value: string) =>
+              value == 'all'
+                ? 'All'
+                : value == 'pharma'
+                  ? 'Pharma'
+                  : 'Non Pharma'
+            }
             dropdownClassName="z-[10000]"
             className="w-[50%]"
           />
