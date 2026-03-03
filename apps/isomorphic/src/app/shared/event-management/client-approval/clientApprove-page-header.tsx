@@ -1,15 +1,10 @@
 'use client';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import PageHeader from '@/app/shared/page-header';
-import { Button, Title, ActionIcon, Flex, Input, Select } from 'rizzui';
+import { Flex, Input } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
-import {
-  PiArrowsOutBold,
-  PiMagnifyingGlassBold,
-  PiPlusBold,
-  PiXBold,
-} from 'react-icons/pi';
+import { PiMagnifyingGlassBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import { useRouter } from 'next/navigation';
@@ -21,8 +16,6 @@ type PageHeaderTypes<T extends Record<string, any>> = {
   breadcrumb: { name: string; href?: string }[];
   className?: string;
   table: ReactTableType<T>;
-  type?: boolean | null;
-  setType?: Dispatch<SetStateAction<boolean | null>>;
 };
 
 export default function ClientApprovePageHeader<T extends Record<string, any>>({
@@ -30,8 +23,6 @@ export default function ClientApprovePageHeader<T extends Record<string, any>>({
   breadcrumb,
   className,
   table,
-  type = false,
-  setType,
 }: PageHeaderTypes<T>) {
   const router = useRouter();
   const { isOpen, openModal, closeModal } = useModal();

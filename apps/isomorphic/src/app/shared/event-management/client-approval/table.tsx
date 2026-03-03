@@ -33,7 +33,6 @@ export default function ClientApproveTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<boolean | null>(true);
   const pageHeader = {
     title: 'Events',
     breadcrumb: [

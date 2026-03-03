@@ -1,7 +1,7 @@
 export type EventDataType = {
   id: number;
   eventName: string;
-  isPharma: boolean;
+  isPharma: string;
   divisionName: string | null;
   clientName: string | null;
   eventType: 'Conference' | 'Stall' | 'briefing meeting';
@@ -24,7 +24,7 @@ export const eventDummyData: EventDataType[] = [
   {
     id: 1,
     eventName: 'Cardio Annual Summit 2026',
-    isPharma: true,
+    isPharma: 'pharma',
     divisionName: 'Intas - Cardio Division',
     clientName: null,
     eventType: 'Conference',
@@ -45,7 +45,7 @@ export const eventDummyData: EventDataType[] = [
   {
     id: 2,
     eventName: 'Neuro Expo 2026',
-    isPharma: true,
+    isPharma: 'pharma',
     divisionName: 'Intas - Neuro Division',
     clientName: null,
     eventType: 'Stall',
@@ -62,7 +62,7 @@ export const eventDummyData: EventDataType[] = [
   {
     id: 3,
     eventName: 'Gastro Experts Meet',
-    isPharma: true,
+    isPharma: 'pharma',
     divisionName: 'Intas - Gastro Division',
     clientName: null,
     eventType: 'Conference',
@@ -76,7 +76,7 @@ export const eventDummyData: EventDataType[] = [
   {
     id: 4,
     eventName: 'Healthcare Leadership Forum',
-    isPharma: false,
+    isPharma: 'non-pharma',
     divisionName: null,
     clientName: 'Sun Pharma',
     eventType: 'Conference',
@@ -95,7 +95,7 @@ export const eventDummyData: EventDataType[] = [
   {
     id: 5,
     eventName: 'National Medical Expo',
-    isPharma: false,
+    isPharma: 'non-pharma',
     divisionName: null,
     clientName: 'Cipla',
     eventType: 'Stall',
@@ -114,7 +114,7 @@ export const eventDummyData: EventDataType[] = [
   {
     id: 6,
     eventName: 'Product Briefing 2026',
-    isPharma: false,
+    isPharma: 'non-pharma',
     divisionName: null,
     clientName: 'Dr. Reddy’s',
     eventType: 'briefing meeting',

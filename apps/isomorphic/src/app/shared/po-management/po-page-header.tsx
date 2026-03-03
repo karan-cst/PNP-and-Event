@@ -13,8 +13,8 @@ type PageHeaderTypes<T extends Record<string, any>> = {
   breadcrumb: { name: string; href?: string }[];
   className?: string;
   table: ReactTableType<T>;
-  type: boolean | null;
-  setType: Dispatch<SetStateAction<boolean | null>>;
+  type: string;
+  setType: Dispatch<SetStateAction<string>>;
 };
 
 export default function POPageHeader<T extends Record<string, any>>({
@@ -22,7 +22,7 @@ export default function POPageHeader<T extends Record<string, any>>({
   breadcrumb,
   className,
   table,
-  type = false,
+  type = 'all',
   setType,
 }: PageHeaderTypes<T>) {
   return (
@@ -46,16 +46,18 @@ export default function POPageHeader<T extends Record<string, any>>({
           <Select
             placeholder="All"
             options={[
-              { label: 'All', value: null },
-              { label: 'Pharma', value: true },
-              { label: 'Non Pharma', value: false },
+              { label: 'All', value: 'all' },
+              { label: 'Pharma', value: 'pharma' },
+              { label: 'Non Pharma', value: 'non-pharma' },
             ]}
             value={type}
-            onChange={(option: { value: boolean | null }) =>
-              setType(option.value)
-            }
-            displayValue={(value: boolean | null) =>
-              value ? 'Pharma' : 'Non Pharma'
+            onChange={(option: { value: string }) => setType(option.value)}
+            displayValue={(value: string) =>
+              value == 'all'
+                ? 'All'
+                : value == 'pharma'
+                  ? 'Pharma'
+                  : 'Non Pharma'
             }
             dropdownClassName="z-[10000]"
             className="w-[50%]"

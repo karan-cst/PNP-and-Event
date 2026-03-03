@@ -10,7 +10,7 @@ export type PNPJobsType = {
   invoiceStatus: string | null;
   paymentStatus: string | null;
   vendorName: string | null;
-  isPharma: boolean; // 👈 Intas / Pharma vs Non-Pharma
+  isPharma: string; // 👈 Intas / Pharma vs Non-Pharma
   isActive: boolean;
   createdAt: string;
 };
@@ -29,7 +29,7 @@ export const PNPJobsData: PNPJobsType[] = [
     invoiceStatus: null,
     paymentStatus: null,
     vendorName: null,
-    isPharma: true,
+    isPharma: 'pharma',
     isActive: true,
     createdAt: '2026-02-16T10:30:00Z',
   },
@@ -45,7 +45,7 @@ export const PNPJobsData: PNPJobsType[] = [
     invoiceStatus: 'Awaiting',
     paymentStatus: 'Awaiting',
     vendorName: 'XYZ Event',
-    isPharma: true,
+    isPharma: 'pharma',
     isActive: true,
     createdAt: '2026-02-16T10:30:00Z',
   },

@@ -12,8 +12,6 @@ type PageHeaderTypes<T extends Record<string, any>> = {
   breadcrumb: { name: string; href?: string }[];
   className?: string;
   table: ReactTableType<T>;
-  type?: boolean | null;
-  setType?: Dispatch<SetStateAction<boolean | null>>;
 };
 
 export default function JobApprovePageHeader<T extends Record<string, any>>({

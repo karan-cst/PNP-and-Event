@@ -34,7 +34,7 @@ export default function POTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<boolean | null>(true);
+  const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'PO Management',
     breadcrumb: [
@@ -47,7 +47,7 @@ export default function POTable({
 
   const { table, setData } = useTanStackTable<PODataType>({
     tableData:
-      type == null ? POData : POData.filter((job) => job.isPharma === type),
+      type == 'all' ? POData : POData.filter((job) => job.isPharma === type),
     columnConfig: POColumns,
     options: {
       initialState: {
@@ -71,7 +71,7 @@ export default function POTable({
 
   useEffect(() => {
     const filteredData =
-      type == null ? POData : POData.filter((job) => job.isPharma === type);
+      type == 'all' ? POData : POData.filter((job) => job.isPharma === type);
 
     setData(filteredData);
 

@@ -226,7 +226,7 @@ export const ShowComment = ({
 export const Action = ({ data }: { data: EventApproveDataType }) => {
   const { openModal, closeModal } = useModal();
 
-  const [isApprove, setIsApprove] = useState<boolean>(true);
+  const [isApprove, setIsApprove] = useState<string>('approve');
   const [comment, setComment] = useState<string>('');
 
   const handleOpen = () => {
@@ -256,7 +256,7 @@ export const Action = ({ data }: { data: EventApproveDataType }) => {
               placeholder="Approve or Reject"
               options={approveOptions}
               value={isApprove}
-              onChange={(e: boolean) => setIsApprove(e)}
+              onChange={(e: string) => setIsApprove(e)}
               getOptionValue={(option) => option.value}
               displayValue={(selected) =>
                 approveOptions.find((r) => r.value === selected)?.label ?? ''

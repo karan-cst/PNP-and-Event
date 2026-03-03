@@ -33,7 +33,6 @@ export default function JobTrackerTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<boolean | null>(true);
   const pageHeader = {
     title: 'Events',
     breadcrumb: [
@@ -75,8 +74,6 @@ export default function JobTrackerTable({
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
-        type={type}
-        setType={setType}
       />
 
       {!hideFilters && <Filters table={table} />}

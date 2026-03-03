@@ -13,7 +13,7 @@ export type PO = {
   secondLevelBy?: string;
   secondLevelComment?: string;
   poStatus?: string;
-  isPharma: boolean;
+  isPharma: string;
 };
 
 export const POData = [
@@ -32,7 +32,7 @@ export const POData = [
     secondLevelBy: '',
     secondLevelComment: '',
     poStatus: '',
-    isPharma: true,
+    isPharma: 'pharma',
   },
   {
     clientName: 'ABC',
@@ -49,6 +49,6 @@ export const POData = [
     secondLevelBy: 'Amulakh Mistry',
     secondLevelComment: '',
     poStatus: '',
-    isPharma: false,
+    isPharma: 'non-pharma',
   },
 ];

@@ -11,7 +11,6 @@ import { exportToCSV } from '@core/utils/export-to-csv';
 import UserPageHeader from '../user-page-header';
 import { eventDummyData } from '@/data/event-management.data';
 import { useEffect, useState } from 'react';
-import { boolean } from 'zod';
 
 export type EventDataType = (typeof eventDummyData)[number];
 
@@ -35,7 +34,7 @@ export default function EventsTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<boolean | null>(true);
+  const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'Events',
     breadcrumb: [

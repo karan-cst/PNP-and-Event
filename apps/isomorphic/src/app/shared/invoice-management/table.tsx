@@ -34,7 +34,7 @@ export default function InvoiceTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<boolean | null>(true);
+  const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'Invoice Management',
     breadcrumb: [

@@ -10,7 +10,7 @@ export type EventTracker = {
   poStatus?: string;
   invoiceStatus?: string;
   paymentStatus?: string;
-  isPharama?: boolean;
+  isPharama?: string;
 };
 
 export const EventTrackerData = [
@@ -28,7 +28,7 @@ export const EventTrackerData = [
     invoiceStatus: 'Awaiting',
     paymentStatus: null,
     city: 'ahmedabad - tier1',
-    isPharma: true,
+    isPharma: 'pharma',
   },
   {
     clientName: 'ABC',
@@ -40,6 +40,6 @@ export const EventTrackerData = [
     venodrCost: 12000,
     clientCost: null,
     poStatus: '',
-    isPharma: true,
+    isPharma: 'pharma',
   },
 ];
