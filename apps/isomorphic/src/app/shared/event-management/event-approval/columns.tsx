@@ -231,8 +231,8 @@ export const Action = ({ data }: { data: EventApproveDataType }) => {
 
   const handleOpen = () => {
     const approveOptions = [
-      { label: 'Approve', value: true },
-      { label: 'Reject', value: false },
+      { label: 'Approve', value: 'approve' },
+      { label: 'Reject', value: 'reject' },
     ];
 
     openModal({
