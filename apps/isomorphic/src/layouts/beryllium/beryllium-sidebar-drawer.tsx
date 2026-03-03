@@ -31,7 +31,6 @@ export default function Sidebar({ className }: { className?: string }) {
       dropdownItems: item.dropdownItems?.filter((sub) => {
         // if no roles defined → allow
         if (!sub.roles) return true;
-
         return sub.roles.includes(role);
       }),
     }));

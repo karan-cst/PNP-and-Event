@@ -4,13 +4,14 @@ import { useFormContext } from 'react-hook-form';
 import { Input } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
+import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 
 export default function EventScope({ className }: { className?: string }) {
   const {
     register,
     control,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CreateEventInput>();
 
   return (
     <FormGroup
@@ -21,8 +22,8 @@ export default function EventScope({ className }: { className?: string }) {
       <Input
         label="Title"
         placeholder="Title"
-        {...register('scope.titleeventName')}
-        error={errors?.scope?.titleeventName?.message}
+        {...register('scope.title')}
+        error={errors?.scope?.title?.message}
       />
       <Input
         label="Tentative Cost"

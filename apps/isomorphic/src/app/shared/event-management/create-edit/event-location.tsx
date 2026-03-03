@@ -5,13 +5,14 @@ import { Input, Select } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import { cityOption, stateOption } from './form-utils';
+import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 
 export default function EventLocation({ className }: { className?: string }) {
   const {
     register,
     control,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<CreateEventInput>();
   console.log('errors', errors);
 
   return (
@@ -41,7 +42,7 @@ export default function EventLocation({ className }: { className?: string }) {
         error={errors?.location?.pincode?.message}
       />
       <Controller
-        name="state"
+        name="location.state"
         control={control}
         render={({ field: { onChange, value } }) => (
           <Select
@@ -56,7 +57,7 @@ export default function EventLocation({ className }: { className?: string }) {
         )}
       />
       <Controller
-        name="city"
+        name="location.city"
         control={control}
         render={({ field: { onChange, value } }) => (
           <Select
