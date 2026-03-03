@@ -47,7 +47,7 @@ export default function InvoiceTable({
 
   const { table, setData } = useTanStackTable<PODataType>({
     tableData:
-      type == null ? POData : POData.filter((job) => job.isPharma === type),
+      type == 'all' ? POData : POData.filter((job) => job.isPharma === type),
     columnConfig: POColumns,
     options: {
       initialState: {
@@ -71,7 +71,7 @@ export default function InvoiceTable({
 
   useEffect(() => {
     const filteredData =
-      type == null ? POData : POData.filter((job) => job.isPharma === type);
+      type == 'all' ? POData : POData.filter((job) => job.isPharma === type);
 
     setData(filteredData);
 

@@ -56,7 +56,13 @@ export default function UserPageHeader<T extends Record<string, any>>({
             ]}
             value={type}
             onChange={(option: { value: string }) => setType(option.value)}
-            displayValue={(value: string) => (value ? 'Pharma' : 'Non Pharma')}
+            displayValue={(value: string) =>
+              value == 'all'
+                ? 'All'
+                : value == 'pharma'
+                  ? 'Pharma'
+                  : 'Non Pharma'
+            }
             dropdownClassName="z-[10000]"
             className="w-[50%]"
           />

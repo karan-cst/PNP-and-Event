@@ -50,7 +50,7 @@ export default function EventsTable({
 
   const { table, setData } = useTanStackTable<EventDataType>({
     tableData:
-      type == null
+      type == 'all'
         ? eventDummyData
         : eventDummyData.filter((e) => e.isPharma !== type),
     columnConfig: EventListColumns,
@@ -75,7 +75,7 @@ export default function EventsTable({
 
   useEffect(() => {
     const filteredData =
-      type == null
+      type == 'all'
         ? eventDummyData
         : eventDummyData.filter((job) => job.isPharma === type);
 

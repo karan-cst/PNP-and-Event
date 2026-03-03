@@ -115,8 +115,8 @@ export default function USerPasswordChange({
                 error={errors.newPassword?.message}
               />
               <Password
-                label="Old Password"
-                placeholder="Enter Old password"
+                label="Confirm Password"
+                placeholder="Enter Confirm Password"
                 size="lg"
                 className="[&>label>span]:font-medium"
                 inputClassName="text-sm"
