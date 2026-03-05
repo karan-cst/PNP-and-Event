@@ -110,9 +110,29 @@ export const menuItems = [
   },
   {
     name: 'User Management',
-    href: routes.userManagement.users,
+    href: '#',
     icon: <PiUserCircleGearDuotone />,
     roles: ['superAdmin'],
+    dropdownItems: [
+      {
+        name: 'User Event',
+        href: routes.userManagement.users,
+        badge: '',
+        roles: ['superAdmin'],
+      },
+      {
+        name: 'User PNP',
+        href: routes.userManagement.usersPNP,
+        badge: '',
+        roles: ['superAdmin'],
+      },
+      {
+        name: 'User Finance',
+        href: routes.userManagement.usersFinance,
+        badge: '',
+        roles: ['superAdmin'],
+      },
+    ],
   },
   {
     name: 'Vendor Management',
@@ -207,6 +227,12 @@ export const menuItems = [
       {
         name: 'Event Types',
         href: routes.eventMaster.type,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+      {
+        name: 'Division Code and CC',
+        href: routes.eventMaster.division,
         badge: '',
         roles: ['superAdmin', 'eventAdmin'],
       },

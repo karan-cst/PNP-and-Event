@@ -146,7 +146,13 @@ export default function VendorsTable({
   },
   paginationClassName,
 }: {
-  vendors: VendorDataType[];
+  vendors: {
+    vendorName: string;
+    name: string;
+    total: number;
+    emlFileUrl: string;
+    excelFileUrl: string;
+  }[];
   pageSize?: number;
   hideFilters?: boolean;
   hideHeader?: boolean;
@@ -156,7 +162,7 @@ export default function VendorsTable({
   paginationClassName?: string;
 }) {
   const { table, setData } = useTanStackTable({
-    tableData: vendorData,
+    tableData: vendors,
     columnConfig: columns,
     options: {
       initialState: {
@@ -167,7 +173,8 @@ export default function VendorsTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          setData((prev) => prev.filter((r) => r.id !== row.id));
+          // setData((prev) => prev.filter((r) => r.id !== row.id));
+          setData((prev) => prev);
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));

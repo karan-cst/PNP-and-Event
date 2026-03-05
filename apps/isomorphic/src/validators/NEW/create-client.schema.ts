@@ -10,7 +10,7 @@ export const clientFormSchema = z.object({
     message: 'Mobile number must be exactly 10 digits',
   }),
   clientType: z.string().min(1, { message: 'Vendor type is required' }),
-  division: z.string().min(1, { message: 'City is required' }),
+  division: z.string().min(1, { message: 'Division is required' }),
   address: z.string().min(10, { message: 'Address is required' }),
   clientFrom: z.string().optional(),
   isActive: z.string({ required_error: 'Client status is required' }),

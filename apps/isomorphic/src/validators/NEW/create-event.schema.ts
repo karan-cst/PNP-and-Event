@@ -39,6 +39,7 @@ export const eventFormSchema = z.object({
       z.object({
         standardElementName: z.string().min(1, 'Element name required'),
         quantity: z.coerce.number().min(1, 'Quantity must be at least 1'),
+        days: z.coerce.number().min(1, 'Days must be at least 1'),
         standardRate: z.coerce.number().min(0),
         total: z.coerce.number().min(0),
       })

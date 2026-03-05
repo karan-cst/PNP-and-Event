@@ -1,98 +1,40 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Avatar, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
-import { standardRateDataType } from './table';
+import { ActionIcon, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
+import { DivisionDataType } from './table';
 import cn from '@core/utils/class-names';
 import DateCell from '@core/ui/date-cell';
 import PencilIcon from '@core/components/icons/pencil';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import { CreateStandardrateModalView } from '../rate-page-header';
+import { CreateDivisionModalView } from '../division-page-header';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
-import { formatPrice } from '@/config/format-pricing';
 
-const columnHelper = createColumnHelper<standardRateDataType>();
+const columnHelper = createColumnHelper<DivisionDataType>();
 
-export const HSNListColumns = [
+export const DivisionListColumns = [
   columnHelper.display({
     id: 'id',
     size: 130,
-    header: 'Rate ID',
+    header: 'Division ID',
     cell: ({ row }) => <Text className="text-sm">{row.original.id}</Text>,
   }),
-  columnHelper.accessor('eventType', {
-    id: 'eventType',
+  columnHelper.accessor('divisionCode', {
+    id: 'divisionCode',
     size: 130,
-    header: 'Event Type',
+    header: 'Division Code',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.eventType}`}
+          {`${row.original.divisionCode}`}
         </Title>
       </div>
     ),
   }),
   columnHelper.display({
-    id: 'elementType',
+    id: 'ccCode',
     size: 150,
-    header: 'Element Type',
-    cell: ({ row }) => (
-      <Text className="text-sm">{row.original.elementType}</Text>
-    ),
-  }),
-  columnHelper.display({
-    id: 'elementItem',
-    size: 150,
-    header: 'Element Item',
-    cell: ({ row }) => (
-      <div className="flex items-center gap-3">
-        <Avatar
-          name={row.original.elementItem}
-          size="md"
-          src={row.original.src}
-        />
-        <Text className="text-sm">{row.original.elementItem}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('tier1Price', {
-    id: 'tier1Price',
-    size: 100,
-    header: 'Tier 1',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{formatPrice(row.original.tier1Price)}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('tier2Price', {
-    id: 'tier2Price',
-    size: 100,
-    header: 'Tier 2',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{formatPrice(row.original.tier2Price)}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('tier3Price', {
-    id: 'tier3Price',
-    size: 100,
-    header: 'Tier 3',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{formatPrice(row.original.tier3Price)}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('tier4Price', {
-    id: 'tier4Price',
-    size: 100,
-    header: 'Tier 4',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{formatPrice(row.original.tier4Price)}</Text>
-      </div>
-    ),
+    header: 'CC Code',
+    cell: ({ row }) => <Text className="text-sm">{row.original.ccCode}</Text>,
   }),
   columnHelper.accessor('createdAt', {
     id: 'createdAt',
@@ -117,7 +59,7 @@ export const HSNListColumns = [
       },
     }) => (
       <Flex align="center" justify="start" gap="3" className="pe-4">
-        <StandardRateEdit standardRate={row.original} />
+        <DivisionEdit division={row.original} />
 
         {/* <DeletePopover
           title={`Delete the vendor person`}
@@ -149,14 +91,10 @@ export const HSNListColumns = [
   // }),
 ];
 
-const StandardRateEdit = ({
-  standardRate,
-}: {
-  standardRate: standardRateDataType;
-}) => {
+const DivisionEdit = ({ division }: { division: DivisionDataType }) => {
   const { openModal } = useModal();
   return (
-    <Tooltip size="sm" content={'Edit Vendor'} placement="top" color="invert">
+    <Tooltip size="sm" content={'Edit Division'} placement="top" color="invert">
       <ActionIcon
         as="span"
         size="sm"
@@ -164,7 +102,7 @@ const StandardRateEdit = ({
         aria-label={'Edit Vendor'}
         onClick={() =>
           openModal({
-            view: <CreateStandardrateModalView standardRate={standardRate} />,
+            view: <CreateDivisionModalView division={division} />,
             customSize: 720,
           })
         }

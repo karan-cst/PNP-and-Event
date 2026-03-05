@@ -15,14 +15,13 @@ import { userData } from '@/data/user-data';
 import UserPageHeader from '../create-user/user-page-header';
 
 export type UserDataType = (typeof userData)[number];
-export const eventUser = [
-  'Admin',
-  'Event Team - User',
-  'Operation Head - Event',
-  'Event Head',
-];
 
-export default function UsersTable({
+export const financeUser = [
+  'Finance Executive',
+  'Finanace Manager',
+  'Finance Head',
+];
+export default function UsersFinanceTable({
   pageSize = 5,
   hideFilters = true,
 
@@ -50,13 +49,13 @@ export default function UsersTable({
         name: 'User Management',
       },
       {
-        name: 'Event Users',
+        name: 'Finance Users',
       },
     ],
   };
 
   const { table, setData } = useTanStackTable<UserDataType>({
-    tableData: userData.filter((d) => eventUser.includes(d.userType)),
+    tableData: userData.filter((d) => financeUser.includes(d.userType)),
     columnConfig: UserListColumns,
     options: {
       initialState: {
@@ -95,7 +94,7 @@ export default function UsersTable({
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
-        type="Event"
+        type="Finance"
       />
 
       {!hideFilters && <Filters table={table} />}

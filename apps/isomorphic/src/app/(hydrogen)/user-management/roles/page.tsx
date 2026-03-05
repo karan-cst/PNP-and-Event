@@ -35,7 +35,7 @@ export default function UserRoles() {
             fileName="product_data"
             header="ID,Name,Category,Product Thumbnail,SKU,Stock,Price,Status,Rating"
           /> */}
-          <Link
+          {/* <Link
             href={routes.eCommerce.createProduct}
             className="w-full @lg:w-auto"
           >
@@ -43,7 +43,7 @@ export default function UserRoles() {
               <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
               Create User
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </PageHeader>
 

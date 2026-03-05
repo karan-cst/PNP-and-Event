@@ -6,6 +6,7 @@ export type standardRateType = {
   tier1Price: number;
   tier2Price: number;
   tier3Price: number;
+  tier4Price: number;
   createdAt: string;
   isActive: string;
   src?: string;
@@ -20,6 +21,7 @@ export const standardRateData = [
     tier1Price: 100,
     tier2Price: 90,
     tier3Price: 80,
+    tier4Price: 80,
     createdAt: '2026-02-16T10:30:00Z',
     isActive: 'active',
     src: 'https://nuansdesign.com/wp-content/uploads/2022/01/bt-design-mentor-conferene-chair-premium-S-2.jpg',
@@ -32,6 +34,7 @@ export const standardRateData = [
     tier1Price: 100,
     tier2Price: 95,
     tier3Price: 85,
+    tier4Price: 85,
     createdAt: '2026-02-16T10:30:00Z',
     isActive: 'active',
     src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8iR2gXtsZZ3N6f-5NvDK-3NXJn6Z-RkBiqg&s',
@@ -44,6 +47,7 @@ export const standardRateData = [
     tier1Price: 100,
     tier2Price: 80,
     tier3Price: 75,
+    tier4Price: 75,
     createdAt: '2026-02-16T10:30:00Z',
     isActive: 'inactive',
     src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROtpYzLMSH71ZwqrZ9UwZfpnQJUHdjNriBrA&s',

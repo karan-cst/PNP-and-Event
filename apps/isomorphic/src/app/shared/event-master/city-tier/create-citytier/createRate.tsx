@@ -120,6 +120,7 @@ export default function CreateCityTier({
                         { label: 'Tier 1', value: 1 },
                         { label: 'Tier 2', value: 2 },
                         { label: 'Tier 3', value: 3 },
+                        { label: 'Tier 4', value: 4 },
                       ]}
                       value={value}
                       onChange={onChange}
@@ -129,6 +130,7 @@ export default function CreateCityTier({
                           { label: 'Tier 1', value: 1 },
                           { label: 'Tier 2', value: 2 },
                           { label: 'Tier 3', value: 3 },
+                          { label: 'Tier 4', value: 4 },
                         ].find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.tierType?.message as string}

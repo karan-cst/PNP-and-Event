@@ -8,9 +8,18 @@ import VendorUploadModal from '@/app/shared/event-management/vendor-upload/vendo
 import VendorsTable from '@/app/shared/event-management/vendorTable';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import { VendorDataType } from '@/app/shared/vendor-management/pnp-vendor/vendor-list/table';
+import { vendorData } from '@/data/vendor-data';
 
 export default function Vendors() {
-  const [vendors, setVendors] = useState<VendorDataType[]>([]);
+  const [vendors, setVendors] = useState([
+    {
+      vendorName: 'Medcom',
+      name: 'Ankit Gandhi',
+      total: 10000,
+      emlFileUrl: 'emailurl',
+      excelFileUrl: 'excelFileUrl',
+    },
+  ]);
   const eventDetails = {
     eventType: 'Stall',
     eventName: 'Cardio Annual Summit 2026',

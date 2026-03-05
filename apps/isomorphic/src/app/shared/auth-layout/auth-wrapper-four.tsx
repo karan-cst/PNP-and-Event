@@ -59,7 +59,7 @@ export default function AuthWrapperFour({
       <div className="flex w-full flex-col justify-center px-5">
         <div
           className={cn(
-            'mx-auto w-full max-w-md py-12 md:max-w-lg lg:max-w-xl 2xl:pb-8 2xl:pt-2',
+            'mx-auto w-full max-w-md py-7 md:max-w-md lg:max-w-md 2xl:pb-8 2xl:pt-2',
             className
           )}
         >
@@ -69,7 +69,7 @@ export default function AuthWrapperFour({
             </Link> */}
             <Title
               as="h2"
-              className="mb-7 text-center text-[28px] font-bold leading-snug md:text-3xl md:!leading-normal lg:mb-10 lg:text-4xl"
+              className="mb-7 text-center text-[28px] font-bold leading-snug md:text-3xl md:!leading-normal lg:mb-10 lg:text-3xl"
             >
               {title}
             </Title>
@@ -105,7 +105,7 @@ export default function AuthWrapperFour({
 
 function AuthHeader() {
   return (
-    <header className="flex items-center justify-between p-4 lg:px-16 lg:py-6 2xl:px-24">
+    <header className="flex items-center justify-between p-4 lg:px-16 lg:py-2 2xl:px-24">
       <Link href={'/'}>
         <Image
           src={siteConfig.logo}
@@ -145,18 +145,11 @@ const footerMenu = [
 
 function AuthFooter() {
   return (
-    <footer className="flex flex-col-reverse items-center justify-between px-4 py-5 lg:flex-row lg:px-16 lg:py-6 2xl:px-24 2xl:py-10">
+    <footer className="flex flex-col-reverse items-center justify-between px-4 py-2 lg:flex-row lg:px-16 lg:py-6 2xl:px-24 2xl:py-10">
       <div className="text-center leading-relaxed text-gray-500 lg:text-start">
-        © Copyright 2023. Theme by{' '}
-        <Link
-          href="https://redq.io/"
-          className="font-medium transition-colors hover:text-primary"
-        >
-          RedQ
-        </Link>
-        , all rights reserved.
+        © Copyright 2025. , all rights reserved.
       </div>
-      <div className="-mx-2.5 flex items-center justify-end pb-3 font-medium text-gray-700 lg:w-1/2 lg:pb-0">
+      {/* <div className="-mx-2.5 flex items-center justify-end pb-3 font-medium text-gray-700 lg:w-1/2 lg:pb-0">
         {footerMenu.map((item) => (
           <Link
             key={item.name}
@@ -166,7 +159,7 @@ function AuthFooter() {
             {item.name}
           </Link>
         ))}
-      </div>
+      </div> */}
     </footer>
   );
 }

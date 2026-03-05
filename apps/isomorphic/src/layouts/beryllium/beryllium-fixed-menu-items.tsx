@@ -178,9 +178,29 @@ export const berylliumMenuItems: MenuItemsType[] = [
       },
       {
         name: 'User Management',
-        href: routes.userManagement.users,
-        icon: PiUserCircleGearDuotone,
+        description: 'Diffrent users',
+        icon: PiUsersDuotone,
         roles: ['superAdmin'],
+        subMenuItems: [
+          {
+            name: 'User Event',
+            href: routes.userManagement.users,
+            badge: '',
+            roles: ['superAdmin'],
+          },
+          {
+            name: 'User PNP',
+            href: routes.userManagement.usersPNP,
+            badge: '',
+            roles: ['superAdmin'],
+          },
+          {
+            name: 'User Finance',
+            href: routes.userManagement.usersFinance,
+            badge: '',
+            roles: ['superAdmin'],
+          },
+        ],
       },
     ],
   },

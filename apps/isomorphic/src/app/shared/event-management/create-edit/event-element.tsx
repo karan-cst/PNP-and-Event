@@ -34,15 +34,18 @@ export default function EventElements({ className }: { className?: string }) {
 
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const [days, setDays] = useState<number>(1);
 
   const handleAdd = () => {
-    if (!selectedItem || quantity < 1) return;
+    if (!selectedItem || quantity < 1 || days < 1) return;
+    console.log('789456123', selectedItem);
 
     append({
       standardElementName: selectedItem.name,
       quantity,
+      days,
       standardRate: selectedItem.rate,
-      total: selectedItem.rate * quantity,
+      total: selectedItem.rate * days * quantity,
     });
 
     setSelectedItem(null);
@@ -50,6 +53,7 @@ export default function EventElements({ className }: { className?: string }) {
   };
 
   useEffect(() => {
+    console.log('fields', fields);
     if (fields.length === 1 && !fields[0]?.standardElementName) {
       remove(0); // ✅ RHF-safe
     }
@@ -75,7 +79,9 @@ export default function EventElements({ className }: { className?: string }) {
                 : null
             }
             onChange={(option: { value: string; label: string }) =>
-              setSelectedItem(option?.value)
+              setSelectedItem(
+                standardElementsFromBackend.find((s) => s.name == option?.value)
+              )
             }
             displayValue={(option: { value: string; label: string }) =>
               option?.label
@@ -83,13 +89,22 @@ export default function EventElements({ className }: { className?: string }) {
           />
         </div>
 
-        <div className="col-span-4">
+        <div className="col-span-2">
           <Input
             label="Quantity"
             type="number"
             min={1}
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
+          />
+        </div>
+        <div className="col-span-2">
+          <Input
+            label="Days"
+            type="number"
+            min={1}
+            value={days}
+            onChange={(e) => setDays(Number(e.target.value))}
           />
         </div>
 
@@ -101,6 +116,7 @@ export default function EventElements({ className }: { className?: string }) {
             disabled={
               !selectedItem ||
               quantity < 1 ||
+              days < 1 ||
               fields.some(
                 (field) => field.standardElementName === selectedItem.name
               )
@@ -121,6 +137,7 @@ export default function EventElements({ className }: { className?: string }) {
                 <th className="p-3 text-left">Name</th>
                 <th className="p-3 text-left">Rate</th>
                 <th className="p-3 text-left">Qty</th>
+                <th className="p-3 text-left">Days</th>
                 <th className="p-3 text-left">Total</th>
                 <th className="p-3 text-left">Action</th>
               </tr>
@@ -131,6 +148,7 @@ export default function EventElements({ className }: { className?: string }) {
                   <td className="p-3">{item.standardElementName}</td>
                   <td className="p-3">{formatPrice(item.standardRate)}</td>
                   <td className="p-3">{item.quantity}</td>
+                  <td className="p-3">{item.days}</td>
                   <td className="p-3">{formatPrice(item.total)}</td>
                   <td className="p-3">
                     <ActionIcon variant="text" onClick={() => remove(index)}>

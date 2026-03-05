@@ -25,6 +25,9 @@ export const StandardRateFormSchema = z.object({
   tier3Price: z
     .number()
     .min(0, { message: 'Tier 3 price must be 0 or greater' }),
+  tier4Price: z
+    .number()
+    .min(0, { message: 'Tier 3 price must be 0 or greater' }),
 
   // createdAt: z.string().datetime({ message: 'Invalid date format' }),
 

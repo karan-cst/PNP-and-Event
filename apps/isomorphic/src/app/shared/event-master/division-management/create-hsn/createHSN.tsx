@@ -1,16 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input, Select, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
 import { Form } from '@core/ui/form';
 import {
-  StandardRateFormInput,
-  StandardRateFormSchema,
-} from '@/validators/NEW/create-standardRate.schema';
-import UploadZone from '@core/ui/file-upload/upload-zone';
-import { EventTypeData } from '@/data/eventTypes-data';
+  DivisionFormInput,
+  DivisionFormSchema,
+} from '@/validators/NEW/create-division.schema';
 
 // a reusable form wrapper component
 function HorizontalFormBlockWrapper({
@@ -54,54 +52,39 @@ function HorizontalFormBlockWrapper({
 }
 
 // main category form component for create and update category
-export default function CreateStandardRate({
+export default function CreateDivisin({
   id,
-  standardRate,
+  division,
   isModalView = true,
 }: {
   id?: string;
   isModalView?: boolean;
-  standardRate?: StandardRateFormInput;
+  division?: DivisionFormInput;
 }) {
-  console.log('standardRate', standardRate);
   const [reset, setReset] = useState({});
   const [isLoading, setLoading] = useState(false);
-  const [file, setFile] = useState(null);
-  const [eventTypeOption, setEventTypeOption] = useState<
-    { value: string; label: string }[]
-  >([{ value: '', label: '' }]);
 
-  useEffect(() => {
-    setEventTypeOption(
-      EventTypeData.map((e) => ({ value: e.type, label: e.type }))
-    );
-  }, []);
-
-  const onSubmit: SubmitHandler<StandardRateFormInput> = (data) => {
+  const onSubmit: SubmitHandler<DivisionFormInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setReset({
-        eventType: '',
-        elementType: '',
-        elementItem: '',
-        tier1Price: 0,
-        tier2Price: 0,
-        tier3Price: 0,
-        isActive: 'inactive',
+        divisionCode: '',
+        ccCode: '',
+        isActive: false,
       });
     }, 600);
   };
 
   return (
-    <Form<StandardRateFormInput>
-      validationSchema={StandardRateFormSchema}
+    <Form<DivisionFormInput>
+      validationSchema={DivisionFormSchema}
       resetValues={reset}
       onSubmit={onSubmit}
       useFormProps={{
         mode: 'onChange',
-        defaultValues: standardRate,
+        defaultValues: division,
       }}
       className="isomorphic-form flex flex-grow flex-col @container"
     >
@@ -117,66 +100,20 @@ export default function CreateStandardRate({
               )}
             >
               <HorizontalFormBlockWrapper
-                title="Element Pricing Information"
-                description="Event element pricing and tier configuration"
+                title="Division Information"
+                description="Basic division details"
                 isModalView={isModalView}
               >
-                <Controller
-                  control={control}
-                  name="eventType"
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      label="Event Type"
-                      inPortal={false}
-                      labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
-                      placeholder="Select..."
-                      options={eventTypeOption}
-                      onChange={onChange}
-                      value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        eventTypeOption.find((r) => r.value === selected)
-                          ?.label ?? ''
-                      }
-                      error={errors?.eventType?.message as string}
-                    />
-                  )}
-                />
-
                 <Input
-                  label="Element Type"
-                  {...register('elementType')}
-                  error={errors.elementType?.message}
+                  label="Division Code"
+                  {...register('divisionCode')}
+                  error={errors.divisionCode?.message}
                 />
                 <Input
-                  label="Element Item"
-                  {...register('elementItem')}
-                  error={errors.elementItem?.message}
-                />
-                <Input
-                  label="Tier 1 Price"
+                  label="CC Code"
                   type="number"
-                  {...register('tier1Price', { valueAsNumber: true })}
-                  error={errors.tier1Price?.message}
-                />
-                <Input
-                  label="Tier 2 Price"
-                  type="number"
-                  {...register('tier2Price', { valueAsNumber: true })}
-                  error={errors.tier2Price?.message}
-                />
-                <Input
-                  label="Tier 3 Price"
-                  type="number"
-                  {...register('tier3Price', { valueAsNumber: true })}
-                  error={errors.tier3Price?.message}
-                />
-                <Input
-                  label="Tier 4 Price"
-                  type="number"
-                  {...register('tier4Price', { valueAsNumber: true })}
-                  error={errors.tier4Price?.message}
+                  {...register('ccCode')}
+                  error={errors.ccCode?.message as string}
                 />
                 <Controller
                   control={control}
@@ -190,7 +127,7 @@ export default function CreateStandardRate({
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },
-                        { label: 'Inactive', value: 'inactive' },
+                        { label: 'Deactive', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
@@ -198,40 +135,32 @@ export default function CreateStandardRate({
                       displayValue={(selected) =>
                         [
                           { label: 'Active', value: 'active' },
-                          { label: 'Inactive', value: 'inactive' },
-                        ].find((r) => r.value === selected)?.label ?? ''
+                          { label: 'Deactive', value: 'inactive' },
+                        ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}
                     />
                   )}
                 />
-                {id ? null : (
-                  <UploadZone
-                    label="Upload File"
-                    name="src"
-                    getValues={getValues}
-                    setValue={setValue}
-                    className="col-span-2"
-                    // accept="image/jpeg,image/png"
-                  />
-                )}
               </HorizontalFormBlockWrapper>
             </div>
           </div>
-
-          {/* Footer */}
+          {/* z-40   */}
           <div
             className={cn(
               'sticky bottom-0 flex items-center justify-end gap-3 bg-gray-0/10 backdrop-blur @lg:gap-4 @xl:grid @xl:auto-cols-max @xl:grid-flow-col',
               isModalView ? '-mx-10 -mb-7 px-10 py-5' : 'py-1'
             )}
           >
+            {/* <Button variant="outline" className="w-full @xl:w-auto">
+              Save as Draft
+            </Button> */}
             <Button
               type="submit"
               isLoading={isLoading}
               className="w-full @xl:w-auto"
             >
-              {id ? 'Update' : 'Create'} Rate
+              {id ? 'Update' : 'Create'} Division
             </Button>
           </div>
         </>

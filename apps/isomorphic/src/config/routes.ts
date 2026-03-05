@@ -12,6 +12,8 @@ export const routes = {
   userManagement: {
     roles: '/user-management/roles',
     users: '/user-management/users',
+    usersPNP: '/user-management/users-pnp',
+    usersFinance: '/user-management/users-finance',
   },
   vendorManagement: {
     pnp: '/vendor-management/pnp-vendor-management',
@@ -33,6 +35,7 @@ export const routes = {
     type: '/event-master/event-types',
     rate: '/event-master/standard-rate',
     city: '/event-master/city-management',
+    division: '/event-master/division-management',
   },
   jobManagement: {
     event: '/job-management/event-jobs',

@@ -1,63 +1,39 @@
 'use client';
-
-import { productsData } from '@/data/products-data';
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { UserListColumns } from './columns';
+import { DivisionListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
-import { RolesData } from '@/data/user-roles';
-import { userData } from '@/data/user-data';
-import UserPageHeader from '../create-user/user-page-header';
+import { DivisionData } from '@/data/division-data';
+import DivisonPageHeader from '../division-page-header';
 
-export type UserDataType = (typeof userData)[number];
-export const eventUser = [
-  'Admin',
-  'Event Team - User',
-  'Operation Head - Event',
-  'Event Head',
-];
+export type DivisionDataType = (typeof DivisionData)[number];
 
-export default function UsersTable({
+export default function DivisionEventTable({
   pageSize = 5,
   hideFilters = true,
-
   hidePagination = false,
   hideFooter = false,
   classNames = {
-    container: '[&_td]:py-2 border border-muted rounded-md ',
+    container: 'border border-muted rounded-md',
     rowClassName: 'last:border-0',
   },
   paginationClassName,
 }: {
   pageSize?: number;
   hideFilters?: boolean;
-  hideHeader?: boolean;
   hidePagination?: boolean;
   hideFooter?: boolean;
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const pageHeader = {
-    title: 'Users',
-    breadcrumb: [
-      {
-        href: '#',
-        name: 'User Management',
-      },
-      {
-        name: 'Event Users',
-      },
-    ],
-  };
-
-  const { table, setData } = useTanStackTable<UserDataType>({
-    tableData: userData.filter((d) => eventUser.includes(d.userType)),
-    columnConfig: UserListColumns,
+  const { table, setData } = useTanStackTable<DivisionDataType>({
+    tableData: DivisionData,
+    columnConfig: DivisionListColumns,
     options: {
       initialState: {
         pagination: {
@@ -88,25 +64,27 @@ export default function UsersTable({
       `product_data_${selectedData.length}`
     );
   }
-
+  const pageHeader = {
+    title: 'Division Management',
+    breadcrumb: [
+      {
+        href: '#',
+        name: 'Event Master',
+      },
+      {
+        name: 'Division Management',
+      },
+    ],
+  };
   return (
     <>
-      <UserPageHeader
+      <DivisonPageHeader
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
-        type="Event"
       />
-
       {!hideFilters && <Filters table={table} />}
-      <Table
-        table={table}
-        variant="modern"
-        classNames={{
-          ...classNames,
-          cellClassName: '!py-2', // 👈 KEY FIX
-        }}
-      />
+      <Table table={table} variant="modern" classNames={classNames} />
       {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination

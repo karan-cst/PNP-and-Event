@@ -139,7 +139,7 @@ export default function CreateVendor({
                   {...register('address')}
                   error={errors.address?.message}
                 />
-                <Controller
+                {/* <Controller
                   control={control}
                   name="vendorType"
                   render={({ field: { value, onChange } }) => (
@@ -165,7 +165,7 @@ export default function CreateVendor({
                       error={errors?.vendorType?.message as string}
                     />
                   )}
-                />
+                /> */}
 
                 <Controller
                   control={control}

@@ -145,7 +145,7 @@ const UserEdit = ({ user }: { user: UserDataType }) => {
         aria-label={'Edit Product'}
         onClick={() =>
           openModal({
-            view: <CreateUserModalView user={user} type="Event" />,
+            view: <CreateUserModalView user={user} type="PNP" />,
             customSize: 720,
           })
         }

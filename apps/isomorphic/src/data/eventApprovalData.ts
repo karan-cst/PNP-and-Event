@@ -1,3 +1,5 @@
+import { ApprovalHistory } from '@/app/shared/event-management/event-approval/columns';
+
 export type EventApprove = {
   clientName: string;
   eventName: string;
@@ -9,6 +11,7 @@ export type EventApprove = {
   firstLevelStatus?: string;
   firstLevelBy?: string;
   firstLevelComment?: string;
+  firstLevelHistory: ApprovalHistory[];
   secondLevelStatus?: string;
   secondLevelBy?: string;
   secondLevelComment?: string;
@@ -28,6 +31,21 @@ export const EventApproveData = [
     firstLevelBy: 'Ankit gandhi',
     firstLevelComment:
       'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+    firstLevelHistory: [
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+    ],
     secondLevelStatus: '',
     secondLevelBy: '',
     secondLevelComment: '',
@@ -45,6 +63,21 @@ export const EventApproveData = [
     firstLevelBy: 'Ankit gandhi',
     firstLevelComment:
       'Event details and vendor cost look appropriate. Approved from first level.',
+    firstLevelHistory: [
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+    ],
     secondLevelStatus: 'Approved by',
     secondLevelBy: 'Amulakh Mistry',
     secondLevelComment:

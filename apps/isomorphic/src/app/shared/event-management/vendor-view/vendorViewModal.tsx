@@ -23,6 +23,7 @@ export function VendorViewModalView({
     {
       elementName: 'Chair',
       qty: 100,
+      days: 1,
       vendorRate: 100,
       vendorTotal: 10000,
       stdRate: 95,
@@ -31,6 +32,7 @@ export function VendorViewModalView({
     {
       elementName: 'Chair',
       qty: 100,
+      days: 1,
       vendorRate: 100,
       vendorTotal: 10000,
       stdRate: 95,
@@ -39,6 +41,7 @@ export function VendorViewModalView({
     {
       elementName: 'Chair',
       qty: 100,
+      days: 1,
       vendorRate: 100,
       vendorTotal: 10000,
       stdRate: 95,
@@ -64,6 +67,12 @@ export function VendorViewModalView({
       size: 130,
       header: 'Qntity',
       cell: ({ row }) => <Text className="text-sm">{row.original.qty}</Text>,
+    }),
+    columnHelper.display({
+      id: 'days',
+      size: 130,
+      header: 'Days',
+      cell: ({ row }) => <Text className="text-sm">{row.original.days}</Text>,
     }),
     columnHelper.display({
       id: 'vendorRate',

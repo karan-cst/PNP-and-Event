@@ -116,6 +116,34 @@ export default function CreateClient({
                   error={errors.companyName?.message}
                 />
 
+                <Controller
+                  control={control}
+                  name="division"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      label="Division"
+                      inPortal={false}
+                      labelClassName="text-sm font-medium text-gray-900"
+                      dropdownClassName="h-auto"
+                      placeholder="Select division..."
+                      options={[
+                        { label: 'Arron', value: 'Arron' },
+                        { label: 'Altis', value: 'Altis' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.label}
+                      // displayValue={(selected) =>
+                      //   [
+                      //     { label: 'PNP Client', value: 'pnpClient' },
+                      //     { label: 'EVENT Client', value: 'eventClient' },
+                      //   ]?.find((r) => r.value === selected)?.label ?? ''
+                      // }
+                      error={errors?.division?.message as string}
+                    />
+                  )}
+                />
+
                 <Input
                   label="Name"
                   {...register('name')}
@@ -134,12 +162,7 @@ export default function CreateClient({
                   {...register('mobile')}
                   error={errors.mobile?.message}
                 />
-                <Input
-                  label="Address"
-                  className="col-span-2"
-                  {...register('address')}
-                  error={errors.address?.message}
-                />
+                {/* 
                 <Controller
                   control={control}
                   name="clientType"
@@ -166,7 +189,7 @@ export default function CreateClient({
                       error={errors?.clientType?.message as string}
                     />
                   )}
-                />
+                /> */}
 
                 <Controller
                   control={control}
@@ -225,6 +248,12 @@ export default function CreateClient({
                       error={errors?.isActive?.message as string}
                     />
                   )}
+                />
+                <Input
+                  label="Address"
+                  className="col-span-2"
+                  {...register('address')}
+                  error={errors.address?.message}
                 />
               </HorizontalFormBlockWrapper>
             </div>

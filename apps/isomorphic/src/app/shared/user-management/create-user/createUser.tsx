@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input, Select, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
@@ -9,6 +9,9 @@ import {
   UserFormInput,
   userFormSchema,
 } from '@/validators/NEW/create-user.schema';
+import { eventUser } from '../users-list/table';
+import { pnpUser } from '../users-list-pnp/table';
+import { financeUser } from '../users-list-finance/table';
 
 // a reusable form wrapper component
 function HorizontalFormBlockWrapper({
@@ -56,13 +59,33 @@ export default function CreateUser({
   id,
   user,
   isModalView = true,
+  type = 'Event',
 }: {
   id?: string;
   isModalView?: boolean;
   user?: UserFormInput;
+  type: string;
 }) {
   const [reset, setReset] = useState({});
   const [isLoading, setLoading] = useState(false);
+
+  let userTypeOption: { label: string; value: string }[] = [
+    { label: '', value: '' },
+  ];
+  const setOption = () => {
+    if (type == 'Event') {
+      userTypeOption = eventUser.map((u) => ({ label: u, value: u }));
+    } else if (type == 'PNP') {
+      userTypeOption = pnpUser.map((u) => ({ label: u, value: u }));
+    } else if (type == 'Finance') {
+      userTypeOption = financeUser.map((u) => ({ label: u, value: u }));
+    }
+  };
+  console.log('type', type, userTypeOption);
+
+  useEffect(() => {
+    setOption();
+  }, [type]);
 
   const onSubmit: SubmitHandler<UserFormInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
@@ -143,18 +166,13 @@ export default function CreateUser({
                       labelClassName="text-sm font-medium text-gray-900"
                       dropdownClassName="h-auto"
                       placeholder="Select role..."
-                      options={[
-                        { label: 'Admin', value: 'admin' },
-                        { label: 'User', value: 'user' },
-                      ]}
+                      options={userTypeOption}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
-                        [
-                          { label: 'Admin', value: 'admin' },
-                          { label: 'User', value: 'user' },
-                        ]?.find((r) => r.value === selected)?.label ?? ''
+                        userTypeOption?.find((r) => r.value === selected)
+                          ?.label ?? ''
                       }
                       error={errors?.userType?.message as string}
                     />
@@ -165,7 +183,7 @@ export default function CreateUser({
                   name="isActive"
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      label="User Type"
+                      label="User Active"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
                       dropdownClassName="h-auto"
