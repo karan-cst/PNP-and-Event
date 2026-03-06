@@ -1,3 +1,5 @@
+import { ApprovalHistory } from '@/app/shared/po-management/columns';
+
 export type PO = {
   clientName: string;
   eventName: string;
@@ -9,9 +11,11 @@ export type PO = {
   firstLevelStatus?: string;
   firstLevelBy?: string;
   firstLevelComment?: string;
+  firstLevelHistory: ApprovalHistory[];
   secondLevelStatus?: string;
   secondLevelBy?: string;
   secondLevelComment?: string;
+  secondLevelHistory: ApprovalHistory[];
   poStatus?: string;
   isPharma: string;
 };
@@ -28,9 +32,25 @@ export const POData = [
     firstLevelStatus: 'Rejected by',
     firstLevelBy: 'Ankit gandhi',
     firstLevelComment: '',
+    firstLevelHistory: [
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+    ],
     secondLevelStatus: '',
     secondLevelBy: '',
     secondLevelComment: '',
+    secondLevelHistory: [],
     poStatus: '',
     isPharma: 'pharma',
   },
@@ -45,9 +65,32 @@ export const POData = [
     firstLevelStatus: 'Approved by',
     firstLevelBy: 'Ankit gandhi',
     firstLevelComment: '',
+    firstLevelHistory: [
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
     secondLevelStatus: 'Approved by',
     secondLevelBy: 'Amulakh Mistry',
     secondLevelComment: '',
+    secondLevelHistory: [
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+    ],
     poStatus: '',
     isPharma: 'non-pharma',
   },

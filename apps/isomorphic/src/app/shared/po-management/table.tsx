@@ -2,7 +2,7 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { POColumns } from './columns';
+import { getPOColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
@@ -11,6 +11,7 @@ import { exportToCSV } from '@core/utils/export-to-csv';
 import { useEffect, useState } from 'react';
 import { POData } from '@/data/po.data';
 import POPageHeader from './po-page-header';
+import { useSession } from 'next-auth/react';
 
 export type PODataType = (typeof POData)[number];
 
@@ -34,6 +35,8 @@ export default function POTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
+  const { data: session } = useSession();
+  const role = session?.user.role;
   const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'PO Management',
@@ -48,7 +51,7 @@ export default function POTable({
   const { table, setData } = useTanStackTable<PODataType>({
     tableData:
       type == 'all' ? POData : POData.filter((job) => job.isPharma === type),
-    columnConfig: POColumns,
+    columnConfig: getPOColumns(role),
     options: {
       initialState: {
         pagination: {

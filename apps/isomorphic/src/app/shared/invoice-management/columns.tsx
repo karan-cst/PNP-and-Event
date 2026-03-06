@@ -79,28 +79,6 @@ export const POColumns = [
       </div>
     ),
   }),
-  // columnHelper.accessor('venodrCost', {
-  //   id: 'venodrCost',
-  //   size: 150,
-  //   header: 'Venodr Cost',
-  //   cell: ({ row }) => (
-  //     <div className={cn('grid gap-1')}>
-  //       <Tooltip
-  //         size="sm"
-  //         content={'View Prices'}
-  //         placement="top"
-  //         color="invert"
-  //       >
-  //         <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-  //           Rs. {row.original?.venodrCost}
-  //           <span>
-  //             <AiOutlineExport />
-  //           </span>
-  //         </Text>
-  //       </Tooltip>
-  //     </div>
-  //   ),
-  // }),
   columnHelper.accessor('firstLevelStatus', {
     id: 'firstLevelStatus',
     size: 150,
