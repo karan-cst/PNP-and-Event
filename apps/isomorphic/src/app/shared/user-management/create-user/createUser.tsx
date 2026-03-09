@@ -85,7 +85,7 @@ export default function CreateUser({
 
   useEffect(() => {
     setOption();
-  }, [type]);
+  }, [type, setOption]);
 
   const onSubmit: SubmitHandler<UserFormInput> = (data) => {
     // set timeout ony required to display loading state of the create category button

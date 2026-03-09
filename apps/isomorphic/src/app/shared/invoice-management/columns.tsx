@@ -8,13 +8,15 @@ import {
   PiCheckFatDuotone,
   PiDownloadDuotone,
   PiUploadDuotone,
+  PiXBold,
   PiXLogoDuotone,
 } from 'react-icons/pi';
 import { formatPrice } from '@/config/format-pricing';
+import { useModal } from '../modal-views/use-modal';
 
 const columnHelper = createColumnHelper<PODataType>();
 
-export const POColumns = [
+export const getInvoiceColumns = (role?: string) => [
   columnHelper.accessor('clientName', {
     id: 'clientName',
     size: 150,
@@ -84,22 +86,23 @@ export const POColumns = [
     size: 150,
     header: '1st Level Status (FM)',
     cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Tooltip
-          size="sm"
-          content={'View Comment'}
-          placement="top"
-          color="invert"
-        >
-          <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-            {row.original?.firstLevelStatus}{' '}
-            <span>
-              <AiOutlineExport />
-            </span>
-          </Text>
-        </Tooltip>
-        <Text className="text-sm">{row.original?.firstLevelBy}</Text>
-      </div>
+      <ShowComment history={row.original?.firstLevelHistory} />
+      // <div className={cn('grid gap-1')}>
+      //   <Tooltip
+      //     size="sm"
+      //     content={'View Comment'}
+      //     placement="top"
+      //     color="invert"
+      //   >
+      //     <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
+      //       {row.original?.firstLevelStatus}{' '}
+      //       <span>
+      //         <AiOutlineExport />
+      //       </span>
+      //     </Text>
+      //   </Tooltip>
+      //   <Text className="text-sm">{row.original?.firstLevelBy}</Text>
+      // </div>
     ),
   }),
   columnHelper.accessor('secondLevelStatus', {
@@ -107,24 +110,25 @@ export const POColumns = [
     size: 150,
     header: '2nd Level Status (FH)',
     cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        {row.original?.secondLevelStatus && (
-          <Tooltip
-            size="sm"
-            content={'View Comment'}
-            placement="top"
-            color="invert"
-          >
-            <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-              {row.original?.secondLevelStatus}
-              <span>
-                <AiOutlineExport />
-              </span>
-            </Text>
-          </Tooltip>
-        )}
-        <Text className="text-sm">{row.original?.secondLevelBy}</Text>
-      </div>
+      <ShowComment history={row.original?.secondLevelHistory} />
+      // <div className={cn('grid gap-1')}>
+      //   {row.original?.secondLevelStatus && (
+      //     <Tooltip
+      //       size="sm"
+      //       content={'View Comment'}
+      //       placement="top"
+      //       color="invert"
+      //     >
+      //       <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
+      //         {row.original?.secondLevelStatus}
+      //         <span>
+      //           <AiOutlineExport />
+      //         </span>
+      //       </Text>
+      //     </Tooltip>
+      //   )}
+      //   <Text className="text-sm">{row.original?.secondLevelBy}</Text>
+      // </div>
     ),
   }),
   columnHelper.accessor('poStatus', {
@@ -139,7 +143,15 @@ export const POColumns = [
           placement="top"
           color="invert"
         >
-          <PiDownloadDuotone className="h-6 w-6" />
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label="Download Invoice"
+            onClick={() => {}}
+          >
+            <PiDownloadDuotone className="h-4 w-4" />
+          </ActionIcon>
         </Tooltip>
         <Tooltip
           size="sm"
@@ -147,34 +159,182 @@ export const POColumns = [
           placement="top"
           color="invert"
         >
-          <PiUploadDuotone className="h-6 w-6" />
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label="Upload Invoice"
+            onClick={() => {}}
+            disabled={role !== 'financeExecutive'}
+          >
+            <PiUploadDuotone className="h-4 w-4" />
+          </ActionIcon>
         </Tooltip>
       </Flex>
     ),
   }),
-  columnHelper.accessor('poStatus', {
-    id: 'poStatus',
-    size: 150,
-    header: 'Invoice',
-    cell: ({ row }) => (
-      <Flex align="center" justify="start" gap="3" className="pe-4">
-        <Tooltip
-          size="sm"
-          content={'Approve Invoice'}
-          placement="top"
-          color="invert"
-        >
-          <PiCheckFatDuotone className="h-6 w-6" />
-        </Tooltip>
-        <Tooltip
-          size="sm"
-          content={'Reject Invoice'}
-          placement="top"
-          color="invert"
-        >
-          <PiXLogoDuotone className="h-6 w-6" />
-        </Tooltip>
-      </Flex>
-    ),
-  }),
+  ...(role !== 'financeManager' && role !== 'financeHead'
+    ? []
+    : [
+        columnHelper.accessor('poStatus', {
+          id: 'action',
+          size: 150,
+          header: 'Action',
+          cell: ({ row }) => {
+            const firstHistory = row.original?.firstLevelHistory || [];
+            const secondHistory = row.original?.secondLevelHistory || [];
+
+            const lastFirst = firstHistory[firstHistory.length - 1];
+            const lastSecond = secondHistory[secondHistory.length - 1];
+
+            const managerDisabled =
+              role === 'financeManager' && lastFirst?.status === 'approve';
+            const headDisabled =
+              role === 'financeHead' &&
+              (lastFirst?.status !== 'approve' ||
+                lastSecond?.status === 'approve');
+            const disabled = managerDisabled || headDisabled;
+
+            return (
+              <Flex align="center" justify="start" gap="3" className="pe-4">
+                <Tooltip
+                  size="sm"
+                  content="Approve Invoice"
+                  placement="top"
+                  color="invert"
+                >
+                  <ActionIcon
+                    as="span"
+                    size="sm"
+                    variant="outline"
+                    aria-label="Approve Invoice"
+                    onClick={() => {}}
+                    disabled={disabled}
+                  >
+                    <PiCheckFatDuotone className="h-4 w-4" />
+                  </ActionIcon>
+                </Tooltip>
+
+                <Tooltip
+                  size="sm"
+                  content="Reject Invoice"
+                  placement="top"
+                  color="invert"
+                >
+                  <ActionIcon
+                    as="span"
+                    size="sm"
+                    variant="outline"
+                    aria-label="Reject Invoice"
+                    onClick={() => {}}
+                    disabled={disabled}
+                  >
+                    <PiXLogoDuotone className="h-4 w-4" />
+                  </ActionIcon>
+                </Tooltip>
+              </Flex>
+            );
+          },
+        }),
+      ]),
 ];
+
+export type ApprovalHistory = {
+  userName: string;
+  status: string;
+  comment: string;
+  date?: string;
+};
+
+export const ShowComment = ({
+  history = [],
+}: {
+  history: ApprovalHistory[];
+}) => {
+  const { openModal, closeModal } = useModal();
+
+  const handleOpen = () => {
+    openModal({
+      view: (
+        <div className="m-auto px-5 pb-8 pt-5">
+          <div className="mb-5 flex items-center justify-between">
+            <Title as="h4" className="font-semibold">
+              Approval History
+            </Title>
+
+            <ActionIcon size="sm" variant="text" onClick={closeModal}>
+              <PiXBold className="h-auto w-5" />
+            </ActionIcon>
+          </div>
+          {/* <Text className="text-sm leading-relaxed text-gray-700">
+            {comment || 'No comment provided.'}
+          </Text> */}
+          {history.length === 0 ? (
+            <Text className="text-sm text-gray-600">No history available</Text>
+          ) : (
+            <div className="space-y-4">
+              {history.map((item, index) => (
+                <div
+                  key={index}
+                  className="rounded-lg border border-gray-200 p-3"
+                >
+                  <div className="flex justify-between">
+                    <Text className="font-semibold">{item.userName}</Text>
+
+                    <Text
+                      className={cn(
+                        'text-sm font-medium',
+                        item.status === 'approve'
+                          ? 'text-green-600'
+                          : 'text-red-600'
+                      )}
+                    >
+                      {item.status}
+                    </Text>
+                  </div>
+
+                  <Text className="mt-1 text-sm text-gray-700">
+                    {item.comment || 'No comment'}
+                  </Text>
+
+                  {item.date && (
+                    <Text className="mt-1 text-xs text-gray-400">
+                      {item.date}
+                    </Text>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ),
+      customSize: 500,
+    });
+  };
+
+  return (
+    <div className={cn('grid gap-1')}>
+      {history.length > 0 ? (
+        <>
+          <Tooltip
+            size="sm"
+            content="View History"
+            placement="top"
+            color="invert"
+          >
+            <Text
+              className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+              onClick={handleOpen}
+            >
+              {history[history.length - 1].status}
+              <AiOutlineExport />
+            </Text>
+          </Tooltip>
+          <Text className="text-sm text-gray-600">
+            {history[history.length - 1].userName}
+          </Text>
+        </>
+      ) : null}
+    </div>
+  );
+};

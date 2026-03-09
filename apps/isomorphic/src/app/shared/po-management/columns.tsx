@@ -143,10 +143,28 @@ export const getPOColumns = (role?: string) => [
           placement="top"
           color="invert"
         >
-          <PiDownloadDuotone className="h-6 w-6" />
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label="Download PO"
+            onClick={() => {}}
+          >
+            <PiDownloadDuotone className="h-4 w-4" />
+          </ActionIcon>
         </Tooltip>
+
         <Tooltip size="sm" content={'Upload PO'} placement="top" color="invert">
-          <PiUploadDuotone className="h-6 w-6" />
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label="Upload PO"
+            onClick={() => {}}
+            disabled={role !== 'financeExecutive'}
+          >
+            <PiUploadDuotone className="h-4 w-4" />
+          </ActionIcon>
         </Tooltip>
       </Flex>
     ),
@@ -158,27 +176,61 @@ export const getPOColumns = (role?: string) => [
           id: 'action',
           size: 150,
           header: 'Action',
-          cell: ({ row }) => (
-            <Flex align="center" justify="start" gap="3" className="pe-4">
-              <Tooltip
-                size="sm"
-                content={'Approve Po'}
-                placement="top"
-                color="invert"
-              >
-                <PiCheckFatDuotone className="h-6 w-6" />
-              </Tooltip>
+          cell: ({ row }) => {
+            const firstHistory = row.original?.firstLevelHistory || [];
+            const secondHistory = row.original?.secondLevelHistory || [];
 
-              <Tooltip
-                size="sm"
-                content={'Reject Po'}
-                placement="top"
-                color="invert"
-              >
-                <PiXLogoDuotone className="h-6 w-6" />
-              </Tooltip>
-            </Flex>
-          ),
+            const lastFirst = firstHistory[firstHistory.length - 1];
+            const lastSecond = secondHistory[secondHistory.length - 1];
+
+            const managerDisabled =
+              role === 'financeManager' && lastFirst?.status === 'approve';
+            const headDisabled =
+              role === 'financeHead' &&
+              (lastFirst?.status !== 'approve' ||
+                lastSecond?.status === 'approve');
+            const disabled = managerDisabled || headDisabled;
+
+            return (
+              <Flex align="center" justify="start" gap="3" className="pe-4">
+                <Tooltip
+                  size="sm"
+                  content="Approve Po"
+                  placement="top"
+                  color="invert"
+                >
+                  <ActionIcon
+                    as="span"
+                    size="sm"
+                    variant="outline"
+                    aria-label="Approve PO"
+                    onClick={() => {}}
+                    disabled={disabled}
+                  >
+                    <PiCheckFatDuotone className="h-4 w-4" />
+                  </ActionIcon>
+                </Tooltip>
+
+                <Tooltip
+                  size="sm"
+                  content="Reject Po"
+                  placement="top"
+                  color="invert"
+                >
+                  <ActionIcon
+                    as="span"
+                    size="sm"
+                    variant="outline"
+                    aria-label="Reject PO"
+                    onClick={() => {}}
+                    disabled={disabled}
+                  >
+                    <PiXLogoDuotone className="h-4 w-4" />
+                  </ActionIcon>
+                </Tooltip>
+              </Flex>
+            );
+          },
         }),
       ]),
 ];
@@ -282,3 +334,54 @@ export const ShowComment = ({
     </div>
   );
 };
+// cell: ({ row }) => {
+//           let firstLevelHistory = row.original?.firstLevelHistory;
+//           let secondLevelHistory = row.original?.secondLevelHistory;
+//           const lastFirsthistory =
+//             firstLevelHistory[firstLevelHistory.length - 1];
+//           const lastSecondhistory =
+//             secondLevelHistory[secondLevelHistory.length - 1];
+//           return (
+//             <Flex align="center" justify="start" gap="3" className="pe-4">
+//               <Tooltip
+//                 size="sm"
+//                 content={'Approve Po'}
+//                 placement="top"
+//                 color="invert"
+//               >
+//                 <ActionIcon
+//                   as="span"
+//                   size="sm"
+//                   variant="outline"
+//                   aria-label={'Approve PO'}
+//                   onClick={() => {}}
+//                   disabled={
+//                     (lastFirsthistory?.status == 'approve' &&
+//                       role == 'financeHead') ||
+//                     (lastSecondhistory?.status == 'approve' &&
+//                       role == 'financeManager')
+//                   }
+//                 >
+//                   <PiCheckFatDuotone className="h-4 w-4" />
+//                 </ActionIcon>
+//               </Tooltip>
+
+//               <Tooltip
+//                 size="sm"
+//                 content={'Reject Po'}
+//                 placement="top"
+//                 color="invert"
+//               >
+//                 <ActionIcon
+//                   as="span"
+//                   size="sm"
+//                   variant="outline"
+//                   aria-label={'Approve PO'}
+//                   onClick={() => {}}
+//                 >
+//                   <PiXLogoDuotone className="h-6 w-6" />
+//                 </ActionIcon>
+//               </Tooltip>
+//             </Flex>
+//           );
+//         },

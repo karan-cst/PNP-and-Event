@@ -34,17 +34,17 @@ export const POData = [
     firstLevelComment: '',
     firstLevelHistory: [
       {
-        userName: 'Rahul Sharma',
-        status: 'approve',
-        comment: 'Looks good',
-        date: '12 Mar 2026',
-      },
-      {
         userName: 'Amit Jain',
         status: 'reject',
         comment:
           'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
         date: '10 Mar 2026',
+      },
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
       },
     ],
     secondLevelStatus: '',
@@ -78,17 +78,17 @@ export const POData = [
     secondLevelComment: '',
     secondLevelHistory: [
       {
-        userName: 'Rahul Sharma',
-        status: 'approve',
-        comment: 'Looks good',
-        date: '12 Mar 2026',
-      },
-      {
         userName: 'Amit Jain',
         status: 'reject',
         comment:
           'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
         date: '10 Mar 2026',
+      },
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
       },
     ],
     poStatus: '',

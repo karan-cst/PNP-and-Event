@@ -26,7 +26,7 @@ import { useState } from 'react';
 
 const columnHelper = createColumnHelper<EventApproveDataType>();
 
-export const EventApproveListColumns = [
+export const EventApproveListColumns = (role?: string) => [
   columnHelper.accessor('clientName', {
     id: 'clientName',
     size: 150,
@@ -130,7 +130,16 @@ export const EventApproveListColumns = [
             <PiDownloadDuotone className="h-6 w-6" />
           </ActionIcon>
         </Tooltip>
-        <Action data={row.original} />
+      </Flex>
+    ),
+  }),
+  columnHelper.display({
+    id: 'action',
+    size: 150,
+    header: 'Action',
+    cell: ({ row }) => (
+      <Flex align="center" gap="3">
+        <Action data={row.original} role={role} />
       </Flex>
     ),
   }),
@@ -263,70 +272,13 @@ export const ShowComment = ({
   );
 };
 
-// export const ShowComment = ({
-//   comment,
-//   status,
-//   by,
-// }: {
-//   comment: string;
-//   status: string;
-//   by: string;
-// }) => {
-//   const { openModal, closeModal } = useModal();
-
-//   const handleOpen = () => {
-//     openModal({
-//       view: (
-//         <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
-//           <div className="mb-5 flex items-center justify-between">
-//             <Title as="h4" className="font-semibold">
-//               Comment
-//             </Title>
-//             <ActionIcon size="sm" variant="text" onClick={closeModal}>
-//               <PiXBold className="h-auto w-5" />
-//             </ActionIcon>
-//           </div>
-
-//           <Text className="text-sm leading-relaxed text-gray-700">
-//             {comment || 'No comment provided.'}
-//           </Text>
-//         </div>
-//       ),
-//       customSize: 500,
-//     });
-//   };
-
-//   return (
-//     <div className={cn('grid gap-1')}>
-//       {status.length > 0 ? (
-//         <Tooltip
-//           size="sm"
-//           content="View Comment"
-//           placement="top"
-//           color="invert"
-//         >
-//           <Text
-//             className={cn(
-//               'flex items-center gap-1 text-sm font-semibold',
-//               comment
-//                 ? 'cursor-pointer text-blue-600 hover:underline'
-//                 : 'cursor-not-allowed text-gray-400'
-//             )}
-//             onClick={comment ? handleOpen : undefined}
-//           >
-//             {status}
-//             <span>
-//               <AiOutlineExport />
-//             </span>
-//           </Text>
-//         </Tooltip>
-//       ) : null}
-
-//       <Text className="text-sm text-gray-600">{by}</Text>
-//     </div>
-//   );
-// };
-export const Action = ({ data }: { data: EventApproveDataType }) => {
+export const Action = ({
+  data,
+  role,
+}: {
+  data: EventApproveDataType;
+  role?: string;
+}) => {
   const { openModal, closeModal } = useModal();
 
   const [isApprove, setIsApprove] = useState<string>('approve');
@@ -384,6 +336,18 @@ export const Action = ({ data }: { data: EventApproveDataType }) => {
     });
   };
 
+  const firstHistory = data?.firstLevelHistory || [];
+  const secondHistory = data?.secondLevelHistory || [];
+
+  const lastFirst = firstHistory[firstHistory.length - 1];
+  const lastSecond = secondHistory[secondHistory.length - 1];
+  const operationDisabled =
+    role === 'operationHead' && lastFirst?.status === 'approve';
+  console.log(role === 'operationHead', lastFirst?.status === 'approve');
+  const headDisabled =
+    role === 'eventHead' &&
+    (lastFirst?.status !== 'approve' || lastSecond?.status === 'approve');
+  const disabled = operationDisabled || headDisabled;
   return (
     <div className={cn('grid gap-1')}>
       <Tooltip
@@ -392,7 +356,16 @@ export const Action = ({ data }: { data: EventApproveDataType }) => {
         placement="top"
         color="invert"
       >
-        <PiCheckFatDuotone className="h-6 w-6" onClick={handleOpen} />
+        <ActionIcon
+          as="span"
+          size="sm"
+          variant="outline"
+          aria-label={'Download PO'}
+          onClick={() => {}}
+          disabled={disabled}
+        >
+          <PiCheckFatDuotone className="h-6 w-6" onClick={handleOpen} />
+        </ActionIcon>
       </Tooltip>
     </div>
   );

@@ -10,6 +10,7 @@ import cn from '@core/utils/class-names';
 import { useState } from 'react';
 import ClientApprovePageHeader from './eventApprove-page-header';
 import { EventApproveData } from '@/data/eventApprovalData';
+import { useSession } from 'next-auth/react';
 
 export type EventApproveDataType = (typeof EventApproveData)[number];
 
@@ -33,6 +34,8 @@ export default function EventApproveTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
+  const { data: session } = useSession();
+  const role = session?.user.role;
   const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'Events',
@@ -49,7 +52,7 @@ export default function EventApproveTable({
 
   const { table, setData } = useTanStackTable<EventApproveDataType>({
     tableData: EventApproveData,
-    columnConfig: EventApproveListColumns,
+    columnConfig: EventApproveListColumns(role),
     options: {
       initialState: {
         pagination: {
