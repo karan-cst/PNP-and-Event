@@ -25,4 +25,12 @@ export const RolesListColumns = [
     header: 'Type',
     cell: ({ row }) => <Text className="text-sm">{row.original.type}</Text>,
   }),
+  columnHelper.display({
+    id: 'number',
+    size: 150,
+    header: 'Total',
+    cell: ({ row }) => (
+      <Text className="text-sm">{Math.floor(Math.random() * 10)}</Text>
+    ),
+  }),
 ];

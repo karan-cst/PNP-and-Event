@@ -309,6 +309,55 @@ export const berylliumMenuItems: MenuItemsType[] = [
     ],
   },
   {
+    id: '6',
+    name: 'Event',
+    title: 'Event Master',
+    icon: PiFolderUserDuotone,
+    roles: ['superAdmin', 'eventAdmin'],
+    isExpnad: true,
+    menuItems: [
+      {
+        name: 'Event Master',
+        description: 'Master pages for Event',
+        icon: PiFolderUserDuotone,
+        roles: ['superAdmin', 'eventAdmin'],
+
+        subMenuItems: [
+          {
+            name: 'HSN Code',
+            href: routes.pnpMaster.hsn,
+            badge: '',
+          },
+          {
+            name: 'Project Categories',
+            href: routes.eventMaster.project,
+            badge: '',
+          },
+          {
+            name: 'Event Types',
+            href: routes.eventMaster.type,
+            badge: '',
+          },
+          {
+            name: 'Division Code and CC',
+            href: routes.eventMaster.division,
+            badge: '',
+          },
+          {
+            name: 'Standard Rates',
+            href: routes.eventMaster.rate,
+            badge: '',
+          },
+          {
+            name: 'City Tier',
+            href: routes.eventMaster.city,
+            badge: '',
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: '7',
     name: 'Job',
     title: 'Job Management',
@@ -326,13 +375,13 @@ export const berylliumMenuItems: MenuItemsType[] = [
             name: 'Event Jobs',
             href: routes.jobManagement.event,
             badge: '',
-            roles: ['superAdmin', 'pnpAdmin'],
+            roles: ['superAdmin', 'eventAdmin'],
           },
           {
             name: 'PNP Jobs',
             href: routes.jobManagement.pnp,
             badge: '',
-            roles: ['superAdmin', 'eventAdmin'],
+            roles: ['superAdmin', 'pnpAdmin'],
           },
         ],
       },

@@ -29,7 +29,7 @@ export default function UserRoles() {
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-        <div className="mt-4 flex items-center gap-3 @lg:mt-0">
+        {/* <div className="mt-4 flex items-center gap-3 @lg:mt-0">
           <Link
             href={routes.eCommerce.createProduct}
             className="w-full @lg:w-auto"
@@ -39,7 +39,7 @@ export default function UserRoles() {
               Create User
             </Button>
           </Link>
-        </div>
+        </div> */}
       </PageHeader>
 
       <RolesTable pageSize={10} type="Finance" />
