@@ -39,11 +39,10 @@ export default function UserPageHeader<T extends Record<string, any>>({
         >
           <Input
             type="search"
-            placeholder="Search by vendor name..."
+            placeholder="Search..."
             value={table.getState().globalFilter ?? ''}
             onClear={() => table.setGlobalFilter('')}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
-            inputClassName="h-9"
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />

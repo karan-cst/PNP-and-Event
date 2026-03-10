@@ -1,23 +1,39 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
+import {
+  ActionIcon,
+  Button,
+  Flex,
+  Select,
+  Switch,
+  Text,
+  Title,
+  Tooltip,
+} from 'rizzui';
 import { EventDataType } from './table';
 import cn from '@core/utils/class-names';
 import PencilIcon from '@core/components/icons/pencil';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
-import { PiEyeBold, PiMicrosoftExcelLogo, PiPlusBold } from 'react-icons/pi';
+import {
+  PiEyeBold,
+  PiMicrosoftExcelLogo,
+  PiPlusBold,
+  PiUserSwitchDuotone,
+  PiXBold,
+} from 'react-icons/pi';
 import { useModal } from '../../modal-views/use-modal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/config/format-pricing';
+import { useState } from 'react';
 
 const columnHelper = createColumnHelper<EventDataType>();
 
-export const EventListColumns = [
-  columnHelper.display({
+export const EventListColumns = (role?: string) => [
+  columnHelper.accessor('id', {
     id: 'id',
     size: 50,
-    header: 'Event Id',
+    header: 'Id',
     cell: ({ row }) => <Text className="text-sm">{row.original.id}</Text>,
   }),
   columnHelper.accessor('eventName', {
@@ -44,7 +60,7 @@ export const EventListColumns = [
   columnHelper.accessor('lowestVendorName', {
     id: 'lowestVendorName',
     size: 150,
-    header: 'Lowest vendor name',
+    header: 'Lowest vendor',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Text className="text-sm">
@@ -68,7 +84,7 @@ export const EventListColumns = [
   columnHelper.accessor('finalizedVendorName', {
     id: 'finalizedVendorName',
     size: 150,
-    header: 'Finalized Vendor Name',
+    header: 'Finalized Vendor',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Text className="text-sm">{`${row.original?.finalizedVendorName ? row.original?.finalizedVendorName : '-'}`}</Text>
@@ -104,7 +120,7 @@ export const EventListColumns = [
       table: {
         options: { meta },
       },
-    }) => <Action event={row.original} />,
+    }) => <Action event={row.original} role={role} />,
   }),
 ];
 
@@ -124,9 +140,54 @@ const EventEdit = ({ event }: { event: EventDataType }) => {
   );
 };
 
-const Action = ({ event }: { event: EventDataType }) => {
+const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
   const router = useRouter();
+  const [isApprove, setIsApprove] = useState<string>('karan');
+  const { openModal, closeModal } = useModal();
 
+  const handleOpen = () => {
+    openModal({
+      view: (
+        <div className="m-auto px-5 pb-8 pt-5">
+          <div className="mb-5 flex items-center justify-between">
+            <Title as="h4" className="font-semibold">
+              Assign New User
+            </Title>
+
+            <ActionIcon size="sm" variant="text" onClick={closeModal}>
+              <PiXBold className="h-auto w-5" />
+            </ActionIcon>
+          </div>
+          <div className="space-y-4">
+            <Select
+              label="Reassign User"
+              inPortal={false}
+              labelClassName="text-sm font-medium text-gray-900"
+              dropdownClassName="h-auto"
+              placeholder="Approve or Reject"
+              options={[
+                { label: 'Karan', value: 'karan' },
+                { label: 'Amulakh', value: 'Amulakh' },
+              ]}
+              value={isApprove}
+              onChange={(e: string) => setIsApprove(e)}
+              getOptionValue={(option) => option.value}
+              displayValue={(selected) =>
+                [
+                  { label: 'Karan', value: 'karan' },
+                  { label: 'Amulakh', value: 'Amulakh' },
+                ].find((r) => r.value === selected)?.label ?? ''
+              }
+            />
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button onClick={() => {}}>Submit</Button>
+          </div>
+        </div>
+      ),
+      customSize: 500,
+    });
+  };
   return (
     <Flex align="center" justify="start" gap="3" className="pe-4">
       <EventEdit event={event} />
@@ -164,6 +225,24 @@ const Action = ({ event }: { event: EventDataType }) => {
           <PiEyeBold className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
+      {role == 'operationHead' && (
+        <Tooltip
+          size="sm"
+          content={'Reassign user'}
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label={'Reassign user'}
+            onClick={handleOpen}
+          >
+            <PiUserSwitchDuotone className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip>
+      )}
     </Flex>
   );
 };

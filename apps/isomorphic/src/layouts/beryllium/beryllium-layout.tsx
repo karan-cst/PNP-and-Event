@@ -22,7 +22,7 @@ export default function BerylliumLayout({
         <div
           className={cn(
             'flex flex-grow flex-col gap-4 px-4 pb-6 duration-200 md:px-5 lg:pb-8 xl:pe-8',
-            expandedLeft ? 'xl:ps-[414px]' : 'xl:ps-[110px]'
+            expandedLeft ? 'xl:ps-[378px]' : 'xl:ps-[110px]'
           )}
         >
           <div className="grow">{children}</div>

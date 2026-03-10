@@ -2,20 +2,38 @@
 
 import { useState } from 'react';
 import PageHeader from '@/app/shared/page-header';
-import { Button } from 'rizzui';
+import { ActionIcon, Button, Tooltip } from 'rizzui';
 import { PiPlusBold } from 'react-icons/pi';
+import { IoMdArrowBack } from 'react-icons/io';
 import VendorUploadModal from '@/app/shared/event-management/vendor-upload/vendorUpload';
 import VendorsTable from '@/app/shared/event-management/vendorTable';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import { VendorDataType } from '@/app/shared/vendor-management/pnp-vendor/vendor-list/table';
 import { vendorData } from '@/data/vendor-data';
+import { VendorPriceCompairView } from '@/app/shared/event-management/vendor-price-compair-view/vendorPriceCompair';
+import { useRouter } from 'next/navigation';
 
 export default function Vendors() {
+  const router = useRouter();
   const [vendors, setVendors] = useState([
     {
       vendorName: 'Medcom',
       name: 'Ankit Gandhi',
       total: 10000,
+      emlFileUrl: 'emailurl',
+      excelFileUrl: 'excelFileUrl',
+    },
+    {
+      vendorName: 'Aurum',
+      name: 'Karan Jain',
+      total: 9500,
+      emlFileUrl: 'emailurl',
+      excelFileUrl: 'excelFileUrl',
+    },
+    {
+      vendorName: 'Decor',
+      name: 'Miyan Akshay',
+      total: 9800,
       emlFileUrl: 'emailurl',
       excelFileUrl: 'excelFileUrl',
     },
@@ -29,7 +47,6 @@ export default function Vendors() {
     tier: 1,
     stdTotal: 100000,
   };
-  const { openModal, closeModal } = useModal();
 
   const pageHeader = {
     title: 'Vendors',
@@ -39,6 +56,7 @@ export default function Vendors() {
       { name: 'Vendors' },
     ],
   };
+  const { openModal, closeModal } = useModal();
 
   const handleOpenModal = (rowData = null) => {
     openModal({
@@ -47,11 +65,26 @@ export default function Vendors() {
       ),
     });
   };
+  const handleOpenPriceModal = () => {
+    openModal({
+      view: <VendorPriceCompairView onClose={() => closeModal()} />,
+      customSize: 900,
+    });
+  };
 
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-        <div className="mb-4 flex justify-end">
+        <div className="mb-4 flex justify-end gap-2">
+          <Tooltip size="sm" content="Back" placement="top" color="invert">
+            <Button onClick={() => router.push('/event-management')}>
+              <IoMdArrowBack className="h-4 w-4" />
+            </Button>
+          </Tooltip>
+          <Button onClick={() => handleOpenPriceModal()}>
+            <PiPlusBold className="mr-2" />
+            compare Price
+          </Button>
           <Button onClick={() => handleOpenModal()}>
             <PiPlusBold className="mr-2" />
             Add Vendor

@@ -7,7 +7,7 @@ import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ClientApprovePageHeader from './eventApprove-page-header';
 import { EventTrackerData } from '@/data/eventTrackerData';
 
@@ -48,7 +48,10 @@ export default function EventTrackerTable({
   };
 
   const { table, setData } = useTanStackTable<EventTrackerDataType>({
-    tableData: EventTrackerData,
+    tableData:
+      type == 'all'
+        ? EventTrackerData
+        : EventTrackerData.filter((e) => e.isPharma == type),
     columnConfig: EventTrackerListColumns,
     options: {
       initialState: {
@@ -69,6 +72,14 @@ export default function EventTrackerTable({
       enableColumnResizing: false,
     },
   });
+
+  useEffect(() => {
+    const data =
+      type == 'all'
+        ? EventTrackerData
+        : EventTrackerData.filter((e) => e.isPharma == type);
+    setData(data);
+  }, [type, setData]);
 
   return (
     <>

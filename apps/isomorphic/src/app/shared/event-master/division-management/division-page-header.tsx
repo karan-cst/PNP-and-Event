@@ -28,6 +28,7 @@ export function CreateDivisionModalView({
         </ActionIcon>
       </div>
       <CreateDivisin
+        id={division?.id || ''}
         isModalView={false}
         division={
           division || {

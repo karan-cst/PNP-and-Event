@@ -8,6 +8,7 @@ import {
   PiEyeBold,
   PiMicrosoftExcelLogo,
   PiCheckFatDuotone,
+  PiXBold,
 } from 'react-icons/pi';
 import { ActionIcon } from 'rizzui/action-icon';
 import { Flex } from 'rizzui/flex';
@@ -17,6 +18,9 @@ import { VendorViewModalView } from './vendor-view/vendorViewModal';
 import VendorUploadModal from './vendor-upload/vendorUpload';
 import { Vendor, vendorData } from '@/data/vendor-data';
 import { VendorDataType } from '../vendor-management/pnp-vendor/vendor-list/table';
+import { Input } from 'rizzui/input';
+import { Title } from 'rizzui/typography';
+import { Button } from 'rizzui/button';
 
 const columns = [
   {
@@ -87,7 +91,36 @@ const columns = [
 
 const Action = ({ row }: { row: null }) => {
   const { openModal, closeModal } = useModal();
+  const handleOpen = () => {
+    openModal({
+      view: (
+        <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+          <div className="mb-5 flex items-center justify-between">
+            <Title as="h4" className="font-semibold">
+              Comment
+            </Title>
+            <ActionIcon size="sm" variant="text" onClick={closeModal}>
+              <PiXBold className="h-auto w-5" />
+            </ActionIcon>
+          </div>
 
+          <div className="space-y-4">
+            <Input
+              label="Your Comments"
+              placeholder="Comments...."
+              className="col-span-full"
+              onChange={(e) => console.log(e)}
+            />
+          </div>
+
+          <div className="flex justify-end gap-3 pt-3">
+            <Button onClick={() => {}}>Select Vendor</Button>
+          </div>
+        </div>
+      ),
+      customSize: 500,
+    });
+  };
   return (
     <Flex align="center" gap="3">
       <Tooltip size="sm" content="Edit Vendor" placement="top" color="invert">
@@ -125,7 +158,7 @@ const Action = ({ row }: { row: null }) => {
         placement="top"
         color="invert"
       >
-        <ActionIcon size="sm" variant="outline" onClick={() => {}}>
+        <ActionIcon size="sm" variant="outline" onClick={handleOpen}>
           <PiCheckFatDuotone className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>

@@ -318,13 +318,27 @@ export const menuItems = [
     name: 'PO Management',
     href: routes.POManagement.po,
     icon: <PiClipboardTextDuotone />,
-    roles: ['financeExecutive', 'financeManager', 'financeHead'],
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
   },
   {
     name: 'Invoice Management',
     href: routes.InvoiceManagement.invoice,
     icon: <AiTwotoneFileText />,
-    roles: ['financeExecutive', 'financeManager', 'financeHead'],
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
   },
 
   // // label start

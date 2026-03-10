@@ -33,10 +33,13 @@ export default function EventjobsTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [isPharma, setIsPharma] = useState('pharma');
+  const [isPharma, setIsPharma] = useState('all');
 
   const { table, setData } = useTanStackTable<EventJobsDataType>({
-    tableData: EventJobsData.filter((e) => e.isPharma !== isPharma),
+    tableData:
+      isPharma == 'all'
+        ? EventJobsData
+        : EventJobsData.filter((e) => e.isPharma !== isPharma),
     columnConfig: EventJobListColumns,
     options: {
       initialState: {
@@ -58,9 +61,10 @@ export default function EventjobsTable({
   });
 
   useEffect(() => {
-    const filteredData = EventJobsData.filter(
-      (job) => job.isPharma === isPharma
-    );
+    const filteredData =
+      isPharma == 'all'
+        ? EventJobsData
+        : EventJobsData.filter((job) => job.isPharma === isPharma);
 
     setData(filteredData);
 

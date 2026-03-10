@@ -17,6 +17,7 @@ export type EventApprove = {
   secondLevelComment?: string;
   secondLevelHistory: ApprovalHistory[];
   poStatus?: string;
+  isPharma: string;
 };
 
 export const EventApproveData = [
@@ -52,6 +53,7 @@ export const EventApproveData = [
     secondLevelComment: '',
     secondLevelHistory: [],
     poStatus: '',
+    isPharma: 'pharma',
   },
   {
     clientName: 'ABC',
@@ -93,5 +95,6 @@ export const EventApproveData = [
       },
     ],
     poStatus: '',
+    isPharma: 'non-pharma',
   },
 ];

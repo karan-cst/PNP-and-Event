@@ -7,7 +7,7 @@ import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ClientApprovePageHeader from './eventApprove-page-header';
 import { EventApproveData } from '@/data/eventApprovalData';
 import { useSession } from 'next-auth/react';
@@ -51,7 +51,10 @@ export default function EventApproveTable({
   };
 
   const { table, setData } = useTanStackTable<EventApproveDataType>({
-    tableData: EventApproveData,
+    tableData:
+      type == 'all'
+        ? EventApproveData
+        : EventApproveData.filter((e) => e.isPharma == type),
     columnConfig: EventApproveListColumns(role),
     options: {
       initialState: {
@@ -72,6 +75,14 @@ export default function EventApproveTable({
       enableColumnResizing: false,
     },
   });
+  console.log('type', type);
+  useEffect(() => {
+    const data =
+      type == 'all'
+        ? EventApproveData
+        : EventApproveData.filter((e) => e.isPharma == type);
+    setData(data);
+  }, [type, setData]);
 
   return (
     <>

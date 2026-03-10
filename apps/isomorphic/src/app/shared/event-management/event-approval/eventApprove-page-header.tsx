@@ -51,7 +51,9 @@ export default function EventApprovePageHeader<T extends Record<string, any>>({
               { label: 'Non Pharma', value: 'non-pharma' },
             ]}
             value={type}
-            onChange={(value: string) => setType?.(value || 'all')}
+            onChange={(value: { label: string; value: string }) =>
+              setType?.(value.value || 'all')
+            }
             displayValue={(value: string) =>
               value == 'all'
                 ? 'All'

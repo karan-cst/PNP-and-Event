@@ -11,6 +11,7 @@ import { exportToCSV } from '@core/utils/export-to-csv';
 import UserPageHeader from '../user-page-header';
 import { eventDummyData } from '@/data/event-management.data';
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export type EventDataType = (typeof eventDummyData)[number];
 
@@ -34,6 +35,8 @@ export default function EventsTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
+  const { data: session } = useSession();
+  const role = session?.user.role;
   const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'Events',
@@ -53,7 +56,7 @@ export default function EventsTable({
       type == 'all'
         ? eventDummyData
         : eventDummyData.filter((e) => e.isPharma !== type),
-    columnConfig: EventListColumns,
+    columnConfig: EventListColumns(role),
     options: {
       initialState: {
         pagination: {

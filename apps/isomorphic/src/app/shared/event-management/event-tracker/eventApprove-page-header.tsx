@@ -38,7 +38,6 @@ export default function EventApprovePageHeader<T extends Record<string, any>>({
             value={table.getState().globalFilter ?? ''}
             onClear={() => table.setGlobalFilter('')}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
-            inputClassName="h-9"
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />

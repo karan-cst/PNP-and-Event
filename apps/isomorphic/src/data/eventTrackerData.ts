@@ -40,6 +40,6 @@ export const EventTrackerData = [
     venodrCost: 12000,
     clientCost: null,
     poStatus: '',
-    isPharma: 'pharma',
+    isPharma: 'non-pharma',
   },
 ];

@@ -324,11 +324,6 @@ export const berylliumMenuItems: MenuItemsType[] = [
 
         subMenuItems: [
           {
-            name: 'HSN Code',
-            href: routes.pnpMaster.hsn,
-            badge: '',
-          },
-          {
             name: 'Project Categories',
             href: routes.eventMaster.project,
             badge: '',
@@ -486,14 +481,28 @@ export const berylliumMenuItems: MenuItemsType[] = [
     name: 'PO',
     title: 'PO',
     icon: PiClipboardTextDuotone,
-    roles: ['financeExecutive', 'financeManager', 'financeHead'],
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
     isExpnad: false,
     menuItems: [
       {
         name: 'PO Management',
         href: routes.POManagement.po,
         icon: PiClipboardTextDuotone,
-        roles: ['financeExecutive', 'financeManager', 'financeHead'],
+        roles: [
+          'financeExecutive',
+          'financeManager',
+          'financeHead',
+          'eventUser',
+          'operationHead',
+          'eventHead',
+        ],
       },
     ],
   },
@@ -502,14 +511,28 @@ export const berylliumMenuItems: MenuItemsType[] = [
     name: 'Invoice',
     title: 'Invoice',
     icon: AiTwotoneFileText,
-    roles: ['financeExecutive', 'financeManager', 'financeHead'],
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
     isExpnad: false,
     menuItems: [
       {
         name: 'Invoice Management',
         href: routes.InvoiceManagement.invoice,
         icon: AiTwotoneFileText,
-        roles: ['financeExecutive', 'financeManager', 'financeHead'],
+        roles: [
+          'financeExecutive',
+          'financeManager',
+          'financeHead',
+          'eventUser',
+          'operationHead',
+          'eventHead',
+        ],
       },
     ],
   },

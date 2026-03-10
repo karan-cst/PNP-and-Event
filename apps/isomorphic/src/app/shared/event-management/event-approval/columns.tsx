@@ -83,7 +83,7 @@ export const EventApproveListColumns = (role?: string) => [
   columnHelper.accessor('firstLevelStatus', {
     id: 'firstLevelStatus',
     size: 150,
-    header: '1st Level Status (FM)',
+    header: '1st Level Status',
     cell: ({ row }) => (
       <ShowComment
         status={row.original?.firstLevelStatus}
@@ -96,7 +96,7 @@ export const EventApproveListColumns = (role?: string) => [
   columnHelper.accessor('secondLevelStatus', {
     id: 'secondLevelStatus',
     size: 150,
-    header: '2nd Level Status (FH)',
+    header: '2nd Level Status',
     cell: ({ row }) => (
       <ShowComment
         status={row.original?.secondLevelStatus}

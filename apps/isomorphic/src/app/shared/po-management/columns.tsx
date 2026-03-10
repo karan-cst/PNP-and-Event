@@ -153,19 +153,24 @@ export const getPOColumns = (role?: string) => [
             <PiDownloadDuotone className="h-4 w-4" />
           </ActionIcon>
         </Tooltip>
-
-        <Tooltip size="sm" content={'Upload PO'} placement="top" color="invert">
-          <ActionIcon
-            as="span"
+        {role == 'financeExecutive' && (
+          <Tooltip
             size="sm"
-            variant="outline"
-            aria-label="Upload PO"
-            onClick={() => {}}
-            disabled={role !== 'financeExecutive'}
+            content={'Upload PO'}
+            placement="top"
+            color="invert"
           >
-            <PiUploadDuotone className="h-4 w-4" />
-          </ActionIcon>
-        </Tooltip>
+            <ActionIcon
+              as="span"
+              size="sm"
+              variant="outline"
+              aria-label="Upload PO"
+              onClick={() => {}}
+            >
+              <PiUploadDuotone className="h-4 w-4" />
+            </ActionIcon>
+          </Tooltip>
+        )}
       </Flex>
     ),
   }),

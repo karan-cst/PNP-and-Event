@@ -30,27 +30,32 @@ export default function EventjobPageHeader<T extends Record<string, any>>({
         <Flex align="center" justify="end" gap="4" className="mb-4">
           <Input
             type="search"
-            placeholder="Search by vendor name..."
+            placeholder="Search..."
             value={table.getState().globalFilter ?? ''}
             onClear={() => table.setGlobalFilter('')}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
-            inputClassName="h-9"
+            inputClassName="h-10"
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />
           <Select
             placeholder="Select..."
             options={[
+              { label: 'All', value: 'all' },
               { label: 'Pharma', value: 'pharma' },
               { label: 'Non Pharma', value: 'non-pharma' },
             ]}
             value={type}
             onChange={(option: { value: string }) => setType(option.value)}
             displayValue={(value: string) =>
-              value == 'pharma' ? 'Pharma' : 'Non Pharma'
+              value == 'all'
+                ? 'All'
+                : value == 'pharma'
+                  ? 'Pharma'
+                  : 'Non Pharma'
             }
             dropdownClassName="z-[10000]"
-            className="h-9"
+            // className="h-9"
           />
           <ToggleColumns table={table} />
         </Flex>
