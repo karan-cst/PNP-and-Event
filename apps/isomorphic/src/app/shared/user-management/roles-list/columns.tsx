@@ -5,6 +5,9 @@ import { createColumnHelper } from '@tanstack/react-table';
 
 import { Text, Title } from 'rizzui';
 import { RolesDataType } from './role';
+import ModalButton from '../../modal-button';
+import UserCog from '@core/components/icons/user-cog';
+import EditRole from '../../roles-permissions/edit-role';
 
 const columnHelper = createColumnHelper<RolesDataType>();
 
@@ -31,6 +34,21 @@ export const RolesListColumns = [
     header: 'Total',
     cell: ({ row }) => (
       <Text className="text-sm">{Math.floor(Math.random() * 10)}</Text>
+    ),
+  }),
+  columnHelper.display({
+    id: 'permission',
+    size: 150,
+    header: 'Permission',
+    cell: ({ row }) => (
+      <ModalButton
+        customSize={700}
+        variant="outline"
+        label="Edit Role"
+        icon={<UserCog className="h-5 w-5" />}
+        view={<EditRole />}
+        className="items-center gap-1 text-gray-800"
+      />
     ),
   }),
 ];

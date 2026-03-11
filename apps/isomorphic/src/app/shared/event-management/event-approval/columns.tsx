@@ -113,32 +113,7 @@ export const EventApproveListColumns = (role?: string) => [
     size: 150,
     header: 'Negotiation',
     cell: () => {
-      const { openModal } = useModal();
-
-      return (
-        <Flex align="center" gap="3">
-          <Tooltip
-            size="sm"
-            content={'Rate Negotiation'}
-            placement="top"
-            color="invert"
-          >
-            <ActionIcon
-              as="span"
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                openModal({
-                  view: <RateNegotiationModal />,
-                  customSize: 900,
-                })
-              }
-            >
-              <PencilIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Tooltip>
-        </Flex>
-      );
+      <Ratenegotiate />;
     },
   }),
   columnHelper.display({
@@ -152,6 +127,35 @@ export const EventApproveListColumns = (role?: string) => [
     ),
   }),
 ];
+
+const Ratenegotiate = () => {
+  const { openModal } = useModal();
+
+  return (
+    <Flex align="center" gap="3">
+      <Tooltip
+        size="sm"
+        content={'Rate Negotiation'}
+        placement="top"
+        color="invert"
+      >
+        <ActionIcon
+          as="span"
+          size="sm"
+          variant="outline"
+          onClick={() =>
+            openModal({
+              view: <RateNegotiationModal />,
+              customSize: 900,
+            })
+          }
+        >
+          <PencilIcon className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+    </Flex>
+  );
+};
 
 export type ApprovalHistory = {
   userName: string;
