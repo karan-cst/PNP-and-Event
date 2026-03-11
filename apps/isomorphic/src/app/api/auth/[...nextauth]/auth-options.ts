@@ -98,7 +98,7 @@ export const authOptions: NextAuthOptions = {
             role: 'eventAdmin',
           };
         }
-        if (email === 'event@oneadvt.com' && password === 'admin') {
+        if (email === 'eventuser@oneadvt.com' && password === 'admin') {
           return {
             id: '4',
             name: 'Event User',
