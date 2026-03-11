@@ -65,7 +65,6 @@ export default function ClientPageHeader<T extends Record<string, any>>({
   table,
   type,
 }: PageHeaderTypes<T>) {
-  console.log('type/*/*/*/*/*', type);
   const { isOpen, openModal, closeModal } = useModal();
   return (
     <>

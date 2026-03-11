@@ -66,6 +66,9 @@ export const routes = {
   InvoiceManagement: {
     invoice: '/invoice-management',
   },
+  PaymentManagement: {
+    payment: '/payment-management',
+  },
 
   // *************OLD************** //
   eCommerce: {

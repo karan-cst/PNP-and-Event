@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
         // that is false/null if the credentials are invalid
         const { email, password } = credentials as any;
         // const user = {
-        //   email: 'admin@admin.com',
+        //   email: 'admin@oneadvt.com',
         //   password: 'admin',
         // };
 
@@ -73,7 +73,7 @@ export const authOptions: NextAuthOptions = {
         // ) {
         //   return user as any;
         // }
-        if (email === 'super@admin.com' && password === 'admin') {
+        if (email === 'super@oneadvt.com' && password === 'admin') {
           return {
             id: '1',
             name: 'Super Admin',
@@ -82,7 +82,7 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        if (email === 'pnp@admin.com' && password === 'admin') {
+        if (email === 'pnp@oneadvt.com' && password === 'admin') {
           return {
             id: '2',
             name: 'PNP Admin',
@@ -90,7 +90,7 @@ export const authOptions: NextAuthOptions = {
             role: 'pnpAdmin',
           };
         }
-        if (email === 'event@admin.com' && password === 'admin') {
+        if (email === 'event@oneadvt.com' && password === 'admin') {
           return {
             id: '3',
             name: 'Event Admin',
@@ -98,7 +98,7 @@ export const authOptions: NextAuthOptions = {
             role: 'eventAdmin',
           };
         }
-        if (email === 'event@user.com' && password === 'admin') {
+        if (email === 'event@oneadvt.com' && password === 'admin') {
           return {
             id: '4',
             name: 'Event User',
@@ -106,7 +106,7 @@ export const authOptions: NextAuthOptions = {
             role: 'eventUser',
           };
         }
-        if (email === 'operation@user.com' && password === 'admin') {
+        if (email === 'operation@oneadvt.com' && password === 'admin') {
           return {
             id: '5',
             name: 'Operational Head',
@@ -114,7 +114,7 @@ export const authOptions: NextAuthOptions = {
             role: 'operationHead',
           };
         }
-        if (email === 'eventhead@user.com' && password === 'admin') {
+        if (email === 'eventhead@oneadvt.com' && password === 'admin') {
           return {
             id: '6',
             name: 'Event Head',
@@ -122,7 +122,7 @@ export const authOptions: NextAuthOptions = {
             role: 'eventHead',
           };
         }
-        if (email === 'financeExecutive@finance.com' && password === 'admin') {
+        if (email === 'financeExecutive@oneadvt.com' && password === 'admin') {
           return {
             id: '7',
             name: 'Finance Executive',
@@ -130,7 +130,7 @@ export const authOptions: NextAuthOptions = {
             role: 'financeExecutive',
           };
         }
-        if (email === 'financeManager@finance.com' && password === 'admin') {
+        if (email === 'financeManager@oneadvt.com' && password === 'admin') {
           return {
             id: '8',
             name: 'Finance Manager',
@@ -138,7 +138,7 @@ export const authOptions: NextAuthOptions = {
             role: 'financeManager',
           };
         }
-        if (email === 'financeHead@finance.com' && password === 'admin') {
+        if (email === 'financeHead@oneadvt.com' && password === 'admin') {
           return {
             id: '9',
             name: 'Finance Head',
@@ -146,7 +146,7 @@ export const authOptions: NextAuthOptions = {
             role: 'financeHead',
           };
         }
-        if (email === 'cs@pnp.com' && password === 'admin') {
+        if (email === 'cs@oneadvt.com' && password === 'admin') {
           return {
             id: '9',
             name: 'CS User',

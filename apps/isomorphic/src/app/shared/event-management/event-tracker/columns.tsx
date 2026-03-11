@@ -76,7 +76,7 @@ export const EventTrackerListColumns = [
   }),
   columnHelper.accessor('margin', {
     id: 'margin',
-    size: 150,
+    size: 100,
     header: 'Margin',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
@@ -86,10 +86,30 @@ export const EventTrackerListColumns = [
       </div>
     ),
   }),
-  columnHelper.accessor('poStatus', {
+  columnHelper.display({
     id: 'poStatus',
-    size: 150,
+    size: 120,
     header: 'PO Status',
+    cell: ({ row }) => (
+      <Text className="text-sm">
+        {row.original?.poStatus ? row.original?.poStatus : '-'}
+      </Text>
+    ),
+  }),
+  columnHelper.display({
+    id: 'invoiceStatus',
+    size: 120,
+    header: 'Invoice Status',
+    cell: ({ row }) => (
+      <Text className="text-sm">
+        {row.original?.poStatus ? row.original?.poStatus : '-'}
+      </Text>
+    ),
+  }),
+  columnHelper.display({
+    id: 'paymentStatus',
+    size: 120,
+    header: 'Payment Status',
     cell: ({ row }) => (
       <Text className="text-sm">
         {row.original?.poStatus ? row.original?.poStatus : '-'}

@@ -2,19 +2,20 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { EventApproveListColumns } from './columns';
+import { getPaymentColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
+import { exportToCSV } from '@core/utils/export-to-csv';
 import { useEffect, useState } from 'react';
-import ClientApprovePageHeader from './eventApprove-page-header';
-import { EventApproveData } from '@/data/eventApprovalData';
+import { POData } from '@/data/po.data';
+import InvoicePageHeader from './Invoice-page-header';
 import { useSession } from 'next-auth/react';
 
-export type EventApproveDataType = (typeof EventApproveData)[number];
+export type PODataType = (typeof POData)[number];
 
-export default function EventApproveTable({
+export default function PaymentTable({
   pageSize = 5,
   hideFilters = true,
 
@@ -38,24 +39,19 @@ export default function EventApproveTable({
   const role = session?.user.role;
   const [type, setType] = useState<string>('all');
   const pageHeader = {
-    title: 'Events',
+    title: 'Payment Management',
     breadcrumb: [
       {
         href: '#',
-        name: 'Event Management',
-      },
-      {
-        name: 'Event Approval',
+        name: '',
       },
     ],
   };
 
-  const { table, setData } = useTanStackTable<EventApproveDataType>({
+  const { table, setData } = useTanStackTable<PODataType>({
     tableData:
-      type == 'all'
-        ? EventApproveData
-        : EventApproveData.filter((e) => e.isPharma == type),
-    columnConfig: EventApproveListColumns(role),
+      type == 'all' ? POData : POData.filter((job) => job.isPharma === type),
+    columnConfig: getPaymentColumns(role),
     options: {
       initialState: {
         pagination: {
@@ -75,17 +71,33 @@ export default function EventApproveTable({
       enableColumnResizing: false,
     },
   });
+
   useEffect(() => {
-    const data =
-      type == 'all'
-        ? EventApproveData
-        : EventApproveData.filter((e) => e.isPharma == type);
-    setData(data);
-  }, [type, setData]);
+    const filteredData =
+      type == 'all' ? POData : POData.filter((job) => job.isPharma === type);
+
+    setData(filteredData);
+
+    // optional but recommended
+    table.resetRowSelection();
+    table.setPageIndex(0);
+  }, [type, setData, table]);
+
+  const selectedData = table
+    .getSelectedRowModel()
+    .rows.map((row) => row.original);
+
+  function handleExportData() {
+    exportToCSV(
+      selectedData,
+      'ID,Name,Category,Sku,Price,Stock,Status,Rating',
+      `product_data_${selectedData.length}`
+    );
+  }
 
   return (
     <>
-      <ClientApprovePageHeader
+      <InvoicePageHeader
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
@@ -102,7 +114,7 @@ export default function EventApproveTable({
           cellClassName: '!py-2', // 👈 KEY FIX
         }}
       />
-      {!hideFooter && <TableFooter table={table} />}
+      {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination
           table={table}

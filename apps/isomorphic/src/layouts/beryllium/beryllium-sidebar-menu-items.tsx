@@ -1,5 +1,6 @@
 import { DUMMY_ID } from '@/config/constants';
 import { routes } from '@/config/routes';
+import { AiTwotoneFileText } from 'react-icons/ai';
 
 import {
   PiAirplaneTilt,
@@ -13,6 +14,7 @@ import {
   PiBriefcaseDuotone,
   PiBrowser,
   PiCalendar,
+  PiCalendarPlusDuotone,
   PiChartBar,
   PiChartLineUp,
   PiChartLineUpDuotone,
@@ -20,6 +22,7 @@ import {
   PiChartPieSliceDuotone,
   PiChatCenteredDots,
   PiClipboardText,
+  PiClipboardTextDuotone,
   PiCodesandboxLogo,
   PiCreditCard,
   PiCurrencyCircleDollar,
@@ -35,9 +38,11 @@ import {
   PiHeadset,
   PiHourglassSimple,
   PiHouseLine,
+  PiListChecksDuotone,
   PiLockKey,
   PiMapPinLine,
   PiNewspaperClipping,
+  PiNewspaperClippingDuotone,
   PiNoteBlank,
   PiPackage,
   PiPackageDuotone,
@@ -277,6 +282,84 @@ export const berylliumSidebarMenuItems = [
       },
     ],
   },
+  {
+    name: 'Event Management',
+    href: routes.eventManagement.event,
+    icon: <PiCalendarPlusDuotone />,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    badge: '',
+  },
+  {
+    name: 'Event Approve',
+    href: routes.eventManagement.eventApprove,
+    icon: <PiClipboardTextDuotone />,
+    roles: ['eventUser', 'operationHead', 'eventHead', 'financeHead'],
+    badge: '',
+  },
+  {
+    name: 'Event Tracker',
+    href: routes.eventManagement.eventTracker,
+    icon: <PiListChecksDuotone />,
+    roles: [
+      'eventUser',
+      'operationHead',
+      'eventHead',
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+    ],
+    badge: '',
+  },
+  {
+    name: 'Client Approval',
+    href: routes.eventManagement.client,
+    icon: <PiNewspaperClippingDuotone />,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    badge: '',
+  },
+  {
+    name: 'PO Management',
+    href: routes.POManagement.po,
+    icon: <PiClipboardTextDuotone />,
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
+    badge: '',
+  },
+
+  {
+    name: 'Invoice Management',
+    href: routes.InvoiceManagement.invoice,
+    icon: <AiTwotoneFileText />,
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
+  },
+  {
+    name: 'Payment Management',
+    href: routes.PaymentManagement.payment,
+    icon: <AiTwotoneFileText />,
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
+    badge: '',
+  },
+
   // // label start
   // {
   //   name: 'Overview',

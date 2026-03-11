@@ -81,7 +81,6 @@ export default function CreateUser({
       userTypeOption = financeUser.map((u) => ({ label: u, value: u }));
     }
   };
-  console.log('type', type, userTypeOption);
 
   useEffect(() => {
     setOption();

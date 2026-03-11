@@ -23,6 +23,8 @@ import { formatPrice } from '@/config/format-pricing';
 import { VendorViewModalView } from '../vendor-view/vendorViewModal';
 import { useModal } from '../../modal-views/use-modal';
 import { useState } from 'react';
+import PencilIcon from '@core/components/icons/pencil';
+import RateNegotiationModal from '../RateNegotiationModal';
 
 const columnHelper = createColumnHelper<EventApproveDataType>();
 
@@ -80,7 +82,7 @@ export const EventApproveListColumns = (role?: string) => [
       // </div>
     ),
   }),
-  columnHelper.accessor('firstLevelStatus', {
+  columnHelper.display({
     id: 'firstLevelStatus',
     size: 150,
     header: '1st Level Status',
@@ -93,7 +95,7 @@ export const EventApproveListColumns = (role?: string) => [
       />
     ),
   }),
-  columnHelper.accessor('secondLevelStatus', {
+  columnHelper.display({
     id: 'secondLevelStatus',
     size: 150,
     header: '2nd Level Status',
@@ -106,32 +108,38 @@ export const EventApproveListColumns = (role?: string) => [
       />
     ),
   }),
-  columnHelper.accessor('poStatus', {
-    id: 'poStatus',
+  columnHelper.display({
+    id: 'rateNegotiate',
     size: 150,
-    header: 'PO Status',
-    cell: ({ row }) => (
-      <Flex align="center" gap="3">
-        <Tooltip
-          size="sm"
-          content={'Download PO'}
-          placement="top"
-          color="invert"
-        >
-          <ActionIcon
-            as="span"
+    header: 'Negotiation',
+    cell: () => {
+      const { openModal } = useModal();
+
+      return (
+        <Flex align="center" gap="3">
+          <Tooltip
             size="sm"
-            variant="outline"
-            aria-label={'Download PO'}
-            onClick={() => {
-              window.open('/templates/dummy_po.pdf', '_blank');
-            }}
+            content={'Rate Negotiation'}
+            placement="top"
+            color="invert"
           >
-            <PiDownloadDuotone className="h-6 w-6" />
-          </ActionIcon>
-        </Tooltip>
-      </Flex>
-    ),
+            <ActionIcon
+              as="span"
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                openModal({
+                  view: <RateNegotiationModal />,
+                  customSize: 900,
+                })
+              }
+            >
+              <PencilIcon className="h-4 w-4" />
+            </ActionIcon>
+          </Tooltip>
+        </Flex>
+      );
+    },
   }),
   columnHelper.display({
     id: 'action',

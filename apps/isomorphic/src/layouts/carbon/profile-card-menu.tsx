@@ -22,11 +22,11 @@ type ProfileCardMenuProps = {
 const menuItems = [
   {
     name: 'My Profile',
-    href: routes.profile,
+    href: routes.forms.profileSettings,
   },
   {
-    name: 'Account Settings',
-    href: routes.forms.profileSettings,
+    name: 'Password Change',
+    href: '#',
   },
   {
     name: 'Activity Log',

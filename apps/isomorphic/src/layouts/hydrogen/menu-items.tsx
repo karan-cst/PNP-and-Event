@@ -306,13 +306,20 @@ export const menuItems = [
     name: 'Event Approve',
     href: routes.eventManagement.eventApprove,
     icon: <PiClipboardTextDuotone />,
-    roles: ['eventUser', 'operationHead', 'eventHead'],
+    roles: ['eventUser', 'operationHead', 'eventHead', 'financeHead'],
   },
   {
     name: 'Event Tracker',
     href: routes.eventManagement.eventTracker,
     icon: <PiListChecksDuotone />,
-    roles: ['eventUser', 'operationHead', 'eventHead'],
+    roles: [
+      'eventUser',
+      'operationHead',
+      'eventHead',
+      'financeHead',
+      'financeExecutive',
+      'financeManager',
+    ],
   },
   {
     name: 'PO Management',
@@ -330,6 +337,20 @@ export const menuItems = [
   {
     name: 'Invoice Management',
     href: routes.InvoiceManagement.invoice,
+    icon: <AiTwotoneFileText />,
+    roles: [
+      'financeExecutive',
+      'financeManager',
+      'financeHead',
+      'eventUser',
+      'operationHead',
+      'eventHead',
+    ],
+  },
+
+  {
+    name: 'Payment Management',
+    href: routes.PaymentManagement.payment,
     icon: <AiTwotoneFileText />,
     roles: [
       'financeExecutive',
