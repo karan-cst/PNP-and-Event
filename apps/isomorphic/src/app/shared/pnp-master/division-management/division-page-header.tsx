@@ -29,13 +29,13 @@ export function CreateDivisionModalView({
       </div>
       <CreateDivisin
         isModalView={false}
-        division={
-          division || {
-            divisionCode: '',
-            ccCode: '',
-            isActive: 'inactive',
-          }
-        }
+        division={{
+          divisionCode: division?.divisionCode || '',
+          ccCode: division?.ccCode || '',
+          isActive: division?.isActive || 'inactive',
+          company: division?.company._id || '',
+          team: division?.team || '',
+        }}
       />
     </div>
   );

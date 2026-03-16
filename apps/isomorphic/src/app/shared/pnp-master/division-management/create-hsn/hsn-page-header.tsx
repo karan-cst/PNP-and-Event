@@ -27,13 +27,13 @@ export function CreateHSNModalView({
       <CreateHSN
         id=""
         isModalView={false}
-        division={
-          division || {
-            divisionCode: '',
-            ccCode: '',
-            isActive: 'active',
-          }
-        }
+        division={{
+          divisionCode: division?.divisionCode || '',
+          ccCode: division?.ccCode || '',
+          isActive: division?.isActive || 'inactive',
+          company: division?.company._id || '',
+          team: division?.team || '',
+        }}
       />
     </div>
   );

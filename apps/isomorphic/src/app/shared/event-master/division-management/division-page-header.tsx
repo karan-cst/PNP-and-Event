@@ -30,15 +30,13 @@ export function CreateDivisionModalView({
       <CreateDivisin
         id={division?.id || ''}
         isModalView={false}
-        division={
-          division || {
-            company: { _id: '', name: '', isPharma: '' },
-            divisionCode: '',
-            ccCode: '',
-            isActive: 'inactive',
-            team: '',
-          }
-        }
+        division={{
+          company: division?.company?._id || '',
+          divisionCode: division?.divisionCode || '',
+          ccCode: division?.ccCode || '',
+          isActive: division?.isActive || '',
+          team: division?.team || '',
+        }}
       />
     </div>
   );

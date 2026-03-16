@@ -29,16 +29,14 @@ export function CreateClientModalView({
       <CreateClient
         id={client?.id || ''}
         isModalView={false}
-        client={
-          client || {
-            company: { _id: '', name: '', isPharma: '' },
-            division: { _id: '', divisionCode: '', team: '' },
-            name: '',
-            email: '',
-            phone: '',
-            isActive: 'inactive',
-          }
-        }
+        client={{
+          company: client?.company?._id || '',
+          division: client?.division?._id || '',
+          name: client?.name || '',
+          email: client?.email || '',
+          phone: client?.phone || '',
+          isActive: client?.isActive || '',
+        }}
       />
     </div>
   );

@@ -58,12 +58,13 @@ export function eventDefaultValues(event?: CreateEventInput) {
     // 5️⃣ Client Section
     divisionName: event?.divisionName ?? '',
 
-    client: {
-      clientName: event?.client?.clientId ?? '',
-      divisionName: event?.client?.divisionName ?? '',
-      // address: event?.client?.address ?? '',
-      // contactName: event?.client?.contactName ?? '',
-      // contactNumber: event?.client?.contactNumber ?? '',
+    company: {
+      companyId: event?.company?.companyId ?? '',
+      divisionName: event?.company?.divisionName ?? '',
+      client: event?.company?.client ?? '',
+      // address: event?.company?.address ?? '',
+      // contactName: event?.company?.contactName ?? '',
+      // contactNumber: event?.company?.contactNumber ?? '',
     },
 
     // 6️⃣ Priority

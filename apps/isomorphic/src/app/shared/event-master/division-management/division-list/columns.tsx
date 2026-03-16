@@ -165,7 +165,13 @@ export function CreateSPOCAddModalView({
       <AddSPOC
         id={division?.id || ''}
         isModalView={false}
-        division={division}
+        division={{
+          company: division?.company?._id || '',
+          divisionCode: division?.divisionCode || '',
+          ccCode: division?.ccCode || '',
+          isActive: division?.isActive || '',
+          team: division?.team || '',
+        }}
       />
     </div>
   );
