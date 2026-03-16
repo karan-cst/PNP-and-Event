@@ -6,9 +6,9 @@ import { Button, Input, Select, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
 import { Form } from '@core/ui/form';
 import {
-  ClientFormInput,
-  clientFormSchema,
-} from '@/validators/NEW/create-client.schema';
+  DivisionFormInput,
+  DivisionFormSchema,
+} from '@/validators/NEW/create-division.schema';
 
 // a reusable form wrapper component
 function HorizontalFormBlockWrapper({
@@ -52,45 +52,42 @@ function HorizontalFormBlockWrapper({
 }
 
 // main category form component for create and update category
-export default function CreateClient({
+export default function CreateDivisin({
   id,
-  client,
+  division,
   isModalView = true,
 }: {
   id?: string;
   isModalView?: boolean;
-  client?: ClientFormInput;
+  division?: DivisionFormInput;
 }) {
   const [reset, setReset] = useState({});
   const [isLoading, setLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<ClientFormInput> = (data) => {
+  const onSubmit: SubmitHandler<DivisionFormInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setReset({
-        companyName: '',
-        name: '',
-        email: '',
-        mobile: '',
-        division: '',
-        clientFrom: '',
-        clientType: '',
-        address: '',
-        isActive: 'active',
+        divisionCode: '',
+        ccCode: '',
+        isActive: false,
+        company: { _id: '', name: '', isPharma: '' },
       });
     }, 600);
   };
 
+  const clientOptions = [{ label: 'Intas', value: 'Intas' }];
+
   return (
-    <Form<ClientFormInput>
-      validationSchema={clientFormSchema}
+    <Form<DivisionFormInput>
+      validationSchema={DivisionFormSchema}
       resetValues={reset}
       onSubmit={onSubmit}
       useFormProps={{
         mode: 'onChange',
-        defaultValues: client,
+        defaultValues: division,
       }}
       className="isomorphic-form flex flex-grow flex-col @container"
     >
@@ -106,122 +103,73 @@ export default function CreateClient({
               )}
             >
               <HorizontalFormBlockWrapper
-                title="User Information"
-                description="Basic user details"
+                title="Division Information"
+                description="Basic division details"
                 isModalView={isModalView}
               >
-                <Input
-                  label="Client Name"
-                  {...register('companyName')}
-                  error={errors.companyName?.message}
-                />
-
                 <Controller
                   control={control}
-                  name="division"
+                  name="company"
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      label="Division"
+                      label="Company"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
                       dropdownClassName="h-auto"
-                      placeholder="Select division..."
-                      options={[
-                        { label: 'Arron', value: 'Arron' },
-                        { label: 'Altis', value: 'Altis' },
-                      ]}
+                      placeholder="Select..."
+                      options={clientOptions}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.label}
-                      // displayValue={(selected) =>
-                      //   [
-                      //     { label: 'PNP Client', value: 'pnpClient' },
-                      //     { label: 'EVENT Client', value: 'eventClient' },
-                      //   ]?.find((r) => r.value === selected)?.label ?? ''
-                      // }
-                      error={errors?.division?.message as string}
+                      displayValue={(selected) => {
+                        console.log('selected', selected);
+                        return (
+                          clientOptions?.find((r) => r.value === selected)
+                            ?.label ?? ''
+                        );
+                      }}
+                      error={errors?.company?.message}
                     />
                   )}
                 />
-
                 <Input
-                  label="Name"
-                  {...register('name')}
-                  error={errors.name?.message}
+                  label="Division Code"
+                  {...register('divisionCode')}
+                  error={errors.divisionCode?.message}
                 />
-
                 <Input
-                  label="Email"
-                  type="email"
-                  {...register('email')}
-                  error={errors.email?.message}
+                  label="CC Code"
+                  type="number"
+                  {...register('ccCode')}
+                  error={errors.ccCode?.message as string}
                 />
-
-                <Input
-                  label="Mobile"
-                  {...register('mobile')}
-                  error={errors.mobile?.message}
-                />
-                {/* 
                 <Controller
                   control={control}
-                  name="clientType"
+                  name="team"
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      label="Client Type"
+                      label="Team"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
                       dropdownClassName="h-auto"
-                      placeholder="Select type..."
+                      placeholder="Select..."
                       options={[
-                        { label: 'PNP Client', value: 'pnpClient' },
-                        { label: 'EVENT Client', value: 'eventClient' },
+                        { label: 'Team 1', value: 'team1' },
+                        { label: 'Team 2', value: 'team2' },
                       ]}
                       onChange={onChange}
                       value={value}
-                      getOptionValue={(option) => option.label}
-                      // displayValue={(selected) =>
-                      //   [
-                      //     { label: 'PNP Client', value: 'pnpClient' },
-                      //     { label: 'EVENT Client', value: 'eventClient' },
-                      //   ]?.find((r) => r.value === selected)?.label ?? ''
-                      // }
-                      error={errors?.clientType?.message as string}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { label: 'Team 1', value: 'team1' },
+                          { label: 'Team 2', value: 'team2' },
+                        ]?.find((r) => r.value === selected)?.label ?? ''
+                      }
+                      error={errors?.isActive?.message as string}
                     />
                   )}
-                /> */}
-
-                <Controller
-                  control={control}
-                  name="clientFrom"
-                  render={({ field: { value, onChange } }) => {
-                    console.log('value', value);
-                    return (
-                      <Select
-                        label="Client From"
-                        inPortal={false}
-                        labelClassName="text-sm font-medium text-gray-900"
-                        dropdownClassName="h-auto"
-                        placeholder="Select ..."
-                        options={[
-                          { label: 'Pharma', value: 'pharma' },
-                          { label: 'Non Pharma', value: 'non-pharma' },
-                        ]}
-                        onChange={onChange}
-                        value={value}
-                        getOptionValue={(option) => option.label}
-                        // displayValue={(selected) =>
-                        //   [
-                        //     { label: 'Pharma', value: 'pharma' },
-                        //     { label: 'Non Pharma', value: 'non-pharma' },
-                        //   ]?.find((r) => r.value === selected)?.label ?? ''
-                        // }
-                        error={errors?.clientFrom?.message as string}
-                      />
-                    );
-                  }}
                 />
-
                 <Controller
                   control={control}
                   name="isActive"
@@ -234,7 +182,7 @@ export default function CreateClient({
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },
-                        { label: 'InActivate', value: 'inactive' },
+                        { label: 'Deactive', value: 'inactive' },
                       ]}
                       onChange={onChange}
                       value={value}
@@ -242,18 +190,12 @@ export default function CreateClient({
                       displayValue={(selected) =>
                         [
                           { label: 'Active', value: 'active' },
-                          { label: 'InActivate', value: 'inactive' },
+                          { label: 'Deactive', value: 'inactive' },
                         ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}
                     />
                   )}
-                />
-                <Input
-                  label="Address"
-                  className="col-span-2"
-                  {...register('address')}
-                  error={errors.address?.message}
                 />
               </HorizontalFormBlockWrapper>
             </div>
@@ -273,7 +215,7 @@ export default function CreateClient({
               isLoading={isLoading}
               className="w-full @xl:w-auto"
             >
-              {id ? 'Update' : 'Create'} Client
+              {id ? 'Update' : 'Create'} Division
             </Button>
           </div>
         </>

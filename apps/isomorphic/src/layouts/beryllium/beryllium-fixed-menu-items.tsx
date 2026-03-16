@@ -250,15 +250,20 @@ export const berylliumMenuItems: MenuItemsType[] = [
         subMenuItems: [
           {
             name: 'PNP Clients',
-            href: routes.clientManagement.pnp,
+            href: routes.companyManagement.pnp,
             badge: '',
             roles: ['superAdmin', 'pnpAdmin'],
           },
           {
             name: 'Event Clients',
-            href: routes.clientManagement.event,
+            href: routes.companyManagement.event,
             badge: '',
             roles: ['superAdmin', 'eventAdmin'],
+          },
+          {
+            name: 'Division Code and CC',
+            href: routes.eventMaster.division,
+            badge: '',
           },
         ],
       },

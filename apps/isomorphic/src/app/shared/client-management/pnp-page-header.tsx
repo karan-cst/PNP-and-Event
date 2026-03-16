@@ -11,38 +11,43 @@ import {
   PiXBold,
 } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import ClientTable, { ClientDataType } from './client-list/table';
+import ClientTable, { CompanyDataType } from './client-list/table';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 
-import CreateClient from './create-client/createClient';
+import CreateCompany from './create-company/createCompany';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 
-export function CreateClientModalView({ client }: { client?: ClientDataType }) {
+export function CreateCompanyModalView({
+  client,
+}: {
+  client?: CompanyDataType;
+}) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          {client?.id ? 'Update' : 'Add'} Client
+          {client?.id ? 'Update' : 'Add'} Company
         </Title>
         <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
           <PiXBold className="h-auto w-5" />
         </ActionIcon>
       </div>
-      <CreateClient
+      <CreateCompany
         isModalView={false}
         id={client?.id ? client.id : undefined}
         client={
           client || {
             companyName: '',
-            name: '',
             email: '',
-            mobile: '',
-            clientType: '',
             address: '',
-            clientFrom: '',
-            division: '',
+            clientFrom: 'pharma',
             isActive: 'active',
+            isGSTApplicable: false,
+            GSTNumber: '',
+            pannumber: '',
+            MSMECertificate: null,
+            GSTCertificate: null,
           }
         }
       />
@@ -85,7 +90,7 @@ export default function ClientPageHeader<T extends Record<string, any>>({
             className="mt-4 w-full cursor-pointer @lg:mt-0 @lg:w-auto"
             onClick={() =>
               openModal({
-                view: <CreateClientModalView />,
+                view: <CreateCompanyModalView />,
                 customSize: 720,
               })
             }

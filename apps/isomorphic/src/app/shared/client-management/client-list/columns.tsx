@@ -1,18 +1,17 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Avatar, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
-import { ClientDataType } from './table';
+import { ActionIcon, Avatar, Flex, Text, Tooltip } from 'rizzui';
+import { CompanyDataType } from './table';
 import cn from '@core/utils/class-names';
 import DateCell from '@core/ui/date-cell';
 import PencilIcon from '@core/components/icons/pencil';
-import DeletePopover from '@core/components/delete-popover';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import { CreateClientModalView } from '../pnp-page-header';
+import { CreateCompanyModalView } from '../pnp-page-header';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
 
-const columnHelper = createColumnHelper<ClientDataType>();
+const columnHelper = createColumnHelper<CompanyDataType>();
 
-export const ClientListColumns = [
+export const CompanyListColumns = [
   columnHelper.accessor('id', {
     id: 'id',
     size: 120,
@@ -50,51 +49,31 @@ export const ClientListColumns = [
         </div>
       );
     },
-    //   (
-    //   <div className={cn('grid gap-1')}>
-    //     <Title as="h5" className="!text-sm font-medium">
-    //       {`${row.original.companyName}`}
-    //     </Title>
-    //     <Text className="text-sm">{row.original?.clientFrom || ''}</Text>
-    //   </div>
-    // ),
   }),
-  columnHelper.accessor('name', {
-    id: 'name',
-    size: 160,
-    header: 'Name',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm font-medium">{row.original?.name || ''}</Text>
-        <Text className="text-sm">{row.original?.division || ''}</Text>
-      </div>
-    ),
-  }),
-  // columnHelper.accessor('division', {
-  //   id: 'division',
-  //   size: 150,
-  //   header: 'Division',
-  //   cell: ({ row }) => (
-  //     <div className={cn('grid gap-1')}>
-  //       <Text className="text-sm">{row.original?.division || ''}</Text>
-  //     </div>
-  //   ),
-  // }),
   columnHelper.display({
     id: 'email',
     size: 180,
     header: 'Email',
     cell: ({ row }) => <Text className="text-sm">{row.original.email}</Text>,
   }),
-  columnHelper.accessor('mobile', {
-    id: 'mobile',
-    size: 150,
-    header: 'Mobile',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{`${row.original.mobile}`}</Text>
-      </div>
-    ),
+  columnHelper.display({
+    id: 'isGSTApplicable',
+    size: 200,
+    header: 'GST Applicable',
+    cell: ({ row }) => {
+      const { isGSTApplicable, GSTNumber } = row.original;
+
+      return (
+        <div className="flex flex-col leading-tight">
+          <span className="text-sm font-medium text-gray-900">
+            {isGSTApplicable ? `Yes` : 'No'}
+          </span>
+          <span className="text-xs text-gray-500">
+            {isGSTApplicable ? GSTNumber : ''}
+          </span>
+        </div>
+      );
+    },
   }),
   columnHelper.accessor('createdAt', {
     id: 'createdAt',
@@ -132,27 +111,9 @@ export const ClientListColumns = [
       </Flex>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'isActive',
-  //   size: 120,
-  //   header: 'Is Active',
-  //   cell: ({ row }) => (
-  //     <Switch
-  //       // label="Free Shipping"
-  //       className="col-span-full"
-  //       value={row.original.isActive ? 'true' : 'false'}
-  //       checked={row.original.isActive}
-  //       onChange={(e) =>
-  //         e.target.value == 'true'
-  //           ? (row.original.isActive = true)
-  //           : (row.original.isActive = false)
-  //       }
-  //     />
-  //   ),
-  // }),
 ];
 
-const ClientEdit = ({ client }: { client: ClientDataType }) => {
+const ClientEdit = ({ client }: { client: CompanyDataType }) => {
   const { openModal } = useModal();
   return (
     <Tooltip size="sm" content={'Edit Client'} placement="top" color="invert">
@@ -163,7 +124,7 @@ const ClientEdit = ({ client }: { client: ClientDataType }) => {
         aria-label={'Edit Client'}
         onClick={() =>
           openModal({
-            view: <CreateClientModalView client={client} />,
+            view: <CreateCompanyModalView client={client} />,
             customSize: 720,
           })
         }

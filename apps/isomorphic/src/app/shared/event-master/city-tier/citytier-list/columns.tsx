@@ -88,24 +88,6 @@ export const CitytierListColumns = [
       </Flex>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'isActive',
-  //   size: 120,
-  //   header: 'Is Active',
-  //   cell: ({ row }) => (
-  //     <Switch
-  //       // label="Free Shipping"
-  //       className="col-span-full"
-  //       value={row.original.isActive ? 'true' : 'false'}
-  //       checked={row.original.isActive}
-  //       onChange={(e) =>
-  //         e.target.value == 'true'
-  //           ? (row.original.isActive = true)
-  //           : (row.original.isActive = false)
-  //       }
-  //     />
-  //   ),
-  // }),
 ];
 
 const CityTierEdit = ({ cityTier }: { cityTier: cityTireDataType }) => {

@@ -11,20 +11,19 @@ type Option = {
   label: string;
   value: string;
 };
-const clients = [
-  { id: '1', name: 'Intas', isPharma: true },
-  { id: '2', name: 'Sun Pharma', isPharma: false },
-  { id: '3', name: 'Cipla', isPharma: false },
-];
-const clientOptions: Option[] = clients.map((c) => ({
+const companies = [{ id: '1', name: 'Intas', isPharma: true }];
+const companyOptions: Option[] = companies.map((c) => ({
   label: c.name,
   value: c.id,
 }));
 
 const divisionOptions: Option[] = [
-  { label: 'Cardio Division', value: 'cardio' },
-  { label: 'Neuro Division', value: 'neuro' },
-  { label: 'Gastro Division', value: 'gastro' },
+  { label: 'Arron', value: 'Arron' },
+  { label: 'Altis', value: 'Altis' },
+];
+const clientOptions: Option[] = [
+  { label: 'Rahul Sharma', value: 'DC001' },
+  { label: 'Sachin Patel', value: 'DC002' },
 ];
 const priorityOptions: Option[] = [
   { label: 'Low', value: 'Low' },
@@ -39,11 +38,11 @@ export default function EventClient({ className }: { className?: string }) {
     formState: { errors },
   } = useFormContext<CreateEventInput>();
 
-  const selectedClientId = watch('client.clientId');
+  const selectedClientId = watch('company.companyId');
 
   // Find selected client
   const selectedClient = useMemo(
-    () => clients.find((c) => c.id === selectedClientId),
+    () => companies.find((c) => c.id === selectedClientId),
     [selectedClientId]
   );
 
@@ -57,13 +56,13 @@ export default function EventClient({ className }: { className?: string }) {
     >
       {/* Client Dropdown */}
       <Controller
-        name="client.clientId"
+        name="company.companyId"
         control={control}
         render={({ field: { value, onChange }, fieldState }) => (
           <Select
             label="Client"
-            options={clientOptions}
-            value={clientOptions.find((opt) => opt.value === value) ?? null}
+            options={companyOptions}
+            value={companyOptions.find((opt) => opt.value === value) ?? null}
             onChange={(option: Option) => onChange(option?.value)}
             displayValue={(option: Option) => option?.label}
             error={fieldState.error?.message}
@@ -72,24 +71,38 @@ export default function EventClient({ className }: { className?: string }) {
       />
 
       {/* Division only if Pharma */}
-      {isPharma && (
-        <Controller
-          name="client.divisionName"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Select
-              label="Division"
-              options={divisionOptions}
-              value={
-                divisionOptions.find((opt) => opt.value === field.value) ?? null
-              }
-              onChange={(option: Option) => field.onChange(option?.value)}
-              displayValue={(option: Option) => option?.label}
-              error={fieldState.error?.message}
-            />
-          )}
-        />
-      )}
+      <Controller
+        name="company.divisionName"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Select
+            label="Division"
+            options={divisionOptions}
+            value={
+              divisionOptions.find((opt) => opt.value === field.value) ?? null
+            }
+            onChange={(option: Option) => field.onChange(option?.value)}
+            displayValue={(option: Option) => option?.label}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
+      <Controller
+        name="company.client"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Select
+            label="Client"
+            options={clientOptions}
+            value={
+              clientOptions.find((opt) => opt.value === field.value) ?? null
+            }
+            onChange={(option: Option) => field.onChange(option?.value)}
+            displayValue={(option: Option) => option?.label}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
 
       <Controller
         name="priority"

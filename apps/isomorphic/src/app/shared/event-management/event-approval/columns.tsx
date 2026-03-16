@@ -29,16 +29,16 @@ import RateNegotiationModal from '../RateNegotiationModal';
 const columnHelper = createColumnHelper<EventApproveDataType>();
 
 export const EventApproveListColumns = (role?: string) => [
-  columnHelper.accessor('clientName', {
-    id: 'clientName',
+  columnHelper.accessor('company', {
+    id: 'company',
     size: 150,
-    header: 'Client',
+    header: 'Company',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.clientName}`}
+          {`${row.original.company}`}
         </Title>
-        <Text className="text-sm">{row.original?.name}</Text>
+        <Text className="text-sm">{row.original?.division}</Text>
         {/* <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType}`}</Text> */}
       </div>
     ),
@@ -48,7 +48,13 @@ export const EventApproveListColumns = (role?: string) => [
     size: 150,
     header: 'Event Name',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.eventName}</Text>
+      <div className={cn('grid gap-1')}>
+        <Title as="h5" className="!text-sm font-medium">
+          {`${row.original.eventName}`}
+        </Title>
+        <Text className="text-sm">{row.original?.client}</Text>
+        {/* <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType}`}</Text> */}
+      </div>
     ),
   }),
   columnHelper.accessor('UserName', {

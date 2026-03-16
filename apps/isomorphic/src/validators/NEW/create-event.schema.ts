@@ -47,9 +47,10 @@ export const eventFormSchema = z.object({
     .min(1, 'At least one element is required'),
 
   // 5️⃣ Client Section
-  client: z.object({
-    clientId: z.string().min(1, 'Client is required'),
+  company: z.object({
+    companyId: z.string().min(1, 'Client is required'),
     divisionName: z.string().optional(),
+    client: z.string().optional(),
   }),
   // client: z
   //   .object({

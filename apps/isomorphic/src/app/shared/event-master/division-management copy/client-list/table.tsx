@@ -2,29 +2,27 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { ClientListColumns } from './columns';
+import { DivisionClientListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
-import { vendorData } from '@/data/vendor-data';
-import { clientData } from '@/data/client-data';
-import ClientPageHeader from '../pnp-page-header';
+import { DivisionClientData, DivisionData } from '@/data/division-data';
+import DivisonPageHeader from '../division-page-header';
 
-export type ClientDataType = (typeof clientData)[number];
+export type DivisionClientDataType = (typeof DivisionClientData)[number];
 
-export default function ClientTable({
+export default function DivisionClientTable({
   pageSize = 5,
   hideFilters = true,
   hidePagination = false,
   hideFooter = false,
   classNames = {
-    container: 'border border-muted rounded-mdh-[500px]',
+    container: 'border border-muted rounded-md',
     rowClassName: 'last:border-0',
   },
   paginationClassName,
-  type = 'PNP',
 }: {
   pageSize?: number;
   hideFilters?: boolean;
@@ -32,11 +30,10 @@ export default function ClientTable({
   hideFooter?: boolean;
   classNames?: TableClassNameProps;
   paginationClassName?: string;
-  type?: string;
 }) {
-  const { table, setData } = useTanStackTable<ClientDataType>({
-    tableData: clientData.filter((c) => c.clientType === `${type} Client`),
-    columnConfig: ClientListColumns,
+  const { table, setData } = useTanStackTable<DivisionClientDataType>({
+    tableData: DivisionClientData,
+    columnConfig: DivisionClientListColumns,
     options: {
       initialState: {
         pagination: {
@@ -68,27 +65,24 @@ export default function ClientTable({
     );
   }
   const pageHeader = {
-    title: `${type} Client`,
+    title: 'Client Management',
     breadcrumb: [
       {
         href: '#',
-        name: 'Client Management',
+        name: 'Event Master',
       },
       {
-        name: `${type} Clients`,
+        name: 'Client Management',
       },
     ],
   };
-  console.log('/*/*/*/*type', type);
   return (
     <>
-      <ClientPageHeader
+      <DivisonPageHeader
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
-        type={type}
       />
-
       {!hideFilters && <Filters table={table} />}
       <Table table={table} variant="modern" classNames={classNames} />
       {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}

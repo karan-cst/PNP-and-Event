@@ -1,10 +1,12 @@
 export type EventTracker = {
-  clientName: string;
+  company: string;
+  division?: string;
   eventName: string;
-  name: string;
+  client: string;
+  clientStatus?: string;
   status: string;
   UserName: string;
-  venodrCost?: string | number;
+  venodrCost?: null | number;
   clientCost?: null | number;
   margin?: number | null;
   poStatus?: string;
@@ -15,9 +17,11 @@ export type EventTracker = {
 
 export const EventTrackerData = [
   {
-    clientName: 'Astera',
+    company: 'Intas',
+    division: 'Arron',
     eventName: 'Neuro CME',
-    name: 'Rahul',
+    client: 'Rahul',
+    clientStatus: 'Confirmed',
     status: 'Confirmed',
     UserName: 'Dhaval',
     vendorName: 'XYZ',
@@ -26,18 +30,20 @@ export const EventTrackerData = [
     margin: 20,
     poStatus: 'Done',
     invoiceStatus: 'Awaiting',
-    paymentStatus: null,
+    paymentStatus: 'pending',
     city: 'ahmedabad - tier1',
     isPharma: 'pharma',
   },
   {
-    clientName: 'ABC',
+    company: 'Intas',
+    division: 'Arron',
     eventName: 'MSES',
-    name: 'Dhaval',
+    client: 'Dhaval',
+    clientStatus: 'Pending',
     UserName: 'Manish',
     status: 'Inquiry Received',
     vendorName: 'ABC',
-    venodrCost: 12000,
+    venodrCost: null,
     clientCost: null,
     poStatus: '',
     isPharma: 'non-pharma',

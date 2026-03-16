@@ -6,9 +6,9 @@ import { Button, Input, Select, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
 import { Form } from '@core/ui/form';
 import {
-  DivisionFormInput,
-  DivisionFormSchema,
-} from '@/validators/NEW/create-division.schema';
+  CategoryUpdateInput,
+  CategoryUpdateSchema,
+} from '@/validators/NEW/update-category.schema';
 
 // a reusable form wrapper component
 function HorizontalFormBlockWrapper({
@@ -52,39 +52,41 @@ function HorizontalFormBlockWrapper({
 }
 
 // main category form component for create and update category
-export default function CreateDivisin({
+export default function UpdateCategory({
   id,
-  division,
+  ProjectCategory,
   isModalView = true,
 }: {
   id?: string;
   isModalView?: boolean;
-  division?: DivisionFormInput;
+  ProjectCategory: CategoryUpdateInput;
 }) {
   const [reset, setReset] = useState({});
   const [isLoading, setLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<DivisionFormInput> = (data) => {
+  const onSubmit: SubmitHandler<CategoryUpdateInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setReset({
-        divisionCode: '',
-        ccCode: '',
-        isActive: false,
+        min_range: 0,
+        max_range: null,
       });
     }, 600);
   };
 
   return (
-    <Form<DivisionFormInput>
-      validationSchema={DivisionFormSchema}
+    <Form<CategoryUpdateInput>
+      validationSchema={CategoryUpdateSchema}
       resetValues={reset}
       onSubmit={onSubmit}
       useFormProps={{
         mode: 'onChange',
-        defaultValues: division,
+        defaultValues: {
+          min_range: ProjectCategory.min_range,
+          max_range: ProjectCategory?.max_range,
+        },
       }}
       className="isomorphic-form flex flex-grow flex-col @container"
     >
@@ -100,67 +102,44 @@ export default function CreateDivisin({
               )}
             >
               <HorizontalFormBlockWrapper
-                title="Division Information"
-                description="Basic division details"
+                title="City Tier Profit Margin"
+                description="Configure minimum profit margin by tier and city"
                 isModalView={isModalView}
               >
                 <Input
-                  label="Division Code"
-                  {...register('divisionCode')}
-                  error={errors.divisionCode?.message}
-                />
-                <Input
-                  label="CC Code"
                   type="number"
-                  {...register('ccCode')}
-                  error={errors.ccCode?.message as string}
+                  label="Min Range"
+                  placeholder="Enter min range"
+                  {...register('min_range', { valueAsNumber: true })}
+                  error={errors?.min_range?.message}
                 />
-                <Controller
-                  control={control}
-                  name="isActive"
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      label="Status"
-                      inPortal={false}
-                      labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
-                      placeholder="Select..."
-                      options={[
-                        { label: 'Active', value: 'active' },
-                        { label: 'Deactive', value: 'inactive' },
-                      ]}
-                      onChange={onChange}
-                      value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) =>
-                        [
-                          { label: 'Active', value: 'active' },
-                          { label: 'Deactive', value: 'inactive' },
-                        ]?.find((r) => r.value === selected)?.label ?? ''
-                      }
-                      error={errors?.isActive?.message as string}
-                    />
-                  )}
+
+                <Input
+                  type="number"
+                  label="Max Range"
+                  placeholder="Enter max range"
+                  {...register('max_range', {
+                    setValueAs: (v) => (v === '' ? null : Number(v)),
+                  })}
+                  error={errors?.max_range?.message}
                 />
               </HorizontalFormBlockWrapper>
             </div>
           </div>
-          {/* z-40   */}
+
+          {/* Footer */}
           <div
             className={cn(
               'sticky bottom-0 flex items-center justify-end gap-3 bg-gray-0/10 backdrop-blur @lg:gap-4 @xl:grid @xl:auto-cols-max @xl:grid-flow-col',
               isModalView ? '-mx-10 -mb-7 px-10 py-5' : 'py-1'
             )}
           >
-            {/* <Button variant="outline" className="w-full @xl:w-auto">
-              Save as Draft
-            </Button> */}
             <Button
               type="submit"
               isLoading={isLoading}
               className="w-full @xl:w-auto"
             >
-              {id ? 'Update' : 'Create'} Division
+              {'Update'} Range
             </Button>
           </div>
         </>

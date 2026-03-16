@@ -1,9 +1,10 @@
 import { ApprovalHistory } from '@/app/shared/event-management/event-approval/columns';
 
 export type EventApprove = {
-  clientName: string;
+  company: string;
+  division?: string;
   eventName: string;
-  name: string;
+  client: string;
   UserName: string;
   vendorName?: string;
   city: string;
@@ -22,9 +23,10 @@ export type EventApprove = {
 
 export const EventApproveData = [
   {
-    clientName: 'Astera',
+    company: 'Intas',
     eventName: 'Neuro CME',
-    name: 'Rahul',
+    division: 'Arron',
+    client: 'Rahul',
     UserName: 'Dhaval',
     city: 'ahmedabad - tier1',
     vendorName: 'XYZ',
@@ -56,9 +58,10 @@ export const EventApproveData = [
     isPharma: 'pharma',
   },
   {
-    clientName: 'ABC',
+    company: 'Intas',
     eventName: 'MSES',
-    name: 'Dhaval',
+    division: 'Arron',
+    client: 'Dhaval',
     UserName: 'Manish',
     city: 'ahmedabad - tier1',
     vendorName: 'ABC',

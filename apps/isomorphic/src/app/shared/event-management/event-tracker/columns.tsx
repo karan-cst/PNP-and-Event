@@ -12,17 +12,16 @@ import { VendorViewModalView } from '../vendor-view/vendorViewModal';
 const columnHelper = createColumnHelper<EventTrackerDataType>();
 
 export const EventTrackerListColumns = [
-  columnHelper.accessor('clientName', {
-    id: 'clientName',
+  columnHelper.accessor('company', {
+    id: 'company',
     size: 150,
-    header: 'Client',
+    header: 'Company',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.clientName}`}
+          {`${row.original.company}`}
         </Title>
-        <Text className="text-sm">{row.original?.name}</Text>
-        {/* <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType}`}</Text> */}
+        <Text className="text-sm">{row.original?.division}</Text>
       </div>
     ),
   }),
@@ -31,7 +30,12 @@ export const EventTrackerListColumns = [
     size: 150,
     header: 'Event Name',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.eventName}</Text>
+      <div className={cn('grid gap-1')}>
+        <Title as="h5" className="!text-sm font-medium">
+          {`${row.original.eventName}`}
+        </Title>
+        <Text className="text-sm">{row.original?.client}</Text>
+      </div>
     ),
   }),
   columnHelper.accessor('status', {
@@ -57,7 +61,11 @@ export const EventTrackerListColumns = [
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
         <Text className="text-sm">{row.original?.vendorName}</Text>
-        <ShowPrice EventTrackerData={row.original} />
+        {row.original?.venodrCost ? (
+          <ShowPrice EventTrackerData={row.original} />
+        ) : (
+          '-'
+        )}
       </div>
     ),
   }),
@@ -67,21 +75,43 @@ export const EventTrackerListColumns = [
     header: 'Client Cost',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">
-          {' '}
-          {formatPrice(row.original?.clientCost)}
-        </Text>
+        <Text className="text-sm">{row.original?.clientStatus}</Text>
+        {row.original?.clientCost ? (
+          <Tooltip
+            size="sm"
+            content={'Download'}
+            placement="top"
+            color="invert"
+          >
+            <Text
+              className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+              onClick={() => {}}
+            >
+              {formatPrice(row?.original?.clientCost)}
+              <span>
+                <AiOutlineExport />
+              </span>
+            </Text>
+          </Tooltip>
+        ) : (
+          '-'
+        )}
       </div>
     ),
   }),
   columnHelper.accessor('margin', {
     id: 'margin',
-    size: 100,
+    size: 150,
     header: 'Margin',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">
+        <Title as="h5" className="!text-sm font-medium">
           {row.original?.margin ? `${row.original?.margin} %` : '-'}
+        </Title>
+        <Text className="text-sm">
+          {row.original?.venodrCost
+            ? formatPrice(row.original?.clientCost - row.original?.venodrCost)
+            : '-'}
         </Text>
       </div>
     ),
@@ -91,9 +121,31 @@ export const EventTrackerListColumns = [
     size: 120,
     header: 'PO Status',
     cell: ({ row }) => (
-      <Text className="text-sm">
-        {row.original?.poStatus ? row.original?.poStatus : '-'}
-      </Text>
+      // <Text className="text-sm">
+      //   {row.original?.poStatus ? row.original?.poStatus : '-'}
+      // </Text>
+      <div className={cn('grid gap-1')}>
+        {row.original?.poStatus ? (
+          <Tooltip
+            size="sm"
+            content={'Download PO'}
+            placement="top"
+            color="invert"
+          >
+            <Text
+              className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+              onClick={() => {}}
+            >
+              {row?.original?.poStatus}
+              <span>
+                <AiOutlineExport />
+              </span>
+            </Text>
+          </Tooltip>
+        ) : (
+          '-'
+        )}
+      </div>
     ),
   }),
   columnHelper.display({
@@ -101,9 +153,28 @@ export const EventTrackerListColumns = [
     size: 120,
     header: 'Invoice Status',
     cell: ({ row }) => (
-      <Text className="text-sm">
-        {row.original?.poStatus ? row.original?.poStatus : '-'}
-      </Text>
+      <div className={cn('grid gap-1')}>
+        {row.original?.invoiceStatus ? (
+          <Tooltip
+            size="sm"
+            content={'Download Invoice'}
+            placement="top"
+            color="invert"
+          >
+            <Text
+              className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+              onClick={() => {}}
+            >
+              {row?.original?.invoiceStatus}
+              <span>
+                <AiOutlineExport />
+              </span>
+            </Text>
+          </Tooltip>
+        ) : (
+          '-'
+        )}
+      </div>
     ),
   }),
   columnHelper.display({
@@ -111,9 +182,28 @@ export const EventTrackerListColumns = [
     size: 120,
     header: 'Payment Status',
     cell: ({ row }) => (
-      <Text className="text-sm">
-        {row.original?.poStatus ? row.original?.poStatus : '-'}
-      </Text>
+      <div className={cn('grid gap-1')}>
+        {row.original?.paymentStatus ? (
+          <Tooltip
+            size="sm"
+            content={'Download Payment Receipt'}
+            placement="top"
+            color="invert"
+          >
+            <Text
+              className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+              onClick={() => {}}
+            >
+              {row?.original?.paymentStatus}
+              <span>
+                <AiOutlineExport />
+              </span>
+            </Text>
+          </Tooltip>
+        ) : (
+          '-'
+        )}
+      </div>
     ),
   }),
 ];

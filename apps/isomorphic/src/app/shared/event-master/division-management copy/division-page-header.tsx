@@ -7,36 +7,36 @@ import { PiMagnifyingGlassBold, PiPlusBold, PiXBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
+import { DivisionClientDataType } from './client-list/table';
+import CreateClient from './create-client/createClient';
 
-import { DivisionDataType } from './division-list/table';
-import CreateDivisin from './create-division/createDivision';
-
-export function CreateDivisionModalView({
-  division,
+export function CreateClientModalView({
+  client,
 }: {
-  division?: DivisionDataType;
+  client?: DivisionClientDataType;
 }) {
   const { closeModal } = useModal();
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          Add Division
+          {client?.id ? 'Edit Client' : 'Add Client'}
         </Title>
         <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
           <PiXBold className="h-auto w-5" />
         </ActionIcon>
       </div>
-      <CreateDivisin
-        id={division?.id || ''}
+      <CreateClient
+        id={client?.id || ''}
         isModalView={false}
-        division={
-          division || {
+        client={
+          client || {
             company: { _id: '', name: '', isPharma: '' },
-            divisionCode: '',
-            ccCode: '',
+            division: { _id: '', divisionCode: '', team: '' },
+            name: '',
+            email: '',
+            phone: '',
             isActive: 'inactive',
-            team: '',
           }
         }
       />
@@ -77,7 +77,7 @@ export default function DivisonPageHeader<T extends Record<string, any>>({
             className="mt-4 w-full cursor-pointer @lg:mt-0 @lg:w-auto"
             onClick={() =>
               openModal({
-                view: <CreateDivisionModalView />,
+                view: <CreateClientModalView />,
                 customSize: 720,
               })
             }
