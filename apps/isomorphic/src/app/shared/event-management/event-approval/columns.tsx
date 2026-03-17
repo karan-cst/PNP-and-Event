@@ -118,9 +118,7 @@ export const EventApproveListColumns = (role?: string) => [
     id: 'rateNegotiate',
     size: 150,
     header: 'Negotiation',
-    cell: () => {
-      <Ratenegotiate />;
-    },
+    cell: () => <Ratenegotiate />,
   }),
   columnHelper.display({
     id: 'action',

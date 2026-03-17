@@ -153,7 +153,7 @@ export const berylliumSidebarMenuItems = [
     ],
   },
   {
-    name: 'Client Management',
+    name: 'Company Management',
     href: '#',
     icon: <PiBriefcaseDuotone />,
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
@@ -165,8 +165,20 @@ export const berylliumSidebarMenuItems = [
         roles: ['superAdmin', 'pnpAdmin'],
       },
       {
-        name: 'Event Clients',
+        name: 'Company',
         href: routes.companyManagement.event,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+      {
+        name: 'Division',
+        href: routes.companyManagement.division,
+        badge: '',
+        roles: ['superAdmin', 'eventAdmin'],
+      },
+      {
+        name: 'Client',
+        href: routes.companyManagement.client,
         badge: '',
         roles: ['superAdmin', 'eventAdmin'],
       },

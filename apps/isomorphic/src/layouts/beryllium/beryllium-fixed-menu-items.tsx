@@ -243,7 +243,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
     isExpnad: true,
     menuItems: [
       {
-        name: 'Client Management',
+        name: 'Company Management',
         description: 'Types Of client in diffrent teams',
         icon: PiBriefcaseDuotone,
         roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
@@ -255,15 +255,22 @@ export const berylliumMenuItems: MenuItemsType[] = [
             roles: ['superAdmin', 'pnpAdmin'],
           },
           {
-            name: 'Event Clients',
+            name: 'Company',
             href: routes.companyManagement.event,
             badge: '',
             roles: ['superAdmin', 'eventAdmin'],
           },
           {
-            name: 'Division Code and CC',
-            href: routes.eventMaster.division,
+            name: 'Division',
+            href: routes.companyManagement.division,
             badge: '',
+            roles: ['superAdmin', 'eventAdmin'],
+          },
+          {
+            name: 'Client',
+            href: routes.companyManagement.client,
+            badge: '',
+            roles: ['superAdmin', 'eventAdmin'],
           },
         ],
       },
