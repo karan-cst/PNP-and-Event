@@ -1,5 +1,5 @@
 import { metaObject } from '@/config/site.config';
-import JobTable from '@/app/shared/job-management/job-list-pnp/table';
+import EventDetailesPage from '@/app/shared/event-management/event-detailes/page';
 
 export const metadata = {
   ...metaObject('Products'),
@@ -8,7 +8,7 @@ export const metadata = {
 export default function Events() {
   return (
     <>
-      <JobTable pageSize={10} />
+      <EventDetailesPage pageSize={10} />
     </>
   );
 }

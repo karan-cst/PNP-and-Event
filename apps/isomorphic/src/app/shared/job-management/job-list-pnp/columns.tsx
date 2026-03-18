@@ -123,7 +123,7 @@ const EventEdit = ({ job }: { job: JobFormDataType }) => {
           size="sm"
           variant="outline"
           aria-label={'View Job'}
-          onClick={() => router.push('/job-management/vendors')}
+          onClick={() => {}}
         >
           <PiEyeBold className="h-4 w-4" />
         </ActionIcon>

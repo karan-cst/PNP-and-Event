@@ -2,14 +2,15 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { JobListColumns } from './columns';
+
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
 import { dummyJobData, JobFormDataType } from '@/data/jobpnp-data';
-import JobPageHeader from './job-page-header';
+import JobPageHeader from './job-approve-modal';
+import { JobListColumns } from './columns';
 
 export default function JobTable({
   pageSize = 5,

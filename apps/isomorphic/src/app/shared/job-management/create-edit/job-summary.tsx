@@ -25,6 +25,12 @@ export default function JobSummary({ className }: { className?: string }) {
         {...register('jobName')}
         error={errors?.jobName?.message as string}
       />
+      <Input
+        label="Job No"
+        placeholder="Job No"
+        {...register('jobNo')}
+        error={errors?.jobNo?.message as string}
+      />
 
       <Controller
         name="date"

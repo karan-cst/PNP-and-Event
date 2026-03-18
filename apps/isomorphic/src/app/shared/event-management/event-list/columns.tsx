@@ -26,79 +26,89 @@ import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/config/format-pricing';
 import { useState } from 'react';
+import { AiOutlineExport } from 'react-icons/ai';
 
 const columnHelper = createColumnHelper<EventDataType>();
 
-export const EventListColumns = (role?: string) => [
-  columnHelper.accessor('id', {
-    id: 'id',
-    size: 50,
-    header: 'Id',
-    cell: ({ row }) => <Text className="text-sm">{row.original.id}</Text>,
-  }),
-  columnHelper.accessor('eventName', {
-    id: 'eventName',
-    size: 200,
-    header: 'Event Details',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.eventName}`}
-        </Title>
-        <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType}`}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.display({
-    id: 'stdTotal',
-    size: 120,
-    header: 'Std Total',
-    cell: ({ row }) => (
-      <Text className="text-sm">{formatPrice(row.original.stdTotal)}</Text>
-    ),
-  }),
-  columnHelper.accessor('lowestVendorName', {
-    id: 'lowestVendorName',
-    size: 150,
-    header: 'Lowest vendor',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">
-          {`${row.original?.lowestVendorName ? row.original?.lowestVendorName : '-'}`}
-        </Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('finalizedBy', {
-    id: 'finalizedBy',
-    size: 150,
-    header: 'Finalized By',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">
-          {`${row.original?.finalizedBy ? row.original?.finalizedBy : '-'}`}
-        </Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('finalizedVendorName', {
-    id: 'finalizedVendorName',
-    size: 150,
-    header: 'Finalized Vendor',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{`${row.original?.finalizedVendorName ? row.original?.finalizedVendorName : '-'}`}</Text>
-      </div>
-    ),
-  }),
-  columnHelper.accessor('reasonToChoose', {
-    id: 'reasonToChoose',
-    size: 150,
-    header: 'Reason To Choose',
-    cell: ({ row }) => (
-      <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{`${row.original?.reasonToChoose ? row.original?.reasonToChoose : '-'}`}</Text>
-        {/* <Tooltip size="sm" content={'View User'} placement="top" color="invert">
+export const EventListColumns = (role?: string) => {
+  const router = useRouter();
+  return [
+    columnHelper.accessor('id', {
+      id: 'id',
+      size: 50,
+      header: 'Id',
+      cell: ({ row }) => <Text className="text-sm">{row.original.id}</Text>,
+    }),
+    columnHelper.accessor('eventName', {
+      id: 'eventName',
+      size: 200,
+      header: 'Event Details',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Title
+            as="h5"
+            className="flex cursor-pointer items-center gap-1 !text-sm font-medium hover:underline"
+            onClick={() => router.push(`/event-management/event-detailes`)}
+          >
+            {`${row.original.eventName}`}
+            <span>
+              <AiOutlineExport />
+            </span>
+          </Title>
+          <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType}`}</Text>
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: 'stdTotal',
+      size: 120,
+      header: 'Std Total',
+      cell: ({ row }) => (
+        <Text className="text-sm">{formatPrice(row.original.stdTotal)}</Text>
+      ),
+    }),
+    columnHelper.accessor('lowestVendorName', {
+      id: 'lowestVendorName',
+      size: 150,
+      header: 'Lowest vendor',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">
+            {`${row.original?.lowestVendorName ? row.original?.lowestVendorName : '-'}`}
+          </Text>
+        </div>
+      ),
+    }),
+    columnHelper.accessor('finalizedBy', {
+      id: 'finalizedBy',
+      size: 150,
+      header: 'Finalized By',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">
+            {`${row.original?.finalizedBy ? row.original?.finalizedBy : '-'}`}
+          </Text>
+        </div>
+      ),
+    }),
+    columnHelper.accessor('finalizedVendorName', {
+      id: 'finalizedVendorName',
+      size: 150,
+      header: 'Finalized Vendor',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">{`${row.original?.finalizedVendorName ? row.original?.finalizedVendorName : '-'}`}</Text>
+        </div>
+      ),
+    }),
+    columnHelper.accessor('reasonToChoose', {
+      id: 'reasonToChoose',
+      size: 150,
+      header: 'Reason To Choose',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">{`${row.original?.reasonToChoose ? row.original?.reasonToChoose : '-'}`}</Text>
+          {/* <Tooltip size="sm" content={'View User'} placement="top" color="invert">
           <ActionIcon
             as="span"
             size="sm"
@@ -108,21 +118,22 @@ export const EventListColumns = (role?: string) => [
             <EyeIcon className="h-4 w-4" />
           </ActionIcon>
         </Tooltip> */}
-      </div>
-    ),
-  }),
-  columnHelper.display({
-    id: 'action',
-    size: 150,
-    header: 'Action',
-    cell: ({
-      row,
-      table: {
-        options: { meta },
-      },
-    }) => <Action event={row.original} role={role} />,
-  }),
-];
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: 'action',
+      size: 150,
+      header: 'Action',
+      cell: ({
+        row,
+        table: {
+          options: { meta },
+        },
+      }) => <Action event={row.original} role={role} />,
+    }),
+  ];
+};
 
 const EventEdit = ({ event }: { event: EventDataType }) => {
   return (

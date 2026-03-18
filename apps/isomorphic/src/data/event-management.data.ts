@@ -131,3 +131,52 @@ export const eventDummyData: EventDataType[] = [
     reasonToChoose: null,
   },
 ];
+
+export type EventViewDataType = {
+  _id: number;
+  eventName: string;
+  user: { userName: string; role: string };
+  client: {
+    name: string;
+    company: string;
+    isPharma: string;
+    division: string | null;
+  } | null;
+  eventType:
+    | 'Setup'
+    | 'CME'
+    | 'Briefing Setup'
+    | 'Clinic Decoration Activity'
+    | 'Other';
+  stdTotal: number;
+  vendors: { vendorName: string; total: number }[] | null;
+  selectedVendor?: { vendorName: string; total: number } | null;
+  finalizedBy?: { userName: string; role: number; reason: string } | null;
+  createdAt?: string;
+};
+
+export const dummyEventViewData: EventViewDataType = {
+  _id: 1,
+  eventName: 'Cardio Annual Summit 2026',
+  user: { userName: 'Karan Jain', role: 'Event User' },
+  client: {
+    name: 'Rahul Sharma',
+    company: 'Intas Pharma',
+    isPharma: 'pharma',
+    division: 'Cardio',
+  },
+  eventType: 'CME',
+  stdTotal: 100000,
+  vendors: [
+    { vendorName: 'Vendor 1', total: 100000 },
+    { vendorName: 'Vendor 2', total: 105000 },
+    { vendorName: 'Vendor 3', total: 110000 },
+  ],
+  selectedVendor: { vendorName: 'Vendor 1', total: 100000 },
+  finalizedBy: {
+    userName: 'Amit (ET)',
+    role: 1,
+    reason: 'Competitive pricing with prior experience',
+  },
+  createdAt: '2024-01-15T10:30:00Z',
+};
