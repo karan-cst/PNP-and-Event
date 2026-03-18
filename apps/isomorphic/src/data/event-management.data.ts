@@ -1,3 +1,5 @@
+import { ApprovalHistory } from '@/app/shared/po-management/columns';
+
 export type EventDataType = {
   id: number;
   eventName: string;
@@ -149,10 +151,30 @@ export type EventViewDataType = {
     | 'Clinic Decoration Activity'
     | 'Other';
   stdTotal: number;
-  vendors: { vendorName: string; total: number }[] | null;
-  selectedVendor?: { vendorName: string; total: number } | null;
-  finalizedBy?: { userName: string; role: number; reason: string } | null;
+  vendors:
+    | {
+        vendorName: string;
+        total: number;
+        emailUrl?: string;
+        excelUrl?: string;
+      }[]
+    | null;
+  selectedVendor?: {
+    vendorName: string;
+    total: number;
+    emailUrl?: string;
+    excelUrl?: string;
+  } | null;
+  finalizedBy?: { userName: string; role: string; reason: string } | null;
   createdAt?: string;
+  EventApproval?: {
+    firstLevelHistory: ApprovalHistory[];
+    secondLevelHistory: ApprovalHistory[];
+  };
+  POApproval?: {
+    firstLevelHistory: ApprovalHistory[];
+    secondLevelHistory: ApprovalHistory[];
+  };
 };
 
 export const dummyEventViewData: EventViewDataType = {
@@ -168,15 +190,78 @@ export const dummyEventViewData: EventViewDataType = {
   eventType: 'CME',
   stdTotal: 100000,
   vendors: [
-    { vendorName: 'Vendor 1', total: 100000 },
-    { vendorName: 'Vendor 2', total: 105000 },
-    { vendorName: 'Vendor 3', total: 110000 },
+    {
+      vendorName: 'Vendor 1',
+      total: 100000,
+      emailUrl: 'http://vendor1.com',
+      excelUrl: 'http://dummy-po.com',
+    },
+    {
+      vendorName: 'Vendor 2',
+      total: 105000,
+      emailUrl: 'http://vendor2.com',
+      excelUrl: 'http://dummy-po.com',
+    },
+    {
+      vendorName: 'Vendor 3',
+      total: 110000,
+      emailUrl: 'http://vendor3.com',
+      excelUrl: 'http://dummy-po.com',
+    },
   ],
-  selectedVendor: { vendorName: 'Vendor 1', total: 100000 },
+  selectedVendor: {
+    vendorName: 'Vendor 1',
+    total: 100000,
+    emailUrl: 'http://vendor3.com',
+    excelUrl: 'http://dummy-po.com',
+  },
   finalizedBy: {
     userName: 'Amit (ET)',
-    role: 1,
+    role: 'Event User',
     reason: 'Competitive pricing with prior experience',
   },
   createdAt: '2024-01-15T10:30:00Z',
+  EventApproval: {
+    firstLevelHistory: [
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
+    secondLevelHistory: [
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
+  },
+  POApproval: {
+    firstLevelHistory: [
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
+    secondLevelHistory: [],
+  },
 };

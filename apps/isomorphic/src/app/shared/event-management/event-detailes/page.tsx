@@ -1,48 +1,20 @@
 'use client';
-import Table from '@core/components/table';
-import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
-import TablePagination from '@core/components/table/pagination';
-import { EventApproveListColumns } from '../event-approval/columns';
-import Filters from '../event-approval/filters';
-import TableFooter from '@core/components/table/footer';
-import { TableClassNameProps } from '@core/components/table/table-types';
-import cn from '@core/utils/class-names';
-import { useEffect, useState } from 'react';
-
 import { EventApproveData } from '@/data/eventApprovalData';
 import { useSession } from 'next-auth/react';
-import ClientApprovePageHeader from '../event-approval/eventApprove-page-header';
 import PageHeader from '../../page-header';
-import EventHeader from '../event-view/event-header';
-import { dummyJobViewData } from '@/data/jobpnp-data';
+import EventHeader from './event-view/event-header';
 import { dummyEventViewData } from '@/data/event-management.data';
+import VendorsTable from './vendorTable';
+import { Title } from 'rizzui/typography';
+import SelectedVendorTable from './selectedVendor';
+import EventApprovalTable from './eventApproval';
 
 export type EventApproveDataType = (typeof EventApproveData)[number];
 
-export default function EventDetailesPage({
-  pageSize = 5,
-  hideFilters = true,
-
-  hidePagination = false,
-  hideFooter = false,
-  classNames = {
-    container: '[&_td]:py-2 border border-muted rounded-md ',
-    rowClassName: 'last:border-0',
-  },
-  paginationClassName,
-}: {
-  pageSize?: number;
-  hideFilters?: boolean;
-  hideHeader?: boolean;
-  hidePagination?: boolean;
-  hideFooter?: boolean;
-  classNames?: TableClassNameProps;
-  paginationClassName?: string;
-}) {
+export default function EventDetailesPage() {
   const event = dummyEventViewData;
   const { data: session } = useSession();
   const role = session?.user.role;
-  const [type, setType] = useState<string>('all');
   const pageHeader = {
     title: 'Events',
     breadcrumb: [
@@ -51,50 +23,61 @@ export default function EventDetailesPage({
         name: 'Event Management',
       },
       {
-        name: 'Event Approval',
+        name: 'Event Detailes',
       },
     ],
   };
-
-  const { table, setData } = useTanStackTable<EventApproveDataType>({
-    tableData:
-      type == 'all'
-        ? EventApproveData
-        : EventApproveData.filter((e) => e.isPharma == type),
-    columnConfig: EventApproveListColumns(role),
-    options: {
-      initialState: {
-        pagination: {
-          pageIndex: 0,
-          pageSize: pageSize,
-        },
-      },
-      meta: {
-        handleDeleteRow: (row) => {
-          // setData((prev) => prev.filter((r) => r.id !== row.id));
-          setData((prev) => prev);
-        },
-        handleMultipleDelete: (rows) => {
-          setData((prev) => prev.filter((r) => !rows.includes(r)));
-        },
-      },
-      enableColumnResizing: false,
-    },
-  });
-  useEffect(() => {
-    const data =
-      type == 'all'
-        ? EventApproveData
-        : EventApproveData.filter((e) => e.isPharma == type);
-    setData(data);
-  }, [type, setData]);
 
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
       <div className="space-y-6 py-2">
-        {/* Header */}
         <EventHeader event={event} />
+        <Title as="h4" className="fontSize-sm border-b border-muted/50 pb-1">
+          Vendors
+        </Title>
+        {event.vendors ? (
+          <VendorsTable vendors={event.vendors} />
+        ) : (
+          'No vendors added yet.'
+        )}
+        <Title as="h4" className="fontSize-sm border-b border-muted/50 pb-1">
+          Finalized Vendor
+        </Title>
+        {event.selectedVendor ? (
+          <SelectedVendorTable
+            vendors={[
+              {
+                vendorName: event.selectedVendor?.vendorName || '',
+                total: 100000,
+                emailUrl: 'http://vendor3.com',
+                excelUrl: 'http://dummy-po.com',
+                selectBy: 'Karan Jain',
+                reasonToChoose: event.finalizedBy?.reason || '',
+              },
+            ]}
+          />
+        ) : (
+          'No vendors added yet.'
+        )}
+
+        <Title as="h4" className="fontSize-sm border-b border-muted/50 pb-1">
+          Event Approvals
+        </Title>
+        {event.EventApproval ? (
+          <EventApprovalTable approvals={[event.EventApproval]} />
+        ) : (
+          'No approval data available.'
+        )}
+
+        <Title as="h4" className="fontSize-sm border-b border-muted/50 pb-1">
+          PO Approvals
+        </Title>
+        {event.POApproval ? (
+          <EventApprovalTable approvals={[event.POApproval]} />
+        ) : (
+          'No approval data available.'
+        )}
       </div>
     </>
   );
