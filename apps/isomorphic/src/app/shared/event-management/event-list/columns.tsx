@@ -29,7 +29,7 @@ import { useState } from 'react';
 import { AiOutlineExport } from 'react-icons/ai';
 import dayjs from 'dayjs';
 import { FiCheck } from 'react-icons/fi';
-import ClientUploadModal from '../client-upload/page';
+import ClientUploadModal from '../client-upload/ClientUploadModal';
 
 const columnHelper = createColumnHelper<EventDataType>();
 

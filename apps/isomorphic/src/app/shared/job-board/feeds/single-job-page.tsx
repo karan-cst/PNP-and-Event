@@ -150,7 +150,7 @@ export default function SingleJob({ data }: { data: JobType }) {
             <Title as="h4" className="text-base text-gray-700">
               Skills
             </Title>
-            <JobBadge skills={data.skills} />
+            {/* <JobBadge skills={data.skills} /> */}
           </div>
         </div>
 

@@ -1,9 +1,8 @@
 'use client';
 
 import cn from '@core/utils/class-names';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'rizzui/typography';
-import { useState } from 'react';
 import { SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input, Title } from 'rizzui';
 import { Form } from '@core/ui/form';

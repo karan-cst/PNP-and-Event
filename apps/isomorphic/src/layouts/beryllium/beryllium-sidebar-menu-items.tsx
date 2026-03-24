@@ -305,7 +305,7 @@ export const berylliumSidebarMenuItems = [
   {
     name: 'Vendor Rate',
     href: routes.eventManagement.vendor,
-    icon: PiNewspaperClippingDuotone,
+    icon: <PiNewspaperClippingDuotone />,
     roles: ['eventUser', 'operationHead', 'eventHead'],
     badge: '',
   },

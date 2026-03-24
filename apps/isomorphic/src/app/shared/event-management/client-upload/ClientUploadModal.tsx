@@ -1,5 +1,5 @@
 // components/modals/VendorUploadModal.tsx
-
+'use client';
 import {
   Modal,
   Button,

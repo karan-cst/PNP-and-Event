@@ -317,7 +317,7 @@ export const menuItems = [
   {
     name: 'Vendor Rate',
     href: routes.eventManagement.vendor,
-    icon: PiNewspaperClippingDuotone,
+    icon: <PiNewspaperClippingDuotone />,
     roles: ['eventUser', 'operationHead', 'eventHead'],
   },
   {
