@@ -245,7 +245,7 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
       </Tooltip>
       <Tooltip
         size="sm"
-        content={'Client Approval'}
+        content={'Vendor Detailes'}
         placement="top"
         color="invert"
       >
