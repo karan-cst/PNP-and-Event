@@ -17,7 +17,8 @@ declare module 'next-auth' {
         | 'financeExecutive'
         | 'financeManager'
         | 'financeHead'
-        | 'csUser';
+        | 'csUser'
+        | 'deliveryUser';
     } & DefaultSession['user'];
   }
 
@@ -32,7 +33,8 @@ declare module 'next-auth' {
       | 'financeExecutive'
       | 'financeManager'
       | 'financeHead'
-      | 'csUser';
+      | 'csUser'
+      | 'deliveryUser';
   }
 }
 
@@ -48,7 +50,8 @@ declare module 'next-auth/jwt' {
       | 'financeExecutive'
       | 'financeManager'
       | 'financeHead'
-      | 'csUser';
+      | 'csUser'
+      | 'deliveryUser';
     id?: string;
   }
 }

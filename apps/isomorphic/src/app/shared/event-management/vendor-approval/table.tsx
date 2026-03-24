@@ -2,18 +2,21 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { EventTrackerListColumns } from './columns';
+import { EventListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
+import { exportToCSV } from '@core/utils/export-to-csv';
+import UserPageHeader from '../user-page-header';
+import { eventDummyData } from '@/data/event-management.data';
 import { useEffect, useState } from 'react';
-import ClientApprovePageHeader from './eventApprove-page-header';
-import { EventTrackerData } from '@/data/eventTrackerData';
+import { useSession } from 'next-auth/react';
+import { CustomExpandedComponent } from './expand';
 
-export type EventTrackerDataType = (typeof EventTrackerData)[number];
+export type EventDataType = (typeof eventDummyData)[number];
 
-export default function EventTrackerTable({
+export default function VendorApproveTable({
   pageSize = 5,
   hideFilters = true,
 
@@ -33,26 +36,28 @@ export default function EventTrackerTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
+  const { data: session } = useSession();
+  const role = session?.user.role;
   const [type, setType] = useState<string>('all');
   const pageHeader = {
-    title: 'Events',
+    title: 'vendor Rate',
     breadcrumb: [
       {
         href: '#',
         name: 'Event Management',
       },
       {
-        name: 'Job Status',
+        name: 'Vendor Rate',
       },
     ],
   };
 
-  const { table, setData } = useTanStackTable<EventTrackerDataType>({
+  const { table, setData } = useTanStackTable<EventDataType>({
     tableData:
       type == 'all'
-        ? EventTrackerData
-        : EventTrackerData.filter((e) => e.isPharma == type),
-    columnConfig: EventTrackerListColumns(),
+        ? eventDummyData
+        : eventDummyData.filter((e) => e.isPharma !== type),
+    columnConfig: EventListColumns(role),
     options: {
       initialState: {
         pagination: {
@@ -62,8 +67,7 @@ export default function EventTrackerTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          // setData((prev) => prev.filter((r) => r.id !== row.id));
-          setData((prev) => prev);
+          setData((prev) => prev.filter((r) => r.id !== row.id));
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));
@@ -74,16 +78,33 @@ export default function EventTrackerTable({
   });
 
   useEffect(() => {
-    const data =
+    const filteredData =
       type == 'all'
-        ? EventTrackerData
-        : EventTrackerData.filter((e) => e.isPharma == type);
-    setData(data);
-  }, [type, setData]);
+        ? eventDummyData
+        : eventDummyData.filter((job) => job.isPharma === type);
+
+    setData(filteredData);
+
+    // optional but recommended
+    table.resetRowSelection();
+    table.setPageIndex(0);
+  }, [type, setData, table]);
+
+  const selectedData = table
+    .getSelectedRowModel()
+    .rows.map((row) => row.original);
+
+  function handleExportData() {
+    exportToCSV(
+      selectedData,
+      'ID,Name,Category,Sku,Price,Stock,Status,Rating',
+      `product_data_${selectedData.length}`
+    );
+  }
 
   return (
     <>
-      <ClientApprovePageHeader
+      <UserPageHeader
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
@@ -99,8 +120,11 @@ export default function EventTrackerTable({
           ...classNames,
           cellClassName: '!py-2', // 👈 KEY FIX
         }}
+        components={{
+          expandedComponent: CustomExpandedComponent,
+        }}
       />
-      {!hideFooter && <TableFooter table={table} />}
+      {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination
           table={table}

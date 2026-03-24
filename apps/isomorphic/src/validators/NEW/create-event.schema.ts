@@ -51,25 +51,14 @@ export const eventFormSchema = z.object({
     companyId: z.string().min(1, 'Client is required'),
     divisionName: z.string().optional(),
     client: z.string().optional(),
+    quotationFile: z.string(),
+    emailFile: z.string(),
+    clientTotal: z.number(),
   }),
-  // client: z
-  //   .object({
-  //     clientName: z.string().min(1),
-  //     address: z.string().optional(),
-  //     contactName: z.string().optional(),
-  //     contactNumber: z.string().optional(),
-  //     isPharma: z.boolean(),
-  //   })
-  // .optional(),
   divisionName: z.string().optional(),
-
-  // 6️⃣ Project Priority
   priority: z.enum(['Low', 'Medium', 'High'], {
     required_error: 'Priority is required',
   }),
-
-  // // 7️⃣ Coordinator Transfer
-  // coordinatorId: z.string().optional(),
 });
 
 export type CreateEventInput = z.infer<typeof eventFormSchema>;

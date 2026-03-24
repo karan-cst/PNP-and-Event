@@ -61,6 +61,7 @@ export const routes = {
     client: '/client-approval',
     eventApprove: '/event-management/event-approval',
     eventTracker: '/event-management/event-tracker',
+    vendor: '/event-management/vendor-rate',
   },
   POManagement: {
     po: '/po-management',
@@ -70,6 +71,11 @@ export const routes = {
   },
   PaymentManagement: {
     payment: '/payment-management',
+  },
+  deliveryManagement: {
+    delivery: '/delivery-management',
+    vendor: '/delivery-management/vendor',
+    client: '/delivery-management/client',
   },
 
   // *************OLD************** //

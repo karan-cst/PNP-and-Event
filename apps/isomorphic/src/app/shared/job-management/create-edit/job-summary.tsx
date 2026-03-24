@@ -1,7 +1,7 @@
 'use client';
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { Input, Select } from 'rizzui';
+import { Checkbox, CheckboxGroup, Input, Select } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import { DatePicker } from '@core/ui/datepicker';
@@ -77,6 +77,23 @@ export default function JobSummary({ className }: { className?: string }) {
         placeholder="Package Qty"
         {...register('packageQty')}
         error={errors?.packageQty?.message as string}
+      />
+      <Controller
+        name="jobType"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <CheckboxGroup
+            values={value}
+            setValues={onChange}
+            className="flex flex-row gap-4"
+
+            // error={fieldState.error?.message}
+          >
+            <Checkbox label="Print" value="print" />
+            <Checkbox label="Gift" value="gift" />
+            <Checkbox label="Print & Gift" value="printngift" disabled />
+          </CheckboxGroup>
+        )}
       />
     </FormGroup>
   );

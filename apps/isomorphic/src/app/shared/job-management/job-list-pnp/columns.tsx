@@ -9,6 +9,7 @@ import DateCell from '@core/ui/date-cell';
 import { AiOutlineExport } from 'react-icons/ai';
 import { PiEyeBold } from 'react-icons/pi';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const columnHelper = createColumnHelper<JobFormDataType>();
 
@@ -19,9 +20,14 @@ export const JobListColumns = [
     header: 'Job Details',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Title as="h5" className="!text-sm font-medium">
-          {`${row.original.jobName}`}
-        </Title>
+        <Link href={`/job-management/job-view`} className="group inline-block">
+          <Title
+            as="h5"
+            className="cursor-pointer !text-sm font-medium text-blue-600 transition group-hover:underline"
+          >
+            {row.original.jobName}
+          </Title>
+        </Link>
         <Text className="text-sm">
           {row.original?.division}-{row.original.jobType}
         </Text>

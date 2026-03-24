@@ -4,14 +4,26 @@ import { useState } from 'react';
 import cn from '@core/utils/class-names';
 import { Badge, Button } from 'rizzui';
 
-export default function JobBadge({ skills }: { skills: string[] }) {
+export default function JobBadge({
+  skills,
+}: {
+  skills: { name: string; value: string | number | boolean }[];
+}) {
   const [initialCount, setInitialCount] = useState(5);
   const [isMore, setIsMore] = useState(false);
 
   return (
     <div className="flex flex-wrap gap-2">
       {skills.slice(0, initialCount).map((skill, index) => {
-        return <JobFeedCardBadge key={`skill-${index}`} text={skill} />;
+        if (skill.value) {
+          return (
+            <JobFeedCardBadge
+              key={`skill-${index}`}
+              text={typeof skill.value === 'string' ? skill.value : skill.name}
+            />
+          );
+        }
+        return null;
       })}
       {!isMore && (
         <Button
@@ -21,11 +33,11 @@ export default function JobBadge({ skills }: { skills: string[] }) {
           className="h-auto cursor-pointer p-0"
           onClick={(e) => {
             e.stopPropagation();
-            setInitialCount(initialCount + 3);
+            setInitialCount(initialCount + 20);
             setIsMore(true);
           }}
         >
-          <JobFeedCardBadge text="+3 more" />
+          <JobFeedCardBadge text="more" />
         </Button>
       )}
     </div>

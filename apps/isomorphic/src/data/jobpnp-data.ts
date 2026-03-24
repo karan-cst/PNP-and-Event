@@ -70,7 +70,8 @@ export const dummyJobData: JobFormDataType[] = [
     deliveryPlace: 'Matoda',
     deliveryDate: '2026-03-30',
     packageQty: 100,
-    deliveryComment: '-',
+    deliveryComment:
+      'Deliver to reception desk. Please call +91-XXXXXXXXXX before arrival. Ensure careful handling for laminated materials.',
 
     size: '8.2 x 11.7 inches',
     paper: 'Standard gloss paper',
@@ -82,15 +83,165 @@ export const dummyJobData: JobFormDataType[] = [
     gloss: true,
     front: true,
 
-    back: false,
+    back: true,
     uv: false,
     vaidB2B: false,
-    hBound: false,
+    hBound: true,
 
-    spiral: false,
+    spiral: true,
     wiroWire: false,
     indexing: false,
-    foil: false,
+    foil: true,
+
+    otherLamination: '',
+    specialInstructions: 'Ensure high resolution print quality.',
+    createdAt: '2026-02-10',
+    jobType: 'print',
+    PrintExecutiveStatus: 'Approved',
+    finalizedVendor: 'ABC',
+    finalizedVendorCost: 12000,
+  },
+  {
+    jobName: 'Pamphlet_Gaurav Gupta',
+    jobNo: 'ADR67101JUN/25-26',
+    date: '2025-06-24',
+
+    glCode: '5153700007',
+    sapCode: '2273043',
+    ccCode: '1450',
+    hsnCode: '49011020',
+
+    requisitionerName: 'Dhaval Patel',
+    floor: '2nd Floor',
+    division: 'ADRINA',
+
+    totalQty: 4000,
+    stdTotal: 10000,
+    deliveryPlace: 'Matoda',
+    deliveryDate: '2026-03-30',
+    packageQty: 100,
+    deliveryComment:
+      'Deliver to reception desk. Please call +91-XXXXXXXXXX before arrival. Ensure careful handling for laminated materials.',
+
+    size: '8.2 x 11.7 inches',
+    paper: 'Standard gloss paper',
+    colour: '4 Color',
+    budget: 25000,
+
+    lamination: true,
+    matt: false,
+    gloss: true,
+    front: true,
+
+    back: true,
+    uv: false,
+    vaidB2B: false,
+    hBound: true,
+
+    spiral: true,
+    wiroWire: false,
+    indexing: false,
+    foil: true,
+
+    otherLamination: '',
+    specialInstructions: 'Ensure high resolution print quality.',
+    createdAt: '2026-02-10',
+    jobType: 'print',
+    PrintExecutiveStatus: 'Approved',
+    finalizedVendor: 'ABC',
+    finalizedVendorCost: 12000,
+  },
+  {
+    jobName: 'Pamphlet_Gaurav Gupta',
+    jobNo: 'ADR67101JUN/25-26',
+    date: '2025-06-24',
+
+    glCode: '5153700007',
+    sapCode: '2273043',
+    ccCode: '1450',
+    hsnCode: '49011020',
+
+    requisitionerName: 'Dhaval Patel',
+    floor: '2nd Floor',
+    division: 'ADRINA',
+
+    totalQty: 4000,
+    stdTotal: 10000,
+    deliveryPlace: 'Matoda',
+    deliveryDate: '2026-03-30',
+    packageQty: 100,
+    deliveryComment:
+      'Deliver to reception desk. Please call +91-XXXXXXXXXX before arrival. Ensure careful handling for laminated materials.',
+
+    size: '8.2 x 11.7 inches',
+    paper: 'Standard gloss paper',
+    colour: '4 Color',
+    budget: 25000,
+
+    lamination: true,
+    matt: false,
+    gloss: true,
+    front: true,
+
+    back: true,
+    uv: false,
+    vaidB2B: false,
+    hBound: true,
+
+    spiral: true,
+    wiroWire: false,
+    indexing: false,
+    foil: true,
+
+    otherLamination: '',
+    specialInstructions: 'Ensure high resolution print quality.',
+    createdAt: '2026-02-10',
+    jobType: 'print',
+    PrintExecutiveStatus: 'Approved',
+    finalizedVendor: 'ABC',
+    finalizedVendorCost: 12000,
+  },
+  {
+    jobName: 'Pamphlet_Gaurav Gupta',
+    jobNo: 'ADR67101JUN/25-26',
+    date: '2025-06-24',
+
+    glCode: '5153700007',
+    sapCode: '2273043',
+    ccCode: '1450',
+    hsnCode: '49011020',
+
+    requisitionerName: 'Dhaval Patel',
+    floor: '2nd Floor',
+    division: 'ADRINA',
+
+    totalQty: 4000,
+    stdTotal: 10000,
+    deliveryPlace: 'Matoda',
+    deliveryDate: '2026-03-30',
+    packageQty: 100,
+    deliveryComment:
+      'Deliver to reception desk. Please call +91-XXXXXXXXXX before arrival. Ensure careful handling for laminated materials.',
+
+    size: '8.2 x 11.7 inches',
+    paper: 'Standard gloss paper',
+    colour: '4 Color',
+    budget: 25000,
+
+    lamination: true,
+    matt: false,
+    gloss: true,
+    front: true,
+
+    back: true,
+    uv: false,
+    vaidB2B: false,
+    hBound: true,
+
+    spiral: true,
+    wiroWire: false,
+    indexing: false,
+    foil: true,
 
     otherLamination: '',
     specialInstructions: 'Ensure high resolution print quality.',

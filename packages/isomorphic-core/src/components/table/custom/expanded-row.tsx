@@ -7,14 +7,14 @@ import { PiXBold } from "react-icons/pi";
 import { Flex, Text, Title } from "rizzui";
 
 export function CustomExpandedComponent<TData extends Record<string, any>>(
-  row: Row<TData>
+  row: Row<TData>,
 ) {
   const products = row?.original?.products;
   if (!Array.isArray(products) || products.length === 0) {
     return (
       <Flex align="center" justify="center">
         <Text className="p-4 text-2xl text-gray-500">
-          No products available for this order.
+          No products available for \8this order.
         </Text>
       </Flex>
     );

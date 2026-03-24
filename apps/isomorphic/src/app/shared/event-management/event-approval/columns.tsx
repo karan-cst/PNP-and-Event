@@ -377,10 +377,10 @@ export const Action = ({
           size="sm"
           variant="outline"
           aria-label={'Download PO'}
-          onClick={() => {}}
+          onClick={() => (disabled ? null : handleOpen())}
           disabled={disabled}
         >
-          <PiCheckFatDuotone className="h-6 w-6" onClick={handleOpen} />
+          <PiCheckFatDuotone className="h-6 w-6" />
         </ActionIcon>
       </Tooltip>
     </div>

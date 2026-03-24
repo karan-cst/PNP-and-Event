@@ -154,6 +154,14 @@ export const authOptions: NextAuthOptions = {
             role: 'csUser',
           };
         }
+        if (email === 'delivery@oneadvt.com' && password === 'admin') {
+          return {
+            id: '10',
+            name: 'Delivery User',
+            email,
+            role: 'deliveryUser',
+          };
+        }
 
         return null;
         // return null;

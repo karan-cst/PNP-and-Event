@@ -308,10 +308,16 @@ export const menuItems = [
     icon: <PiCalendarPlusDuotone />,
     roles: ['eventUser', 'operationHead', 'eventHead'],
   },
+  // {
+  //   name: 'Client Approve',
+  //   href: routes.eventManagement.client,
+  //   icon: <PiNewspaperClippingDuotone />,
+  //   roles: ['eventUser', 'operationHead', 'eventHead'],
+  // },
   {
-    name: 'Client Approve',
-    href: routes.eventManagement.client,
-    icon: <PiNewspaperClippingDuotone />,
+    name: 'Vendor Rate',
+    href: routes.eventManagement.vendor,
+    icon: PiNewspaperClippingDuotone,
     roles: ['eventUser', 'operationHead', 'eventHead'],
   },
   {
@@ -321,7 +327,7 @@ export const menuItems = [
     roles: ['eventUser', 'operationHead', 'eventHead', 'financeHead'],
   },
   {
-    name: 'Event Tracker',
+    name: 'Job Status',
     href: routes.eventManagement.eventTracker,
     icon: <PiListChecksDuotone />,
     roles: [
@@ -368,7 +374,6 @@ export const menuItems = [
       'financeExecutive',
       'financeManager',
       'financeHead',
-      'eventUser',
       'operationHead',
       'eventHead',
     ],

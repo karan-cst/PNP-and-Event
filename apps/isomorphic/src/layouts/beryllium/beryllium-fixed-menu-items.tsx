@@ -441,6 +441,23 @@ export const berylliumMenuItems: MenuItemsType[] = [
     ],
   },
   {
+    id: '10',
+    name: 'Vendor',
+    title: 'Vendor Rate',
+    // icon: PiFolderUserDuotone,
+    icon: PiNewspaperClippingDuotone,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Vendor Rate',
+        href: routes.eventManagement.vendor,
+        icon: PiNewspaperClippingDuotone,
+        roles: ['eventUser', 'operationHead', 'eventHead'],
+      },
+    ],
+  },
+  {
     id: '9b',
     name: 'Approvals',
     title: 'Events Approve',
@@ -458,8 +475,8 @@ export const berylliumMenuItems: MenuItemsType[] = [
   },
   {
     id: '9c',
-    name: 'Tracks',
-    title: 'Events Tracker',
+    name: 'Status',
+    title: 'Job Status',
     icon: PiListChecksDuotone,
     roles: [
       'eventUser',
@@ -472,7 +489,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
     isExpnad: false,
     menuItems: [
       {
-        name: 'Event Tracker',
+        name: 'Job Status',
         href: routes.eventManagement.eventTracker,
         icon: PiListChecksDuotone,
         roles: [
@@ -486,22 +503,23 @@ export const berylliumMenuItems: MenuItemsType[] = [
       },
     ],
   },
-  {
-    id: '10',
-    name: 'Client',
-    title: 'Client',
-    icon: PiFolderUserDuotone,
-    roles: ['eventUser', 'operationHead', 'eventHead'],
-    isExpnad: false,
-    menuItems: [
-      {
-        name: 'Client Approval',
-        href: routes.eventManagement.client,
-        icon: PiNewspaperClippingDuotone,
-        roles: ['eventUser', 'operationHead', 'eventHead'],
-      },
-    ],
-  },
+  // {
+  //   id: '10',
+  //   name: 'Client',
+  //   title: 'Client',
+  //   icon: PiFolderUserDuotone,
+  //   roles: ['eventUser', 'operationHead', 'eventHead'],
+  //   isExpnad: false,
+  //   menuItems: [
+  //     {
+  //       name: 'Client Approval',
+  //       href: routes.eventManagement.client,
+  //       icon: PiNewspaperClippingDuotone,
+  //       roles: ['eventUser', 'operationHead', 'eventHead'],
+  //     },
+  //   ],
+  // },
+
   {
     id: '11',
     name: 'PO',
@@ -571,7 +589,6 @@ export const berylliumMenuItems: MenuItemsType[] = [
       'financeExecutive',
       'financeManager',
       'financeHead',
-      'eventUser',
       'operationHead',
       'eventHead',
     ],
@@ -585,7 +602,6 @@ export const berylliumMenuItems: MenuItemsType[] = [
           'financeExecutive',
           'financeManager',
           'financeHead',
-          'eventUser',
           'operationHead',
           'eventHead',
         ],
@@ -637,6 +653,54 @@ export const berylliumMenuItems: MenuItemsType[] = [
         href: routes.inquiryManagement.inquiry,
         icon: PiFile,
         roles: ['csUser'],
+      },
+    ],
+  },
+  {
+    id: '15',
+    name: 'Delivery',
+    title: 'Delivery',
+    icon: PiFile,
+    roles: ['deliveryUser'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Delivery Tracker',
+        href: routes.deliveryManagement.delivery,
+        icon: PiFile,
+        roles: ['deliveryUser'],
+      },
+    ],
+  },
+  {
+    id: '16',
+    name: 'Vendors',
+    title: 'Vendors',
+    icon: PiFile,
+    roles: ['deliveryUser'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Vendor Delivery',
+        href: routes.deliveryManagement.vendor,
+        icon: PiFile,
+        roles: ['deliveryUser'],
+      },
+    ],
+  },
+  {
+    id: '17',
+    name: 'Clients',
+    title: 'Clients',
+    icon: PiFile,
+    roles: ['deliveryUser'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Client Delivery',
+        href: routes.deliveryManagement.client,
+        icon: PiFile,
+        roles: ['deliveryUser'],
       },
     ],
   },

@@ -15,6 +15,8 @@ import cn from '@core/utils/class-names';
 import PencilIcon from '@core/components/icons/pencil';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
 import {
+  PiCaretDownBold,
+  PiCaretUpBold,
   PiEyeBold,
   PiMicrosoftExcelLogo,
   PiPlusBold,
@@ -28,14 +30,14 @@ import { formatPrice } from '@/config/format-pricing';
 import { useState } from 'react';
 import { AiOutlineExport } from 'react-icons/ai';
 import dayjs from 'dayjs';
-import { FiCheck } from 'react-icons/fi';
+import { FiCheck, FiEye, FiPlus } from 'react-icons/fi';
 import ClientUploadModal from '../client-upload/page';
 
 const columnHelper = createColumnHelper<EventDataType>();
 
-export const EventListColumns = (role?: string) => {
+export const EventListColumns = (role?: string, expanded: boolean = true) => {
   const router = useRouter();
-  return [
+  const columns = [
     columnHelper.accessor('id', {
       id: 'id',
       size: 50,
@@ -63,137 +65,51 @@ export const EventListColumns = (role?: string) => {
       ),
     }),
     columnHelper.display({
-      id: 'startDate',
+      id: 'totalVendor',
       size: 120,
-      header: 'Event Date',
+      header: 'Vendors',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
-          <Text className="text-sm">{`${dayjs(row.original.startDate).format('DD/MM/YYYY')} - ${dayjs(row.original.endDate).format('DD/MM/YYYY')}`}</Text>
+          <Text className="text-sm">{row.original.totalVendor}</Text>
         </div>
       ),
     }),
-    columnHelper.accessor('location.city', {
-      id: 'location',
-      size: 120,
-      header: 'Location',
+    columnHelper.accessor('finalizedVendorName', {
+      id: 'finalizedVendorName',
+      size: 150,
+      header: 'Finalized Vendor',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
-          <Text className="text-sm">{`${row.original.location.city}, ${row.original.location.state}`}</Text>
-        </div>
-      ),
-    }),
-
-    columnHelper.display({
-      id: 'elements',
-      size: 120,
-      header: 'Elements',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          <Title
-            as="h5"
-            className="flex cursor-pointer items-center gap-1 !text-sm font-medium hover:underline"
-            onClick={() => {}}
-          >
-            {`${row.original.elements}`}
+          <Text className="text-sm">{`${row.original?.finalizedVendorName ? row.original?.finalizedVendorName : '-'}`}</Text>
+          <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
+            {formatPrice(row.original.vendor1Total)}
             <span>
               <AiOutlineExport />
             </span>
-          </Title>
-        </div>
-      ),
-    }),
-
-    columnHelper.accessor('stdTotal', {
-      id: 'stdTotal',
-      size: 120,
-      header: 'Std Total/ Tentative Cost',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          <Text className="text-sm">{formatPrice(row.original.stdTotal)}/</Text>
-          <Text className="text-sm">
-            {formatPrice(row.original.vendor1Total)}
           </Text>
         </div>
       ),
     }),
-    columnHelper.accessor('clientRate', {
-      id: 'clientRate',
-      size: 120,
-      header: 'Std Total/ Tentative Cost',
+    columnHelper.accessor('reasonToChoose', {
+      id: 'reasonToChoose',
+      size: 150,
+      header: 'Reason To Choose',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
-          <Text className="text-sm">
-            {formatPrice(row.original.clientRate)}/
-          </Text>
+          <Text className="text-sm">{`${row.original?.reasonToChoose ? row.original?.reasonToChoose : '-'}`}</Text>
+          {/* <Tooltip size="sm" content={'View User'} placement="top" color="invert">
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label={'View Product'}
+          >
+            <EyeIcon className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip> */}
         </div>
       ),
     }),
-    columnHelper.display({
-      id: 'priority',
-      size: 100,
-      header: 'Priority',
-      cell: ({ row }) => getStatusBadge(row.original.priority),
-    }),
-    columnHelper.display({
-      id: 'status',
-      size: 100,
-      header: 'Status',
-      cell: ({ row }) => row.original.status,
-    }),
-    // columnHelper.accessor('lowestVendorName', {
-    //   id: 'lowestVendorName',
-    //   size: 150,
-    //   header: 'Lowest vendor',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">
-    //         {`${row.original?.lowestVendorName ? row.original?.lowestVendorName : '-'}`}
-    //       </Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('finalizedBy', {
-    //   id: 'finalizedBy',
-    //   size: 150,
-    //   header: 'Finalized By',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">
-    //         {`${row.original?.finalizedBy ? row.original?.finalizedBy : '-'}`}
-    //       </Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('finalizedVendorName', {
-    //   id: 'finalizedVendorName',
-    //   size: 150,
-    //   header: 'Finalized Vendor',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">{`${row.original?.finalizedVendorName ? row.original?.finalizedVendorName : '-'}`}</Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('reasonToChoose', {
-    //   id: 'reasonToChoose',
-    //   size: 150,
-    //   header: 'Reason To Choose',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">{`${row.original?.reasonToChoose ? row.original?.reasonToChoose : '-'}`}</Text>
-    //       {/* <Tooltip size="sm" content={'View User'} placement="top" color="invert">
-    //       <ActionIcon
-    //         as="span"
-    //         size="sm"
-    //         variant="outline"
-    //         aria-label={'View Product'}
-    //       >
-    //         <EyeIcon className="h-4 w-4" />
-    //       </ActionIcon>
-    //     </Tooltip> */}
-    //     </div>
-    //   ),
-    // }),
     columnHelper.display({
       id: 'action',
       size: 150,
@@ -206,23 +122,50 @@ export const EventListColumns = (role?: string) => {
       }) => <Action event={row.original} role={role} />,
     }),
   ];
+
+  return expanded ? [expandedOrdersColumns, ...columns] : columns;
 };
 
-const EventEdit = ({ event }: { event: EventDataType }) => {
-  return (
-    <Tooltip size="sm" content={'Edit Event'} placement="top" color="invert">
-      <ActionIcon
-        as="span"
-        size="sm"
-        variant="outline"
-        aria-label={'Edit Product'}
-        onClick={() => {}}
-      >
-        <PencilIcon className="h-4 w-4" />
-      </ActionIcon>
-    </Tooltip>
-  );
-};
+const expandedOrdersColumns = columnHelper.display({
+  id: 'expandedHandler',
+  size: 60,
+  cell: ({ row }) => (
+    <>
+      {row.getCanExpand() && (
+        <ActionIcon
+          size="sm"
+          rounded="full"
+          aria-label="Expand row"
+          className="ms-2"
+          variant={row.getIsExpanded() ? 'solid' : 'outline'}
+          onClick={row.getToggleExpandedHandler()}
+        >
+          {row.getIsExpanded() ? (
+            <PiCaretUpBold className="size-3.5" />
+          ) : (
+            <PiCaretDownBold className="size-3.5" />
+          )}
+        </ActionIcon>
+      )}
+    </>
+  ),
+});
+
+// const EventEdit = ({ event }: { event: EventDataType }) => {
+//   return (
+//     <Tooltip size="sm" content={'Edit Event'} placement="top" color="invert">
+//       <ActionIcon
+//         as="span"
+//         size="sm"
+//         variant="outline"
+//         aria-label={'Edit Product'}
+//         onClick={() => {}}
+//       >
+//         <PencilIcon className="h-4 w-4" />
+//       </ActionIcon>
+//     </Tooltip>
+//   );
+// };
 
 const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
   const router = useRouter();
@@ -273,15 +216,15 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
     });
   };
 
-  const handleClient = (data: EventDataType) => {
-    openModal({
-      view: <ClientUploadModal rowData={data} onClose={() => closeModal()} />,
-      customSize: 500,
-    });
-  };
+  // const handleClient = (data: EventDataType) => {
+  //   openModal({
+  //     view: <ClientUploadModal rowData={data} onClose={() => closeModal()} />,
+  //     customSize: 500,
+  //   });
+  // };
   return (
     <Flex align="center" justify="start" gap="3" className="pe-4">
-      <EventEdit event={event} />
+      {/* <EventEdit event={event} /> */}
       <Tooltip
         size="sm"
         content={'Download Excel'}
@@ -302,7 +245,7 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
       </Tooltip>
       <Tooltip
         size="sm"
-        content={'Client Update'}
+        content={'Client Approval'}
         placement="top"
         color="invert"
       >
@@ -311,32 +254,14 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
           as="span"
           size="sm"
           variant="outline"
-          aria-label={'Client Approval'}
+          aria-label={'Vendor Detailes'}
           onClick={() => {
-            handleClient(event);
+            router.push('/event-management/vendors');
           }}
         >
-          <FiCheck className="h-4 w-4" />
+          <FiEye className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
-      {role == 'operationHead' && (
-        <Tooltip
-          size="sm"
-          content={'Reassign user'}
-          placement="top"
-          color="invert"
-        >
-          <ActionIcon
-            as="span"
-            size="sm"
-            variant="outline"
-            aria-label={'Reassign user'}
-            onClick={handleOpen}
-          >
-            <PiUserSwitchDuotone className="h-4 w-4" />
-          </ActionIcon>
-        </Tooltip>
-      )}
     </Flex>
   );
 };

@@ -29,6 +29,7 @@ import {
   PiCurrencyDollar,
   PiEnvelopeSimpleOpen,
   PiFeather,
+  PiFile,
   PiFolder,
   PiFolderLock,
   PiFolderUser,
@@ -302,6 +303,13 @@ export const berylliumSidebarMenuItems = [
     badge: '',
   },
   {
+    name: 'Vendor Rate',
+    href: routes.eventManagement.vendor,
+    icon: PiNewspaperClippingDuotone,
+    roles: ['eventUser', 'operationHead', 'eventHead'],
+    badge: '',
+  },
+  {
     name: 'Event Approve',
     href: routes.eventManagement.eventApprove,
     icon: <PiClipboardTextDuotone />,
@@ -309,7 +317,7 @@ export const berylliumSidebarMenuItems = [
     badge: '',
   },
   {
-    name: 'Event Tracker',
+    name: 'Job Status',
     href: routes.eventManagement.eventTracker,
     icon: <PiListChecksDuotone />,
     roles: [
@@ -322,13 +330,14 @@ export const berylliumSidebarMenuItems = [
     ],
     badge: '',
   },
-  {
-    name: 'Client Approval',
-    href: routes.eventManagement.client,
-    icon: <PiNewspaperClippingDuotone />,
-    roles: ['eventUser', 'operationHead', 'eventHead'],
-    badge: '',
-  },
+  // {
+  //   name: 'Client Approval',
+  //   href: routes.eventManagement.client,
+  //   icon: <PiNewspaperClippingDuotone />,
+  //   roles: ['eventUser', 'operationHead', 'eventHead'],
+  //   badge: '',
+  // },
+
   {
     name: 'PO Management',
     href: routes.POManagement.po,
@@ -370,6 +379,18 @@ export const berylliumSidebarMenuItems = [
       'eventHead',
     ],
     badge: '',
+  },
+  {
+    name: 'Vendor Delivery',
+    href: routes.deliveryManagement.vendor,
+    icon: <PiFile />,
+    roles: ['deliveryUser'],
+  },
+  {
+    name: 'Client Delivery',
+    href: routes.deliveryManagement.client,
+    icon: <PiFile />,
+    roles: ['deliveryUser'],
   },
 
   // // label start

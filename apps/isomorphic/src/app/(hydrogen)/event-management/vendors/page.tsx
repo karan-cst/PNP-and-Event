@@ -52,7 +52,7 @@ export default function Vendors() {
     title: 'Vendors',
     breadcrumb: [
       { href: '#', name: 'Event Management' },
-      { href: '/event-management', name: 'Events' },
+      { href: '/event-management/vendor-rate', name: 'Vendor Rates' },
       { name: 'Vendors' },
     ],
   };

@@ -53,7 +53,7 @@ export default function EventSummary({ className }: { className?: string }) {
             onChange={onChange}
             onBlur={onBlur}
             selected={value}
-            error={fieldState.error?.message}
+            // error={fieldState.error?.message}
           />
         )}
       />
@@ -68,7 +68,7 @@ export default function EventSummary({ className }: { className?: string }) {
             onChange={onChange}
             onBlur={onBlur}
             selected={value}
-            error={fieldState.error?.message}
+            // error={fieldState.error?.message}
           />
         )}
       />

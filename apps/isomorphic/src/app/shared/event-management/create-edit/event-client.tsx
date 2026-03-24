@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { Select } from 'rizzui';
+import { FileInput, Input, Select } from 'rizzui';
 import FormGroup from '@/app/shared/form-group';
 import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import cn from '@core/utils/class-names';
@@ -34,6 +34,7 @@ const priorityOptions: Option[] = [
 export default function EventClient({ className }: { className?: string }) {
   const {
     control,
+    register,
     watch,
     formState: { errors },
   } = useFormContext<CreateEventInput>();
@@ -120,6 +121,53 @@ export default function EventClient({ className }: { className?: string }) {
           />
         )}
       />
+      {/* Excel Upload */}
+      <Controller
+        name="company.quotationFile"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FileInput
+            label="Upload Quotation (Excel)"
+            accept=".xlsx,.xls"
+            onChange={(file) => {
+              field.onChange(file);
+            }}
+          />
+        )}
+      />
+
+      {/* JPG / PDF Upload */}
+      <Controller
+        name="company.emailFile"
+        control={control}
+        render={({ field, fieldState }) => (
+          <FileInput
+            label="Upload Email File (JPG / PDF)"
+            accept=".jpg,.jpeg,.png,.pdf"
+            onChange={(file) => {
+              field.onChange(file);
+            }}
+          />
+        )}
+      />
+      <Input
+        label="Client Total"
+        placeholder="Client Total"
+        {...register('company.clientTotal')}
+        error={errors?.company?.clientTotal?.message}
+      />
+      {/* <Controller
+        name="company.clientTotal"
+        control={control}
+        render={({ field, fieldState, value }) => (
+          <Input
+            label="Cliet Total"
+            type="number"
+            value={value}
+            onChange={(e) => field.onChange(e)}
+          />
+        )}
+      /> */}
     </FormGroup>
   );
 }

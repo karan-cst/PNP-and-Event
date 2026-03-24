@@ -30,6 +30,9 @@ const allStatus = {
   delayed: statusColors.default,
   draft: statusColors.default,
   refunded: statusColors.default,
+  low: statusColors.success,
+  medium: statusColors.warning,
+  high: statusColors.danger,
 };
 
 export type StatusTypes = keyof typeof allStatus;

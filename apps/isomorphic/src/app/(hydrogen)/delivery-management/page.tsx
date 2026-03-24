@@ -1,5 +1,5 @@
 import { metaObject } from '@/config/site.config';
-import EventDetailesPage from '@/app/shared/event-management/event-detailes/page';
+import DeliveryTable from '@/app/shared/delivery-management/delivery-list/table';
 
 export const metadata = {
   ...metaObject('Products'),
@@ -8,7 +8,7 @@ export const metadata = {
 export default function Events() {
   return (
     <>
-      <EventDetailesPage />
+      <DeliveryTable pageSize={10} />
     </>
   );
 }

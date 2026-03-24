@@ -2,21 +2,21 @@
 import Table from '@core/components/table';
 import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Table';
 import TablePagination from '@core/components/table/pagination';
-import { EventTrackerListColumns } from './columns';
+import { DeliveryListColumns } from './columns';
 import Filters from './filters';
 import TableFooter from '@core/components/table/footer';
 import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
-import { useEffect, useState } from 'react';
-import ClientApprovePageHeader from './eventApprove-page-header';
-import { EventTrackerData } from '@/data/eventTrackerData';
+import { exportToCSV } from '@core/utils/export-to-csv';
+import { useSession } from 'next-auth/react';
+import { deliveryDummyData } from '@/data/deliveryDummy-data';
+import Header from '../page-header';
 
-export type EventTrackerDataType = (typeof EventTrackerData)[number];
+export type DeliveryDataType = (typeof deliveryDummyData)[number];
 
-export default function EventTrackerTable({
+export default function DeliveryTable({
   pageSize = 5,
   hideFilters = true,
-
   hidePagination = false,
   hideFooter = false,
   classNames = {
@@ -33,26 +33,24 @@ export default function EventTrackerTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
-  const [type, setType] = useState<string>('all');
+  const { data: session } = useSession();
+  const role = session?.user.role;
   const pageHeader = {
-    title: 'Events',
+    title: 'Deliveries',
     breadcrumb: [
       {
         href: '#',
-        name: 'Event Management',
+        name: 'Delivery Management',
       },
       {
-        name: 'Job Status',
+        name: 'Deliveries',
       },
     ],
   };
 
-  const { table, setData } = useTanStackTable<EventTrackerDataType>({
-    tableData:
-      type == 'all'
-        ? EventTrackerData
-        : EventTrackerData.filter((e) => e.isPharma == type),
-    columnConfig: EventTrackerListColumns(),
+  const { table, setData } = useTanStackTable<DeliveryDataType>({
+    tableData: deliveryDummyData,
+    columnConfig: DeliveryListColumns(role),
     options: {
       initialState: {
         pagination: {
@@ -62,8 +60,7 @@ export default function EventTrackerTable({
       },
       meta: {
         handleDeleteRow: (row) => {
-          // setData((prev) => prev.filter((r) => r.id !== row.id));
-          setData((prev) => prev);
+          setData((prev) => prev.filter((r) => r.id !== row.id));
         },
         handleMultipleDelete: (rows) => {
           setData((prev) => prev.filter((r) => !rows.includes(r)));
@@ -73,22 +70,24 @@ export default function EventTrackerTable({
     },
   });
 
-  useEffect(() => {
-    const data =
-      type == 'all'
-        ? EventTrackerData
-        : EventTrackerData.filter((e) => e.isPharma == type);
-    setData(data);
-  }, [type, setData]);
+  const selectedData = table
+    .getSelectedRowModel()
+    .rows.map((row) => row.original);
+
+  function handleExportData() {
+    exportToCSV(
+      selectedData,
+      'ID,Name,Category,Sku,Price,Stock,Status,Rating',
+      `product_data_${selectedData.length}`
+    );
+  }
 
   return (
     <>
-      <ClientApprovePageHeader
+      <Header
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
-        type={type}
-        setType={setType}
       />
 
       {!hideFilters && <Filters table={table} />}
@@ -100,7 +99,7 @@ export default function EventTrackerTable({
           cellClassName: '!py-2', // 👈 KEY FIX
         }}
       />
-      {!hideFooter && <TableFooter table={table} />}
+      {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination
           table={table}
