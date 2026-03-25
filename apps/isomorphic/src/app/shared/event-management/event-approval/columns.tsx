@@ -357,13 +357,14 @@ export const Action = ({
 
   const lastFirst = firstHistory[firstHistory.length - 1];
   const lastSecond = secondHistory[secondHistory.length - 1];
+  const notAllowedRole = role !== 'operationHead' && role !== 'eventHead';
   const operationDisabled =
     role === 'operationHead' && lastFirst?.status === 'approve';
   console.log(role === 'operationHead', lastFirst?.status === 'approve');
   const headDisabled =
     role === 'eventHead' &&
     (lastFirst?.status !== 'approve' || lastSecond?.status === 'approve');
-  const disabled = operationDisabled || headDisabled;
+  const disabled = notAllowedRole || operationDisabled || headDisabled;
   return (
     <div className={cn('grid gap-1')}>
       <Tooltip
