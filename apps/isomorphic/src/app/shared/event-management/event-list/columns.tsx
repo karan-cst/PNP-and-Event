@@ -119,7 +119,7 @@ export const EventListColumns = (role?: string) => {
     columnHelper.accessor('clientRate', {
       id: 'clientRate',
       size: 120,
-      header: 'Std Total/ Tentative Cost',
+      header: 'Client Rate',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
           <Text className="text-sm">

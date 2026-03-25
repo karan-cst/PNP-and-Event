@@ -347,9 +347,9 @@ export const menuItems = [
       'financeExecutive',
       'financeManager',
       'financeHead',
-      'eventUser',
-      'operationHead',
-      'eventHead',
+      // 'eventUser',
+      // 'operationHead',
+      // 'eventHead',
     ],
   },
   {
@@ -361,8 +361,8 @@ export const menuItems = [
       'financeManager',
       'financeHead',
       'eventUser',
-      'operationHead',
-      'eventHead',
+      // 'operationHead',
+      // 'eventHead',
     ],
   },
 

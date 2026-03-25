@@ -32,7 +32,7 @@ export const EventTrackerListColumns = () => {
               <AiOutlineExport />
             </span>
           </Title>
-          <Text className="text-sm">{`${row.original.isPharma ? row.original?.division : row.original.client} - ${row.original.eventType}`}</Text>
+          <Text className="text-sm">{`${row.original.isPharma == 'pharma' ? row.original?.division : row.original.company} - ${row.original.eventType}`}</Text>
         </div>
       ),
     }),
@@ -46,28 +46,12 @@ export const EventTrackerListColumns = () => {
         </div>
       ),
     }),
-    columnHelper.accessor('vendorName', {
-      id: 'vendorName',
-      size: 150,
-      header: 'Venodr Name',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          <Text className="text-sm">{row.original?.vendorName}</Text>
-          {row.original?.venodrCost ? (
-            <ShowPrice EventTrackerData={row.original} />
-          ) : (
-            '-'
-          )}
-        </div>
-      ),
-    }),
     columnHelper.accessor('clientCost', {
       id: 'clientCost',
       size: 150,
       header: 'Client Cost',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
-          <Text className="text-sm">{row.original?.clientStatus}</Text>
           {row.original?.clientCost ? (
             <Tooltip
               size="sm"
@@ -88,27 +72,14 @@ export const EventTrackerListColumns = () => {
           ) : (
             '-'
           )}
-        </div>
-      ),
-    }),
-    columnHelper.accessor('margin', {
-      id: 'margin',
-      size: 150,
-      header: 'Client Margin',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
           <Text className="text-sm">
-            {row.original?.venodrCost
-              ? formatPrice(row.original?.clientCost - row.original?.venodrCost)
-              : '-'}
+            {row.original?.clientCost
+              ? `+10% (${row.original.clientCost * 0.1})`
+              : null}
           </Text>
-          <Title as="h5" className="!text-sm font-medium">
-            {row.original?.margin ? `${row.original?.margin} %` : '-'}
-          </Title>
         </div>
       ),
     }),
-
     columnHelper.accessor('clientBilling', {
       id: 'clientBilling',
       size: 150,
@@ -121,11 +92,45 @@ export const EventTrackerListColumns = () => {
               : '-'}
           </Text>
           <Title as="h5" className="!text-sm font-medium">
-            {row.original?.totalMargin ? `${row.original?.totalMargin} %` : '-'}
+            {row.original?.totalMargin
+              ? `${row.original?.totalMargin}% (${row.original?.clientBilling - row.original.venodrCost}) `
+              : '-'}
           </Title>
         </div>
       ),
     }),
+    columnHelper.accessor('vendorName', {
+      id: 'vendorName',
+      size: 150,
+      header: 'Venodr Name',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">{row.original?.vendorName}</Text>
+          {row.original?.venodrCost ? (
+            <ShowPrice EventTrackerData={row.original} />
+          ) : (
+            '-'
+          )}
+        </div>
+      ),
+    }),
+    // columnHelper.accessor('margin', {
+    //   id: 'margin',
+    //   size: 150,
+    //   header: 'Client Margin',
+    //   cell: ({ row }) => (
+    //     <div className={cn('grid gap-1')}>
+    //       <Text className="text-sm">
+    //         {row.original?.venodrCost
+    //           ? formatPrice(row.original?.clientCost - row.original?.venodrCost)
+    //           : '-'}
+    //       </Text>
+    //       <Title as="h5" className="!text-sm font-medium">
+    //         {row.original?.margin ? `${row.original?.margin} %` : '-'}
+    //       </Title>
+    //     </div>
+    //   ),
+    // }),
 
     columnHelper.display({
       id: 'poStatus',
@@ -171,22 +176,27 @@ export const EventTrackerListColumns = () => {
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
           {row.original?.invoiceStatus ? (
-            <Tooltip
-              size="sm"
-              content={'Download Invoice'}
-              placement="top"
-              color="invert"
-            >
-              <Text
-                className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
-                onClick={() => {}}
+            <div className={cn('grid gap-1')}>
+              <Tooltip
+                size="sm"
+                content={'Download Invoice'}
+                placement="top"
+                color="invert"
               >
-                {row?.original?.invoiceStatus}
-                <span>
-                  <AiOutlineCloudDownload />
-                </span>
-              </Text>
-            </Tooltip>
+                <Text
+                  className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+                  onClick={() => {}}
+                >
+                  {row?.original?.invoiceStatus}
+                  <span>
+                    <AiOutlineCloudDownload />
+                  </span>
+                </Text>
+              </Tooltip>
+              {row?.original?.invoiceStatus == 'Done' && (
+                <Text className="text-xs">Mayur Patel, 23/03/2026 13:10</Text>
+              )}
+            </div>
           ) : (
             '-'
           )}

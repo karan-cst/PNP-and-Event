@@ -2,7 +2,13 @@
 
 import { useMemo } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { FileInput, Input, Select } from 'rizzui';
+import {
+  FileInput,
+  Input,
+  MultiSelect,
+  MultiSelectOption,
+  Select,
+} from 'rizzui';
 import FormGroup from '@/app/shared/form-group';
 import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import cn from '@core/utils/class-names';
@@ -71,23 +77,25 @@ export default function EventClient({ className }: { className?: string }) {
         )}
       />
 
-      {/* Division only if Pharma */}
+      {/* Division MultiSelect */}
       <Controller
         name="company.divisionName"
         control={control}
+        defaultValue={[]}
         render={({ field, fieldState }) => (
-          <Select
+          <MultiSelect
             label="Division"
             options={divisionOptions}
-            value={
-              divisionOptions.find((opt) => opt.value === field.value) ?? null
-            }
-            onChange={(option: Option) => field.onChange(option?.value)}
-            displayValue={(option: Option) => option?.label}
+            value={Array.isArray(field.value) ? field.value : []}
+            onChange={(val) => field.onChange(val)}
+            clearable
+            onClear={() => field.onChange([])}
+            // displayValue={(option) => option?.join(',') ?? 'Select...'}
             error={fieldState.error?.message}
           />
         )}
       />
+
       <Controller
         name="company.client"
         control={control}
@@ -127,8 +135,7 @@ export default function EventClient({ className }: { className?: string }) {
         control={control}
         render={({ field, fieldState }) => (
           <FileInput
-            label="Upload Quotation (Excel)"
-            accept=".xlsx,.xls"
+            label="Upload Quotation"
             onChange={(file) => {
               field.onChange(file);
             }}
@@ -142,21 +149,27 @@ export default function EventClient({ className }: { className?: string }) {
         control={control}
         render={({ field, fieldState }) => (
           <FileInput
-            label="Upload Email File (JPG / PDF)"
-            accept=".jpg,.jpeg,.png,.pdf"
+            label="Upload Email File"
+            accept=".eml"
             onChange={(file) => {
               field.onChange(file);
             }}
           />
         )}
       />
-      <Input
+    </FormGroup>
+  );
+}
+
+{
+  /* 
+    <Input
         label="Client Total"
         placeholder="Client Total"
         {...register('company.clientTotal')}
         error={errors?.company?.clientTotal?.message}
       />
-      {/* <Controller
+  <Controller
         name="company.clientTotal"
         control={control}
         render={({ field, fieldState, value }) => (
@@ -167,7 +180,5 @@ export default function EventClient({ className }: { className?: string }) {
             onChange={(e) => field.onChange(e)}
           />
         )}
-      /> */}
-    </FormGroup>
-  );
+      /> */
 }

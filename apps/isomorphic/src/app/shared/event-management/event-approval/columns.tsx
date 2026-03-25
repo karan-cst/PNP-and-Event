@@ -110,7 +110,7 @@ export const EventApproveListColumns = (role?: string) => [
         status={row.original?.secondLevelStatus}
         by={row.original?.secondLevelBy}
         comment={row.original?.secondLevelComment}
-        history={[]}
+        history={row.original?.secondLevelHistory || []}
       />
     ),
   }),
@@ -264,10 +264,10 @@ export const ShowComment = ({
       customSize: 500,
     });
   };
-
+  const lastHistory = history[history.length - 1];
   return (
     <div className={cn('grid gap-1')}>
-      {status.length > 0 ? (
+      {lastHistory?.status.length > 0 ? (
         <Tooltip
           size="sm"
           content="View History"
@@ -278,12 +278,12 @@ export const ShowComment = ({
             className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
             onClick={handleOpen}
           >
-            {status}
+            {lastHistory?.status}
             <AiOutlineExport />
           </Text>
         </Tooltip>
       ) : null}
-      <Text className="text-sm text-gray-600">{by}</Text>
+      <Text className="text-sm text-gray-600">{lastHistory?.userName}</Text>
     </div>
   );
 };

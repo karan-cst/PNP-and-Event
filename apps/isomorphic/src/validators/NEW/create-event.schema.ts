@@ -49,7 +49,7 @@ export const eventFormSchema = z.object({
   // 5️⃣ Client Section
   company: z.object({
     companyId: z.string().min(1, 'Client is required'),
-    divisionName: z.string().optional(),
+    divisionName: z.array(z.string()).optional(),
     client: z.string().optional(),
     quotationFile: z.string(),
     emailFile: z.string(),

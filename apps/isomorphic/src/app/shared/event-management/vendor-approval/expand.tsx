@@ -12,13 +12,17 @@ import {
 export function CustomExpandedComponent<TData extends Record<string, any>>(
   row: Row<TData>
 ) {
-  const vendors: {
-    vendorName: string;
-    name: string;
-    total: number;
-    emlFileUrl: string;
-    excelFileUrl: string;
-  }[] = row.original?.vendors;
+  const vendors = Array.isArray(row.original?.vendors)
+    ? (
+        row.original.vendors as {
+          vendorName: string;
+          name: string;
+          total: number;
+          emlFileUrl: string;
+          excelFileUrl: string;
+        }[]
+      ).sort((a, b) => a.total - b.total)
+    : [];
 
   if (!Array.isArray(vendors) || vendors.length === 0) {
     return (
@@ -36,12 +40,12 @@ export function CustomExpandedComponent<TData extends Record<string, any>>(
         {vendors.map((vendor, index) => (
           <div
             key={index}
-            className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-300 dark:bg-gray-100"
+            className={`flex flex-col gap-3 rounded-xl border bg-white p-4 ${index == 0 ? 'border-green-300 dark:border-green-300' : 'border-grey-200 dark:border-gray-300'} dark:bg-gray-100`}
           >
             {/* Vendor Header */}
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm font-semibold text-primary">
-                {vendor.vendorName?.charAt(0).toUpperCase()}
+                {`L${index + 1}`}
               </div>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-700">
