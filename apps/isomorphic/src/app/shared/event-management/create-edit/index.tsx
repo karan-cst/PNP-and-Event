@@ -26,7 +26,7 @@ import EventElements from './event-element';
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: EventSummary,
   [formParts.location]: EventLocation,
-  [formParts.scope]: EventScope,
+  // [formParts.scope]: EventScope,
   [formParts.element]: EventElements,
   [formParts.client]: EventClient,
 };

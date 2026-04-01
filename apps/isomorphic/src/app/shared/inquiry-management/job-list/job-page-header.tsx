@@ -44,7 +44,7 @@ export default function InquiryPageHeader<T extends Record<string, any>>({
             <Button
               as="span"
               className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-full @lg:mt-0 @lg:w-auto"
-              onClick={() => router.push('/job-management/create-job')}
+              onClick={() => router.push('/inquiry-management/create-inquiry')}
             >
               <PiPlusBold className="h-[15px] w-[15px]" />
             </Button>

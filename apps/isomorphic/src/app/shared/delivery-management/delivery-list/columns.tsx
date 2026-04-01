@@ -21,7 +21,7 @@ export const DeliveryListColumns = (role?: string) => {
           <Title
             as="h5"
             className="flex cursor-pointer items-center gap-1 !text-sm font-medium hover:underline"
-            onClick={() => router.push(`/event-management/event-detailes`)}
+            onClick={() => router.push(`/job-management/job-view`)}
           >
             {`${row.original.jobName}`}
             <span>

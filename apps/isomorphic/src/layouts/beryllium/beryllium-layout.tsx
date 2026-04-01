@@ -17,7 +17,7 @@ export default function BerylliumLayout({
     <main className={cn('flex min-h-screen flex-grow')}>
       <BerylliumLeftSidebarFixed />
       <SidebarExpandable />
-      <div className="flex w-full flex-col">
+      <div className="flex w-[125%] flex-col xs:w-full">
         <Header className="xl:ms-[88px]" />
         <div
           className={cn(

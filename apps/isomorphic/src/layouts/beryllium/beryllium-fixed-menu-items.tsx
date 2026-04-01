@@ -120,6 +120,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
       'operationHead',
       'eventUser',
       'csUser',
+      'deliveryUser',
     ],
     isExpnad: false,
     menuItems: [
@@ -138,6 +139,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
           'operationHead',
           'eventUser',
           'csUser',
+          'deliveryUser',
         ],
       },
     ],

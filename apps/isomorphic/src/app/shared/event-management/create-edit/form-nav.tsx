@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 export const formParts = {
   summary: 'summary',
   location: 'location',
-  scope: 'scope',
+  // scope: 'scope',
   element: 'element',
   client: 'client',
   media: 'media',
@@ -26,10 +26,10 @@ export const menuItems = [
     label: 'Location',
     value: formParts.location,
   },
-  {
-    label: 'Scope',
-    value: formParts.scope,
-  },
+  // {
+  //   label: 'Scope',
+  //   value: formParts.scope,
+  // },
   {
     label: 'Element',
     value: formParts.element,

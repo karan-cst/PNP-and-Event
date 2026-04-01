@@ -10,13 +10,14 @@ import { AiOutlineExport } from 'react-icons/ai';
 import { PiEyeBold } from 'react-icons/pi';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 
 const columnHelper = createColumnHelper<JobFormDataType>();
 
 export const JobListColumns = [
   columnHelper.accessor('jobName', {
     id: 'jobName',
-    size: 160,
+    size: 250,
     header: 'Job Details',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
@@ -31,25 +32,13 @@ export const JobListColumns = [
         <Text className="text-sm">
           {row.original?.division}-{row.original.jobType}
         </Text>
+        <Text className="text-sm">{row.original.jobNo}</Text>
       </div>
     ),
   }),
   columnHelper.display({
-    id: 'createdAt',
-    size: 120,
-    header: 'Created Date',
-    cell: ({ row }) => <DateCell date={new Date(row.original?.createdAt)} />,
-  }),
-
-  columnHelper.display({
-    id: 'jobNo',
-    size: 70,
-    header: 'JOB ID',
-    cell: ({ row }) => <Text className="text-sm">{row.original.jobNo}</Text>,
-  }),
-  columnHelper.display({
     id: 'totalQty',
-    size: 50,
+    size: 120,
     header: 'Std Total/Qty',
     cell: ({ row }) => (
       <>
@@ -63,18 +52,81 @@ export const JobListColumns = [
     size: 120,
     header: 'Print Executive Status',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.PrintExecutiveStatus}</Text>
+      <div className={cn('grid gap-1')}>
+        <Title
+          as="h5"
+          className="cursor-pointer !text-sm font-medium transition group-hover:underline"
+        >
+          {row.original?.printExecutive?.userName || '-'}
+        </Title>
+        <Text className="text-xs">
+          {row.original?.printExecutive?.status || ''}-
+          {row.original?.printExecutive?.date || ''}
+        </Text>
+      </div>
     ),
   }),
-  columnHelper.display({
-    id: 'deliveryDate',
-    size: 120,
-    header: 'Delivery Date',
-    cell: ({ row }) => <DateCell date={new Date(row.original.deliveryDate)} />,
+  columnHelper.accessor('operationHead', {
+    id: 'operationHead',
+    size: 200,
+    header: 'Operation Head',
+    cell: ({ row }) => {
+      const stage = row.original?.operationHead;
+      return (
+        <div className="grid gap-1">
+          <Text className="text-sm font-medium">{stage?.userName || '-'}</Text>
+          <Text className="text-xs">
+            {stage?.status}
+            {stage?.date ? ` • ${stage?.date}` : ''}
+          </Text>
+        </div>
+      );
+    },
+  }),
+  columnHelper.accessor('designCost', {
+    id: 'designCost',
+    size: 200,
+    header: 'Design Cost + Business Head',
+    cell: ({ row }) => {
+      const stage = row.original?.businessHeadName;
+      return (
+        <div className="grid gap-1">
+          <Text className="text-sm font-medium">
+            {formatPrice(row.original.designCost || 0)}
+          </Text>
+          <Text className="text-xs text-gray-500">
+            {row.original?.businessHeadName?.userName || '-'}
+          </Text>
+          <Text className="text-xs">
+            {stage?.status}
+            {stage?.date ? ` • ${stage?.date}` : ''}
+          </Text>
+        </div>
+      );
+    },
+  }),
+  columnHelper.accessor('printManager', {
+    id: 'printManager',
+    size: 200,
+    header: 'Print Manager',
+    cell: ({ row }) => {
+      const manager = row.original?.printManager;
+      return (
+        <div className="grid gap-1">
+          <Text className="text-sm font-medium">
+            {manager?.managerName || '-'}
+          </Text>
+          <Text className="text-xs">
+            {manager?.vendorSelectionStatus}
+            {manager?.date ? ` • ${manager?.date}` : ''}
+          </Text>
+        </div>
+      );
+    },
   }),
   columnHelper.display({
     id: 'finalizedVendor',
-    size: 80,
+    size: 150,
     header: 'Finalized Vendor',
     cell: ({ row }) => (
       <>
@@ -95,6 +147,21 @@ export const JobListColumns = [
       </>
     ),
   }),
+
+  columnHelper.display({
+    id: 'deliveryDate',
+    size: 120,
+    header: 'Delivery Date',
+    cell: ({ row }) => (
+      <div className="grid gap-1">
+        <Text className="text-sm">
+          {dayjs(row.original.deliveryDate).format('DD/MM/YYYY')}
+        </Text>
+        <Text className="text-sm">{row.original?.deliveryPlace || ''}</Text>
+      </div>
+    ),
+  }),
+
   columnHelper.display({
     id: 'action',
     size: 50,
@@ -104,12 +171,16 @@ export const JobListColumns = [
       table: {
         options: { meta },
       },
-    }) => <EventEdit job={row.original} />,
+    }) => <EventEdit job={row.original as JobFormDataType} />,
   }),
 ];
 
 const EventEdit = ({ job }: { job: JobFormDataType }) => {
   const router = useRouter();
+
+  const handleEdit = () => {
+    router.push(`/job-management/edit-job`);
+  };
   return (
     <Flex>
       <Tooltip size="sm" content={'Edit Job'} placement="top" color="invert">
@@ -118,12 +189,16 @@ const EventEdit = ({ job }: { job: JobFormDataType }) => {
           size="sm"
           variant="outline"
           aria-label={'Edit Job'}
-          onClick={() => {}}
+          onClick={handleEdit}
         >
           <PencilIcon className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
-      <Tooltip size="sm" content={'View Job'} placement="top" color="invert">
+    </Flex>
+  );
+};
+{
+  /* <Tooltip size="sm" content={'View Job'} placement="top" color="invert">
         <ActionIcon
           as="span"
           size="sm"
@@ -133,10 +208,8 @@ const EventEdit = ({ job }: { job: JobFormDataType }) => {
         >
           <PiEyeBold className="h-4 w-4" />
         </ActionIcon>
-      </Tooltip>
-    </Flex>
-  );
-};
+      </Tooltip> */
+}
 
 // const Action = ({ event }: { event: EventDataType }) => {
 //   const router = useRouter();

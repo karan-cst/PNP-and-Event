@@ -54,6 +54,10 @@ export default function JobTable({
           pageIndex: 0,
           pageSize: pageSize,
         },
+        columnPinning: {
+          left: ['jobName'],
+          right: ['action'],
+        },
       },
       meta: {
         handleDeleteRow: (row) => {

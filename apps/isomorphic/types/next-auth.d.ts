@@ -18,7 +18,12 @@ declare module 'next-auth' {
         | 'financeManager'
         | 'financeHead'
         | 'csUser'
-        | 'deliveryUser';
+        | 'deliveryUser'
+        | 'printExecutive'
+        | 'operationHeadPrint'
+        | 'businessHead'
+        | 'printMng'
+        | 'giftMng';
     } & DefaultSession['user'];
   }
 
@@ -34,7 +39,12 @@ declare module 'next-auth' {
       | 'financeManager'
       | 'financeHead'
       | 'csUser'
-      | 'deliveryUser';
+      | 'deliveryUser'
+      | 'printExecutive'
+      | 'operationHeadPrint'
+      | 'businessHead'
+      | 'printMng'
+      | 'giftMng';
   }
 }
 
@@ -51,7 +61,12 @@ declare module 'next-auth/jwt' {
       | 'financeManager'
       | 'financeHead'
       | 'csUser'
-      | 'deliveryUser';
+      | 'deliveryUser'
+      | 'printExecutive'
+      | 'operationHeadPrint'
+      | 'businessHead'
+      | 'printMng'
+      | 'giftMng';
     id?: string;
   }
 }

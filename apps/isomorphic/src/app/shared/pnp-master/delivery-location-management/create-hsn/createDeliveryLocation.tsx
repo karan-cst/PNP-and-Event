@@ -124,37 +124,6 @@ export default function CreateDeliveryLocation({
                   {...register('division')}
                   error={errors.division?.message as string}
                 />
-                {/* <Controller
-                  control={control}
-                  name="deliveryDays"
-                  defaultValue={[]}
-                  render={({ field: { value = [], onChange } }) => (
-                    <Select
-                      label="Delivery Days"
-                      inPortal={false}
-                      multiple
-                      clearable
-                      labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
-                      placeholder="Select..."
-                      options={dayOptions}
-                      onChange={(selected) => {
-                        const values =
-                          selected?.map((item) => item.value) || [];
-                        onChange(values);
-                      }}
-                      value={value}
-                      getOptionValue={(option) => option.value}
-                      displayValue={(selected) => {
-                        console.log('selected', selected);
-                        return Array.isArray(selected)
-                          ? selected.join(', ')
-                          : '';
-                      }}
-                      error={errors?.deliveryDays?.message as string}
-                    />
-                  )}
-                /> */}
                 <Controller
                   control={control}
                   name="deliveryDays"
@@ -212,9 +181,6 @@ export default function CreateDeliveryLocation({
               isModalView ? '-mx-10 -mb-7 px-10 py-5' : 'py-1'
             )}
           >
-            {/* <Button variant="outline" className="w-full @xl:w-auto">
-              Save as Draft
-            </Button> */}
             <Button
               type="submit"
               isLoading={isLoading}

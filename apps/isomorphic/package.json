@@ -4,7 +4,7 @@
   "description": "A nextjs template to build dashboard",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "lint": "next lint",
     "build": "set NODE_OPTIONS=--max-old-space-size=4096 && next build",
     "type:check": "tsc --noEmit",

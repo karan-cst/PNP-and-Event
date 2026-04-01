@@ -113,6 +113,13 @@ export default function EventClient({ className }: { className?: string }) {
         )}
       />
 
+      <Input
+        label="Client Total"
+        placeholder="Client Total"
+        {...register('company.clientTotal')}
+        error={errors?.company?.clientTotal?.message}
+      />
+
       <Controller
         name="priority"
         control={control}
@@ -130,7 +137,7 @@ export default function EventClient({ className }: { className?: string }) {
         )}
       />
       {/* Excel Upload */}
-      <Controller
+      {/* <Controller
         name="company.quotationFile"
         control={control}
         render={({ field, fieldState }) => (
@@ -141,7 +148,7 @@ export default function EventClient({ className }: { className?: string }) {
             }}
           />
         )}
-      />
+      /> */}
 
       {/* JPG / PDF Upload */}
       <Controller

@@ -14,10 +14,14 @@ export const jobFormSchema = z.object({
   glCode: z.string().min(1, 'GL Code is required'),
 
   sapCode: z.string().min(1, 'SAP Code is required'),
+  sapCodeStatus: z.enum(['approved', 'rejected']),
+  printsapCode: z.string().min(1, 'SAP Code is required'),
+  printsapCodeStatus: z.enum(['approved', 'rejected']),
 
   ccCode: z.string().min(1, 'CC Code is required'),
 
   hsnCode: z.string().min(1, 'HSN Code is required'),
+  hsnCodeStatus: z.enum(['approved', 'rejected']),
 
   // 3️⃣ Requester Info
   requisitionerName: z.string().min(1, 'Requisitioner name is required'),
@@ -69,6 +73,7 @@ export const jobFormSchema = z.object({
   otherLamination: z.string().optional(),
 
   specialInstructions: z.string().optional(),
+  descriptionStatus: z.enum(['approved', 'rejected']),
 
   createdAt: z.coerce.date().optional(),
 

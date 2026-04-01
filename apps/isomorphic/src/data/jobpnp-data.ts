@@ -43,9 +43,27 @@ export type JobFormDataType = {
   specialInstructions: string;
   createdAt: string;
   jobType: JobType;
-  PrintExecutiveStatus: PrintExecutiveStatus;
+  // PrintExecutiveStatus: PrintExecutiveStatus;
   finalizedVendor?: string;
   finalizedVendorCost?: number;
+  operationHead?: ApprovalStage;
+
+  // 4️⃣ Design Cost + Business Head
+  designCost?: number;
+  businessHeadName?: designApprovalStage;
+
+  // 5️⃣ Print Executive
+  printExecutive?: ApprovalStage;
+
+  // 6️⃣ Print Manager + Vendor Selection
+  printManager?: {
+    managerName: string;
+    vendorSelectionStatus: ApprovalStatus;
+    date?: string;
+  };
+
+  // 7️⃣ Finalized Vendor
+  finalizedVendorName?: string;
 };
 export type JobType = 'print' | 'gift' | 'printngift';
 export type PrintExecutiveStatus = 'Approved' | 'Rejected';
@@ -97,7 +115,37 @@ export const dummyJobData: JobFormDataType[] = [
     specialInstructions: 'Ensure high resolution print quality.',
     createdAt: '2026-02-10',
     jobType: 'print',
-    PrintExecutiveStatus: 'Approved',
+    // PrintExecutiveStatus: 'Approved',
+    // 3️⃣ Operation Head
+    operationHead: {
+      userName: 'Amit Shah',
+      status: 'Approved',
+      date: '11/02/2026',
+    },
+
+    // 4️⃣ Design Cost + Business Head
+    designCost: 5000,
+    businessHeadName: {
+      userName: 'Rakesh Mehta',
+      status: 'Approved',
+      date: '11/02/2026',
+      designCost: 5000,
+    },
+
+    // 5️⃣ Print Executive
+    printExecutive: {
+      userName: 'Umesh Yadav',
+      status: 'Approved',
+      date: '12/02/2026',
+    },
+
+    // 6️⃣ Print Manager
+    printManager: {
+      managerName: 'Manoj Jain',
+      vendorSelectionStatus: 'Approved',
+      date: '12/02/2026',
+    },
+
     finalizedVendor: 'ABC',
     finalizedVendorCost: 12000,
   },
@@ -147,9 +195,7 @@ export const dummyJobData: JobFormDataType[] = [
     specialInstructions: 'Ensure high resolution print quality.',
     createdAt: '2026-02-10',
     jobType: 'print',
-    PrintExecutiveStatus: 'Approved',
-    finalizedVendor: 'ABC',
-    finalizedVendorCost: 12000,
+    // PrintExecutiveStatus: 'Approved',
   },
   {
     jobName: 'Pamphlet_Gaurav Gupta',
@@ -197,9 +243,7 @@ export const dummyJobData: JobFormDataType[] = [
     specialInstructions: 'Ensure high resolution print quality.',
     createdAt: '2026-02-10',
     jobType: 'print',
-    PrintExecutiveStatus: 'Approved',
-    finalizedVendor: 'ABC',
-    finalizedVendorCost: 12000,
+    // PrintExecutiveStatus: 'Approved',
   },
   {
     jobName: 'Pamphlet_Gaurav Gupta',
@@ -247,9 +291,7 @@ export const dummyJobData: JobFormDataType[] = [
     specialInstructions: 'Ensure high resolution print quality.',
     createdAt: '2026-02-10',
     jobType: 'print',
-    PrintExecutiveStatus: 'Approved',
-    finalizedVendor: 'ABC',
-    finalizedVendorCost: 12000,
+    // PrintExecutiveStatus: 'Approved',
   },
 ];
 
@@ -259,6 +301,13 @@ export type ApprovalStage = {
   userName: string;
   status: ApprovalStatus;
   date?: string; // dd/mm/yyyy
+};
+
+export type designApprovalStage = {
+  userName: string;
+  status: ApprovalStatus;
+  date?: string; // dd/mm/yyyy
+  designCost?: number;
 };
 
 export type JobTrackerTableType = {
@@ -276,7 +325,7 @@ export type JobTrackerTableType = {
 
   // 4️⃣ Design Cost + Business Head
   designCost: number;
-  businessHeadName: string;
+  businessHeadName: designApprovalStage;
 
   // 5️⃣ Print Executive
   printExecutive: ApprovalStage;
@@ -285,6 +334,7 @@ export type JobTrackerTableType = {
   printManager: {
     managerName: string;
     vendorSelectionStatus: ApprovalStatus;
+    date?: string;
   };
 
   // 7️⃣ Finalized Vendor
@@ -311,7 +361,12 @@ export const dummyJobTrackerData: JobTrackerTableType[] = [
 
     // 4️⃣ Design Cost + Business Head
     designCost: 5000,
-    businessHeadName: 'Rakesh Mehta',
+    businessHeadName: {
+      userName: 'Rakesh Mehta',
+      status: 'Approved',
+      date: '11/02/2026',
+      designCost: 5000,
+    },
 
     // 5️⃣ Print Executive
     printExecutive: {
@@ -324,71 +379,72 @@ export const dummyJobTrackerData: JobTrackerTableType[] = [
     printManager: {
       managerName: 'Manoj Jain',
       vendorSelectionStatus: 'Approved',
+      date: '12/02/2026',
     },
 
     // 7️⃣ Finalized Vendor
     finalizedVendorName: 'MJI Print Solutions',
   },
 
-  {
-    _id: 'job_002',
+  // {
+  //   _id: 'job_002',
 
-    jobName: 'Product Launch Pamphlet',
-    division: 'Marketing',
+  //   jobName: 'Product Launch Pamphlet',
+  //   division: 'Marketing',
 
-    createdDate: '14/02/2026',
+  //   createdDate: '14/02/2026',
 
-    operationHead: {
-      userName: 'Neha Joshi',
-      status: 'Approved',
-      date: '15/02/2026',
-    },
+  //   operationHead: {
+  //     userName: 'Neha Joshi',
+  //     status: 'Approved',
+  //     date: '15/02/2026',
+  //   },
 
-    designCost: 8000,
-    businessHeadName: 'Vikram Singh',
+  //   designCost: 8000,
+  //   businessHeadName: 'Vikram Singh',
 
-    printExecutive: {
-      userName: 'Kunal Verma',
-      status: 'Pending',
-    },
+  //   printExecutive: {
+  //     userName: 'Kunal Verma',
+  //     status: 'Pending',
+  //   },
 
-    printManager: {
-      managerName: 'Rahul Desai',
-      vendorSelectionStatus: 'Pending',
-    },
+  //   printManager: {
+  //     managerName: 'Rahul Desai',
+  //     vendorSelectionStatus: 'Pending',
+  //   },
 
-    finalizedVendorName: '',
-  },
+  //   finalizedVendorName: '',
+  // },
 
-  {
-    _id: 'job_003',
+  // {
+  //   _id: 'job_003',
 
-    jobName: 'Doctor Gift Kit Printing',
-    division: 'Sales',
+  //   jobName: 'Doctor Gift Kit Printing',
+  //   division: 'Sales',
 
-    createdDate: '18/02/2026',
+  //   createdDate: '18/02/2026',
 
-    operationHead: {
-      userName: 'Amit Shah',
-      status: 'Rejected',
-      date: '19/02/2026',
-    },
+  //   operationHead: {
+  //     userName: 'Amit Shah',
+  //     status: 'Rejected',
+  //     date: '19/02/2026',
+  //   },
 
-    designCost: 12000,
-    businessHeadName: 'Rakesh Mehta',
+  //   designCost: 12000,
+  //   businessHeadName: 'Rakesh Mehta',
 
-    printExecutive: {
-      userName: 'Umesh Yadav',
-      status: 'Pending',
-    },
+  //   printExecutive: {
+  //     userName: 'Umesh Yadav',
+  //     status: 'Pending',
+  //   },
 
-    printManager: {
-      managerName: 'Manoj Jain',
-      vendorSelectionStatus: 'Pending',
-    },
+  //   printManager: {
+  //     managerName: 'Manoj Jain',
+  //     vendorSelectionStatus: 'Pending',
+  //   },
 
-    finalizedVendorName: '',
-  },
+  //   finalizedVendorName: '',
+  // },
 ];
 
 export type JobViewType = {

@@ -27,10 +27,10 @@ export const eventFormSchema = z.object({
 
   // 3️⃣ Scope of Work
   scope: z.object({
-    title: z.string().min(1, 'Scope title is required'),
-    tentativeCost: z.coerce
-      .number()
-      .min(1, 'Tentative cost must be greater than 0'),
+    // title: z.string().min(1, 'Scope title is required'),
+    // tentativeCost: z.coerce
+    //   .number()
+    //   .min(1, 'Tentative cost must be greater than 0'),
   }),
 
   // 4️⃣ Elements (Dynamic Items)
@@ -51,7 +51,7 @@ export const eventFormSchema = z.object({
     companyId: z.string().min(1, 'Client is required'),
     divisionName: z.array(z.string()).optional(),
     client: z.string().optional(),
-    quotationFile: z.string(),
+    // quotationFile: z.string(),
     emailFile: z.string(),
     clientTotal: z.number(),
   }),

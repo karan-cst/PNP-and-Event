@@ -80,7 +80,7 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
                 key={key}
                 name={formParts[key as keyof typeof formParts]}
               >
-                {<Component className="pt-7 @2xl:pt-9 @3xl:pt-11" />}
+                {<Component className="pt-2 @2xl:pt-2 @3xl:pt-2" />}
               </Element>
             ))}
           </div>

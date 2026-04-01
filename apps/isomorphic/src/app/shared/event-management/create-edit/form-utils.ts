@@ -38,10 +38,10 @@ export function eventDefaultValues(event?: CreateEventInput) {
     },
 
     // 3️⃣ Scope
-    scope: {
-      title: event?.scope?.title ?? '',
-      tentativeCost: event?.scope?.tentativeCost ?? undefined,
-    },
+    // scope: {
+    //   title: event?.scope?.title ?? '',
+    //   tentativeCost: event?.scope?.tentativeCost ?? undefined,
+    // },
 
     // 4️⃣ Elements (Dynamic Field Array)
     elements: isEmpty(event?.elements)
@@ -62,6 +62,7 @@ export function eventDefaultValues(event?: CreateEventInput) {
       companyId: event?.company?.companyId ?? '',
       divisionName: event?.company?.divisionName ?? [],
       client: event?.company?.client ?? '',
+      clientTotal: event?.company?.clientTotal ?? 0,
       // address: event?.company?.address ?? '',
       // contactName: event?.company?.contactName ?? '',
       // contactNumber: event?.company?.contactNumber ?? '',

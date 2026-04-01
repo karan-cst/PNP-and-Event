@@ -154,9 +154,49 @@ export const authOptions: NextAuthOptions = {
             role: 'csUser',
           };
         }
-        if (email === 'delivery@oneadvt.com' && password === 'admin') {
+        if (email === 'printexecutive@oneadvt.com' && password === 'admin') {
           return {
             id: '10',
+            name: 'Print Executive',
+            email,
+            role: 'printExecutive',
+          };
+        }
+        if (email === 'operationHead@oneadvt.com' && password === 'admin') {
+          return {
+            id: '10',
+            name: 'Operation Head',
+            email,
+            role: 'operationHeadPrint',
+          };
+        }
+        if (email === 'businessHead@oneadvt.com' && password === 'admin') {
+          return {
+            id: '10',
+            name: 'Business Head',
+            email,
+            role: 'businessHead',
+          };
+        }
+        if (email === 'printMng@oneadvt.com' && password === 'admin') {
+          return {
+            id: '10',
+            name: 'Print Manager',
+            email,
+            role: 'printMng',
+          };
+        }
+        if (email === 'giftMng@oneadvt.com' && password === 'admin') {
+          return {
+            id: '10',
+            name: 'Gift Manager',
+            email,
+            role: 'giftMng',
+          };
+        }
+        if (email === 'delivery@oneadvt.com' && password === 'admin') {
+          return {
+            id: '11',
             name: 'Delivery User',
             email,
             role: 'deliveryUser',

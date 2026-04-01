@@ -19,20 +19,12 @@ export default function EventScope({ className }: { className?: string }) {
       description="Add basics of your event scope here."
       className={cn(className)}
     >
-      <Input
+      {/* <Input
         label="Title"
         placeholder="Title"
         {...register('scope.title')}
         error={errors?.scope?.title?.message}
-      />
-      <Input
-        label="Tentative Cost"
-        placeholder="Tentative Cost"
-        type="number"
-        min={0}
-        {...register('scope.tentativeCost')}
-        error={errors?.scope?.tentativeCost?.message}
-      />
+      /> */}
     </FormGroup>
   );
 }

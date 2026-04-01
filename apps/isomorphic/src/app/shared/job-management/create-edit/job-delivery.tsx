@@ -44,7 +44,7 @@ export default function JobDelivery({ className }: { className?: string }) {
         label="Delivery Comment"
         placeholder="Delivery Comment"
         {...register('deliveryComment')}
-        className="col-span-full"
+        className="col-span-2"
         error={errors?.deliveryComment?.message as string}
       />
     </FormGroup>

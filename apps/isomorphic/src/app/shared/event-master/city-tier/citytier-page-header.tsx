@@ -34,7 +34,7 @@ export function CreateCitytierModalView({
             tierType: 1,
             city: '',
             state: '',
-            minimumProfitMargin: 15, // store as number (15 = 15%)
+            minimumProfitMargin: 10, // store as number (15 = 15%)
             isActive: 'active',
           }
         }

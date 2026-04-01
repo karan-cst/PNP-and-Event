@@ -81,7 +81,7 @@ export const JobTrackerListColumns = [
           {formatPrice(row.original.designCost)}
         </Text>
         <Text className="text-xs text-gray-500">
-          {row.original.businessHeadName}
+          {row.original.businessHeadName.userName}
         </Text>
       </div>
     ),

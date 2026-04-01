@@ -11,7 +11,7 @@ export default function JobSpecifications({ job }: Props) {
     <div className="space-y-6">
       {/* Main Spec Card */}
       <div className="space-y-4 rounded-lg border bg-white p-6 shadow-sm">
-        <div className="grid grid-cols-4 gap-6 text-sm">
+        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
           <p>
             <strong>Size:</strong> {spec.size}
           </p>
@@ -26,7 +26,7 @@ export default function JobSpecifications({ job }: Props) {
           </p>
         </div>
 
-        <div className="grid grid-cols-4 gap-6 text-sm">
+        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
           <p>
             <strong>Lamination:</strong> {spec.lamination ? 'Yes' : 'No'}
           </p>
@@ -41,7 +41,7 @@ export default function JobSpecifications({ job }: Props) {
           </p>
         </div>
 
-        <div className="grid grid-cols-4 gap-6 text-sm">
+        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
           <p>
             <strong>Back:</strong> {spec.back ? 'Yes' : 'No'}
           </p>
@@ -56,7 +56,7 @@ export default function JobSpecifications({ job }: Props) {
           </p>
         </div>
 
-        <div className="grid grid-cols-4 gap-6 text-sm">
+        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
           <p>
             <strong>Spiral:</strong> {spec.spiral ? 'Yes' : 'No'}
           </p>

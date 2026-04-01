@@ -24,6 +24,8 @@ export const giftInquirySchema = z.object({
   specialInstructions: z.string().max(1000, 'Too long').optional(),
 
   endUserOfGift: z.string().optional(),
+
+  samples: z.array(z.any()).max(3, 'Max 3 files allowed'),
 });
 
 export type GiftInquiryFormType = z.infer<typeof giftInquirySchema>;

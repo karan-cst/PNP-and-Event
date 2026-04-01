@@ -31,6 +31,7 @@ export function jobDefaultValues(job?: CreateJobInput) {
     // 2️⃣ Accounting Codes
     glCode: '5153700007',
     sapCode: '2273043',
+    printsapCode: '237044',
     ccCode: '1450',
     hsnCode: '49011020',
 

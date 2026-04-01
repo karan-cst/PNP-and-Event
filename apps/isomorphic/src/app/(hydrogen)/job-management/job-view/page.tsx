@@ -1,5 +1,6 @@
 'use client';
 
+import ApprovalDetails from '@/app/shared/job-management/job-view/jobApproval';
 import JobHeader from '@/app/shared/job-management/job-view/JobHeader';
 import JobSpecifications from '@/app/shared/job-management/job-view/JobSpecification';
 
@@ -118,7 +119,8 @@ export default function JobViewPage() {
             <VendorsTable vendors={vendors} />
           </>
         )}
-        {activeTab === 'approval' && <JobSpecifications job={job} />}
+        {activeTab === 'approval' && <ApprovalDetails />}
+        {/* job={job} */}
         {/* You can add other tab components later */}
       </div>
     </>

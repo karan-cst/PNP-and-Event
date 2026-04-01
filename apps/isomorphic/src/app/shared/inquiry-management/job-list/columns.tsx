@@ -1,9 +1,31 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { Text, Title } from 'rizzui';
+import { ActionIcon, Flex, Text, Title, Tooltip } from 'rizzui';
 import { InquiryTableType } from '@/data/jobInquiry.data';
+import PencilIcon from '@core/components/icons/pencil';
+import UploadIcon from '@core/components/shape/upload';
+import { useModal } from '../../modal-views/use-modal';
+import { PiXBold } from 'react-icons/pi';
+import UploadSample from '../upload-sample/uploadSample';
 
 const columnHelper = createColumnHelper<InquiryTableType>();
+
+export function UploadSampleModalView({ id }: { id: string }) {
+  const { closeModal } = useModal();
+  return (
+    <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+      <div className="mb-7 flex items-center justify-between">
+        <Title as="h4" className="font-semibold">
+          Add Sample Files
+        </Title>
+        <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
+          <PiXBold className="h-auto w-5" />
+        </ActionIcon>
+      </div>
+      <UploadSample isModalView={false} id={id} />
+    </div>
+  );
+}
 
 export const InquiryListColumns = [
   // 1️⃣ Job Details (Job Name + Division)
@@ -112,7 +134,40 @@ export const InquiryListColumns = [
     size: 80,
     header: 'Action',
     cell: ({ row }) => (
-      <button className="text-sm text-blue-600 hover:underline">Edit</button>
+      <Flex>
+        <Tooltip
+          size="sm"
+          content={'Edit Inquiry'}
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label={'Edit Inquiry'}
+            onClick={() => {}}
+          >
+            <PencilIcon className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={'Upload Sample'}
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon
+            as="span"
+            size="sm"
+            variant="outline"
+            aria-label={'Upload Sample'}
+            onClick={() => {}}
+          >
+            <UploadIcon className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip>
+      </Flex>
     ),
   }),
 ];
