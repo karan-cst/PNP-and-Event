@@ -62,61 +62,58 @@ export default function RateNegotiationModal() {
 
   const columnHelper = createColumnHelper<NegotiationRow>();
 
-  const columns = useMemo(
-    () => [
-      columnHelper.accessor('sr', {
-        header: 'Sr',
-      }),
+  const columns = [
+    columnHelper.accessor('sr', {
+      header: 'Sr',
+    }),
 
-      columnHelper.accessor('elementName', {
-        header: 'Element Name',
-      }),
+    columnHelper.accessor('elementName', {
+      header: 'Element Name',
+    }),
 
-      columnHelper.accessor('qty', {
-        header: 'Qty',
-      }),
+    columnHelper.accessor('qty', {
+      header: 'Qty',
+    }),
 
-      columnHelper.accessor('vendorRate', {
-        header: 'Vendor Rate',
-        cell: ({ row }) => <Text>{row.original.vendorRate}</Text>,
-      }),
+    columnHelper.accessor('vendorRate', {
+      header: 'Vendor Rate',
+      cell: ({ row }) => <Text>{row.original.vendorRate}</Text>,
+    }),
 
-      columnHelper.accessor('negotiatedRate', {
-        header: '1st Level Negotiated Rate',
-      }),
+    columnHelper.accessor('negotiatedRate', {
+      header: '1st Level Negotiated Rate',
+    }),
 
-      columnHelper.accessor('total', {
-        header: 'Total',
-      }),
+    columnHelper.accessor('total', {
+      header: 'Total',
+    }),
 
-      columnHelper.accessor('stdRate', {
-        header: 'Std Rate',
-      }),
+    columnHelper.accessor('stdRate', {
+      header: 'Std Rate',
+    }),
 
-      columnHelper.accessor('stdTotal', {
-        header: 'Std Total',
-      }),
+    columnHelper.accessor('stdTotal', {
+      header: 'Std Total',
+    }),
 
-      // 🔥 INPUT COLUMN
-      columnHelper.display({
-        id: 'negotiationTotal',
-        header: 'Negotiation Total',
-        cell: ({ row }) => {
-          const rowId = row.original.id;
-          console.log('rowId', rowId);
-          return (
-            <input
-              type="number"
-              value={row.original.negotiationTotal ?? ''}
-              onChange={(e) => handleInputField(Number(e.target.value), rowId)}
-              className="w-28 rounded border px-2 py-1"
-            />
-          );
-        },
-      }),
-    ],
-    []
-  );
+    // 🔥 INPUT COLUMN
+    columnHelper.display({
+      id: 'negotiationTotal',
+      header: 'Negotiation Total',
+      cell: ({ row }) => {
+        const rowId = row.original.id;
+        console.log('rowId', rowId);
+        return (
+          <input
+            type="number"
+            value={row.original.negotiationTotal ?? ''}
+            onChange={(e) => handleInputField(Number(e.target.value), rowId)}
+            className="w-28 rounded border px-2 py-1"
+          />
+        );
+      },
+    }),
+  ];
 
   const { table, setData } = useTanStackTable({
     tableData: data,

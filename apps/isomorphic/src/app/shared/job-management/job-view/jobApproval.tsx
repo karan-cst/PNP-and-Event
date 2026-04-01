@@ -402,7 +402,7 @@ function StepCard({
               )}
               {savedComment && (
                 <span className="inline-flex max-w-full items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-100 px-3 py-1 text-xs text-gray-600">
-                  "{savedComment}"
+                  {savedComment}
                 </span>
               )}
             </div>

@@ -9,6 +9,7 @@ import {
   GiftInquiryFormType,
   giftInquirySchema,
 } from '@/validators/NEW/create-enquiry.schema';
+import Image from 'next/image';
 
 // a reusable form wrapper component
 function HorizontalFormBlockWrapper({
@@ -140,9 +141,11 @@ export default function UploadSample({
                       className="relative h-20 w-20 overflow-hidden rounded border"
                     >
                       {isImage ? (
-                        <img
+                        <Image
                           src={fileUrl}
                           alt="preview"
+                          width={200}
+                          height={200}
                           className="h-full w-full object-cover"
                         />
                       ) : (
