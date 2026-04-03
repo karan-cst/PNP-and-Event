@@ -77,7 +77,7 @@ export default function CreateUser({
       return financeUser.map((u) => ({ label: u, value: u }));
     }
     return [{ label: '', value: '' }];
-  }, [type, eventUser, pnpUser, financeUser]);
+  }, [type]);
 
   // let userTypeOption: { label: string; value: string }[] = [
   //   { label: '', value: '' },
