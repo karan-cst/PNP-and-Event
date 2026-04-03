@@ -7,6 +7,8 @@ import UploadIcon from '@core/components/shape/upload';
 import { useModal } from '../../modal-views/use-modal';
 import { PiXBold } from 'react-icons/pi';
 import UploadSample from '../upload-sample/uploadSample';
+import { FaCheckToSlot } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
 
 const columnHelper = createColumnHelper<InquiryTableType>();
 
@@ -31,14 +33,16 @@ export const InquiryListColumns = [
   // 1️⃣ Job Details (Job Name + Division)
   columnHelper.accessor('jobName', {
     id: 'jobDetails',
-    size: 200,
+    size: 180,
     header: 'Job Details',
     cell: ({ row }) => (
       <div className="grid gap-1">
         <Title as="h5" className="!text-sm font-medium">
           {row.original.jobName}
         </Title>
-        <Text className="text-sm text-gray-500">{row.original.division}</Text>
+        <Text className="text-sm text-gray-500">
+          {row.original.division}-{row.original.clientName}
+        </Text>
       </div>
     ),
   }),
@@ -72,23 +76,17 @@ export const InquiryListColumns = [
       <Text className="text-sm font-medium">{row.original.inquiryId}</Text>
     ),
   }),
-
-  // 5️⃣ Client Name
-  columnHelper.accessor('clientName', {
-    id: 'clientName',
-    size: 150,
-    header: 'Client Name',
-    cell: ({ row }) => (
-      <Text className="text-sm">{row.original.clientName}</Text>
-    ),
-  }),
-
   // 6️⃣ Budget
   columnHelper.accessor('budget', {
     id: 'budget',
     size: 100,
-    header: 'Budget',
-    cell: ({ row }) => <Text className="text-sm">₹ {row.original.budget}</Text>,
+    header: 'Budget / Qty',
+    cell: ({ row }) => (
+      <div className="grid gap-1">
+        <Text className="text-sm">₹ {row.original.budget}</Text>
+        <Text className="text-sm">Qty: {row.original.qty}</Text>
+      </div>
+    ),
   }),
 
   // 7️⃣ Print Manager Status
@@ -105,29 +103,18 @@ export const InquiryListColumns = [
       </div>
     ),
   }),
-
-  // 8️⃣ Sample Required
-  columnHelper.accessor('sampleRequired', {
-    id: 'sampleRequired',
-    size: 120,
-    header: 'Sample Required',
-    cell: ({ row }) => (
-      <Text className="text-sm">
-        {row.original.sampleRequired ? 'Yes' : 'No'}
-      </Text>
-    ),
-  }),
-
   // 9️⃣ Delivery Time
   columnHelper.accessor('deliveryTime', {
     id: 'deliveryTime',
     size: 120,
     header: 'Delivery Time',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.deliveryTime}</Text>
+      <div className="grid gap-1">
+        <Text className="text-sm">{row.original.deliveryTime}</Text>
+        <Text className="text-sm">{row.original.deliveryLocation}</Text>
+      </div>
     ),
   }),
-
   // 🔟 Action (Edit)
   columnHelper.display({
     id: 'action',
@@ -135,9 +122,11 @@ export const InquiryListColumns = [
     header: 'Action',
     cell: ({ row }) => (
       <Flex>
+        <EditButton />
+        <UploadButton id={row.original.inquiryId} />
         <Tooltip
           size="sm"
-          content={'Edit Inquiry'}
+          content={'Convert To Job'}
           placement="top"
           color="invert"
         >
@@ -145,29 +134,52 @@ export const InquiryListColumns = [
             as="span"
             size="sm"
             variant="outline"
-            aria-label={'Edit Inquiry'}
+            aria-label={'Convert To Job'}
             onClick={() => {}}
           >
-            <PencilIcon className="h-4 w-4" />
-          </ActionIcon>
-        </Tooltip>
-        <Tooltip
-          size="sm"
-          content={'Upload Sample'}
-          placement="top"
-          color="invert"
-        >
-          <ActionIcon
-            as="span"
-            size="sm"
-            variant="outline"
-            aria-label={'Upload Sample'}
-            onClick={() => {}}
-          >
-            <UploadIcon className="h-4 w-4" />
+            <FaCheckToSlot className="h-4 w-4" />
           </ActionIcon>
         </Tooltip>
       </Flex>
     ),
   }),
 ];
+
+const UploadButton = ({ id }: { id: string }) => {
+  const { openModal } = useModal();
+  return (
+    <Tooltip size="sm" content={'Upload Sample'} placement="top" color="invert">
+      <ActionIcon
+        as="span"
+        size="sm"
+        variant="outline"
+        aria-label={'Upload Sample'}
+        onClick={() =>
+          openModal({
+            view: <UploadSampleModalView id={id} />,
+            customSize: 720,
+          })
+        }
+      >
+        <UploadIcon className="h-4 w-4" />
+      </ActionIcon>
+    </Tooltip>
+  );
+};
+
+const EditButton = () => {
+  const router = useRouter();
+  return (
+    <Tooltip size="sm" content={'Edit Inquiry'} placement="top" color="invert">
+      <ActionIcon
+        as="span"
+        size="sm"
+        variant="outline"
+        aria-label={'Edit Inquiry'}
+        onClick={() => router.push('/inquiry-management/create-inquiry')}
+      >
+        <PencilIcon className="h-4 w-4" />
+      </ActionIcon>
+    </Tooltip>
+  );
+};

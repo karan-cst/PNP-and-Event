@@ -24,7 +24,7 @@ const UpdateForm = ({
 }) => {
   return (
     <div className={cn('space-y-6', className)}>
-      <div className="h-full overflow-y-scroll">
+      <div className="h-full">
         {/* <div className="block"> */}
         <div className="relative flex items-center justify-between p-3">
           <Text className="font-inter text-[18px] font-semibold">

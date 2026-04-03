@@ -23,6 +23,7 @@ import JobDelivery from './job-delivery';
 import JobProduct from './job-product';
 import JobProductDesc from './job-productdesc';
 import JobInstruction from './job-instruction';
+import GiftInstruction from './gift-instruction';
 
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: JobSummary,
@@ -31,6 +32,7 @@ const MAP_STEP_TO_COMPONENT = {
   [formParts.product]: JobProduct,
   [formParts.description]: JobProductDesc,
   [formParts.instruction]: JobInstruction,
+  [formParts.gift]: GiftInstruction,
 };
 
 interface IndexProps {
@@ -48,6 +50,7 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
   });
 
   const onSubmit: SubmitHandler<CreateJobInput> = (data) => {
+    console.log('job)data', data);
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -59,6 +62,8 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
     }, 600);
   };
 
+  console.log('errors', methods.formState.errors);
+
   return (
     <div className="@container">
       <FormNav
@@ -68,7 +73,9 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
       />
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit(onSubmit)}
+          onSubmit={methods.handleSubmit(onSubmit, (errors) => {
+            console.log('FORM ERRORS:', errors);
+          })}
           className={cn(
             'relative z-[19] [&_label.block>span]:font-medium',
             className

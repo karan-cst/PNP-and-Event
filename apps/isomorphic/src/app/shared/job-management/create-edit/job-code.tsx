@@ -37,7 +37,10 @@ export default function JobCode({ className }: { className?: string }) {
             label="Item SAP Code"
             placeholder="Item SAP Code"
             {...register('sapCode')}
-            error={errors?.sapCode?.message as string}
+            error={
+              (errors?.sapCode?.message as string) ||
+              (errors?.sapCodeStatus?.message as string)
+            }
           />
         </div>
 

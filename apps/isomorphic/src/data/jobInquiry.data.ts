@@ -21,6 +21,7 @@ export type InquiryTableType = {
   clientName: string;
 
   budget: number;
+  qty: number;
 
   printManagerName: string;
   status: InquiryStatus;
@@ -28,6 +29,7 @@ export type InquiryTableType = {
   sampleRequired: boolean;
 
   deliveryTime: string;
+  deliveryLocation: string;
 };
 
 export const dummyInquiryData: InquiryTableType[] = [
@@ -38,12 +40,14 @@ export const dummyInquiryData: InquiryTableType[] = [
     createdDate: '10/02/2026',
     inquiryType: 'Printing',
     inquiryId: 'ADR251855',
-    clientName: 'ABC',
+    clientName: 'Intas',
     budget: 5000,
+    qty: 100,
     printManagerName: 'ABC',
     status: 'Under Review',
     sampleRequired: true,
     deliveryTime: '25/03/2026',
+    deliveryLocation: 'Matoda',
   },
   {
     _id: 'inq_002',
@@ -54,10 +58,12 @@ export const dummyInquiryData: InquiryTableType[] = [
     inquiryId: 'ADR251859',
     clientName: 'XYS',
     budget: 5000,
-    printManagerName: 'ABC',
+    qty: 50,
+    printManagerName: 'Intas',
     status: 'Received Quotation',
     sampleRequired: false,
     deliveryTime: '28/03/2026',
+    deliveryLocation: 'Matoda',
   },
   {
     _id: 'inq_003',
@@ -66,12 +72,14 @@ export const dummyInquiryData: InquiryTableType[] = [
     createdDate: '14/02/2026',
     inquiryType: 'Gift',
     inquiryId: 'ADR251860',
-    clientName: 'XYX',
+    clientName: 'Intas',
     budget: 5000,
+    qty: 200,
     printManagerName: 'Rahul Mehta',
     status: 'Awaiting',
     sampleRequired: true,
     deliveryTime: '30/03/2026',
+    deliveryLocation: 'Matoda',
   },
 ];
 

@@ -1,4 +1,5 @@
 export type JobFormDataType = {
+  _id: string;
   jobName: string;
   jobNo: string;
   date: string;
@@ -70,6 +71,7 @@ export type PrintExecutiveStatus = 'Approved' | 'Rejected';
 
 export const dummyJobData: JobFormDataType[] = [
   {
+    _id: '1',
     jobName: 'Pamphlet_Gaurav Gupta',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',
@@ -150,6 +152,7 @@ export const dummyJobData: JobFormDataType[] = [
     finalizedVendorCost: 12000,
   },
   {
+    _id: '2',
     jobName: 'Pamphlet_Gaurav Gupta',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',
@@ -198,6 +201,7 @@ export const dummyJobData: JobFormDataType[] = [
     // PrintExecutiveStatus: 'Approved',
   },
   {
+    _id: '3',
     jobName: 'Pamphlet_Gaurav Gupta',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',
@@ -246,6 +250,7 @@ export const dummyJobData: JobFormDataType[] = [
     // PrintExecutiveStatus: 'Approved',
   },
   {
+    _id: '4',
     jobName: 'Pamphlet_Gaurav Gupta',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',

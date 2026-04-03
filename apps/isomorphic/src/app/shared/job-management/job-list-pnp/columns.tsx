@@ -37,6 +37,17 @@ export const JobListColumns = [
     ),
   }),
   columnHelper.display({
+    id: 'user',
+    size: 120,
+    header: 'User Name',
+    cell: ({ row }) => (
+      <>
+        <Text className="text-sm">ABC</Text>
+        <Text className="text-sm">CS User</Text>
+      </>
+    ),
+  }),
+  columnHelper.display({
     id: 'totalQty',
     size: 120,
     header: 'Std Total/Qty',

@@ -10,9 +10,11 @@ export default function JobSummary({ className }: { className?: string }) {
   const {
     register,
     control,
+    watch,
     formState: { errors },
   } = useFormContext();
-
+  const jobType = watch('jobType');
+  console.log('jobType', jobType);
   return (
     <FormGroup
       title="Summary"
@@ -81,19 +83,21 @@ export default function JobSummary({ className }: { className?: string }) {
       <Controller
         name="jobType"
         control={control}
-        render={({ field: { value, onChange, onBlur }, fieldState }) => (
-          <CheckboxGroup
-            values={value}
-            setValues={onChange}
-            className="flex flex-row gap-4"
+        render={({ field: { value, onChange, onBlur }, fieldState }) => {
+          console.log('value', value);
 
-            // error={fieldState.error?.message}
-          >
-            <Checkbox label="Print" value="print" />
-            <Checkbox label="Gift" value="gift" />
-            <Checkbox label="Print & Gift" value="printngift" disabled />
-          </CheckboxGroup>
-        )}
+          return (
+            <CheckboxGroup
+              values={value}
+              setValues={onChange}
+              className="flex flex-row gap-4"
+            >
+              <Checkbox label="Print" value="print" />
+              <Checkbox label="Gift" value="gift" />
+              <Checkbox label="Print & Gift" value="printngift" disabled />
+            </CheckboxGroup>
+          );
+        }}
       />
     </FormGroup>
   );

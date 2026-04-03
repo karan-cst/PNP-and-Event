@@ -8,6 +8,7 @@ export const formParts = {
   product: 'product',
   description: 'description',
   instruction: 'instruction',
+  gift: 'gift',
 };
 
 export const menuItems = [
@@ -34,6 +35,10 @@ export const menuItems = [
   {
     label: 'Instruction',
     value: formParts.instruction,
+  },
+  {
+    label: 'Gift Instruction',
+    value: formParts.gift,
   },
 ];
 

@@ -1,12 +1,9 @@
 import cn from '@core/utils/class-names';
 import React from 'react';
-import { Text, Title } from 'rizzui/typography';
-import { CheckboxGroup } from 'rizzui/checkbox-group';
-import { Checkbox } from 'rizzui/checkbox';
+import { Text } from 'rizzui/typography';
 import { Tooltip } from 'rizzui/tooltip';
 import { Button } from 'rizzui/button';
 import { BsExclamationCircle } from 'react-icons/bs';
-import { generateSlug } from '@core/utils/generate-slug';
 import { Input } from 'rizzui/input';
 import { ActionIcon } from 'rizzui/index';
 import { PiMagnifyingGlassBold, PiXBold } from 'react-icons/pi';
@@ -19,14 +16,12 @@ const VendorList = ({
 }: {
   className?: string;
   vendors: any[];
-  values: string[];
-  setValues: React.Dispatch<React.SetStateAction<string[]>>;
+  values: string;
+  setValues: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [isSearchOpen, setSearchOpen] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
-  const handleOnChange = (e: React.ChangeEvent<any>) => {
-    setValues((prev) => [e.target.value]);
-  };
+
   return (
     <div className={cn('space-y-6', className)}>
       <div className="h-full overflow-y-scroll">
@@ -42,36 +37,36 @@ const VendorList = ({
             setSearchTerm={setSearchTerm}
           />
         </div>
+        <div className="flex flex-col space-y-2 pt-5">
+          {vendors?.map((item: any) => {
+            const value = item._id;
+            const isSelected = values === value;
 
-        <div className="flex flex-col pt-5">
-          <CheckboxGroup
-            values={values}
-            setValues={setValues}
-            onChange={(e) => handleOnChange(e)}
-            className="space-y-3.5"
-          >
-            {vendors?.map((item: any) => (
-              <Checkbox
-                // key={`${item.name}-key-${item.id}`}
+            return (
+              <div
                 key={item._id}
-                label={
-                  <FilterOption
-                    name={item.name}
-                    count={item.count}
-                    {...(item?.tooltipText && {
-                      tooltipText: item.tooltipText,
-                    })}
-                    {...(item?.color && { color: item.color })}
-                  />
-                }
-                labelClassName="w-full"
-                name={item.name.toLowerCase()}
-                value={generateSlug(item.name)}
-              />
-            ))}
-          </CheckboxGroup>
+                onClick={() => {
+                  setValues(item._id);
+                }}
+                className={`cursor-pointer px-3 py-2 transition-all duration-200 ${
+                  isSelected
+                    ? 'border-l-4 border-black bg-gray-200 pl-2 font-semibold text-black'
+                    : 'hover:bg-gray-100'
+                  // isSelected
+                  //   ? 'border-l-4 border-blue-500 bg-blue-50 pl-2 font-medium text-blue-600'
+                  //   : 'hover:bg-gray-100'
+                } `}
+              >
+                <FilterOption
+                  name={item.name}
+                  count={item.count}
+                  {...(item?.tooltipText && { tooltipText: item.tooltipText })}
+                  {...(item?.color && { color: item.color })}
+                />
+              </div>
+            );
+          })}
         </div>
-        {/* </div> */}
       </div>
     </div>
   );
@@ -189,4 +184,38 @@ function FilterOptionSearch({
       </ActionIcon>
     </div>
   );
+}
+
+{
+  /* <div className="flex flex-col pt-5">
+          <CheckboxGroup
+            values={values}
+            setValues={setValues}
+            onChange={(e) => handleOnChange(e)}
+            className="space-y-3.5"
+          >
+            {vendors?.map((item: any) => (
+              <Checkbox
+                // key={`${item.name}-key-${item.id}`}
+                key={item._id}
+                label={
+                  <FilterOption
+                    name={item.name}
+                    count={item.count}
+                    {...(item?.tooltipText && {
+                      tooltipText: item.tooltipText,
+                    })}
+                    {...(item?.color && { color: item.color })}
+                  />
+                }
+                labelClassName="w-full"
+                name={item.name.toLowerCase()}
+                value={generateSlug(item.name)}
+              />
+            ))}
+          </CheckboxGroup>
+        </div> */
+}
+{
+  /* </div> */
 }
