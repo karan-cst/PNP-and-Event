@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { SubmitHandler, Controller } from 'react-hook-form';
 import { Button, Input, Select, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
@@ -68,23 +68,33 @@ export default function CreateUser({
 }) {
   const [reset, setReset] = useState({});
   const [isLoading, setLoading] = useState(false);
-
-  let userTypeOption: { label: string; value: string }[] = [
-    { label: '', value: '' },
-  ];
-  const setOption = () => {
-    if (type == 'Event') {
-      userTypeOption = eventUser.map((u) => ({ label: u, value: u }));
-    } else if (type == 'PNP') {
-      userTypeOption = pnpUser.map((u) => ({ label: u, value: u }));
-    } else if (type == 'Finance') {
-      userTypeOption = financeUser.map((u) => ({ label: u, value: u }));
+  const userTypeOption = useMemo(() => {
+    if (type === 'Event') {
+      return eventUser.map((u) => ({ label: u, value: u }));
+    } else if (type === 'PNP') {
+      return pnpUser.map((u) => ({ label: u, value: u }));
+    } else if (type === 'Finance') {
+      return financeUser.map((u) => ({ label: u, value: u }));
     }
-  };
+    return [{ label: '', value: '' }];
+  }, [type, eventUser, pnpUser, financeUser]);
 
-  useEffect(() => {
-    setOption();
-  }, [type, setOption]);
+  // let userTypeOption: { label: string; value: string }[] = [
+  //   { label: '', value: '' },
+  // ];
+  // const setOption = () => {
+  //   if (type == 'Event') {
+  //     userTypeOption = eventUser.map((u) => ({ label: u, value: u }));
+  //   } else if (type == 'PNP') {
+  //     userTypeOption = pnpUser.map((u) => ({ label: u, value: u }));
+  //   } else if (type == 'Finance') {
+  //     userTypeOption = financeUser.map((u) => ({ label: u, value: u }));
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   setOption();
+  // }, [type, setOption]);
 
   const onSubmit: SubmitHandler<UserFormInput> = (data) => {
     // set timeout ony required to display loading state of the create category button
