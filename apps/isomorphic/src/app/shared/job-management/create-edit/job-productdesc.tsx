@@ -1,10 +1,7 @@
 'use client';
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { Checkbox, Input, Select } from 'rizzui';
-import cn from '@core/utils/class-names';
-import FormGroup from '@/app/shared/form-group';
-import { DatePicker } from '@core/ui/datepicker';
+import { Checkbox, Input } from 'rizzui';
 
 export default function JobProductDesc({ className }: { className?: string }) {
   const {
@@ -14,11 +11,7 @@ export default function JobProductDesc({ className }: { className?: string }) {
   } = useFormContext();
 
   return (
-    <FormGroup
-      title="Product Description"
-      description="Add product Description here with required fields and types"
-      className={cn(className)}
-    >
+    <>
       <Controller
         name="lamination"
         control={control}
@@ -170,24 +163,6 @@ export default function JobProductDesc({ className }: { className?: string }) {
         {...register('otherLamination')}
         error={errors?.otherLamination?.message as string}
       />
-    </FormGroup>
+    </>
   );
-}
-
-{
-  /* <Controller
-        name="eventType"
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            dropdownClassName="h-auto"
-            options={typeOption}
-            value={value}
-            onChange={onChange}
-            label="Event Type"
-            error={errors?.eventType?.message as string}
-            getOptionValue={(option) => option.value}
-          />
-        )}
-      /> */
 }

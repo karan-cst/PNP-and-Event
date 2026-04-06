@@ -1,78 +1,33 @@
 import { DUMMY_ID } from '@/config/constants';
 import { routes } from '@/config/routes';
+import { drop } from 'lodash';
 import { AiTwotoneFileText } from 'react-icons/ai';
 
 import {
-  PiAirplaneTilt,
-  PiApplePodcastsLogo,
-  PiArrowsOut,
-  PiArrowsOutLineHorizontalBold,
-  PiBellSimpleRinging,
-  PiBinoculars,
-  PiBoundingBox,
-  PiBriefcase,
   PiBriefcaseDuotone,
-  PiBrowser,
-  PiCalendar,
   PiCalendarPlusDuotone,
-  PiChartBar,
-  PiChartLineUp,
   PiChartLineUpDuotone,
-  PiChartPieSlice,
   PiChartPieSliceDuotone,
-  PiChatCenteredDots,
-  PiClipboardText,
   PiClipboardTextDuotone,
-  PiCodesandboxLogo,
-  PiCreditCard,
-  PiCurrencyCircleDollar,
-  PiCurrencyDollar,
-  PiEnvelopeSimpleOpen,
-  PiFeather,
   PiFile,
-  PiFolder,
-  PiFolderLock,
-  PiFolderUser,
   PiFolderUserDuotone,
-  PiGridFour,
-  PiHammer,
-  PiHeadset,
-  PiHourglassSimple,
-  PiHouseLine,
   PiListChecksDuotone,
-  PiLockKey,
-  PiMapPinLine,
-  PiNewspaperClipping,
   PiNewspaperClippingDuotone,
-  PiNoteBlank,
-  PiPackage,
   PiPackageDuotone,
-  PiPokerChip,
-  PiPresentationChart,
-  PiPushPin,
-  PiRocketLaunch,
-  PiScales,
-  PiShapes,
   PiShapesDuotone,
-  PiShieldCheck,
-  PiShootingStar,
-  PiShoppingCart,
-  PiSparkle,
-  PiSquaresFour,
-  PiStack,
-  PiStairs,
-  PiSteps,
-  PiTable,
-  PiUser,
-  PiUserCircle,
   PiUserCircleGearDuotone,
-  PiUserGear,
-  PiUserPlus,
   PiUsersDuotone,
 } from 'react-icons/pi';
-
+export type SidebarItem = {
+  name: string;
+  href?: string;
+  icon?: React.ReactNode;
+  roles?: string[];
+  badge?: string;
+  dropdownItems?: SidebarItem[];
+};
 // Note: do not add href in the label object, it is rendering as label
-export const berylliumSidebarMenuItems = [
+export const berylliumSidebarMenuItems: SidebarItem[] = [
   {
     name: 'Dashboard',
     href: '/dashboard',
@@ -160,28 +115,56 @@ export const berylliumSidebarMenuItems = [
     roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
     dropdownItems: [
       {
-        name: 'PNP Clients',
-        href: routes.companyManagement.pnp,
-        badge: '',
+        name: 'PNP',
+        href: '#',
+        icon: <PiBriefcaseDuotone />,
         roles: ['superAdmin', 'pnpAdmin'],
+        dropdownItems: [
+          {
+            name: 'Company',
+            href: routes.companyManagement.event,
+            badge: '',
+            roles: ['superAdmin', 'pnpAdmin'],
+          },
+          {
+            name: 'Division',
+            href: routes.companyManagement.division,
+            badge: '',
+            roles: ['superAdmin', 'pnpAdmin'],
+          },
+          {
+            name: 'Client',
+            href: routes.companyManagement.client,
+            badge: '',
+            roles: ['superAdmin', 'pnpAdmin'],
+          },
+        ],
       },
       {
-        name: 'Company',
-        href: routes.companyManagement.event,
-        badge: '',
+        name: 'Event',
+        href: '#',
+        icon: <PiBriefcaseDuotone />,
         roles: ['superAdmin', 'eventAdmin'],
-      },
-      {
-        name: 'Division',
-        href: routes.companyManagement.division,
-        badge: '',
-        roles: ['superAdmin', 'eventAdmin'],
-      },
-      {
-        name: 'Client',
-        href: routes.companyManagement.client,
-        badge: '',
-        roles: ['superAdmin', 'eventAdmin'],
+        dropdownItems: [
+          {
+            name: 'Company',
+            href: routes.companyManagement.event,
+            badge: '',
+            roles: ['superAdmin', 'eventAdmin'],
+          },
+          {
+            name: 'Division',
+            href: routes.companyManagement.division,
+            badge: '',
+            roles: ['superAdmin', 'eventAdmin'],
+          },
+          {
+            name: 'Client',
+            href: routes.companyManagement.client,
+            badge: '',
+            roles: ['superAdmin', 'eventAdmin'],
+          },
+        ],
       },
     ],
   },

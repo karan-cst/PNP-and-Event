@@ -93,10 +93,10 @@ export const JobTrackerListColumns = [
     size: 220,
     header: 'Print Executive',
     cell: ({ row }) => {
-      const stage = row.original.printExecutive;
+      const stage = row.original?.printExecutive;
       return (
         <div className="grid gap-1">
-          <Text className="text-sm font-medium">{stage.userName}</Text>
+          <Text className="text-sm font-medium">{stage?.userName}</Text>
           <Text className="text-xs">
             {stage.status}
             {stage.date ? ` • ${stage.date}` : ''}

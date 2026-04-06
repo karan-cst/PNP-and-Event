@@ -10,7 +10,21 @@ import { PiCaretDownBold } from 'react-icons/pi';
 import { menuItems } from '@/layouts/hydrogen/menu-items';
 import StatusBadge from '@core/components/get-status-badge';
 import { useSession } from 'next-auth/react';
-
+import { SidebarItem } from '../beryllium/beryllium-sidebar-menu-items';
+function filterByRole(items: SidebarItem[], role: string): SidebarItem[] {
+  return items
+    .filter((item) => !item.roles || item.roles.includes(role))
+    .map((item) => ({
+      ...item,
+      dropdownItems: item.dropdownItems
+        ? filterByRole(item.dropdownItems, role)
+        : undefined,
+    }))
+    .filter((item) => {
+      // keep if link OR has children
+      return item.href || item.dropdownItems?.length;
+    });
+}
 export function SidebarMenu() {
   const pathname = usePathname();
   const { data: session } = useSession();
@@ -19,22 +33,23 @@ export function SidebarMenu() {
 
   const role = session.user.role;
 
-  const filteredMenu = menuItems
-    .filter((item) => {
-      // if no roles defined → allow
-      if (!item.roles) return true;
+  // const filteredMenu = menuItems
+  //   .filter((item) => {
+  //     // if no roles defined → allow
+  //     if (!item.roles) return true;
 
-      return item.roles.includes(role);
-    })
-    .map((item) => ({
-      ...item,
-      dropdownItems: item.dropdownItems?.filter((sub) => {
-        // if no roles defined → allow
-        if (!sub.roles) return true;
+  //     return item.roles.includes(role);
+  //   })
+  //   .map((item) => ({
+  //     ...item,
+  //     dropdownItems: item.dropdownItems?.filter((sub) => {
+  //       // if no roles defined → allow
+  //       if (!sub.roles) return true;
 
-        return sub.roles.includes(role);
-      }),
-    }));
+  //       return sub.roles.includes(role);
+  //     }),
+  //   }));
+  const filteredMenu = filterByRole(menuItems as SidebarItem[], role);
 
   return (
     <div className="mt-4 pb-3 3xl:mt-6">
@@ -88,7 +103,12 @@ export function SidebarMenu() {
                       </div>
                     )}
                   >
-                    {item?.dropdownItems?.map((dropdownItem, index) => {
+                    <SidebarDropdown
+                      items={item.dropdownItems}
+                      pathname={pathname}
+                      level={1}
+                    />
+                    {/* {item?.dropdownItems?.map((dropdownItem, index) => {
                       const isChildActive =
                         pathname === (dropdownItem?.href as string);
 
@@ -121,7 +141,7 @@ export function SidebarMenu() {
                           ) : null}
                         </Link>
                       );
-                    })}
+                    })} */}
                   </Collapse>
                 ) : (
                   <Link
@@ -170,4 +190,73 @@ export function SidebarMenu() {
       })}
     </div>
   );
+}
+
+function SidebarDropdown({ items, pathname, level = 0 }: any) {
+  console.log('SidebarDropdown', items, pathname);
+  return items?.map((item: any, index: number) => {
+    const isActive = pathname === item?.href;
+
+    const hasChildren = item?.dropdownItems?.length;
+    console.log('hasChildren', hasChildren, item?.dropdownItems);
+
+    const childActive = item?.dropdownItems?.some(
+      (child: any) =>
+        child.href === pathname ||
+        child?.dropdownItems?.some((c: any) => c.href === pathname)
+    );
+
+    if (hasChildren) {
+      return (
+        <Collapse
+          key={item.name + index}
+          defaultOpen={childActive}
+          header={({ open, toggle }) => (
+            <div
+              onClick={toggle}
+              className={cn(
+                'flex cursor-pointer items-center justify-between rounded-full px-3 py-2',
+                level === 0 ? 'mx-3.5' : 'mx-6',
+                'text-gray-600 hover:bg-gray-100'
+              )}
+            >
+              <span className="flex items-center gap-2">
+                {level > 0 && (
+                  <span className="h-1 w-1 rounded-full bg-current opacity-40" />
+                )}
+                {item.name}
+              </span>
+
+              <PiCaretDownBold
+                className={cn(
+                  'h-3 w-3 -rotate-90 transition-transform',
+                  open && 'rotate-0'
+                )}
+              />
+            </div>
+          )}
+        >
+          <SidebarDropdown
+            items={item.dropdownItems}
+            pathname={pathname}
+            level={level + 1}
+          />
+        </Collapse>
+      );
+    }
+
+    return (
+      <Link
+        key={item.name + index}
+        href={item.href}
+        className={cn(
+          'flex items-center rounded-full px-3 py-2 text-sm',
+          level === 0 ? 'mx-3.5' : 'mx-8',
+          isActive ? 'text-primary' : 'text-gray-500 hover:bg-gray-100'
+        )}
+      >
+        {item.name}
+      </Link>
+    );
+  });
 }

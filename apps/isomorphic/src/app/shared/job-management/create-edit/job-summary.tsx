@@ -90,11 +90,10 @@ export default function JobSummary({ className }: { className?: string }) {
             <CheckboxGroup
               values={value}
               setValues={onChange}
-              className="flex flex-row gap-4"
+              className="flex flex-row items-center gap-4"
             >
               <Checkbox label="Print" value="print" />
               <Checkbox label="Gift" value="gift" />
-              <Checkbox label="Print & Gift" value="printngift" disabled />
             </CheckboxGroup>
           );
         }}

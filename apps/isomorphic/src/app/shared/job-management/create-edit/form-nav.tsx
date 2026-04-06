@@ -5,9 +5,10 @@ export const formParts = {
   summary: 'summary',
   code: 'code',
   delivery: 'delivery',
-  product: 'product',
-  description: 'description',
-  instruction: 'instruction',
+  print: 'print',
+  // product: 'product',
+  // description: 'description',
+  // instruction: 'instruction',
   gift: 'gift',
 };
 
@@ -25,28 +26,33 @@ export const menuItems = [
     value: formParts.delivery,
   },
   {
-    label: 'Product',
-    value: formParts.product,
+    label: 'Print Detailes',
+    value: formParts.print,
   },
+  // {
+  //   label: 'Product',
+  //   value: formParts.product,
+  // },
+  // {
+  //   label: 'Description',
+  //   value: formParts.description,
+  // },
+  // {
+  //   label: 'Instruction',
+  //   value: formParts.instruction,
+  // },
   {
-    label: 'Description',
-    value: formParts.description,
-  },
-  {
-    label: 'Instruction',
-    value: formParts.instruction,
-  },
-  {
-    label: 'Gift Instruction',
+    label: 'Gift Detailes',
     value: formParts.gift,
   },
 ];
 
 interface FormNavProps {
   className?: string;
+  jobType: string[];
 }
 
-export default function FormNav({ className }: FormNavProps) {
+export default function FormNav({ className, jobType }: FormNavProps) {
   return (
     <div
       className={cn(
@@ -56,21 +62,27 @@ export default function FormNav({ className }: FormNavProps) {
     >
       <div className="custom-scrollbar overflow-x-auto scroll-smooth">
         <div className="inline-grid grid-flow-col gap-5 md:gap-7 lg:gap-10">
-          {menuItems.map((tab, idx) => (
-            <Link
-              key={tab.value}
-              to={tab.value}
-              spy={true}
-              hashSpy={true}
-              smooth={true}
-              offset={idx === 0 ? -250 : -150}
-              duration={500}
-              className="relative cursor-pointer whitespace-nowrap py-4 hover:text-gray-1000"
-              activeClass="active before:absolute before:bottom-0 before:left-0 before:z-[1] before:h-0.5 before:w-full before:bg-gray-1000 font-semibold text-gray-1000"
-            >
-              {tab.label}
-            </Link>
-          ))}
+          {menuItems.map((tab, idx) => {
+            if (tab.value === formParts.gift && !jobType.includes('gift'))
+              return null;
+            if (tab.value === formParts.print && !jobType.includes('print'))
+              return null;
+            return (
+              <Link
+                key={tab.value}
+                to={tab.value}
+                spy={true}
+                hashSpy={true}
+                smooth={true}
+                offset={idx === 0 ? -250 : -150}
+                duration={500}
+                className="relative cursor-pointer whitespace-nowrap py-4 hover:text-gray-1000"
+                activeClass="active before:absolute before:bottom-0 before:left-0 before:z-[1] before:h-0.5 before:w-full before:bg-gray-1000 font-semibold text-gray-1000"
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

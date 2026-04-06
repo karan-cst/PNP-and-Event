@@ -20,7 +20,7 @@ export default function FormGroup({
         {description && <p className="mt-2">{description}</p>}
       </div>
       {children && (
-        <div className="col-span-full grid gap-4 @2xl:grid-cols-4 @4xl:col-span-full @4xl:gap-5 xl:gap-7">
+        <div className="col-span-full grid gap-4 @2xl:grid-cols-5 @4xl:col-span-full @4xl:gap-5 xl:gap-7">
           {children}
         </div>
       )}

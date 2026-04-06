@@ -20,18 +20,14 @@ import {
 import JobSummary from './job-summary';
 import JobCode from './job-code';
 import JobDelivery from './job-delivery';
-import JobProduct from './job-product';
-import JobProductDesc from './job-productdesc';
-import JobInstruction from './job-instruction';
 import GiftInstruction from './gift-instruction';
+import PrintData from './print-data';
 
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: JobSummary,
   [formParts.code]: JobCode,
   [formParts.delivery]: JobDelivery,
-  [formParts.product]: JobProduct,
-  [formParts.description]: JobProductDesc,
-  [formParts.instruction]: JobInstruction,
+  [formParts.print]: PrintData,
   [formParts.gift]: GiftInstruction,
 };
 
@@ -48,6 +44,8 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
     resolver: zodResolver(jobFormSchema),
     defaultValues: jobDefaultValues(job),
   });
+
+  const jobType = methods.watch('jobType');
 
   const onSubmit: SubmitHandler<CreateJobInput> = (data) => {
     console.log('job)data', data);
@@ -70,6 +68,7 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
         className={cn(
           layout === LAYOUT_OPTIONS.BERYLLIUM && 'z-[999] 2xl:top-[72px]'
         )}
+        jobType={jobType}
       />
       <FormProvider {...methods}>
         <form
@@ -82,14 +81,22 @@ export default function CreateEditJob({ slug, job, className }: IndexProps) {
           )}
         >
           <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
-            {Object.entries(MAP_STEP_TO_COMPONENT).map(([key, Component]) => (
-              <Element
-                key={key}
-                name={formParts[key as keyof typeof formParts]}
-              >
-                {<Component className="pt-2 @2xl:pt-2 @3xl:pt-2" />}
-              </Element>
-            ))}
+            {Object.entries(MAP_STEP_TO_COMPONENT).map(([key, Component]) => {
+              if (key === formParts.gift && !jobType.includes('gift')) {
+                return null;
+              }
+              if (key === formParts.print && !jobType.includes('print')) {
+                return null;
+              }
+              return (
+                <Element
+                  key={key}
+                  name={formParts[key as keyof typeof formParts]}
+                >
+                  {<Component className="pt-2 @2xl:pt-2 @3xl:pt-2" />}
+                </Element>
+              );
+            })}
           </div>
 
           <FormFooter

@@ -103,22 +103,37 @@ export const jobFormSchema = z
     foil: z.boolean(),
 
     otherLamination: z.string().optional(),
-
-    specialInstructions: z.string().optional(),
-    descriptionStatus: z.enum(['approved', 'rejected'], {
-      required_error: 'Description status is required',
-    }),
-
+    specialInstructions: z.array(
+      z.object({
+        text: z
+          .string()
+          .min(2, 'Instruction must be at least 2 characters long'),
+        descriptionStatus: z.enum(['approved', 'rejected'], {
+          required_error: 'Description status is required',
+        }),
+      })
+    ),
     createdAt: z.coerce.date().optional(),
-
-    // 7️⃣ Job Type
-    jobType: z.enum(['print', 'gift', 'printngift'], {
-      required_error: 'Job type is required',
-    }),
+    jobType: z.array(
+      z.enum(['print', 'gift'], {
+        required_error: 'Job type is required',
+      })
+    ),
 
     PrintExecutiveStatus: z.enum(['Approved', 'Rejected'], {
       required_error: 'Print executive status is required',
     }),
+
+    giftSpecialInstructions: z.array(
+      z.object({
+        text: z
+          .string()
+          .min(2, 'Instruction must be at least 2 characters long'),
+        descriptionStatus: z.enum(['approved', 'rejected'], {
+          required_error: 'Description status is required',
+        }),
+      })
+    ),
 
     giftInstruction: giftInstructionSchema.optional(),
   })

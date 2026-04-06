@@ -1,6 +1,4 @@
-import { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import { CreateJobInput } from '@/validators/NEW/create-job.schema';
-import isEmpty from 'lodash/isEmpty';
 
 export const customFields = [
   {
@@ -20,8 +18,68 @@ export const productVariants = [
     value: '',
   },
 ];
+type SpecialInstruction = {
+  text?: string;
+  descriptionStatus?: 'approved' | 'rejected';
+};
 
-export function jobDefaultValues(job?: CreateJobInput) {
+export interface JobFormValues {
+  // 1️⃣ Basic Job Info
+  jobName: string;
+  jobNo: string;
+  date: Date;
+
+  // 2️⃣ Accounting Codes
+  glCode: string;
+  sapCode: string;
+  printsapCode: string;
+  ccCode: string;
+  hsnCode: string;
+
+  // 3️⃣ Requester Info
+  requisitionerName: string;
+  floor: string;
+  division: string;
+
+  // 4️⃣ Delivery Details
+  totalQty: number;
+  deliveryPlace: string;
+  deliveryDate: Date;
+  packageQty: number;
+  deliveryComment: string;
+
+  // 5️⃣ Print Specifications
+  size: string;
+  paper: string;
+  colour: string;
+  budget: number;
+
+  // 6️⃣ Finishing Options
+  lamination: boolean;
+  matt: boolean;
+  gloss: boolean;
+  front: boolean;
+  back: boolean;
+  uv: boolean;
+  vaidB2B: boolean;
+  hBound: boolean;
+  spiral: boolean;
+  wiroWire: boolean;
+  indexing: boolean;
+  foil: boolean;
+
+  otherLamination: string;
+
+  specialInstructions: SpecialInstruction[];
+
+  createdAt: Date;
+
+  // 7️⃣ Job Type
+  jobType?: ('print' | 'gift')[];
+  PrintExecutiveStatus: 'Approved' | 'Rejected';
+}
+
+export function jobDefaultValues(job?: CreateJobInput): JobFormValues {
   return {
     // 1️⃣ Basic Job Info
     jobName: 'Product Brochure Printing',
@@ -70,12 +128,17 @@ export function jobDefaultValues(job?: CreateJobInput) {
     foil: false,
 
     otherLamination: '',
-    specialInstructions: 'Ensure high resolution and accurate brand colors.',
+    specialInstructions: [
+      {
+        text: 'Ensure high resolution and accurate brand colors.',
+        descriptionStatus: 'approved',
+      },
+    ],
 
     createdAt: new Date(),
 
     // 7️⃣ Job Type
-    jobType: job?.jobType ?? 'print',
+    jobType: ['print'],
     PrintExecutiveStatus: job?.PrintExecutiveStatus ?? 'Approved',
   };
 }

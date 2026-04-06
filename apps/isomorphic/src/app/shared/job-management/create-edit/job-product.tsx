@@ -1,24 +1,16 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
-import { Input, Select } from 'rizzui';
-import cn from '@core/utils/class-names';
-import FormGroup from '@/app/shared/form-group';
-import { DatePicker } from '@core/ui/datepicker';
+import { useFormContext } from 'react-hook-form';
+import { Input } from 'rizzui';
 
 export default function JobProduct({ className }: { className?: string }) {
   const {
     register,
-    control,
     formState: { errors },
   } = useFormContext();
 
   return (
-    <FormGroup
-      title="Product"
-      description="Add product detailes here with their size paper, and budget"
-      className={cn(className)}
-    >
+    <>
       <Input
         label="Size"
         placeholder="Size"
@@ -43,24 +35,6 @@ export default function JobProduct({ className }: { className?: string }) {
         {...register('budget')}
         error={errors?.budget?.message as string}
       />
-    </FormGroup>
+    </>
   );
-}
-
-{
-  /* <Controller
-        name="eventType"
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            dropdownClassName="h-auto"
-            options={typeOption}
-            value={value}
-            onChange={onChange}
-            label="Event Type"
-            error={errors?.eventType?.message as string}
-            getOptionValue={(option) => option.value}
-          />
-        )}
-      /> */
 }
