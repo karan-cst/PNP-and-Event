@@ -13,6 +13,8 @@ import {
   PiUserCircleGearDuotone,
   PiUsersDuotone,
   PiListChecksDuotone,
+  PiFile,
+  PiPrinterDuotone,
 } from 'react-icons/pi';
 import { AiTwotoneFileText } from 'react-icons/ai';
 
@@ -32,6 +34,7 @@ export const menuItems = [
       'eventHead',
       'operationHead',
       'eventUser',
+      'csUser',
     ],
     badge: '',
   },
@@ -379,6 +382,40 @@ export const menuItems = [
       // 'operationHead',
       // 'eventHead',
     ],
+  },
+
+  {
+    name: 'Vendor Delivery',
+    href: routes.deliveryManagement.vendor,
+    icon: PiFile,
+    roles: ['deliveryUser'],
+  },
+  {
+    name: 'Client Delivery',
+    href: routes.deliveryManagement.client,
+    icon: PiFile,
+    roles: ['deliveryUser'],
+  },
+  {
+    name: 'JOB Management',
+    href: routes.jobManagement.job,
+    icon: <PiPrinterDuotone />,
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+  },
+
+  {
+    icon: <PiListChecksDuotone />,
+    name: 'JOB Tracker',
+    href: routes.jobManagement.tracker,
+    badge: '',
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+  },
+
+  {
+    name: 'Inquiry Management',
+    href: routes.inquiryManagement.inquiry,
+    icon: <PiFile />,
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
   },
 
   // // label start

@@ -595,14 +595,14 @@ export default function ApprovalDetails({
   const oh = job.operationHead;
   const bh = job.businessHeadName;
   const pm = job.printManager;
-  const step1Done = bh?.status === 'Approved';
-  const step2Done = oh?.status === 'Approved';
+  const step1Done = bh?.status === 'Approved' || oh?.status === 'Approved';
+  // const step2Done =
   const step3Done = pe?.status === 'Approved';
   const step4Done = pm?.vendorSelectionStatus === 'Approved';
 
   const stepsApproved = [
     step1Done,
-    step2Done,
+    // step2Done,
     step3Done,
     step4Done && step3Done,
   ].filter(Boolean).length;
@@ -629,12 +629,12 @@ export default function ApprovalDetails({
       {/* ── Step 1: Print Executive ─────────────────────────────────────────── */}
       <StepCard
         step={1}
-        title="Business Head"
+        title="Business Head / Operation Head"
         subtitle="Final business sign-off with design cost"
-        status={bh?.status}
+        status={bh?.status || oh?.status}
         isLocked={false}
-        userName={bh?.userName}
-        date={bh?.date}
+        userName={bh?.userName || oh?.userName}
+        date={bh?.date || oh?.date}
         showDesignerFields
         savedDesignerName={step1Meta.designerName}
         savedDesignCost={step1Meta.designCost}
@@ -645,7 +645,7 @@ export default function ApprovalDetails({
       <Connector done={step1Done} locked={false} />
 
       {/* ── Step 2: Operation Head ──────────────────────────────────────────── */}
-      <StepCard
+      {/* <StepCard
         step={2}
         title="Operation Head"
         subtitle="Operations & resource validation"
@@ -656,9 +656,9 @@ export default function ApprovalDetails({
         savedComment={step2Meta.comment}
         onApprove={handleOHApprove}
         onReject={handleOHReject}
-      />
-
-      <Connector done={step2Done} locked={!step1Done} />
+      /> */}
+      {/* 
+      <Connector done={step1Done} locked={!step1Done} /> */}
 
       {/* ── Step 3: Business Head ───────────────────────────────────────────── */}
 
@@ -667,7 +667,7 @@ export default function ApprovalDetails({
         title="Print Executive"
         subtitle="Initial print job review & approval"
         status={pe?.status}
-        isLocked={!step2Done}
+        isLocked={!step1Done}
         userName={pe?.userName}
         date={pe?.date}
         savedComment={step3Meta.comment}
@@ -675,7 +675,7 @@ export default function ApprovalDetails({
         onReject={handlePEReject}
       />
 
-      <Connector done={step3Done} locked={!step2Done} />
+      <Connector done={step3Done} locked={!step1Done} />
 
       {/* ── Step 4: Print Manager ───────────────────────────────────────────── */}
       <StepCard

@@ -14,6 +14,7 @@ import {
   PiListChecksDuotone,
   PiNewspaperClippingDuotone,
   PiPackageDuotone,
+  PiPrinterDuotone,
   PiShapesDuotone,
   PiUserCircleGearDuotone,
   PiUsersDuotone,
@@ -369,7 +370,27 @@ export const berylliumSidebarMenuItems: SidebarItem[] = [
     icon: <PiFile />,
     roles: ['deliveryUser'],
   },
+  {
+    name: 'JOB Management',
+    href: routes.jobManagement.job,
+    icon: <PiPrinterDuotone />,
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+  },
 
+  {
+    icon: <PiListChecksDuotone />,
+    name: 'JOB Tracker',
+    href: routes.jobManagement.tracker,
+    badge: '',
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+  },
+
+  {
+    name: 'Inquiry Management',
+    href: routes.inquiryManagement.inquiry,
+    icon: <PiFile />,
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+  },
   // // label start
   // {
   //   name: 'Overview',
