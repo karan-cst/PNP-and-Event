@@ -114,31 +114,31 @@ export const menuItems = [
     name: 'Company Management',
     href: '#',
     icon: <PiBriefcaseDuotone />,
-    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin', 'csUser'],
     dropdownItems: [
       {
         name: 'PNP',
         href: '#',
         icon: <PiBriefcaseDuotone />,
-        roles: ['superAdmin', 'pnpAdmin'],
+        roles: ['superAdmin', 'pnpAdmin', 'csUser'],
         dropdownItems: [
           {
             name: 'Company',
             href: routes.companyManagement.event,
             badge: '',
-            roles: ['superAdmin', 'pnpAdmin'],
+            roles: ['superAdmin', 'pnpAdmin', 'csUser'],
           },
           {
             name: 'Division',
             href: routes.companyManagement.division,
             badge: '',
-            roles: ['superAdmin', 'pnpAdmin'],
+            roles: ['superAdmin', 'pnpAdmin', 'csUser'],
           },
           {
             name: 'Client',
             href: routes.companyManagement.client,
             badge: '',
-            roles: ['superAdmin', 'pnpAdmin'],
+            roles: ['superAdmin', 'pnpAdmin', 'csUser'],
           },
         ],
       },
