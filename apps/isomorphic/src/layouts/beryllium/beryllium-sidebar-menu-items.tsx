@@ -181,12 +181,6 @@ export const berylliumSidebarMenuItems: SidebarItem[] = [
         roles: ['superAdmin', 'pnpAdmin'],
       },
       {
-        name: 'Division Code and CC',
-        href: routes.pnpMaster.division,
-        badge: '',
-        roles: ['superAdmin', 'pnpAdmin'],
-      },
-      {
         name: 'Delivery Location',
         href: routes.pnpMaster.delivery,
         badge: '',

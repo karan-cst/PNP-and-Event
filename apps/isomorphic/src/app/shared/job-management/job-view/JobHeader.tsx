@@ -19,6 +19,9 @@ export default function JobHeader({ job }: Props) {
           <p>
             <strong>Created Date:</strong> {job.createdDate}
           </p>
+          <p>
+            <strong>Master Division:</strong> {job.masterDivision}
+          </p>
         </div>
 
         {/* Right Side */}
@@ -27,18 +30,18 @@ export default function JobHeader({ job }: Props) {
             <strong>Type:</strong> {job.jobType}
           </p>
           <p>
-            <strong>Delivery Location:</strong> {job.deliveryLocation}
+            <strong>Delivery Date:</strong> {job.deliveryDate}
           </p>
           <p>
-            <strong>Delivery Date:</strong> {job.deliveryDate}
+            <strong>Total Qty:</strong> {job.totalQty}
+          </p>
+          <p>
+            <strong>Packing Qty:</strong> {job.packingQty}
           </p>
         </div>
         <div className="space-y-2">
           <p>
-            <strong>CC Code:</strong> {job.ccCode}
-          </p>
-          <p>
-            <strong>SAP Code:</strong> {job.sapCode}
+            <strong>Master Packing Qty:</strong> {job.masterPackingQty}
           </p>
           <p>
             <strong>GL Code:</strong> {job.glCode}

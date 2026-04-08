@@ -8,10 +8,9 @@ import { TableClassNameProps } from '@core/components/table/table-types';
 import cn from '@core/utils/class-names';
 import { exportToCSV } from '@core/utils/export-to-csv';
 import { vendorData } from '@/data/vendor-data';
-import VendorPageHeader from '@/app/shared/vendor-management/pnp-vendor/pnp-page-header';
-import { vendorPNPData } from '@/data/vendor-data-pnp';
+import VendorPageHeader from '@/app/shared/vendor-management/event-vendor/event-page-header';
 
-export type VendorPNPDataType = (typeof vendorPNPData)[number];
+export type VendorDataType = (typeof vendorData)[number];
 
 export default function VendorTable({
   pageSize = 5,
@@ -23,7 +22,7 @@ export default function VendorTable({
     rowClassName: 'last:border-0',
   },
   paginationClassName,
-  type = 'PNP',
+  type = 'Event',
 }: {
   pageSize?: number;
   hideFilters?: boolean;
@@ -33,8 +32,8 @@ export default function VendorTable({
   paginationClassName?: string;
   type?: string;
 }) {
-  const { table, setData } = useTanStackTable<VendorPNPDataType>({
-    tableData: vendorPNPData.filter((v) => v.vendorType === `${type} Vendor`),
+  const { table, setData } = useTanStackTable<VendorDataType>({
+    tableData: vendorData.filter((v) => v.vendorType === `${type} Vendor`),
     columnConfig: VendorListColumns,
     options: {
       initialState: {

@@ -16,13 +16,6 @@ const giftInstructionSchema = z.object({
   printingType: z.enum(['screen', 'other'], {
     required_error: 'Printing type is required',
   }),
-  packingTypes: z
-    .array(
-      z.enum(['bubble', 'shrink', 'thermocol', 'polythin'], {
-        required_error: 'At least one packing type is required',
-      })
-    )
-    .min(1, 'At least one packing type must be selected'),
 });
 
 export const jobFormSchema = z
@@ -39,33 +32,45 @@ export const jobFormSchema = z
     // 2️⃣ Accounting Codes
     glCode: z.string().min(1, 'GL Code is required'),
 
-    sapCode: z.string().min(1, 'SAP Code is required'),
-    sapCodeStatus: z.enum(['approved', 'rejected'], {
-      required_error: 'SAP Code status is required',
-    }),
-    printsapCode: z.string().min(1, 'SAP Code is required'),
-    printsapCodeStatus: z.enum(['approved', 'rejected'], {
-      required_error: 'Print SAP Code status is required',
-    }),
-
-    ccCode: z.string().min(1, 'CC Code is required'),
-
+    // sapCode: z.string().min(1, 'SAP Code is required'),
+    // printsapCode: z.string().min(1, ' Print SAP Code is required'),
+    // ccCode: z.string().min(1, 'CC Code is required'),
     hsnCode: z.string().min(1, 'HSN Code is required'),
-    hsnCodeStatus: z.enum(['approved', 'rejected'], {
-      required_error: 'HSN Code status is required',
-    }),
+    packingTypes: z
+      .array(
+        z.enum(['bubble', 'shrink', 'thermocol', 'polythin', 'bibo'], {
+          required_error: 'At least one packing type is required',
+        })
+      )
+      .min(1, 'At least one packing type must be selected'),
 
     // 3️⃣ Requester Info
     requisitionerName: z.string().min(1, 'Requisitioner name is required'),
 
     floor: z.string().min(1, 'Floor is required'),
+    masterDivision: z.string().min(1, 'Master division is required'),
+    // division: z.string().min(1, 'Division is required'),
 
-    division: z.string().min(1, 'Division is required'),
+    divisions: z
+      .array(
+        z.object({
+          division: z.string().min(1, 'Division is required'),
+          sapCode: z.string().min(1, 'SAP Code is required'),
+          printsapCode: z.string().min(1, ' PrintSAP Code is required'),
+          ccCode: z.string().min(1, 'CC Code is required'),
+          Qty: z.coerce.number().min(1, 'Total quantity must be at least 1'),
+          deliveryPlace: z.string().min(1, 'Delivery place is required'),
+        })
+      )
+      .min(1, 'At least one division must be selected'),
 
     // 4️⃣ Delivery Details
     totalQty: z.coerce.number().min(1, 'Total quantity must be at least 1'),
+    masterBoxQty: z.coerce
+      .number()
+      .min(1, 'Master box quantity must be at least 1'),
 
-    deliveryPlace: z.string().min(1, 'Delivery place is required'),
+    // deliveryPlace: z.string().min(1, 'Delivery place is required'),
 
     deliveryDate: z.coerce.date({
       required_error: 'Delivery date is required',

@@ -69,6 +69,7 @@ export default function CreateVendor({
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      console.log('createCategory data ->', data);
       setReset({
         companyName: '',
         name: '',
@@ -77,7 +78,6 @@ export default function CreateVendor({
         city: '',
         vendorType: '',
         address: '',
-        competency: '',
       });
     }, 600);
   };
@@ -111,21 +111,21 @@ export default function CreateVendor({
               >
                 <Input
                   label="Vendor Name"
-                  placeholder="Vendor Name"
+                  placeholder="Enter vendor name"
                   {...register('companyName')}
                   error={errors.companyName?.message}
                 />
 
                 <Input
                   label="Name"
-                  placeholder="Contact Person Name"
+                  placeholder="Enter contact person name"
                   {...register('name')}
                   error={errors.name?.message}
                 />
 
                 <Input
                   label="Email"
-                  placeholder="Vendor Email"
+                  placeholder="Enter email address"
                   type="email"
                   {...register('email')}
                   error={errors.email?.message}
@@ -133,17 +133,14 @@ export default function CreateVendor({
 
                 <Input
                   label="Mobile"
-                  placeholder="Vendor Mobile Number"
-                  // type="tel"
-                  // pattern="[0-9]{10}"
+                  placeholder="Enter mobile number"
                   {...register('mobile')}
                   error={errors.mobile?.message}
                 />
-
                 <Input
                   label="Address"
+                  placeholder="Enter vendor address"
                   className="col-span-2"
-                  placeholder="Vendor Address"
                   {...register('address')}
                   error={errors.address?.message}
                 />
@@ -164,21 +161,9 @@ export default function CreateVendor({
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.label}
-                      // displayValue={(selected) =>
-                      //   [
-                      //     { label: 'Ahmedabad', value: 'Ahemdabad' },
-                      //     { label: 'Surat', value: 'Surat' },
-                      //   ]?.find((r) => r.value === selected)?.label ?? ''
-                      // }
                       error={errors?.vendorType?.message as string}
                     />
                   )}
-                />
-                <Input
-                  label="Competency (optional)"
-                  placeholder="Vendor Competency"
-                  {...register('competency')}
-                  error={errors.competency?.message}
                 />
               </HorizontalFormBlockWrapper>
             </div>

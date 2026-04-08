@@ -163,9 +163,45 @@ export default function GiftInstruction({ className }: { className?: string }) {
             </div>
           )}
         />
+        <Controller
+          name="giftInstruction.packingType"
+          control={control}
+          disabled={!isDisabled}
+          render={({ field: { value, onChange, onBlur }, fieldState }) => (
+            <div className="flex flex-col gap-2">
+              <Text className="font-bold">Packing Type</Text>
+              <CheckboxGroup
+                values={value || []}
+                setValues={onChange}
+                className="flex flex-row gap-10"
+              >
+                <Checkbox
+                  value="bubble"
+                  label="Bubble"
+                  disabled={!isDisabled}
+                />
+                <Checkbox
+                  value="shrink"
+                  label="Shrink"
+                  disabled={!isDisabled}
+                />
+                <Checkbox
+                  value="thermocol"
+                  label="Thermocol"
+                  disabled={!isDisabled}
+                />
+                <Checkbox
+                  value="polythin"
+                  label="Polythin Pack"
+                  disabled={!isDisabled}
+                />
+              </CheckboxGroup>
+            </div>
+          )}
+        />
       </FormGroup>
 
-      <div className="col-span-full mt-4 flex justify-end">
+      <div className="col-span-full flex justify-end">
         <Button
           type="button"
           onClick={() => append({ text: '', descriptionStatus: 'approved' })}
@@ -178,24 +214,57 @@ export default function GiftInstruction({ className }: { className?: string }) {
         const status = watch(`specialInstructions.${index}.descriptionStatus`);
 
         return (
-          <Textarea
-            key={field.id}
-            className="col-span-full"
-            label={
-              <div className="flex items-center justify-between">
-                Instruction {index + 1}{' '}
-                <ActionIcon
-                  color="danger"
-                  variant="outline"
-                  disabled={fields.length === 1}
-                  onClick={() => remove(index)}
-                >
-                  <MdDeleteOutline className="h-4 w-4" />
-                </ActionIcon>
-              </div>
-            }
-            {...register(`specialInstructions.${index}.text`)}
-          />
+          <div key={field.id} className="col-span-full flex items-end gap-2">
+            <div className="flex-1">
+              <Textarea
+                label={
+                  <div className="flex items-center justify-between">
+                    Instruction {index + 1}{' '}
+                    <ActionIcon
+                      color="danger"
+                      variant="outline"
+                      disabled={fields.length === 1}
+                      onClick={() => remove(index)}
+                    >
+                      <MdDeleteOutline className="h-4 w-4" />
+                    </ActionIcon>
+                  </div>
+                }
+                {...register(`specialInstructions.${index}.text`)}
+              />
+            </div>
+
+            <div className="flex gap-1 pb-[2px]">
+              <ActionIcon
+                size="md"
+                variant={status === 'approved' ? 'solid' : 'outline'}
+                onClick={() =>
+                  setValue(
+                    `specialInstructions.${index}.descriptionStatus`,
+                    'approved'
+                  )
+                }
+              >
+                <IoMdCheckmark className="h-4 w-4" />
+              </ActionIcon>
+
+              <ActionIcon
+                size="md"
+                variant={status === 'rejected' ? 'solid' : 'outline'}
+                color="danger"
+                onClick={() =>
+                  setValue(
+                    `specialInstructions.${index}.descriptionStatus`,
+                    'rejected'
+                  )
+                }
+              >
+                <HiXMark className="h-4 w-4" />
+              </ActionIcon>
+            </div>
+
+            {/* ❌ remove button */}
+          </div>
         );
       })}
     </>

@@ -1,16 +1,16 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { ActionIcon, Avatar, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
-import { VendorPNPDataType } from './table';
+import { VendorDataType } from './table';
 import cn from '@core/utils/class-names';
 import DateCell from '@core/ui/date-cell';
 import PencilIcon from '@core/components/icons/pencil';
 import DeletePopover from '@core/components/delete-popover';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import { CreateVendorModalView } from '../pnp-page-header';
+import { CreateVendorModalView } from '../event-page-header';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
 
-const columnHelper = createColumnHelper<VendorPNPDataType>();
+const columnHelper = createColumnHelper<VendorDataType>();
 
 export const VendorListColumns = [
   columnHelper.display({
@@ -53,19 +53,16 @@ export const VendorListColumns = [
     id: 'email',
     size: 190,
     header: 'Email',
+    cell: ({ row }) => <Text className="text-sm">{row.original.email}</Text>,
+  }),
+  columnHelper.accessor('mobile', {
+    id: 'mobile',
+    size: 170,
+    header: 'Mobile',
     cell: ({ row }) => (
       <div className={cn('grid gap-1')}>
-        <Text className="text-sm">{row.original.email}</Text>
         <Text className="text-sm">{`${row.original.mobile}`}</Text>
       </div>
-    ),
-  }),
-  columnHelper.accessor('competency', {
-    id: 'competency',
-    size: 170,
-    header: 'Competency',
-    cell: ({ row }) => (
-      <Text className="text-sm">{row.original?.competency || '-'}</Text>
     ),
   }),
   columnHelper.accessor('createdAt', {
@@ -98,7 +95,7 @@ export const VendorListColumns = [
   }),
 ];
 
-const VendorEdit = ({ vendor }: { vendor: VendorPNPDataType }) => {
+const VendorEdit = ({ vendor }: { vendor: VendorDataType }) => {
   const { openModal } = useModal();
   return (
     <Tooltip size="sm" content={'Edit Vendor'} placement="top" color="invert">

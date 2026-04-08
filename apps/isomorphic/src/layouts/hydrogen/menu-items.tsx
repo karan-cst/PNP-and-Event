@@ -212,12 +212,6 @@ export const menuItems = [
         roles: ['superAdmin', 'pnpAdmin'],
       },
       {
-        name: 'Division Code and CC',
-        href: routes.pnpMaster.division,
-        badge: '',
-        roles: ['superAdmin', 'pnpAdmin'],
-      },
-      {
         name: 'Delivery Location',
         href: routes.pnpMaster.delivery,
         badge: '',
@@ -255,12 +249,7 @@ export const menuItems = [
         badge: '',
         roles: ['superAdmin', 'eventAdmin'],
       },
-      {
-        name: 'Division Code and CC',
-        href: routes.eventMaster.division,
-        badge: '',
-        roles: ['superAdmin', 'eventAdmin'],
-      },
+
       {
         name: 'Standard Rates',
         href: routes.eventMaster.rate,

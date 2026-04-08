@@ -191,32 +191,32 @@ export const berylliumMenuItems: MenuItemsType[] = [
     name: 'Client',
     title: 'Client Management',
     icon: PiBriefcaseDuotone,
-    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin'],
+    roles: ['superAdmin', 'pnpAdmin', 'eventAdmin', 'csUser'],
     isExpnad: true,
     menuItems: [
       {
         name: 'PNP',
         description: 'Types Of client in diffrent teams',
         icon: PiBriefcaseDuotone,
-        roles: ['superAdmin', 'pnpAdmin'],
+        roles: ['superAdmin', 'pnpAdmin', 'csUser'],
         subMenuItems: [
           {
             name: 'Company',
             href: routes.companyManagement.event,
             badge: '',
-            roles: ['superAdmin', 'eventAdmin'],
+            roles: ['superAdmin', 'eventAdmin', 'csUser'],
           },
           {
             name: 'Division',
             href: routes.companyManagement.division,
             badge: '',
-            roles: ['superAdmin', 'eventAdmin'],
+            roles: ['superAdmin', 'eventAdmin', 'csUser'],
           },
           {
             name: 'Client',
             href: routes.companyManagement.client,
             badge: '',
-            roles: ['superAdmin', 'eventAdmin'],
+            roles: ['superAdmin', 'eventAdmin', 'csUser'],
           },
         ],
       },
@@ -268,11 +268,11 @@ export const berylliumMenuItems: MenuItemsType[] = [
             href: routes.pnpMaster.hsn,
             badge: '',
           },
-          {
-            name: 'Division Code and CC',
-            href: routes.pnpMaster.division,
-            badge: '',
-          },
+          // {
+          //   name: 'Division Code and CC',
+          //   href: routes.pnpMaster.division,
+          //   badge: '',
+          // },
           {
             name: 'Delivery Location',
             href: routes.pnpMaster.delivery,
@@ -317,11 +317,11 @@ export const berylliumMenuItems: MenuItemsType[] = [
             href: routes.eventMaster.type,
             badge: '',
           },
-          {
-            name: 'Division Code and CC',
-            href: routes.eventMaster.division,
-            badge: '',
-          },
+          // {
+          //   name: 'Division Code and CC',
+          //   href: routes.eventMaster.division,
+          //   badge: '',
+          // },
           {
             name: 'Standard Rates',
             href: routes.eventMaster.rate,

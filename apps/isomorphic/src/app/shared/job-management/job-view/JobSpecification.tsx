@@ -11,6 +11,34 @@ export default function JobSpecifications({ job }: Props) {
   return (
     <div className="space-y-6">
       <div className="space-y-6 rounded-lg border bg-white p-6 shadow-sm">
+        <Text className="text-lg font-bold">Division Specifications</Text>
+        {/* Main Spec Card */}
+        <div className="space-y-4 rounded-lg border bg-white p-6 shadow-sm">
+          {job.divisions.map((division, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-2 gap-6 text-sm md:grid-cols-5"
+            >
+              <p>
+                <strong>Division:</strong> {division.division}
+              </p>
+              <p>
+                <strong>SAP Code:</strong> {division.sapCode}
+              </p>
+              <p>
+                <strong>Print SAP Code:</strong> {division.printsapCode}
+              </p>
+              <p>
+                <strong>Qty:</strong> {division.Qty}
+              </p>
+              <p>
+                <strong>Delivery Location:</strong> {division.deliveryPlace}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="space-y-6 rounded-lg border bg-white p-6 shadow-sm">
         <Text className="text-lg font-bold">Print Specifications</Text>
         {/* Main Spec Card */}
         <div className="space-y-4 rounded-lg border bg-white p-6 shadow-sm">
@@ -81,18 +109,6 @@ export default function JobSpecifications({ job }: Props) {
           )}
         </div>
 
-        {/* Packing Details */}
-        <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
-          <h3 className="font-semibold">Packing Details</h3>
-          <p>
-            <strong>Shrink Pack:</strong>{' '}
-            {job.packingDetails?.shrinkPack || '-'}
-          </p>
-          <p>
-            <strong>BIBO Pack:</strong> {job.packingDetails?.biboPack || '-'}
-          </p>
-        </div>
-
         {/* Printing Instructions */}
         <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
           <h3 className="font-semibold">Printing Instructions</h3>
@@ -129,12 +145,12 @@ export default function JobSpecifications({ job }: Props) {
           </div>
         </div>
 
-        {/* Packing Details */}
+        {/* Packing Details
         <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
           <h3 className="font-semibold">Packing Details</h3>
           <p>Bubble</p>
           <p>Polythin</p>
-        </div>
+        </div> */}
 
         {/* Printing Instructions */}
         <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
@@ -144,6 +160,23 @@ export default function JobSpecifications({ job }: Props) {
               <li key={index}>{instruction}</li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
+        <h3 className="font-semibold">Packing Details</h3>
+        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
+          {job.packingType.map((packing, index) => (
+            <p className="text-sm" key={index}>
+              <strong>{packing}</strong>
+            </p>
+          ))}
+          <p>
+            <strong>Packing Qty:</strong> 100
+          </p>
+          <p>
+            <strong>Master Packing Qty:</strong> 10
+          </p>
         </div>
       </div>
     </div>

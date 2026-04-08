@@ -8,8 +8,6 @@ import { IoMdArrowBack } from 'react-icons/io';
 import VendorUploadModal from '@/app/shared/event-management/vendor-upload/vendorUpload';
 import VendorsTable from '@/app/shared/event-management/vendorTable';
 import { useModal } from '@/app/shared/modal-views/use-modal';
-import { VendorDataType } from '@/app/shared/vendor-management/pnp-vendor/vendor-list/table';
-import { vendorData } from '@/data/vendor-data';
 import { VendorPriceCompairView } from '@/app/shared/event-management/vendor-price-compair-view/vendorPriceCompair';
 import { useRouter } from 'next/navigation';
 

@@ -19,6 +19,12 @@ export default function JobDelivery({ className }: { className?: string }) {
       description="Add delivery instruction and detailes"
       className={cn(className)}
     >
+      <Input
+        label="Delivery Place"
+        placeholder="Delivery Place"
+        {...register('deliveryPlace')}
+        error={errors?.deliveryPlace?.message as string}
+      />
       <Controller
         name="deliveryDate"
         control={control}

@@ -31,24 +31,19 @@ export interface JobFormValues {
 
   // 2️⃣ Accounting Codes
   glCode: string;
-
+  sapCode: string;
+  printsapCode: string;
+  ccCode: string;
   hsnCode: string;
 
   // 3️⃣ Requester Info
   requisitionerName: string;
   floor: string;
-  divisions: {
-    division: string;
-    sapCode: string;
-    printsapCode: string;
-    ccCode: string;
-    Qty: number;
-    deliveryPlace: string;
-  }[];
+  division: string;
 
   // 4️⃣ Delivery Details
   totalQty: number;
-
+  deliveryPlace: string;
   deliveryDate: Date;
   packageQty: number;
   deliveryComment: string;
@@ -93,25 +88,19 @@ export function jobDefaultValues(job?: CreateJobInput): JobFormValues {
 
     // 2️⃣ Accounting Codes
     glCode: '5153700007',
-
+    sapCode: '2273043',
+    printsapCode: '237044',
+    ccCode: '1450',
     hsnCode: '49011020',
 
     // 3️⃣ Requester Info
     requisitionerName: 'Dhaval Patel',
     floor: '2nd Floor',
-    divisions: [
-      {
-        division: 'ADRINA',
-        sapCode: '2273043',
-        printsapCode: '237044',
-        ccCode: '1450',
-        Qty: 4000,
-        deliveryPlace: 'Matoda Warehouse',
-      },
-    ],
+    division: 'ADRINA',
 
     // 4️⃣ Delivery Details
     totalQty: 4000,
+    deliveryPlace: 'Matoda Warehouse',
     deliveryDate: new Date('2026-03-30'),
     packageQty: 100,
     deliveryComment: 'Handle with care. Avoid moisture.',

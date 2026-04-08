@@ -1,0 +1,90 @@
+import cn from '@core/utils/class-names';
+import { Link } from 'react-scroll';
+
+export const formParts = {
+  summary: 'summary',
+  code: 'code',
+  delivery: 'delivery',
+  print: 'print',
+  // product: 'product',
+  // description: 'description',
+  // instruction: 'instruction',
+  gift: 'gift',
+};
+
+export const menuItems = [
+  {
+    label: 'Summary',
+    value: formParts.summary,
+  },
+  {
+    label: 'Code',
+    value: formParts.code,
+  },
+  {
+    label: 'Delivery',
+    value: formParts.delivery,
+  },
+  {
+    label: 'Print Detailes',
+    value: formParts.print,
+  },
+  // {
+  //   label: 'Product',
+  //   value: formParts.product,
+  // },
+  // {
+  //   label: 'Description',
+  //   value: formParts.description,
+  // },
+  // {
+  //   label: 'Instruction',
+  //   value: formParts.instruction,
+  // },
+  {
+    label: 'Gift Detailes',
+    value: formParts.gift,
+  },
+];
+
+interface FormNavProps {
+  className?: string;
+  jobType: string[];
+}
+
+export default function FormNav({ className, jobType }: FormNavProps) {
+  return (
+    <div
+      className={cn(
+        'sticky top-[68px] z-20 border-b border-gray-300 bg-white py-0 font-medium text-gray-500 @2xl:top-[72px] dark:bg-gray-50 2xl:top-20',
+        className
+      )}
+    >
+      <div className="custom-scrollbar overflow-x-auto scroll-smooth">
+        <div className="inline-grid grid-flow-col gap-5 md:gap-7 lg:gap-10">
+          {menuItems.map((tab, idx) => {
+            if (tab.value === formParts.gift && !jobType.includes('gift'))
+              return null;
+            if (tab.value === formParts.print && !jobType.includes('print'))
+              return null;
+            return (
+              <Link
+                key={tab.value}
+                to={tab.value}
+                spy={true}
+                hashSpy={true}
+                smooth={true}
+                offset={idx === 0 ? -250 : -150}
+                duration={500}
+                className="relative cursor-pointer whitespace-nowrap py-4 hover:text-gray-1000"
+                activeClass="active before:absolute before:bottom-0 before:left-0 before:z-[1] before:h-0.5 before:w-full before:bg-gray-1000 font-semibold text-gray-1000"
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}

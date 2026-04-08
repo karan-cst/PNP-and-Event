@@ -303,16 +303,18 @@ export const dummyJobData: JobFormDataType[] = [
 export type ApprovalStatus = 'Pending' | 'Approved' | 'Rejected';
 
 export type ApprovalStage = {
-  userName: string;
+  userName?: string;
   status: ApprovalStatus;
   date?: string; // dd/mm/yyyy
 };
 
 export type designApprovalStage = {
-  userName: string;
+  userName?: string;
   status: ApprovalStatus;
   date?: string; // dd/mm/yyyy
   designCost?: number;
+  designerName?: string;
+  remarks?: string;
 };
 
 export type JobTrackerTableType = {
@@ -468,8 +470,20 @@ export type JobViewType = {
   hsnCode: string;
   sapCode: string;
   glCode: string;
-
+  masterDivision: string;
   deliveryDate: string;
+
+  divisions: {
+    division: string;
+    sapCode: string;
+    printsapCode: string;
+    ccCode: string;
+    Qty: number;
+    deliveryPlace: string;
+  }[];
+  totalQty: number;
+  packingQty?: number;
+  masterPackingQty?: number;
 
   // 🔹 Specifications
   specifications: {
@@ -495,10 +509,7 @@ export type JobViewType = {
   };
 
   // 🔹 Packing
-  packingDetails: {
-    shrinkPack?: string;
-    biboPack?: string;
-  };
+  packingType: string[];
 
   // 🔹 Printing Instructions
   printingInstructions: string[];
@@ -534,9 +545,29 @@ export const dummyJobViewData: JobViewType = {
   hsnCode: '49011020',
   sapCode: '2273043',
   glCode: '5153700007',
-
+  masterDivision: 'ADRINA',
   deliveryDate: '30/03/2026',
-
+  divisions: [
+    {
+      division: 'ADRINA',
+      sapCode: '2273043',
+      printsapCode: '2273044',
+      ccCode: '1450',
+      Qty: 1000,
+      deliveryPlace: 'Matoda',
+    },
+    {
+      division: 'ARTEMIS',
+      sapCode: '2273043',
+      printsapCode: '2273044',
+      ccCode: '1450',
+      Qty: 2000,
+      deliveryPlace: 'HQ',
+    },
+  ],
+  totalQty: 3000,
+  packingQty: 100,
+  masterPackingQty: 10,
   // 🔹 Specifications
   specifications: {
     size: '8.2 x 11.7 inches (A4)',
@@ -561,10 +592,7 @@ export const dummyJobViewData: JobViewType = {
   },
 
   // 🔹 Packing
-  packingDetails: {
-    shrinkPack: '100 per pack',
-    biboPack: '10 packs per box',
-  },
+  packingType: ['shrink', 'bibo'],
 
   // 🔹 Printing Instructions
   printingInstructions: [

@@ -20,14 +20,14 @@ export const routes = {
     event: '/vendor-management/event-vendor-management',
   },
   companyManagement: {
-    pnp: '/client-management/pnp-client-management',
+    // pnp: '/client-management/pnp-client-management',
     event: '/client-management/event-client-management',
     division: '/event-master/division-management',
     client: '/event-master/client-management',
   },
   pnpMaster: {
     hsn: '/pnp-master/hsn-management',
-    division: '/pnp-master/division-management',
+    // division: '/pnp-master/division-management',
     delivery: '/pnp-master/delivery-location-management',
     gl: '/pnp-master/glcode-management',
     job: '/pnp-master/jobtype-management',
@@ -37,7 +37,7 @@ export const routes = {
     type: '/event-master/event-types',
     rate: '/event-master/standard-rate',
     city: '/event-master/city-management',
-    division: '/event-master/division-management',
+    // division: '/event-master/division-management',
   },
   jobManagement: {
     event: '/job-management/event-jobs',
