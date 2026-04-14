@@ -2,7 +2,6 @@ import { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { env } from '@/env.mjs';
-import isEqual from 'lodash/isEqual';
 import { pagesOptions } from './pages-options';
 
 export const authOptions: NextAuthOptions = {
@@ -12,7 +11,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 24 * 60 * 60, // 24 hrs
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -25,6 +24,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      console.log('enter in session', session, token);
       if (token) {
         session.user.role = token.role!;
         session.user.id = token.id as string;
@@ -56,9 +56,6 @@ export const authOptions: NextAuthOptions = {
       name: 'Credentials',
       credentials: {},
       async authorize(credentials: any) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid
         const { email, password } = credentials as any;
         // const user = {
         //   email: 'admin@oneadvt.com',

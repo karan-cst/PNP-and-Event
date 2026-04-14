@@ -111,7 +111,7 @@ export default function JobSpecifications({ job }: Props) {
 
         {/* Printing Instructions */}
         <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
-          <h3 className="font-semibold">Printing Instructions</h3>
+          <Text className="text-base font-semibold">Printing Instructions</Text>
           <ul className="ml-6 list-decimal space-y-1">
             {job.printingInstructions.map((instruction, index) => (
               <li key={index}>{instruction}</li>
@@ -154,7 +154,7 @@ export default function JobSpecifications({ job }: Props) {
 
         {/* Printing Instructions */}
         <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
-          <h3 className="font-semibold">Gifting Instructions</h3>
+          <Text className="text-base font-semibold">Gifting Instructions</Text>
           <ul className="ml-6 list-decimal space-y-1">
             {job.printingInstructions.map((instruction, index) => (
               <li key={index}>{instruction}</li>
@@ -164,7 +164,7 @@ export default function JobSpecifications({ job }: Props) {
       </div>
 
       <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
-        <h3 className="font-semibold">Packing Details</h3>
+        <Text className="text-lg font-bold">Packing Details</Text>
         <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
           {job.packingType.map((packing, index) => (
             <p className="text-sm" key={index}>

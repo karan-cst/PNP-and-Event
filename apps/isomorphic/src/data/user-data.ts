@@ -10,8 +10,6 @@ export type User = {
   createdAt: Date;
   isActive: string;
   address: string;
-  // permissions: keyof typeof PERMISSIONS;
-  // status: keyof typeof STATUSES;
 };
 
 export const PERMISSIONS = {

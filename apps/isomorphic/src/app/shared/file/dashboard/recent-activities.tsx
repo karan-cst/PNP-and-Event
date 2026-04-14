@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Title, Text } from 'rizzui';
+import { Title, Text, Avatar } from 'rizzui';
 import { PiImageDuotone } from 'react-icons/pi';
 import WidgetCard from '@core/components/cards/widget-card';
 
@@ -53,31 +53,20 @@ const activities = [
 export function ActivityThreadCard({ thread }: any) {
   const { avatar, username, logMessage, alias, date, files } = thread;
   return (
-    <div className="relative flex items-start gap-x-2.5 pb-8 before:absolute before:start-[17px] before:top-0 before:z-0 before:h-full before:w-[1px] before:bg-gray-300 last:pb-0 last:before:hidden">
-      <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full">
-        <Image
-          className="aspect-square object-cover"
-          src={avatar}
-          alt={username}
-          fill
-          sizes="(max-width: 768px) 100vw"
-        />
-      </div>
+    <div className="relative flex items-start gap-x-2.5 pb-8 before:absolute before:start-[19px] before:top-0 before:z-0 before:h-full before:w-[1px] before:bg-gray-300 last:pb-0 last:before:hidden">
+      {/* <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full"> */}
+      <Avatar name={username} className="relative" />
+      {/* </div> */}
       <div className="">
         <Text className="text-sm font-normal text-gray-500">
           <Text as="span" className="font-medium capitalize text-gray-700">
             {username}
-          </Text>{' '}
-          {logMessage}{' '}
-          {alias && (
-            <Text as="span" className="font-medium capitalize text-gray-700">
-              {alias}
-            </Text>
-          )}
+          </Text>
         </Text>
         <Text as="span" className="text-xs text-gray-500">
           {date}
         </Text>
+        <Text className="text-sm font-normal text-gray-500">{logMessage} </Text>
         {files.map((file: string) => (
           <div
             key={file}
@@ -95,17 +84,13 @@ export function ActivityThreadCard({ thread }: any) {
 }
 
 export function ActivityThreads({
-  title,
   threads,
 }: {
-  title: string;
+  title?: string;
   threads: object[];
 }) {
   return (
     <div className="relative mb-4 last:mb-0">
-      <Text className="mb-4 text-sm font-semibold text-gray-900 dark:text-gray-700 2xl:text-base">
-        {title}
-      </Text>
       <div>
         {threads.map((item, index) => (
           <ActivityThreadCard key={`singleThread-${index}`} thread={item} />

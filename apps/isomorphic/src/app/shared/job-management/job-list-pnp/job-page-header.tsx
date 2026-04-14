@@ -25,11 +25,7 @@ export default function JobPageHeader<T extends Record<string, any>>({
   return (
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} className={className}>
-        <Flex
-          direction="col"
-          gap="3"
-          className="mb-3 w-full sm:flex-row sm:items-center sm:justify-end"
-        >
+        <Flex direction="row" align="center" gap="3">
           <Input
             type="search"
             placeholder="Search by job name..."
@@ -40,16 +36,16 @@ export default function JobPageHeader<T extends Record<string, any>>({
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />
-          <div className="flex items-center gap-4">
-            <Button
-              as="span"
-              className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-full @lg:mt-0 @lg:w-auto"
-              onClick={() => router.push('/job-management/create-job')}
-            >
-              <PiPlusBold className="h-[15px] w-[15px]" />
-            </Button>
-            <ToggleColumns table={table} />
-          </div>
+          {/* <div className="flex items-center gap-4"> */}
+          <Button
+            as="span"
+            // className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-full @lg:mt-0 @lg:w-auto"
+            onClick={() => router.push('/job-management/create-job')}
+          >
+            <PiPlusBold className="h-[15px] w-[15px]" />
+          </Button>
+          <ToggleColumns table={table} />
+          {/* </div> */}
         </Flex>
       </PageHeader>
     </>

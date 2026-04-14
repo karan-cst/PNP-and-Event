@@ -1,21 +1,19 @@
 'use client';
 
+import Checklist from '@/app/shared/job-management/job-view/Checklist';
+import DetailLogTable from '@/app/shared/job-management/job-view/detailLog';
 import ApprovalDetails from '@/app/shared/job-management/job-view/jobApproval';
 import JobHeader from '@/app/shared/job-management/job-view/JobHeader';
 import JobSpecifications from '@/app/shared/job-management/job-view/JobSpecification';
-
+import Logs from '@/app/shared/job-management/job-view/Logs';
+import VendorsPNPTable from '@/app/shared/job-management/job-view/vendorView';
 import VendorUploadModal from '@/app/shared/job-management/vendor-upload/vendorUpload';
-import VendorsTable from '@/app/shared/job-management/vendorTable';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import PageHeader from '@/app/shared/page-header';
 import { dummyJobViewData, JobViewType } from '@/data/jobpnp-data';
 import { useState } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import { Button } from 'rizzui/button';
-
-// type Props = {
-//   job: JobViewType;
-// };
 
 export default function JobViewPage() {
   const [vendors, setVendors] = useState<any[]>([
@@ -46,7 +44,7 @@ export default function JobViewPage() {
   ]);
   const job = dummyJobViewData;
   const [activeTab, setActiveTab] = useState<
-    'spec' | 'approval' | 'checklist' | 'delivery' | 'logs' | 'vendor'
+    'spec' | 'approval' | 'checklist' | 'logs' | 'vendor'
   >('spec');
   const pageHeader = {
     title: 'Job',
@@ -89,7 +87,7 @@ export default function JobViewPage() {
             { key: 'vendor', label: 'Vendor Rate' },
             { key: 'approval', label: 'Approval Details' },
             { key: 'checklist', label: 'Printing Checklist' },
-            { key: 'delivery', label: 'Delivery Details' },
+            // { key: 'delivery', label: 'Delivery Details' },
             { key: 'logs', label: 'Logs' },
           ].map((tab) => (
             <button
@@ -116,12 +114,13 @@ export default function JobViewPage() {
                 Upload Rate
               </Button>
             </div>
-            <VendorsTable vendors={vendors} />
+            <VendorsPNPTable vendors={vendors} />
           </>
         )}
         {activeTab === 'approval' && <ApprovalDetails />}
-        {/* job={job} */}
-        {/* You can add other tab components later */}
+        {activeTab === 'checklist' && <Checklist />}
+        {/* {activeTab === 'logs' && <Logs />} */}
+        {activeTab === 'logs' && <DetailLogTable />}
       </div>
     </>
   );

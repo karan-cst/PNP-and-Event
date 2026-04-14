@@ -12,6 +12,7 @@ import {
 } from '@/validators/NEW/update-pnp.schema';
 import { JobFormDataType } from '@/data/jobpnp-data';
 import { RxCross1 } from 'react-icons/rx';
+import Logs from '../../job-management/job-view/Logs';
 
 const UpdateForm = ({
   className,
@@ -37,6 +38,7 @@ const UpdateForm = ({
           <UpdateJob />
         </div>
       </div>
+      {/* <Logs /> */}
     </div>
   );
 };

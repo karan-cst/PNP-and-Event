@@ -1,13 +1,12 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Flex, Switch, Text, Title, Tooltip } from 'rizzui';
+import { ActionIcon, Flex, Text, Title, Tooltip } from 'rizzui';
 import cn from '@core/utils/class-names';
 import PencilIcon from '@core/components/icons/pencil';
 import { formatPrice } from '@/config/format-pricing';
 import { JobFormDataType } from '@/data/jobpnp-data';
-import DateCell from '@core/ui/date-cell';
 import { AiOutlineExport } from 'react-icons/ai';
-import { PiEyeBold } from 'react-icons/pi';
+import {PiMicrosoftExcelLogo } from 'react-icons/pi';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import dayjs from 'dayjs';
@@ -182,7 +181,31 @@ export const JobListColumns = [
       table: {
         options: { meta },
       },
-    }) => <EventEdit job={row.original as JobFormDataType} />,
+    }) => (
+      <div className="flex gap-1">
+        <EventEdit job={row.original as JobFormDataType} />
+        <Flex>
+          <Tooltip
+            size="sm"
+            content={'Download Excel'}
+            placement="top"
+            color="invert"
+          >
+            <ActionIcon
+              as="span"
+              size="sm"
+              variant="outline"
+              aria-label={'Edit Product'}
+              onClick={() => {
+                window.open('/templates/Vendor_Quote_Template.xlsx', '_blank');
+              }}
+            >
+              <PiMicrosoftExcelLogo className="h-4 w-4" />
+            </ActionIcon>
+          </Tooltip>
+        </Flex>
+      </div>
+    ),
   }),
 ];
 
@@ -208,60 +231,3 @@ const EventEdit = ({ job }: { job: JobFormDataType }) => {
     </Flex>
   );
 };
-{
-  /* <Tooltip size="sm" content={'View Job'} placement="top" color="invert">
-        <ActionIcon
-          as="span"
-          size="sm"
-          variant="outline"
-          aria-label={'View Job'}
-          onClick={() => {}}
-        >
-          <PiEyeBold className="h-4 w-4" />
-        </ActionIcon>
-      </Tooltip> */
-}
-
-// const Action = ({ event }: { event: EventDataType }) => {
-//   const router = useRouter();
-
-//   return (
-//     <Flex align="center" justify="start" gap="3" className="pe-4">
-//       <EventEdit event={event} />
-//       <Tooltip
-//         size="sm"
-//         content={'Download Excel'}
-//         placement="top"
-//         color="invert"
-//       >
-//         <ActionIcon
-//           as="span"
-//           size="sm"
-//           variant="outline"
-//           aria-label={'Edit Product'}
-//           onClick={() => {
-//             window.open('/templates/events.xlsx', '_blank');
-//           }}
-//         >
-//           <PiMicrosoftExcelLogo className="h-4 w-4" />
-//         </ActionIcon>
-//       </Tooltip>
-//       <Tooltip
-//         size="sm"
-//         content={'View Vendors'}
-//         placement="top"
-//         color="invert"
-//       >
-//         <ActionIcon
-//           as="span"
-//           size="sm"
-//           variant="outline"
-//           aria-label={'View Vendors'}
-//           onClick={() => router.push('/event-management/vendors')}
-//         >
-//           <PiEyeBold className="h-4 w-4" />
-//         </ActionIcon>
-//       </Tooltip>
-//     </Flex>
-//   );
-// };

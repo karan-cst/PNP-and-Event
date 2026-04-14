@@ -69,6 +69,86 @@ export default function JobSummary({ className }: { className?: string }) {
         error={errors?.jobNo?.message as string}
       />
 
+      {/* <Input
+        label="Requisitioner Name"
+        placeholder="Requisitioner Name"
+        {...register('requisitionerName')}
+        error={errors?.requisitionerName?.message as string}
+      /> */}
+
+      <Controller
+        name="company"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <Select
+            label="Company"
+            inPortal={false}
+            labelClassName="text-sm font-medium text-gray-900"
+            dropdownClassName="h-auto"
+            placeholder="Select Company..."
+            options={[
+              { label: 'Intas', value: 'Intas' },
+              { label: 'Sun Pharma', value: 'Sun Pharma' },
+            ]}
+            onChange={onChange}
+            value={value}
+            getOptionValue={(option) => option.value}
+            displayValue={(selected) =>
+              [
+                { label: 'Intas', value: 'Intas' },
+                { label: 'Sun Pharma', value: 'Sun Pharma' },
+              ]?.find((r) => r.value === selected)?.label ?? ''
+            }
+            error={errors?.role?.message as string}
+          />
+        )}
+      />
+      <Controller
+        name="masterDivision"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <Select
+            label="Master Division"
+            inPortal={false}
+            labelClassName="text-sm font-medium text-gray-900"
+            dropdownClassName="h-auto"
+            placeholder="Select Division..."
+            options={[{ label: 'Arron', value: 'Arron' }]}
+            onChange={onChange}
+            value={value}
+            getOptionValue={(option) => option.value}
+            displayValue={(selected) =>
+              [{ label: 'Arron', value: 'Arron' }]?.find(
+                (r) => r.value === selected
+              )?.label ?? ''
+            }
+            error={errors?.role?.message as string}
+          />
+        )}
+      />
+      <Controller
+        name="requisitionerName"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <Select
+            label="Requisitioner Name"
+            inPortal={false}
+            labelClassName="text-sm font-medium text-gray-900"
+            dropdownClassName="h-auto"
+            placeholder="Select Client..."
+            options={[{ label: 'Rahul Sharma', value: 'Rahul Sharma' }]}
+            onChange={onChange}
+            value={value}
+            getOptionValue={(option) => option.value}
+            displayValue={(selected) =>
+              [{ label: 'Rahul Sharma', value: 'Rahul Sharma' }]?.find(
+                (r) => r.value === selected
+              )?.label ?? ''
+            }
+            error={errors?.role?.message as string}
+          />
+        )}
+      />
       <Controller
         name="date"
         control={control}
@@ -84,25 +164,18 @@ export default function JobSummary({ className }: { className?: string }) {
           />
         )}
       />
-
-      <Input
-        label="Requisitioner Name"
-        placeholder="Requisitioner Name"
-        {...register('requisitionerName')}
-        error={errors?.requisitionerName?.message as string}
-      />
       <Input
         label="Floor"
         placeholder="Floor"
         {...register('floor')}
         error={errors?.floor?.message as string}
       />
-      <Input
+      {/* <Input
         label="Master Division"
         placeholder="Master Division"
         {...register('masterDivision')}
         error={errors?.masterDivision?.message as string}
-      />
+      /> */}
       <Input
         label="Total Qty"
         placeholder="Total Qty"
@@ -129,14 +202,17 @@ export default function JobSummary({ className }: { className?: string }) {
           console.log('value', value);
 
           return (
-            <CheckboxGroup
-              values={value}
-              setValues={onChange}
-              className="flex flex-row items-center gap-4"
-            >
-              <Checkbox label="Print" value="print" />
-              <Checkbox label="Gift" value="gift" />
-            </CheckboxGroup>
+            <div className="col-span-1 flex flex-col gap-2">
+              <Text className="font-bold">Job Type</Text>
+              <CheckboxGroup
+                values={value}
+                setValues={onChange}
+                className="flex flex-row items-center gap-4"
+              >
+                <Checkbox label="Print" value="print" />
+                <Checkbox label="Gift" value="gift" />
+              </CheckboxGroup>
+            </div>
           );
         }}
       />
