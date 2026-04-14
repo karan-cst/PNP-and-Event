@@ -11,6 +11,7 @@ import { exportToCSV } from '@core/utils/export-to-csv';
 import { dummyJobData, JobFormDataType } from '@/data/jobpnp-data';
 import JobPageHeader from './job-page-header';
 import { JobListColumns } from './columns';
+import { JobMobileCard } from './jobMobileCard';
 
 export default function JobTable({
   pageSize = 5,
@@ -93,14 +94,32 @@ export default function JobTable({
       />
 
       {!hideFilters && <Filters table={table} />}
-      <Table
+      {/* <Table
         table={table}
         variant="modern"
         classNames={{
           ...classNames,
           cellClassName: '!py-2', // 👈 KEY FIX
         }}
-      />
+      /> */}
+      <div className="hidden md:block">
+        <Table
+          table={table}
+          variant="modern"
+          classNames={{
+            ...classNames,
+            cellClassName: '!py-2',
+          }}
+        />
+      </div>
+
+      {/* Mobile cards */}
+      <div className="space-y-3 p-2 md:hidden">
+        {table.getRowModel().rows.map((row) => (
+          <JobMobileCard key={row.id} job={row.original} />
+        ))}
+      </div>
+
       {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination

@@ -26,7 +26,7 @@ export default function InquiryPageHeader<T extends Record<string, any>>({
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} className={className}>
         <Flex
-          direction="col"
+          direction="row"
           gap="3"
           className="mb-3 w-full sm:flex-row sm:items-center sm:justify-end"
         >
@@ -40,16 +40,14 @@ export default function InquiryPageHeader<T extends Record<string, any>>({
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />
-          <div className="flex items-center gap-4">
-            <Button
-              as="span"
-              className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-full @lg:mt-0 @lg:w-auto"
-              onClick={() => router.push('/inquiry-management/create-inquiry')}
-            >
-              <PiPlusBold className="h-[15px] w-[15px]" />
-            </Button>
-            <ToggleColumns table={table} />
-          </div>
+          <Button
+            as="span"
+            className="mt-4 w-2 cursor-pointer @sm:mt-0 @sm:w-16 @lg:mt-0 @lg:w-auto"
+            onClick={() => router.push('/inquiry-management/create-inquiry')}
+          >
+            <PiPlusBold className="h-[15px] w-[15px]" />
+          </Button>
+          <ToggleColumns table={table} />
         </Flex>
       </PageHeader>
     </>

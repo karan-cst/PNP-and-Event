@@ -12,6 +12,7 @@ import UserPageHeader from '../user-page-header';
 import { eventDummyData } from '@/data/event-management.data';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { EventMobileCard } from './eventMobileViewCard';
 
 export type EventDataType = (typeof eventDummyData)[number];
 
@@ -112,14 +113,24 @@ export default function EventsTable({
       />
 
       {!hideFilters && <Filters table={table} />}
-      <Table
-        table={table}
-        variant="modern"
-        classNames={{
-          ...classNames,
-          cellClassName: '!py-2', // 👈 KEY FIX
-        }}
-      />
+      <div className="hidden md:block">
+        <Table
+          table={table}
+          variant="modern"
+          classNames={{
+            ...classNames,
+            cellClassName: '!py-2', // 👈 KEY FIX
+          }}
+        />
+      </div>
+
+      {/* Mobile cards */}
+      <div className="space-y-3 p-2 md:hidden">
+        {table.getRowModel().rows.map((row) => (
+          <EventMobileCard key={row.id} event={row.original} />
+        ))}
+      </div>
+
       {!hideFooter && <TableFooter table={table} onExport={handleExportData} />}
       {!hidePagination && (
         <TablePagination

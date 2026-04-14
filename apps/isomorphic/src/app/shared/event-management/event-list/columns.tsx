@@ -1,28 +1,17 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import {
-  ActionIcon,
-  Button,
-  Flex,
-  Select,
-  Switch,
-  Text,
-  Title,
-  Tooltip,
-} from 'rizzui';
+import { ActionIcon, Button, Flex, Select, Text, Title, Tooltip } from 'rizzui';
 import { EventDataType } from './table';
 import cn from '@core/utils/class-names';
 import PencilIcon from '@core/components/icons/pencil';
 import { getStatusBadge } from '@core/components/table-utils/get-status-badge';
 import {
-  PiEyeBold,
   PiMicrosoftExcelLogo,
-  PiPlusBold,
   PiUserSwitchDuotone,
   PiXBold,
 } from 'react-icons/pi';
 import { useModal } from '../../modal-views/use-modal';
-import VendorUploadModal from '../vendor-upload/vendorUpload';
+
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/config/format-pricing';
 import { useState } from 'react';
@@ -82,7 +71,6 @@ export const EventListColumns = (role?: string) => {
         </div>
       ),
     }),
-
     columnHelper.display({
       id: 'elements',
       size: 120,
@@ -102,7 +90,6 @@ export const EventListColumns = (role?: string) => {
         </div>
       ),
     }),
-
     columnHelper.accessor('stdTotal', {
       id: 'stdTotal',
       size: 120,
@@ -140,60 +127,6 @@ export const EventListColumns = (role?: string) => {
       header: 'Status',
       cell: ({ row }) => row.original.status,
     }),
-    // columnHelper.accessor('lowestVendorName', {
-    //   id: 'lowestVendorName',
-    //   size: 150,
-    //   header: 'Lowest vendor',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">
-    //         {`${row.original?.lowestVendorName ? row.original?.lowestVendorName : '-'}`}
-    //       </Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('finalizedBy', {
-    //   id: 'finalizedBy',
-    //   size: 150,
-    //   header: 'Finalized By',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">
-    //         {`${row.original?.finalizedBy ? row.original?.finalizedBy : '-'}`}
-    //       </Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('finalizedVendorName', {
-    //   id: 'finalizedVendorName',
-    //   size: 150,
-    //   header: 'Finalized Vendor',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">{`${row.original?.finalizedVendorName ? row.original?.finalizedVendorName : '-'}`}</Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.accessor('reasonToChoose', {
-    //   id: 'reasonToChoose',
-    //   size: 150,
-    //   header: 'Reason To Choose',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">{`${row.original?.reasonToChoose ? row.original?.reasonToChoose : '-'}`}</Text>
-    //       {/* <Tooltip size="sm" content={'View User'} placement="top" color="invert">
-    //       <ActionIcon
-    //         as="span"
-    //         size="sm"
-    //         variant="outline"
-    //         aria-label={'View Product'}
-    //       >
-    //         <EyeIcon className="h-4 w-4" />
-    //       </ActionIcon>
-    //     </Tooltip> */}
-    //     </div>
-    //   ),
-    // }),
     columnHelper.display({
       id: 'action',
       size: 150,
