@@ -480,6 +480,7 @@ export type JobViewType = {
     ccCode: string;
     Qty: number;
     deliveryPlace: string;
+    deliveryDate: string;
   }[];
   totalQty: number;
   packingQty?: number;
@@ -555,6 +556,7 @@ export const dummyJobViewData: JobViewType = {
       ccCode: '1450',
       Qty: 1000,
       deliveryPlace: 'Matoda',
+      deliveryDate: '30/03/2026',
     },
     {
       division: 'ARTEMIS',
@@ -563,6 +565,7 @@ export const dummyJobViewData: JobViewType = {
       ccCode: '1450',
       Qty: 2000,
       deliveryPlace: 'HQ',
+      deliveryDate: '05/04/2026',
     },
   ],
   totalQty: 3000,

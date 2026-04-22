@@ -20,13 +20,13 @@ export default function Header() {
         <HamburgerButton
           view={<Sidebar className="static w-full 2xl:w-full" />}
         />
-        <Link
+        {/* <Link
           href={'/'}
           aria-label="Site Logo"
           className="me-4 w-9 shrink-0 text-gray-800 hover:text-gray-900 xs:hidden lg:me-5"
         >
           <Logo iconOnly={true} />
-        </Link>
+        </Link> */}
         <div>
           <h6>{session?.user?.name || 'Super Admin'}</h6>
           <p className="font-normal">
@@ -45,7 +45,7 @@ export default function Header() {
             console.log('checked', checked);
             setLayout(checked ? 'beryllium' : 'hydrogen');
           }}
-          className="ml-4"
+          className="ml-4 hidden md:flex"
         />
 
         {/* <SearchWidget /> */}

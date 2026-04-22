@@ -87,6 +87,13 @@ export default function CreateDeliveryLocation({
     { label: 'Sun', value: 'Sun' },
   ];
 
+  const divisionOptions = [
+    { label: 'Arron', value: 'Arron' },
+    { label: 'Altis', value: 'Altis' },
+    { label: 'Optho', value: 'Optho' },
+    { label: 'Ortho', value: 'Ortho' },
+  ];
+
   return (
     <Form<DeliveryLocationnFormInput>
       validationSchema={DeliveryLocationFormSchema}
@@ -119,10 +126,33 @@ export default function CreateDeliveryLocation({
                   {...register('location')}
                   error={errors.location?.message}
                 />
-                <Input
-                  label="Division"
-                  {...register('division')}
-                  error={errors.division?.message as string}
+                <Controller
+                  control={control}
+                  name="division"
+                  render={({ field: { value, onChange }, fieldState }) => {
+                    console.log('value', value);
+                    return (
+                      <Select
+                        label="Divisions"
+                        searchable
+                        clearable
+                        inPortal={false}
+                        placeholder="Select Division..."
+                        dropdownClassName="h-auto top-[43px]"
+                        labelClassName="text-sm font-medium text-gray-900"
+                        options={divisionOptions}
+                        value={value}
+                        onChange={onChange}
+                        onClear={() => onChange([])}
+                        getOptionValue={(option) => option.value}
+                        displayValue={(selected) =>
+                          divisionOptions?.find((r) => r.value === selected)
+                            ?.label ?? 'Select Division...'
+                        }
+                        error={fieldState.error?.message}
+                      />
+                    );
+                  }}
                 />
                 <Controller
                   control={control}
@@ -131,13 +161,14 @@ export default function CreateDeliveryLocation({
                   render={({ field: { value = [], onChange } }) => (
                     <MultiSelect
                       label="Delivery Days"
+                      inPortal={false}
+                      placeholder="Select Divisions..."
+                      className="relative"
+                      dropdownClassName={`h-auto top-[${value.length > 3 ? '100px' : '75px'}] absolute`}
+                      labelClassName="text-sm font-medium text-gray-900"
                       options={dayOptions}
-                      value={value}
-                      onChange={(val) => {
-                        console.log('returned:', val);
-                        onChange(val);
-                      }}
-                      dropdownClassName="!z-[20000]"
+                      value={value || []}
+                      onChange={onChange}
                       clearable
                       onClear={() => onChange([])}
                       error={errors?.deliveryDays?.message as string}
@@ -152,7 +183,7 @@ export default function CreateDeliveryLocation({
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },

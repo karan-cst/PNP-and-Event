@@ -19,7 +19,7 @@ export default function JobDelivery({ className }: { className?: string }) {
       description="Add delivery instruction and detailes"
       className={cn(className)}
     >
-      <Controller
+      {/* <Controller
         name="deliveryDate"
         control={control}
         render={({ field: { value, onChange, onBlur }, fieldState }) => (
@@ -33,7 +33,7 @@ export default function JobDelivery({ className }: { className?: string }) {
             error={fieldState.error?.message}
           />
         )}
-      />
+      /> */}
       <Input
         label="Delivery Comment"
         placeholder="Delivery Comment"

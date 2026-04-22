@@ -161,7 +161,7 @@ export const authOptions: NextAuthOptions = {
         }
         if (email === 'operationHead@oneadvt.com' && password === 'admin') {
           return {
-            id: '10',
+            id: '11',
             name: 'Operation Head',
             email,
             role: 'operationHeadPrint',
@@ -169,7 +169,7 @@ export const authOptions: NextAuthOptions = {
         }
         if (email === 'businessHead@oneadvt.com' && password === 'admin') {
           return {
-            id: '10',
+            id: '12',
             name: 'Business Head',
             email,
             role: 'businessHead',
@@ -177,7 +177,7 @@ export const authOptions: NextAuthOptions = {
         }
         if (email === 'printMng@oneadvt.com' && password === 'admin') {
           return {
-            id: '10',
+            id: '13',
             name: 'Print Manager',
             email,
             role: 'printMng',
@@ -185,7 +185,7 @@ export const authOptions: NextAuthOptions = {
         }
         if (email === 'giftMng@oneadvt.com' && password === 'admin') {
           return {
-            id: '10',
+            id: '14',
             name: 'Gift Manager',
             email,
             role: 'giftMng',
@@ -193,10 +193,26 @@ export const authOptions: NextAuthOptions = {
         }
         if (email === 'delivery@oneadvt.com' && password === 'admin') {
           return {
-            id: '11',
+            id: '15',
             name: 'Delivery User',
             email,
             role: 'deliveryUser',
+          };
+        }
+        if (email === 'pnpHead@oneadvt.com' && password === 'admin') {
+          return {
+            id: '16',
+            name: 'PNP HEAD',
+            email,
+            role: 'pnpHead',
+          };
+        }
+        if (email === 'po@oneadvt.com' && password === 'admin') {
+          return {
+            id: '16',
+            name: 'PO User',
+            email,
+            role: 'poUser',
           };
         }
 

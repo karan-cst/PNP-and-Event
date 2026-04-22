@@ -38,17 +38,13 @@ export default function Header({ className }: { className?: string }) {
           <HamburgerButton
             view={<Sidebar className="static w-full 2xl:w-full" />}
           />
-          <Link
+          {/* <Link
             aria-label="Site Logo"
             href="/"
             className="me-4 w-9 shrink-0 text-gray-800 hover:text-gray-900 lg:me-5 xl:hidden"
           >
             <Logo iconOnly={true} />
-          </Link>
-          {/* <SearchWidget
-            icon={<PiMagnifyingGlass className="me-3 h-[20px] w-[20px]" />}
-            className="xl:w-[500px]"
-          /> */}
+          </Link> */}
           <div>
             <h6>{session?.user?.name || 'Super Admin'}</h6>
             <p className="font-normal">
@@ -69,7 +65,7 @@ export default function Header({ className }: { className?: string }) {
               console.log('checked', checked);
               setLayout(checked ? 'beryllium' : 'hydrogen');
             }}
-            className="ml-4"
+            className="ml-4 hidden md:flex"
           />
         </div>
 

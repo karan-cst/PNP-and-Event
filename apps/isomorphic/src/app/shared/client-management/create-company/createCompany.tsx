@@ -150,7 +150,7 @@ export default function CreateCompany({
                           label="Client From"
                           inPortal={false}
                           labelClassName="text-sm font-medium text-gray-900"
-                          dropdownClassName="h-auto"
+                          dropdownClassName="h-auto top-[43px]"
                           placeholder="Select ..."
                           options={[
                             { label: 'Pharma', value: 'pharma' },
@@ -176,9 +176,8 @@ export default function CreateCompany({
                     render={({ field: { value, onChange } }) => (
                       <Select
                         label="Status"
-                        inPortal={false}
                         labelClassName="text-sm font-medium text-gray-900"
-                        dropdownClassName="h-auto"
+                        dropdownClassName="h-auto z-[9999]"
                         placeholder="Select..."
                         options={[
                           { label: 'Active', value: 'active' },

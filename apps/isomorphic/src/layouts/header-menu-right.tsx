@@ -13,9 +13,14 @@ import { PiArrowsOutBold, PiXBold } from 'react-icons/pi';
 export default function HeaderMenuRight() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   return (
-    <div className="ms-auto grid shrink-0 grid-cols-3 items-center gap-2 text-gray-700 xs:gap-3 xl:gap-4">
+    <div className="ms-auto flex shrink-0 grid-cols-3 items-center justify-end gap-2 text-gray-700 xs:gap-3 md:grid xl:gap-4">
       <Tooltip size="sm" content="Toggle Screen" placement="top" color="invert">
-        <ActionIcon size="sm" variant="text" onClick={toggleFullscreen}>
+        <ActionIcon
+          size="sm"
+          variant="text"
+          onClick={toggleFullscreen}
+          className="hidden md:flex"
+        >
           {isFullscreen ? (
             <PiXBold className="h-5 w-5" />
           ) : (

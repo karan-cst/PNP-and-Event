@@ -145,7 +145,7 @@ export default function CreateHSN({
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },

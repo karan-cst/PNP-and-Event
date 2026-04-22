@@ -20,7 +20,10 @@ export const routes = {
     event: '/vendor-management/event-vendor-management',
   },
   companyManagement: {
-    // pnp: '/client-management/pnp-client-management',
+    pnpCompany: '/client-management/pnp-client-management/company-management',
+    pnpDivision: '/client-management/pnp-client-management/division-management',
+    pnpClient: '/client-management/pnp-client-management/client-management',
+    pnpSbu: '/client-management/pnp-client-management/sbu-management',
     event: '/client-management/event-client-management',
     division: '/event-master/division-management',
     client: '/event-master/client-management',

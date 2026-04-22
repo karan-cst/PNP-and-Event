@@ -35,6 +35,12 @@ export const menuItems = [
       'operationHead',
       'eventUser',
       'csUser',
+      'printExecutive',
+      'deliveryUser',
+      'operationHeadPrint',
+      'printMng',
+      'businessHead',
+      'pnpHead',
     ],
     badge: '',
   },
@@ -124,19 +130,25 @@ export const menuItems = [
         dropdownItems: [
           {
             name: 'Company',
-            href: routes.companyManagement.event,
+            href: routes.companyManagement.pnpCompany,
+            badge: '',
+            roles: ['superAdmin', 'pnpAdmin', 'csUser'],
+          },
+          {
+            name: 'SBU',
+            href: routes.companyManagement.pnpSbu,
             badge: '',
             roles: ['superAdmin', 'pnpAdmin', 'csUser'],
           },
           {
             name: 'Division',
-            href: routes.companyManagement.division,
+            href: routes.companyManagement.pnpDivision,
             badge: '',
             roles: ['superAdmin', 'pnpAdmin', 'csUser'],
           },
           {
             name: 'Client',
-            href: routes.companyManagement.client,
+            href: routes.companyManagement.pnpClient,
             badge: '',
             roles: ['superAdmin', 'pnpAdmin', 'csUser'],
           },
@@ -281,10 +293,16 @@ export const menuItems = [
       },
       {
         name: 'PNP Jobs',
-        href: routes.jobManagement.pnp,
+        href: routes.jobManagement.job,
         badge: '',
         roles: ['superAdmin', 'pnpAdmin'],
       },
+      // {
+      //   name: 'PNP Jobs',
+      //   href: routes.jobManagement.pnp,
+      //   badge: '',
+      //   roles: ['superAdmin', 'pnpAdmin'],
+      // },
     ],
   },
   {
@@ -400,22 +418,30 @@ export const menuItems = [
     name: 'JOB Management',
     href: routes.jobManagement.job,
     icon: <PiPrinterDuotone />,
-    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+    roles: [
+      'csUser',
+      'operationHeadPrint',
+      'businessHead',
+      'printExecutive',
+      'printMng',
+      'giftMng',
+      'pnpHead',
+      'poUser',
+    ],
   },
-
-  {
-    icon: <PiListChecksDuotone />,
-    name: 'JOB Tracker',
-    href: routes.jobManagement.tracker,
-    badge: '',
-    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
-  },
+  // {
+  //   icon: <PiListChecksDuotone />,
+  //   name: 'JOB Tracker',
+  //   href: routes.jobManagement.tracker,
+  //   badge: '',
+  //   roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+  // },
 
   {
     name: 'Inquiry Management',
     href: routes.inquiryManagement.inquiry,
     icon: <PiFile />,
-    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printExecutive'],
+    roles: ['csUser', 'operationHeadPrint', 'businessHead'],
   },
 
   // // label start

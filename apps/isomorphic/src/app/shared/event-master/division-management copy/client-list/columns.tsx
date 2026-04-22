@@ -10,7 +10,7 @@ import {
   PiUserCirclePlusDuotone,
   PiXBold,
 } from 'react-icons/pi';
-import { DivisionDataType } from '../../division-management/division-list/table';
+import { DivisionDataType } from '../../../pnp-master/division-management/division-list/table';
 import { CreateClientModalView } from '../division-page-header';
 
 const columnHelper = createColumnHelper<DivisionClientDataType>();

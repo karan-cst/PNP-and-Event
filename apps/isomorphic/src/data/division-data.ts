@@ -17,6 +17,16 @@ export type Client = {
   createdAt: Date;
   isActive: string;
 };
+export type Sbu = {
+  id: string;
+  company: { _id: string; name: string; isPharma: string };
+  divisionCode: string;
+  ccCode: string;
+  team: string;
+  createdAt: Date;
+  isActive: string;
+  divisions: string[] | null;
+};
 
 export const DivisionData = [
   {
@@ -58,5 +68,18 @@ export const DivisionClientData = [
     phone: '098-765-4321',
     createdAt: '2026-02-10T16:01:40.021Z',
     isActive: 'inactive',
+  },
+];
+
+export const sbuData = [
+  {
+    id: 'SBU001',
+    company: { _id: 'C002', name: 'Intas', isPharma: 'pharma' },
+    divisionCode: 'WHI',
+    ccCode: '1199',
+    createdAt: '2026-02-10T16:01:40.021Z',
+    isActive: 'active',
+    team: 'team1',
+    divisions: ['Altis', 'Arron'],
   },
 ];

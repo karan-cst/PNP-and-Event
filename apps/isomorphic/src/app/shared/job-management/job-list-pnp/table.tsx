@@ -48,7 +48,7 @@ export default function JobTable({
 
   const { table, setData } = useTanStackTable<JobFormDataType>({
     tableData: dummyJobData,
-    columnConfig: JobListColumns,
+    columnConfig: JobListColumns(),
     options: {
       initialState: {
         pagination: {

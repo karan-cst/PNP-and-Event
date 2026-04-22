@@ -8,86 +8,135 @@ import {
   PiEyeBold,
   PiMicrosoftExcelLogo,
   PiCheckFatDuotone,
+  PiXBold,
+  PiUploadBold,
 } from 'react-icons/pi';
 import { ActionIcon } from 'rizzui/action-icon';
 import { Flex } from 'rizzui/flex';
 import { Tooltip } from 'rizzui/tooltip';
 import { useModal } from '../../modal-views/use-modal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
+import { useSession } from 'next-auth/react';
+import { Role } from '@/config/roles';
+import { Title } from 'rizzui/typography';
+import { Button } from 'rizzui/button';
+import { Input } from 'rizzui/input';
 
-const columns = [
-  {
-    header: 'Vendor Name',
-    accessorKey: 'vendorName',
-    id: 'vendorName',
-    cell: ({ row }: any) => (
-      <div className="font-medium">{row.original.vendorName}</div>
-    ),
-  },
-  {
-    header: 'Spoc Name',
-    accessorKey: 'name',
-    id: 'name',
-  },
-  {
-    header: 'Total',
-    accessorKey: 'total',
-    id: 'total',
-    cell: ({ row }: any) => `Rs. ${row.original.total}`,
-  },
-  {
-    header: 'EML Uploaded',
-    accessorKey: 'emlFileUrl',
-    id: 'emlFileUrl',
-    cell: ({ row }: any) =>
-      row.original.emlFileUrl ? (
-        <Tooltip
-          size="sm"
-          content="View EML File"
-          placement="top"
-          color="invert"
-        >
-          <ActionIcon size="sm" variant="outline">
-            <AiTwotoneMail className="h-4 w-4" />
-          </ActionIcon>
-        </Tooltip>
-      ) : (
-        '-'
+const columns = () => {
+  return [
+    {
+      header: 'Vendor Name',
+      accessorKey: 'vendorName',
+      id: 'vendorName',
+      cell: ({ row }: any) => (
+        <div className="font-medium">{row.original.vendorName}</div>
       ),
-  },
-  {
-    header: 'Excel Uploaded',
-    accessorKey: 'excelFileUrl',
-    id: 'excelFileUrl',
-    cell: ({ row }: any) =>
-      row.original.excelFileUrl ? (
-        <Tooltip
-          size="sm"
-          content="Download Excel File"
-          placement="top"
-          color="invert"
-        >
-          <ActionIcon size="sm" variant="outline">
-            <PiMicrosoftExcelLogo className="h-4 w-4" />
-          </ActionIcon>
-        </Tooltip>
-      ) : (
-        '-'
-      ),
-  },
-  {
-    header: 'Action',
-    id: 'action',
-    cell: ({ row }: any) => <Action row={row} />,
-  },
-];
+    },
+    {
+      header: 'Spoc Name',
+      accessorKey: 'name',
+      id: 'name',
+    },
+    {
+      header: 'Total',
+      accessorKey: 'total',
+      id: 'total',
+      cell: ({ row }: any) => `Rs. ${row.original.total}`,
+    },
+    {
+      header: 'EML Uploaded',
+      accessorKey: 'emlFileUrl',
+      id: 'emlFileUrl',
+      cell: ({ row }: any) =>
+        row.original.emlFileUrl ? (
+          <Tooltip
+            size="sm"
+            content="View EML File"
+            placement="top"
+            color="invert"
+          >
+            <ActionIcon size="sm" variant="outline">
+              <AiTwotoneMail className="h-4 w-4" />
+            </ActionIcon>
+          </Tooltip>
+        ) : (
+          '-'
+        ),
+    },
+    {
+      header: 'Excel Uploaded',
+      accessorKey: 'excelFileUrl',
+      id: 'excelFileUrl',
+      cell: ({ row }: any) =>
+        row.original.excelFileUrl ? (
+          <Tooltip
+            size="sm"
+            content="Download Excel File"
+            placement="top"
+            color="invert"
+          >
+            <ActionIcon size="sm" variant="outline">
+              <PiMicrosoftExcelLogo className="h-4 w-4" />
+            </ActionIcon>
+          </Tooltip>
+        ) : (
+          '-'
+        ),
+    },
+    {
+      header: 'Action',
+      id: 'action',
+      cell: ({ row }: any) => <Action row={row} />,
+    },
+  ];
+};
 
 const Action = ({ row }: { row: null }) => {
   const { openModal, closeModal } = useModal();
-
+  const allowApprove = ['printMng', 'pnpHead'];
+  const session = useSession();
+  const role = session?.data?.user?.role;
   return (
     <Flex align="center" gap="3">
-      <Tooltip size="sm" content="Edit Vendor" placement="top" color="invert">
+      <Tooltip size="sm" content="Update Rate" placement="top" color="invert">
+        <ActionIcon
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            openModal({
+              view: (
+                <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+                  <div className="mb-7 flex items-center justify-between">
+                    <Title as="h4" className="font-semibold">
+                      Update Rate
+                    </Title>
+                    <ActionIcon size="sm" variant="text" onClick={closeModal}>
+                      <PiXBold className="h-auto w-5" />
+                    </ActionIcon>
+                  </div>
+                  <div className="space-y-4">
+                    {/* Vendor Selection */}
+                    <Input
+                      type="number"
+                      label="Updated Rate"
+                      placeholder="Enter Amount"
+                    />
+                    <div className="flex justify-end gap-3 pt-3">
+                      <Button variant="outline" onClick={closeModal}>
+                        Cancel
+                      </Button>
+                      <Button onClick={() => {}}>Submit</Button>
+                    </div>
+                  </div>
+                </div>
+              ),
+            });
+          }}
+        >
+          <PencilIcon className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+      <Tooltip size="sm" content="Upload Excel" placement="top" color="invert">
         <ActionIcon
           size="sm"
           variant="outline"
@@ -99,33 +148,21 @@ const Action = ({ row }: { row: null }) => {
             });
           }}
         >
-          <PencilIcon className="h-4 w-4" />
+          <PiUploadBold className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
-      {/* <Tooltip size="sm" content="View Elements" placement="top" color="invert">
-        <ActionIcon
+      {role && allowApprove.includes(role) && (
+        <Tooltip
           size="sm"
-          variant="outline"
-          onClick={() => {
-            openModal({
-              view: <VendorViewModalView />,
-              customSize: 900,
-            });
-          }}
+          content="Approve Vendor"
+          placement="top"
+          color="invert"
         >
-          <PiEyeBold className="h-4 w-4" />
-        </ActionIcon>
-      </Tooltip> */}
-      <Tooltip
-        size="sm"
-        content="Approve Vendor"
-        placement="top"
-        color="invert"
-      >
-        <ActionIcon size="sm" variant="outline" onClick={() => {}}>
-          <PiCheckFatDuotone className="h-4 w-4" />
-        </ActionIcon>
-      </Tooltip>
+          <ActionIcon size="sm" variant="outline" onClick={() => {}}>
+            <PiCheckFatDuotone className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip>
+      )}
     </Flex>
   );
 };
@@ -161,7 +198,7 @@ export default function VendorsPNPTable({
 }) {
   const { table, setData } = useTanStackTable({
     tableData: vendors,
-    columnConfig: columns,
+    columnConfig: columns(),
     options: {
       initialState: {
         pagination: {

@@ -95,12 +95,12 @@ export const HSNListColumns = [
 const HSNEdit = ({ hsn }: { hsn: HSNDataType }) => {
   const { openModal } = useModal();
   return (
-    <Tooltip size="sm" content={'Edit Vendor'} placement="top" color="invert">
+    <Tooltip size="sm" content={'Edit HSN'} placement="top" color="invert">
       <ActionIcon
         as="span"
         size="sm"
         variant="outline"
-        aria-label={'Edit Vendor'}
+        aria-label={'Edit HSN'}
         onClick={() =>
           openModal({
             view: <CreateHSNModalView hsn={hsn} />,

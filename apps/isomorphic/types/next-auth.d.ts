@@ -23,7 +23,9 @@ declare module 'next-auth' {
         | 'operationHeadPrint'
         | 'businessHead'
         | 'printMng'
-        | 'giftMng';
+        | 'giftMng'
+        | 'pnpHead'
+        | 'poUser';
     } & DefaultSession['user'];
   }
 
@@ -44,7 +46,9 @@ declare module 'next-auth' {
       | 'operationHeadPrint'
       | 'businessHead'
       | 'printMng'
-      | 'giftMng';
+      | 'giftMng'
+      | 'pnpHead'
+      | 'poUser';
   }
 }
 
@@ -66,7 +70,9 @@ declare module 'next-auth/jwt' {
       | 'operationHeadPrint'
       | 'businessHead'
       | 'printMng'
-      | 'giftMng';
+      | 'giftMng'
+      | 'pnpHead'
+      | 'poUser';
     id?: string;
   }
 }

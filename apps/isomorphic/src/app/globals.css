@@ -429,8 +429,8 @@ select:-webkit-autofill:focus {
   @apply hover:rounded-full hover:bg-gray-100 hover:text-gray-900;
 }
 
-.react-datepicker .react-datepicker__day:not([aria-disabled=true]):hover{
-  @apply text-gray-0 bg-gray-900;
+.react-datepicker .react-datepicker__day:not([aria-disabled='true']):hover {
+  @apply bg-gray-900 text-gray-0;
 }
 
 /* outside month */
@@ -483,7 +483,8 @@ select:-webkit-autofill:focus {
   @apply hover:bg-gray-900/80 hover:text-gray-0;
 }
 
-.react-datepicker .react-datepicker__month-text:not([aria-disabled=true]):hover{
+.react-datepicker
+  .react-datepicker__month-text:not([aria-disabled='true']):hover {
   @apply bg-gray-900 text-gray-0;
 }
 
@@ -928,7 +929,8 @@ td.rc-table-cell-fix-right {
 }
 
 .radial-progress-bar {
-  background: radial-gradient(closest-side, #f1f1f1 85%, transparent 90% 100%),
+  background:
+    radial-gradient(closest-side, #f1f1f1 85%, transparent 90% 100%),
     conic-gradient(var(--progress-bg) var(--progress-value), #ddd 0);
 }
 
@@ -1531,4 +1533,8 @@ div[style='z-index: 1000001;'],
 }
 .custom-scrollbar:hover::-webkit-scrollbar-thumb {
   @apply rounded-md bg-gray-400/70;
+}
+
+.react-datepicker__close-icon::after {
+  background-color: black !important;
 }

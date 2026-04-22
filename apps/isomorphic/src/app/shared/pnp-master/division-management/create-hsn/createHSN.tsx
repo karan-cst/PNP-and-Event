@@ -117,13 +117,41 @@ export default function CreateDivisin({
                 />
                 <Controller
                   control={control}
+                  name="company"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      label="Company"
+                      inPortal={false}
+                      searchable
+                      labelClassName="text-sm font-medium text-gray-900"
+                      dropdownClassName="h-auto top-[43px]"
+                      placeholder="Select Company..."
+                      options={[
+                        { label: 'Intas', value: 'Intas' },
+                        { label: 'Sun Pharma', value: 'Sun Pharma' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { label: 'Intas', value: 'Intas' },
+                          { label: 'Sun Pharma', value: 'Sun Pharma' },
+                        ]?.find((r) => r.value === selected)?.label ?? ''
+                      }
+                      error={errors?.isActive?.message as string}
+                    />
+                  )}
+                />
+                <Controller
+                  control={control}
                   name="isActive"
                   render={({ field: { value, onChange } }) => (
                     <Select
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },

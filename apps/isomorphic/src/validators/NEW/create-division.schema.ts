@@ -38,9 +38,22 @@ export const DivisionUserFormWithClientSchema = z.object({
   isActive: z.string(),
 });
 
+export const SBUFormSchema = z.object({
+  divisionCode: z
+    .string()
+    .trim()
+    .min(1, { message: 'Division code is required' }),
+  ccCode: z.string().trim().min(1, { message: 'CC Code is required' }),
+  isActive: z.string(),
+  team: z.string(),
+  company: z.string().min(1, { message: 'Company name is required' }),
+  divisions: z.array(z.string()),
+});
+
 // generate form types from zod validation schema
 export type DivisionFormInput = z.infer<typeof DivisionFormSchema>;
 export type DivisionUserFormInput = z.infer<typeof DivisionUserFormSchema>;
 export type DivisionUserFormWithClientInput = z.infer<
   typeof DivisionUserFormWithClientSchema
 >;
+export type SBUFormInput = z.infer<typeof SBUFormSchema>;

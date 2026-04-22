@@ -25,8 +25,8 @@ import PrintData from './print-data';
 
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: JobSummary,
-  [formParts.code]: JobCode,
   [formParts.delivery]: JobDelivery,
+  [formParts.code]: JobCode,
   [formParts.print]: PrintData,
   [formParts.gift]: GiftInstruction,
 };

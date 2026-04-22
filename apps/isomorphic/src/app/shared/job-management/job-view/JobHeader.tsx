@@ -7,7 +7,7 @@ type Props = {
 export default function JobHeader({ job }: Props) {
   return (
     <div className="rounded-lg border bg-[#F1F1F1] p-6 shadow-sm">
-      <div className="grid grid-cols-3 gap-6 text-sm">
+      <div className="grid grid-cols-2 gap-6 text-sm sm:grid-cols-3">
         {/* Left Side */}
         <div className="space-y-2">
           <p>
@@ -48,6 +48,9 @@ export default function JobHeader({ job }: Props) {
           </p>
           <p>
             <strong>HSN Code:</strong> {job.hsnCode}
+          </p>
+          <p>
+            <strong>FInalized Vendor:</strong> ABC
           </p>
         </div>
       </div>

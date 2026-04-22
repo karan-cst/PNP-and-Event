@@ -3,8 +3,8 @@ import { Link } from 'react-scroll';
 
 export const formParts = {
   summary: 'summary',
-  code: 'code',
   delivery: 'delivery',
+  code: 'code',
   print: 'print',
   // product: 'product',
   // description: 'description',
@@ -18,12 +18,12 @@ export const menuItems = [
     value: formParts.summary,
   },
   {
-    label: 'Code',
-    value: formParts.code,
-  },
-  {
     label: 'Delivery',
     value: formParts.delivery,
+  },
+  {
+    label: 'Code',
+    value: formParts.code,
   },
   {
     label: 'Print Detailes',

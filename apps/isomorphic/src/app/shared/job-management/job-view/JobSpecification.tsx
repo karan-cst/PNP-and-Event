@@ -1,4 +1,5 @@
 import { JobViewType } from '@/data/jobpnp-data';
+import { useState } from 'react';
 import { Text } from 'rizzui/typography';
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 
 export default function JobSpecifications({ job }: Props) {
   const spec = job.specifications;
+  const [activeTab, setActiveTab] = useState<string>('0');
 
   return (
     <div className="space-y-6">
@@ -26,13 +28,13 @@ export default function JobSpecifications({ job }: Props) {
                 <strong>SAP Code:</strong> {division.sapCode}
               </p>
               <p>
-                <strong>Print SAP Code:</strong> {division.printsapCode}
-              </p>
-              <p>
                 <strong>Qty:</strong> {division.Qty}
               </p>
               <p>
                 <strong>Delivery Location:</strong> {division.deliveryPlace}
+              </p>
+              <p>
+                <strong>Delivery Date:</strong> {division.deliveryDate}
               </p>
             </div>
           ))}
@@ -165,12 +167,15 @@ export default function JobSpecifications({ job }: Props) {
 
       <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
         <Text className="text-lg font-bold">Packing Details</Text>
-        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 text-sm md:grid-cols-6">
           {job.packingType.map((packing, index) => (
             <p className="text-sm" key={index}>
               <strong>{packing}</strong>
             </p>
           ))}
+          <p>
+            <strong>Total Qty:</strong> 1000
+          </p>
           <p>
             <strong>Packing Qty:</strong> 100
           </p>
@@ -178,6 +183,47 @@ export default function JobSpecifications({ job }: Props) {
             <strong>Master Packing Qty:</strong> 10
           </p>
         </div>
+      </div>
+
+      <div className="space-y-2 rounded-lg border bg-white p-6 text-sm shadow-sm">
+        <Text className="text-lg font-bold">Sample FIles</Text>
+        <div className="flex gap-6 border-b text-sm font-medium">
+          {[
+            {
+              key: '0',
+              label: 'Sample 1',
+            },
+            {
+              key: '1',
+              label: 'Sample 2',
+            },
+            {
+              key: '2',
+              label: 'Sample 3',
+            },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as any)}
+              className={`pb-3 ${
+                activeTab === tab.key
+                  ? 'border-b-2 border-black font-semibold text-black'
+                  : 'text-gray-600'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        {activeTab === '0' && (
+          <Text>Sample Image or PDF will be displayed here.</Text>
+        )}
+        {activeTab === '1' && (
+          <Text>Sample Image or PDF will be displayed here.</Text>
+        )}
+        {activeTab === '2' && (
+          <Text>Sample Image or PDF will be displayed here.</Text>
+        )}
       </div>
     </div>
   );

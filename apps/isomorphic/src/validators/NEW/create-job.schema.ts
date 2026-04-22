@@ -22,19 +22,10 @@ export const jobFormSchema = z
   .object({
     // 1️⃣ Basic Job Info
     jobName: z.string().min(1, 'Job name is required'),
-
-    //   jobNo: z.string().min(1, 'Job number is required'),
-
     date: z.coerce.date({
       required_error: 'Date is required',
     }),
-
-    // 2️⃣ Accounting Codes
     glCode: z.string().min(1, 'GL Code is required'),
-
-    // sapCode: z.string().min(1, 'SAP Code is required'),
-    // printsapCode: z.string().min(1, ' Print SAP Code is required'),
-    // ccCode: z.string().min(1, 'CC Code is required'),
     hsnCode: z.string().min(1, 'HSN Code is required'),
     packingTypes: z
       .array(
@@ -43,28 +34,21 @@ export const jobFormSchema = z
         })
       )
       .min(1, 'At least one packing type must be selected'),
-
-    // 3️⃣ Requester Info
     requisitionerName: z.string().min(1, 'Requisitioner name is required'),
-
     floor: z.string().min(1, 'Floor is required'),
-    masterDivision: z.string().min(1, 'Master division is required'),
-    // division: z.string().min(1, 'Division is required'),
-
+    masterDivision: z.string().optional(),
+    sbuDivision: z.string().optional(),
     divisions: z
       .array(
         z.object({
           division: z.string().min(1, 'Division is required'),
           sapCode: z.string().min(1, 'SAP Code is required'),
-          printsapCode: z.string().min(1, ' PrintSAP Code is required'),
           ccCode: z.string().min(1, 'CC Code is required'),
           Qty: z.coerce.number().min(1, 'Total quantity must be at least 1'),
           deliveryPlace: z.string().min(1, 'Delivery place is required'),
         })
       )
       .min(1, 'At least one division must be selected'),
-
-    // 4️⃣ Delivery Details
     totalQty: z.coerce.number().min(1, 'Total quantity must be at least 1'),
     masterBoxQty: z.coerce
       .number()
@@ -129,20 +113,36 @@ export const jobFormSchema = z
       required_error: 'Print executive status is required',
     }),
 
-    giftSpecialInstructions: z.array(
-      z.object({
-        text: z
-          .string()
-          .min(2, 'Instruction must be at least 2 characters long'),
-        descriptionStatus: z.enum(['approved', 'rejected'], {
-          required_error: 'Description status is required',
-        }),
-      })
-    ),
+    giftSpecialInstructions: z
+      .array(
+        z.object({
+          text: z
+            .string()
+            .min(2, 'Instruction must be at least 2 characters long'),
+          descriptionStatus: z.enum(['approved', 'rejected'], {
+            required_error: 'Description status is required',
+          }),
+        })
+      )
+      .optional(),
 
     giftInstruction: giftInstructionSchema.optional(),
   })
   .superRefine((data, ctx) => {
+    console.log(data.jobType);
+    if (!data.masterDivision?.trim() && !data.sbuDivision?.trim()) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Either Master Division or SBU Division is required',
+        path: ['masterDivision'],
+      });
+
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Either Master Division or SBU Division is required',
+        path: ['sbuDivision'],
+      });
+    }
     if (data.jobType?.includes('gift')) {
       if (!data.giftInstruction) {
         ctx.addIssue({

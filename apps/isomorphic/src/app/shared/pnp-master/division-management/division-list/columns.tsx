@@ -36,6 +36,19 @@ export const DivisionListColumns = [
     header: 'CC Code',
     cell: ({ row }) => <Text className="text-sm">{row.original.ccCode}</Text>,
   }),
+  columnHelper.display({
+    id: 'company',
+    size: 150,
+    header: 'Company',
+    cell: ({ row }) => (
+      <div className={cn('grid gap-1')}>
+        <Title as="h5" className="!text-sm font-medium">
+          {row.original.company.name}
+        </Title>
+        <Text className="text-sm">{row.original.company.isPharma}</Text>
+      </div>
+    ),
+  }),
   columnHelper.accessor('createdAt', {
     id: 'createdAt',
     size: 200,
@@ -71,24 +84,6 @@ export const DivisionListColumns = [
       </Flex>
     ),
   }),
-  // columnHelper.display({
-  //   id: 'isActive',
-  //   size: 120,
-  //   header: 'Is Active',
-  //   cell: ({ row }) => (
-  //     <Switch
-  //       // label="Free Shipping"
-  //       className="col-span-full"
-  //       value={row.original.isActive ? 'true' : 'false'}
-  //       checked={row.original.isActive}
-  //       onChange={(e) =>
-  //         e.target.value == 'true'
-  //           ? (row.original.isActive = true)
-  //           : (row.original.isActive = false)
-  //       }
-  //     />
-  //   ),
-  // }),
 ];
 
 const DivisionEdit = ({ division }: { division: DivisionDataType }) => {

@@ -153,9 +153,9 @@ export default function CreateVendor({
                   render={({ field: { value, onChange } }) => (
                     <Select
                       label="City"
-                      inPortal={false}
-                      labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      // inPortal={false}
+                      searchable
+                      dropdownClassName="h-auto z-[9999]"
                       placeholder="Select city..."
                       options={[
                         { label: 'Ahmedabad', value: 'Ahemdabad' },

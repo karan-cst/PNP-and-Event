@@ -43,11 +43,11 @@ export const companyData = [
     isActive: 'active',
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
-    isGSTApplicable: false,
-    GSTNumber: null,
-    pannumber: null,
-    MSMECertificate: null,
-    GSTCertificate: null,
+    isGSTApplicable: true,
+    GSTNumber: '24AABCI1234Q1Z5',
+    pannumber: 'AABCI1234Q',
+    MSMECertificate: 'https://example.com/msme-certificate.pdf',
+    GSTCertificate: 'https://example.com/gst-certificate.pdf',
   },
   {
     id: 'C001',

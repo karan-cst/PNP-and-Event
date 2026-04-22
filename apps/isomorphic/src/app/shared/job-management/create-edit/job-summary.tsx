@@ -33,7 +33,6 @@ export default function JobSummary({ className }: { className?: string }) {
     control,
     name: 'divisions',
   });
-  const jobType = watch('jobType');
   const divisions = useWatch({
     control,
     name: 'divisions',
@@ -49,6 +48,9 @@ export default function JobSummary({ className }: { className?: string }) {
       shouldDirty: true,
     });
   }, [divisions, setValue]);
+
+  const masterDivision = watch('masterDivision');
+  const sbuDivision = watch('sbuDivision');
 
   return (
     <FormGroup
@@ -68,36 +70,54 @@ export default function JobSummary({ className }: { className?: string }) {
         {...register('jobNo')}
         error={errors?.jobNo?.message as string}
       />
-
-      {/* <Input
-        label="Requisitioner Name"
-        placeholder="Requisitioner Name"
-        {...register('requisitionerName')}
-        error={errors?.requisitionerName?.message as string}
-      /> */}
-
       <Controller
         name="company"
         control={control}
         render={({ field: { value, onChange, onBlur }, fieldState }) => (
           <Select
-            label="Company"
-            inPortal={false}
-            labelClassName="text-sm font-medium text-gray-900"
             dropdownClassName="h-auto"
-            placeholder="Select Company..."
             options={[
               { label: 'Intas', value: 'Intas' },
               { label: 'Sun Pharma', value: 'Sun Pharma' },
             ]}
-            onChange={onChange}
+            searchable
+            clearable
+            onClear={() => onChange('')}
             value={value}
+            onChange={onChange}
+            label="Company"
+            error={errors?.role?.message as string}
             getOptionValue={(option) => option.value}
             displayValue={(selected) =>
               [
                 { label: 'Intas', value: 'Intas' },
                 { label: 'Sun Pharma', value: 'Sun Pharma' },
               ]?.find((r) => r.value === selected)?.label ?? ''
+            }
+            placeholder="Select Company..."
+          />
+        )}
+      />
+      <Controller
+        name="sbuDivision"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <Select
+            label="SBU Division"
+            dropdownClassName="h-auto"
+            placeholder="Select SBU..."
+            searchable
+            clearable
+            onClear={() => onChange('')}
+            disabled={!!masterDivision}
+            options={[{ label: 'WHI', value: 'WHI' }]}
+            onChange={onChange}
+            value={value}
+            getOptionValue={(option) => option.value}
+            displayValue={(selected) =>
+              [{ label: 'WHI', value: 'WHi' }]?.find(
+                (r) => r.value === selected
+              )?.label ?? 'Select SBU ...'
             }
             error={errors?.role?.message as string}
           />
@@ -109,10 +129,12 @@ export default function JobSummary({ className }: { className?: string }) {
         render={({ field: { value, onChange, onBlur }, fieldState }) => (
           <Select
             label="Master Division"
-            inPortal={false}
-            labelClassName="text-sm font-medium text-gray-900"
             dropdownClassName="h-auto"
             placeholder="Select Division..."
+            searchable
+            clearable
+            onClear={() => onChange('')}
+            disabled={!!sbuDivision}
             options={[{ label: 'Arron', value: 'Arron' }]}
             onChange={onChange}
             value={value}
@@ -132,10 +154,12 @@ export default function JobSummary({ className }: { className?: string }) {
         render={({ field: { value, onChange, onBlur }, fieldState }) => (
           <Select
             label="Requisitioner Name"
-            inPortal={false}
             labelClassName="text-sm font-medium text-gray-900"
             dropdownClassName="h-auto"
             placeholder="Select Client..."
+            searchable
+            clearable
+            onClear={() => onChange('')}
             options={[{ label: 'Rahul Sharma', value: 'Rahul Sharma' }]}
             onChange={onChange}
             value={value}
@@ -143,7 +167,7 @@ export default function JobSummary({ className }: { className?: string }) {
             displayValue={(selected) =>
               [{ label: 'Rahul Sharma', value: 'Rahul Sharma' }]?.find(
                 (r) => r.value === selected
-              )?.label ?? ''
+              )?.label ?? 'Select Client...'
             }
             error={errors?.role?.message as string}
           />
@@ -170,12 +194,6 @@ export default function JobSummary({ className }: { className?: string }) {
         {...register('floor')}
         error={errors?.floor?.message as string}
       />
-      {/* <Input
-        label="Master Division"
-        placeholder="Master Division"
-        {...register('masterDivision')}
-        error={errors?.masterDivision?.message as string}
-      /> */}
       <Input
         label="Total Qty"
         placeholder="Total Qty"
@@ -217,24 +235,33 @@ export default function JobSummary({ className }: { className?: string }) {
         }}
       />
       <Controller
-        name="packingType"
+        name="packingTypes"
         control={control}
-        render={({ field: { value, onChange, onBlur }, fieldState }) => (
-          <div className="col-span-2 flex flex-col gap-2">
-            <Text className="font-bold">Packing Type</Text>
-            <CheckboxGroup
-              values={value || []}
-              setValues={onChange}
-              className="flex flex-row gap-5"
-            >
-              <Checkbox value="bubble" label="Bubble" />
-              <Checkbox value="shrink" label="Shrink" />
-              <Checkbox value="thermocol" label="Thermocol" />
-              <Checkbox value="polythin" label="Polythin Pack" />
-              <Checkbox value="bibo" label="BIBO" />
-            </CheckboxGroup>
-          </div>
-        )}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => {
+          console.log('fieldState', value, fieldState);
+          return (
+            <div className="col-span-2 flex flex-col gap-2">
+              <Text className="font-bold">Packing Type</Text>
+              <CheckboxGroup
+                values={value || []}
+                setValues={onChange}
+                className="flex flex-row gap-5"
+              >
+                <Checkbox value="bubble" label="Bubble" />
+                <Checkbox value="shrink" label="Shrink" />
+                <Checkbox value="thermocol" label="Thermocol" />
+                <Checkbox value="polythin" label="Polythin Pack" />
+                <Checkbox value="bibo" label="BIBO" />
+              </CheckboxGroup>
+
+              {fieldState.error && (
+                <Text className="text-sm text-red-500">
+                  {fieldState.error.message}
+                </Text>
+              )}
+            </div>
+          );
+        }}
       />
       <div className="col-span-full flex justify-end">
         <Button
@@ -276,9 +303,36 @@ export default function JobSummary({ className }: { className?: string }) {
             <div key={field.id}>
               {/* inner grid */}
               <div className="grid grid-cols-1 gap-6 @2xl:grid-cols-6 @3xl:grid-cols-6">
-                <Input
+                {/* <Input
                   label="Division"
                   {...register(`divisions.${index}.division`)}
+                /> */}
+                <Controller
+                  name={`divisions.${index}.division`}
+                  control={control}
+                  render={({
+                    field: { value, onChange, onBlur },
+                    fieldState,
+                  }) => (
+                    <Select
+                      label="Division"
+                      dropdownClassName="h-auto"
+                      placeholder="Division..."
+                      searchable
+                      clearable
+                      onClear={() => onChange('')}
+                      options={[{ label: 'Arron', value: 'Arron' }]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [{ label: 'Arron', value: 'Arron' }]?.find(
+                          (r) => r.value === selected
+                        )?.label ?? ''
+                      }
+                      error={errors?.role?.message as string}
+                    />
+                  )}
                 />
 
                 <Input
@@ -287,24 +341,62 @@ export default function JobSummary({ className }: { className?: string }) {
                 />
 
                 <Input
-                  label="Print SAP Code"
-                  {...register(`divisions.${index}.printsapCode`)}
-                />
-
-                <Input
                   label="CC Code"
                   {...register(`divisions.${index}.ccCode`)}
                 />
-
                 <Input
                   type="number"
                   label="Qty"
                   {...register(`divisions.${index}.Qty`)}
                 />
-
-                <Input
+                {/* <Input
                   label="Delivery Place"
                   {...register(`divisions.${index}.deliveryPlace`)}
+                /> */}
+                <Controller
+                  name={`divisions.${index}.deliveryPlace`}
+                  control={control}
+                  render={({
+                    field: { value, onChange, onBlur },
+                    fieldState,
+                  }) => (
+                    <Select
+                      label="Delivery Place"
+                      dropdownClassName="h-auto"
+                      placeholder="Delivery Place..."
+                      searchable
+                      clearable
+                      onClear={() => onChange('')}
+                      options={[{ label: 'Matoda', value: 'Matoda' }]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [{ label: 'Matoda', value: 'Matoda' }]?.find(
+                          (r) => r.value === selected
+                        )?.label ?? 'Delivery Place...'
+                      }
+                      error={errors?.role?.message as string}
+                    />
+                  )}
+                />
+                <Controller
+                  name="deliveryDate"
+                  control={control}
+                  render={({
+                    field: { value, onChange, onBlur },
+                    fieldState,
+                  }) => (
+                    <DatePicker
+                      inputProps={{ label: 'Date' }}
+                      placeholderText="Delivery Date"
+                      dateFormat="dd/MM/yyyy"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      selected={value}
+                      error={fieldState.error?.message}
+                    />
+                  )}
                 />
               </div>
             </div>

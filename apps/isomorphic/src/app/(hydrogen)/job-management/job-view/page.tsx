@@ -11,11 +11,14 @@ import VendorUploadModal from '@/app/shared/job-management/vendor-upload/vendorU
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import PageHeader from '@/app/shared/page-header';
 import { dummyJobViewData, JobViewType } from '@/data/jobpnp-data';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import { Button } from 'rizzui/button';
 
 export default function JobViewPage() {
+  const session = useSession();
+  const role = session?.data?.user?.role;
   const [vendors, setVendors] = useState<any[]>([
     {
       id: 1,
@@ -72,6 +75,68 @@ export default function JobViewPage() {
     });
   };
 
+  const tabs = [
+    {
+      key: 'spec',
+      label: 'Job Specifications',
+      roles: [
+        'csUser',
+        'printExecutive',
+        'operationHeadPrint',
+        'businessHead',
+        'printMng',
+        'giftMng',
+        'deliveryUser',
+        'pnpHead',
+      ],
+    },
+    {
+      key: 'vendor',
+      label: 'Vendor Rate',
+      roles: [
+        'printMng',
+        'giftMng',
+        'pnpHead',
+        'operationHeadPrint',
+        // 'businessHead',
+      ],
+    },
+    {
+      key: 'approval',
+      label: 'Approval Details',
+      roles: [
+        'printExecutive',
+        'operationHeadPrint',
+        'businessHead',
+        'giftMng',
+        'pnpHead',
+      ],
+    },
+    {
+      key: 'checklist',
+      label: 'Printing Checklist',
+      roles: ['printExecutive', 'pnpHead'],
+    },
+    {
+      key: 'logs',
+      label: 'Logs',
+      roles: [
+        'csUser',
+        'printExecutive',
+        'operationHeadPrint',
+        'businessHead',
+        'printMng',
+        'giftMng',
+        'deliveryUser',
+        'pnpHead',
+      ],
+    },
+  ];
+
+  const allowedTabs = role
+    ? tabs.filter((tab) => tab.roles.includes(role))
+    : [];
+
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
@@ -82,14 +147,7 @@ export default function JobViewPage() {
 
         {/* Tabs */}
         <div className="flex gap-6 border-b text-sm font-medium">
-          {[
-            { key: 'spec', label: 'Job Specifications' },
-            { key: 'vendor', label: 'Vendor Rate' },
-            { key: 'approval', label: 'Approval Details' },
-            { key: 'checklist', label: 'Printing Checklist' },
-            // { key: 'delivery', label: 'Delivery Details' },
-            { key: 'logs', label: 'Logs' },
-          ].map((tab) => (
+          {allowedTabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key as any)}
@@ -119,7 +177,6 @@ export default function JobViewPage() {
         )}
         {activeTab === 'approval' && <ApprovalDetails />}
         {activeTab === 'checklist' && <Checklist />}
-        {/* {activeTab === 'logs' && <Logs />} */}
         {activeTab === 'logs' && <DetailLogTable />}
       </div>
     </>
