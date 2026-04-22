@@ -703,22 +703,22 @@ export const berylliumMenuItems: MenuItemsType[] = [
       },
     ],
   },
-  {
-    id: '17',
-    name: 'Clients',
-    title: 'Clients',
-    icon: FaUserGroup,
-    roles: ['deliveryUser'],
-    isExpnad: false,
-    menuItems: [
-      {
-        name: 'Client Delivery',
-        href: routes.deliveryManagement.client,
-        icon: FaUserGroup,
-        roles: ['deliveryUser'],
-      },
-    ],
-  },
+  // {
+  //   id: '17',
+  //   name: 'Clients',
+  //   title: 'Clients',
+  //   icon: FaUserGroup,
+  //   roles: ['deliveryUser'],
+  //   isExpnad: false,
+  //   menuItems: [
+  //     {
+  //       name: 'Client Delivery',
+  //       href: routes.deliveryManagement.client,
+  //       icon: FaUserGroup,
+  //       roles: ['deliveryUser'],
+  //     },
+  //   ],
+  // },
 
   // *******************old******************** //
   // {

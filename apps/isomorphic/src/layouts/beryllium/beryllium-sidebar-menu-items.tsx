@@ -2,6 +2,8 @@ import { DUMMY_ID } from '@/config/constants';
 import { routes } from '@/config/routes';
 import { drop } from 'lodash';
 import { AiTwotoneFileText } from 'react-icons/ai';
+import { FaUserTie } from 'react-icons/fa6';
+import { HiOutlineTruck } from 'react-icons/hi2';
 
 import {
   PiBriefcaseDuotone,
@@ -423,6 +425,19 @@ export const berylliumSidebarMenuItems: SidebarItem[] = [
     icon: <PiFile />,
     roles: ['csUser', 'operationHeadPrint', 'businessHead'],
   },
+  {
+    name: 'Delivery Tracker',
+    href: routes.deliveryManagement.delivery,
+    icon: <HiOutlineTruck />,
+    roles: ['deliveryUser'],
+  },
+  {
+    name: 'Vendor Delivery',
+    href: routes.deliveryManagement.vendor,
+    icon: <FaUserTie />,
+    roles: ['deliveryUser'],
+  },
+
   // // label start
   // {
   //   name: 'Overview',

@@ -102,7 +102,7 @@ export default function VendorDeliveryView() {
               onChange={(e) =>
                 setFilter((prev) => ({ ...prev, search: e.target.value }))
               }
-              label="Delivery Date"
+              label="Search Job"
               inputClassName="h-9"
               clearable={true}
               prefix={<PiMagnifyingGlassBold className="size-4" />}
