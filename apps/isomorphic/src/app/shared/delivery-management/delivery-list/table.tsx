@@ -11,6 +11,13 @@ import { exportToCSV } from '@core/utils/export-to-csv';
 import { useSession } from 'next-auth/react';
 import { deliveryDummyData } from '@/data/deliveryDummy-data';
 import Header from '../page-header';
+import { FilterDrawerView } from '@core/components/controlled-table/table-filter';
+import React from 'react';
+import { Input } from 'rizzui/input';
+import { PiMagnifyingGlassBold } from 'react-icons/pi';
+import { Select } from 'rizzui/select';
+import DateFiled from '@core/components/controlled-table/date-field';
+import { getDateRangeStateValues } from '@core/utils/get-formatted-date';
 
 export type DeliveryDataType = (typeof deliveryDummyData)[number];
 
@@ -33,8 +40,17 @@ export default function DeliveryTable({
   classNames?: TableClassNameProps;
   paginationClassName?: string;
 }) {
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [filter, setFilter] = React.useState({
+    search: '',
+    jobType: '',
+    location: '',
+  });
   const { data: session } = useSession();
   const role = session?.user.role;
+  const [dateRange, setDateRange] = React.useState<
+    [string | null, string | null]
+  >([null, null]);
   const pageHeader = {
     title: 'Deliveries',
     breadcrumb: [
@@ -88,8 +104,9 @@ export default function DeliveryTable({
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
         table={table}
+        openDrawer={openDrawer}
+        setOpenDrawer={setOpenDrawer}
       />
-
       {!hideFilters && <Filters table={table} />}
       <Table
         table={table}
@@ -106,6 +123,93 @@ export default function DeliveryTable({
           className={cn('py-4', paginationClassName)}
         />
       )}
+      <FilterDrawerView
+        isOpen={openDrawer}
+        drawerTitle="Jobs Filters"
+        setOpenDrawer={setOpenDrawer}
+      >
+        <div className="grid grid-cols-1 gap-6">
+          <Input
+            type="search"
+            placeholder="Search Job Name..."
+            value={filter.search ?? ''}
+            onClear={() => setFilter((prev) => ({ ...prev, search: '' }))}
+            onChange={(e) =>
+              setFilter((prev) => ({ ...prev, search: e.target.value }))
+            }
+            label="Search Job"
+            inputClassName="h-9"
+            clearable={true}
+            prefix={<PiMagnifyingGlassBold className="size-4" />}
+          />
+          <Select
+            placeholder="Select Job Type..."
+            options={[
+              { label: 'All', value: '' },
+              { label: 'Print', value: 'print' },
+              { label: 'Gift', value: 'gift' },
+            ]}
+            value={filter.jobType ?? ''}
+            label="Job Type"
+            onChange={(value: string) =>
+              setFilter((prev) => ({ ...prev, jobType: value }))
+            }
+          />
+          <Select
+            placeholder="Select Location..."
+            options={[
+              { label: 'Matoda', value: 'matoda' },
+              { label: 'Intas HQ', value: 'intas-hq' },
+              { label: 'Torrent', value: 'torrent' },
+            ]}
+            value={filter.location ?? ''}
+            onChange={(value: string) =>
+              setFilter((prev) => ({ ...prev, location: value }))
+            }
+            label="Location"
+            clearable={true}
+            onClear={() => setFilter((prev) => ({ ...prev, location: '' }))}
+          />
+          <DateFiled
+            selectsRange
+            dateFormat={'dd-MMM-yyyy'}
+            className="w-full"
+            placeholderText="Select Delivery Date Start-to-End"
+            endDate={getDateRangeStateValues(dateRange[1])!}
+            selected={getDateRangeStateValues(dateRange[0])}
+            startDate={getDateRangeStateValues(dateRange[0])!}
+            onChange={(date: [Date | null, Date | null]) =>
+              setDateRange(date as [string | null, string | null])
+            }
+            inputProps={{
+              label: 'Delivery Date',
+              labelClassName: '[@media(min-width:1860px)]:hidden',
+            }}
+            isClearable={true}
+            onClear={() => setDateRange([null, null])}
+            clearButtonClassName="translate-y-1 -translate-x-7 mt-2 background-color-[#fff]"
+          />
+          <DateFiled
+            selectsRange
+            dateFormat={'dd-MMM-yyyy'}
+            className="w-full"
+            placeholderText="Select Followup Date Start-to-End"
+            endDate={getDateRangeStateValues(dateRange[1])!}
+            selected={getDateRangeStateValues(dateRange[0])}
+            startDate={getDateRangeStateValues(dateRange[0])!}
+            onChange={(date: [Date | null, Date | null]) =>
+              setDateRange(date as [string | null, string | null])
+            }
+            inputProps={{
+              label: 'Follow Up Date',
+              labelClassName: '[@media(min-width:1860px)]:hidden',
+            }}
+            isClearable={true}
+            onClear={() => setDateRange([null, null])}
+            clearButtonClassName="translate-y-1 -translate-x-7 mt-2 background-color-[#fff]"
+          />
+        </div>
+      </FilterDrawerView>
     </>
   );
 }

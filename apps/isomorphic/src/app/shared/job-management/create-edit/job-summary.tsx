@@ -18,8 +18,10 @@ import {
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import { DatePicker } from '@core/ui/datepicker';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
+import { useModal } from '../../modal-views/use-modal';
+import { CreateClientModalView } from '../../pnp-master/client-management/division-page-header';
 
 export default function JobSummary({ className }: { className?: string }) {
   const {
@@ -51,6 +53,23 @@ export default function JobSummary({ className }: { className?: string }) {
 
   const masterDivision = watch('masterDivision');
   const sbuDivision = watch('sbuDivision');
+  const { openModal, closeModal } = useModal();
+  const Label = (
+    <div className="flex items-center justify-between">
+      <Text className="text-sm">Requisitioner Name</Text>
+      <Text
+        className="cursor-pointer !text-xs font-medium text-blue-600 transition hover:underline"
+        onClick={() =>
+          openModal({
+            view: <CreateClientModalView />,
+            customSize: 720,
+          })
+        }
+      >
+        Create Client
+      </Text>
+    </div>
+  );
 
   return (
     <FormGroup
@@ -153,7 +172,7 @@ export default function JobSummary({ className }: { className?: string }) {
         control={control}
         render={({ field: { value, onChange, onBlur }, fieldState }) => (
           <Select
-            label="Requisitioner Name"
+            label={Label}
             labelClassName="text-sm font-medium text-gray-900"
             dropdownClassName="h-auto"
             placeholder="Select Client..."
@@ -221,7 +240,7 @@ export default function JobSummary({ className }: { className?: string }) {
 
           return (
             <div className="col-span-1 flex flex-col gap-2">
-              <Text className="font-bold">Job Type</Text>
+              <Text className="font-medium">Job Type</Text>
               <CheckboxGroup
                 values={value}
                 setValues={onChange}
@@ -241,7 +260,7 @@ export default function JobSummary({ className }: { className?: string }) {
           console.log('fieldState', value, fieldState);
           return (
             <div className="col-span-2 flex flex-col gap-2">
-              <Text className="font-bold">Packing Type</Text>
+              <Text className="font-medium">Packing Type</Text>
               <CheckboxGroup
                 values={value || []}
                 setValues={onChange}

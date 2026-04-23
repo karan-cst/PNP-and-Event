@@ -35,6 +35,7 @@ export function CreateUserModalView({
             vendorType: '',
             city: '',
             address: '',
+            isActive: 'active',
           }
         }
       />

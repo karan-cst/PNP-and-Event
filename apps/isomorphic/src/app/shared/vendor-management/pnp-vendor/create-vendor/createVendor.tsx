@@ -78,6 +78,7 @@ export default function CreateVendor({
         vendorType: '',
         address: '',
         competency: '',
+        isActive: 'active',
       });
     }, 600);
   };
@@ -179,6 +180,33 @@ export default function CreateVendor({
                   placeholder="Vendor Competency"
                   {...register('competency')}
                   error={errors.competency?.message}
+                />
+                <Controller
+                  control={control}
+                  name="isActive"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      label="Status"
+                      inPortal={false}
+                      labelClassName="text-sm font-medium text-gray-900"
+                      dropdownClassName="h-auto top-[43px]"
+                      placeholder="Select..."
+                      options={[
+                        { label: 'Active', value: 'active' },
+                        { label: 'Deactive', value: 'inactive' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { label: 'Active', value: 'active' },
+                          { label: 'Deactive', value: 'inactive' },
+                        ]?.find((r) => r.value === selected)?.label ?? ''
+                      }
+                      error={errors?.isActive?.message as string}
+                    />
+                  )}
                 />
               </HorizontalFormBlockWrapper>
             </div>

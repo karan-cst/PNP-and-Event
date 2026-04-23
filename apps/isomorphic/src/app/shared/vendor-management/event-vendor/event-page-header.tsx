@@ -34,6 +34,7 @@ export function CreateVendorModalView({ vendor }: { vendor?: VendorDataType }) {
             vendorType: '',
             city: '',
             address: '',
+            isActive: 'active',
           }
         }
       />

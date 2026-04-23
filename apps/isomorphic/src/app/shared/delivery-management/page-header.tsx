@@ -4,7 +4,7 @@ import React from 'react';
 import PageHeader from '@/app/shared/page-header';
 import { Button, Flex, Input, Select } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
-import { PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
+import { PiFunnel, PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 
@@ -15,6 +15,8 @@ type PageHeaderTypes<T extends Record<string, any>> = {
   breadcrumb: { name: string; href?: string }[];
   className?: string;
   table: ReactTableType<T>;
+  openDrawer: boolean;
+  setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Header<T extends Record<string, any>>({
@@ -22,6 +24,8 @@ export default function Header<T extends Record<string, any>>({
   breadcrumb,
   className,
   table,
+  openDrawer,
+  setOpenDrawer,
 }: PageHeaderTypes<T>) {
   const router = useRouter();
   const { isOpen, openModal, closeModal } = useModal();
@@ -42,6 +46,14 @@ export default function Header<T extends Record<string, any>>({
             clearable={true}
             prefix={<PiMagnifyingGlassBold className="size-4" />}
           />
+          <Button
+            variant={'outline'}
+            onClick={() => setOpenDrawer(!openDrawer)}
+            className="h-9 pe-3 ps-2.5"
+          >
+            <PiFunnel className="me-1.5 size-[18px]" strokeWidth={1.7} />
+            Filters
+          </Button>
         </Flex>
       </PageHeader>
     </>

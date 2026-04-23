@@ -14,7 +14,7 @@ export const DeliveryListColumns = (role?: string) => {
   return [
     columnHelper.accessor('jobName', {
       id: 'jobName',
-      size: 170,
+      size: 180,
       header: 'Job',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
@@ -34,8 +34,8 @@ export const DeliveryListColumns = (role?: string) => {
     }),
     columnHelper.accessor('createdAt', {
       id: 'createdAt',
-      size: 100,
-      header: 'Date',
+      size: 140,
+      header: 'Created At',
       cell: ({ row }) => (
         <Text className="text-sm">{row.original.createdAt}</Text>
       ),
@@ -48,18 +48,18 @@ export const DeliveryListColumns = (role?: string) => {
         <Text className="text-sm">{row.original.sapCode.join(', ')}</Text>
       ),
     }),
-    columnHelper.accessor('description', {
-      id: 'description',
-      size: 150,
-      header: 'Description',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          <Text className="text-sm">
-            {`${row.original?.description ? row.original?.description : '-'}`}
-          </Text>
-        </div>
-      ),
-    }),
+    // columnHelper.accessor('description', {
+    //   id: 'description',
+    //   size: 150,
+    //   header: 'Description',
+    //   cell: ({ row }) => (
+    //     <div className={cn('grid gap-1')}>
+    //       <Text className="text-sm">
+    //         {`${row.original?.description ? row.original?.description : '-'}`}
+    //       </Text>
+    //     </div>
+    //   ),
+    // }),
     columnHelper.accessor('division', {
       id: 'division',
       size: 100,
@@ -85,7 +85,7 @@ export const DeliveryListColumns = (role?: string) => {
     columnHelper.accessor('qty', {
       id: 'qty',
       size: 100,
-      header: 'Quantity',
+      header: 'Total Quantity/Packing Qty',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
           <Text className="text-sm font-semibold">{`${row.original?.qty ? row.original?.qty : '-'}`}</Text>
@@ -128,13 +128,19 @@ export const DeliveryListColumns = (role?: string) => {
         <Text className="text-sm">{`${row.original?.status ? row.original?.status : '-'}`}</Text>
       ),
     }),
+    // columnHelper.display({
+    //   id: 'studioRemarks',
+    //   size: 150,
+    //   header: 'Studio Remarks',
+    //   cell: ({ row }) => (
+    //     <Text className="text-sm">{`${row.original?.studioRemarks ? row.original?.studioRemarks : '-'}`}</Text>
+    //   ),
+    // }),
     columnHelper.display({
-      id: 'studioRemarks',
+      id: 'followupDate',
       size: 150,
-      header: 'Studio Remarks',
-      cell: ({ row }) => (
-        <Text className="text-sm">{`${row.original?.studioRemarks ? row.original?.studioRemarks : '-'}`}</Text>
-      ),
+      header: 'Follow Up Date',
+      cell: ({ row }) => <Text className="text-sm">-</Text>,
     }),
     columnHelper.display({
       id: 'printerDate',
@@ -144,17 +150,17 @@ export const DeliveryListColumns = (role?: string) => {
         <Text className="text-sm">{`${row.original?.printerDate ? row.original?.printerDate : '-'}`}</Text>
       ),
     }),
-    columnHelper.display({
-      id: 'action',
-      size: 150,
-      header: 'Action',
-      cell: ({
-        row,
-        // table: {
-        //   options: { meta },
-        // },
-      }) => <DeliveryEdit delivery={row.original} />,
-    }),
+    // columnHelper.display({
+    //   id: 'action',
+    //   size: 150,
+    //   header: 'Action',
+    //   cell: ({
+    //     row,
+    //     // table: {
+    //     //   options: { meta },
+    //     // },
+    //   }) => <DeliveryEdit delivery={row.original} />,
+    // }),
   ];
 };
 

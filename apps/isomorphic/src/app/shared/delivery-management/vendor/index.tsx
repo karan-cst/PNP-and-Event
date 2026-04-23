@@ -15,9 +15,6 @@ import { Title } from 'rizzui/typography';
 import { FilterDrawerView } from '@core/components/controlled-table/table-filter';
 import { Input } from 'rizzui/input';
 import { Select } from 'rizzui/select';
-import ReactDatePicker, {
-  type DatePickerProps as ReactDatePickerProps,
-} from 'react-datepicker';
 import { getDateRangeStateValues } from '@core/utils/get-formatted-date';
 import DateFiled from '@core/components/controlled-table/date-field';
 

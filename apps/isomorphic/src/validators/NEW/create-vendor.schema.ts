@@ -13,6 +13,7 @@ export const vendorFormSchema = z.object({
   city: z.string().min(1, { message: 'City is required' }),
   address: z.string().min(10, { message: 'Address is required' }),
   competency: z.string().optional(),
+  isActive: z.string({ required_error: 'Vendor status is required' }),
 });
 
 // generate form types from zod validation schema

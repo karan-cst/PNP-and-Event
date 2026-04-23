@@ -39,6 +39,7 @@ export function CreateVendorModalView({
             city: '',
             address: '',
             competency: '',
+            isActive: 'active',
           }
         }
       />
