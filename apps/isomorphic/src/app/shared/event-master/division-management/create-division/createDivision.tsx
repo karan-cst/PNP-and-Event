@@ -114,8 +114,9 @@ export default function CreateDivisin({
                     <Select
                       label="Company"
                       inPortal={false}
+                      searchable
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={clientOptions}
                       onChange={onChange}
@@ -151,7 +152,7 @@ export default function CreateDivisin({
                       label="Team"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Team 1', value: 'team1' },
@@ -178,7 +179,7 @@ export default function CreateDivisin({
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },

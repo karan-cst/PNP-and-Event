@@ -5,16 +5,24 @@ export const eventFormSchema = z.object({
   eventType: z.enum(['Conference', 'Stall', 'briefing meeting'], {
     required_error: 'Event type is required',
   }),
-
   eventName: z.string().min(1, 'Event name is required'),
-
+  formNo: z.string().optional(),
   startDate: z.date({
     required_error: 'Start date is required',
   }),
-
   endDate: z.date({
     required_error: 'End date is required',
   }),
+  possessionDate: z.date({
+    required_error: 'Possesion date and time is required',
+  }),
+  stallType: z
+    .enum(['fabricated', 'frame'], {
+      required_error: 'Stall type is required',
+    })
+    .optional(),
+  stallSize: z.coerce.number().optional(),
+  sideOpen: z.coerce.number().min(0).max(4).optional(),
 
   // 2️⃣ Venue Details
   location: z.object({
@@ -24,16 +32,6 @@ export const eventFormSchema = z.object({
     state: z.string().min(1, 'State is required'),
     city: z.string().min(1, 'City is required'),
   }),
-
-  // 3️⃣ Scope of Work
-  scope: z.object({
-    // title: z.string().min(1, 'Scope title is required'),
-    // tentativeCost: z.coerce
-    //   .number()
-    //   .min(1, 'Tentative cost must be greater than 0'),
-  }),
-
-  // 4️⃣ Elements (Dynamic Items)
   elements: z
     .array(
       z.object({
@@ -53,7 +51,7 @@ export const eventFormSchema = z.object({
     client: z.string().optional(),
     // quotationFile: z.string(),
     emailFile: z.string(),
-    clientTotal: z.number(),
+    // clientTotal: z.number(),
   }),
   divisionName: z.string().optional(),
   priority: z.enum(['Low', 'Medium', 'High'], {

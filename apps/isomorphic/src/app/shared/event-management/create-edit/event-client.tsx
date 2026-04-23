@@ -69,6 +69,7 @@ export default function EventClient({ className }: { className?: string }) {
           <Select
             label="Client"
             options={companyOptions}
+            searchable
             value={companyOptions.find((opt) => opt.value === value) ?? null}
             onChange={(option: Option) => onChange(option?.value)}
             displayValue={(option: Option) => option?.label}
@@ -86,6 +87,7 @@ export default function EventClient({ className }: { className?: string }) {
           <MultiSelect
             label="Division"
             options={divisionOptions}
+            searchable
             value={Array.isArray(field.value) ? field.value : []}
             onChange={(val) => field.onChange(val)}
             clearable
@@ -102,6 +104,7 @@ export default function EventClient({ className }: { className?: string }) {
         render={({ field, fieldState }) => (
           <Select
             label="Client"
+            searchable
             options={clientOptions}
             value={
               clientOptions.find((opt) => opt.value === field.value) ?? null
@@ -112,13 +115,13 @@ export default function EventClient({ className }: { className?: string }) {
           />
         )}
       />
-
+      {/* 
       <Input
         label="Client Total"
         placeholder="Client Total"
         {...register('company.clientTotal')}
         error={errors?.company?.clientTotal?.message}
-      />
+      /> */}
 
       <Controller
         name="priority"

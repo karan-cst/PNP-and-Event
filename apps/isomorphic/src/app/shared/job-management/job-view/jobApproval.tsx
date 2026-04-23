@@ -6,6 +6,7 @@ import type {
   JobFormDataType,
   ApprovalStatus,
 } from '../../../../data/jobpnp-data.ts'; // adjust path
+import { useSession } from 'next-auth/react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -32,7 +33,7 @@ const dummyJob: Partial<JobFormDataType> = {
     status: 'Approved',
     designCost: 4500,
     designerName: 'Neha Joshi',
-    date: '12/06/2024',
+    date: '22/04/2026',
   },
   printExecutive: {
     status: 'Pending',
@@ -495,6 +496,8 @@ export default function ApprovalDetails({
     comment?: string;
     vendorName?: string;
   }>({});
+  const session = useSession();
+  const role = session.data?.user?.role;
 
   const today = new Date().toLocaleDateString('en-GB'); // dd/mm/yyyy
 
@@ -595,18 +598,31 @@ export default function ApprovalDetails({
   const oh = job.operationHead;
   const bh = job.businessHeadName;
   const pm = job.printManager;
-  const step1Done = bh?.status === 'Approved' || oh?.status === 'Approved';
+  // const step1Done = bh?.status === 'Approved' || oh?.status === 'Approved';
+  const step1Done = role
+    ? role == 'businessHead' || role == 'operationHeadPrint'
+      ? false
+      : bh?.status === 'Approved' || oh?.status === 'Approved'
+    : bh?.status === 'Approved' || oh?.status === 'Approved';
   // const step2Done =
-  const step3Done = pe?.status === 'Approved';
-  const step4Done = pm?.vendorSelectionStatus === 'Approved';
+  // const step3Done = pe?.status === 'Approved';
+  const step3Done = role
+    ? role == 'printExecutive'
+      ? false
+      : role == 'printMng'
+        ? true
+        : pe?.status === 'Approved'
+    : pe?.status === 'Approved';
+  const step4Done = role
+    ? role == 'printMng'
+      ? true
+      : pm?.vendorSelectionStatus === 'Approved'
+    : pm?.vendorSelectionStatus === 'Approved';
 
-  const stepsApproved = [
-    step1Done,
-    // step2Done,
-    step3Done,
-    step4Done && step3Done,
-  ].filter(Boolean).length;
-  const progressPct = Math.round((stepsApproved / 4) * 100);
+  const stepsApproved = [step1Done, step3Done, step4Done && step3Done].filter(
+    Boolean
+  ).length;
+  const progressPct = Math.round((stepsApproved / 3) * 100);
 
   return (
     <div className="m-auto max-w-2xl">
@@ -622,7 +638,7 @@ export default function ApprovalDetails({
               style={{ width: `${progressPct}%` }}
             />
           </div>
-          <Text className="!text-xs text-gray-500">{stepsApproved}/4</Text>
+          <Text className="!text-xs text-gray-500">{stepsApproved}/3</Text>
         </div>
       </div>
 
@@ -631,9 +647,9 @@ export default function ApprovalDetails({
         step={1}
         title="Business Head / Operation Head"
         subtitle="Final business sign-off with design cost"
-        status={bh?.status || oh?.status}
+        status={step1Done ? bh?.status || oh?.status : 'Pending'}
         isLocked={false}
-        userName={bh?.userName || oh?.userName}
+        userName={step1Done ? bh?.userName || oh?.userName : ''}
         date={bh?.date || oh?.date}
         showDesignerFields
         savedDesignerName={step1Meta.designerName}
@@ -663,27 +679,28 @@ export default function ApprovalDetails({
       {/* ── Step 3: Business Head ───────────────────────────────────────────── */}
 
       <StepCard
-        step={3}
+        step={2}
         title="Print Executive"
         subtitle="Initial print job review & approval"
-        status={pe?.status}
+        // status={step3Done ? pe?.status : 'Pending'}
+        status={step3Done ? 'Approved' : 'Pending'}
         isLocked={!step1Done}
-        userName={pe?.userName}
-        date={pe?.date}
+        // userName={step3Done ? pe?.userName : ''}
+        userName={step3Done ? 'Karan Jain' : ''}
+        date={step3Done ? '23/04/2026' : pe?.date}
         savedComment={step3Meta.comment}
         onApprove={handlePEApprove}
         onReject={handlePEReject}
       />
 
       <Connector done={step3Done} locked={!step1Done} />
-
       {/* ── Step 4: Print Manager ───────────────────────────────────────────── */}
       <StepCard
-        step={4}
+        step={3}
         title="Print Manager"
-        subtitle="Vendor selection & final print approval"
-        status={pm?.vendorSelectionStatus}
-        isLocked={!step3Done}
+        subtitle="All Vendor Quote received and send for Vendore Selection"
+        status={step4Done ? pm?.vendorSelectionStatus : 'Pending'}
+        isLocked={step4Done ? !step3Done : true}
         userName={pm?.managerName}
         date={pm?.date}
         showVendorField

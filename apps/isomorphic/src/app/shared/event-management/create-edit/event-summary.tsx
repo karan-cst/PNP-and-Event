@@ -6,6 +6,7 @@ import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import { DatePicker } from '@core/ui/datepicker';
 import { typeOption } from './form-utils';
+import DateCell from '@core/ui/date-cell';
 
 export default function EventSummary({ className }: { className?: string }) {
   const {
@@ -41,7 +42,6 @@ export default function EventSummary({ className }: { className?: string }) {
         {...register('eventName')}
         error={errors?.eventName?.message as string}
       />
-
       <Controller
         name="startDate"
         control={control}
@@ -53,7 +53,8 @@ export default function EventSummary({ className }: { className?: string }) {
             onChange={onChange}
             onBlur={onBlur}
             selected={value}
-            // error={fieldState.error?.message}
+            minDate={new Date()}
+            error={fieldState.error?.message}
           />
         )}
       />
@@ -68,9 +69,65 @@ export default function EventSummary({ className }: { className?: string }) {
             onChange={onChange}
             onBlur={onBlur}
             selected={value}
-            // error={fieldState.error?.message}
+            minDate={new Date()}
+            error={fieldState.error?.message}
           />
         )}
+      />
+      <Controller
+        name="possessionDate"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <DatePicker
+            inputProps={{ label: 'Possession date' }}
+            placeholderText="Select Date"
+            dateFormat="dd/MM/yyyy h:mm aa"
+            onChange={onChange}
+            onBlur={onBlur}
+            selected={value}
+            showTimeSelect={true}
+            minDate={new Date()}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
+      <Controller
+        name="stallType"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <Select
+            dropdownClassName="h-auto"
+            options={[
+              {
+                label: 'Fabricated',
+                value: 'fabricated',
+              },
+              {
+                value: 'frame',
+                label: 'Frame Flex',
+              },
+            ]}
+            value={value}
+            onChange={onChange}
+            label="Stall Type (optional)"
+            error={errors?.eventType?.message as string}
+            getOptionValue={(option) => option.value}
+          />
+        )}
+      />
+      <Input
+        label="Stall Size SQFT.(optional)"
+        placeholder="Stall Size In SQFT."
+        {...register('stallSize')}
+        type="number"
+        error={errors?.stallSize?.message as string}
+      />
+      <Input
+        label="Stall Open Sides(optional)"
+        placeholder="Open Sides"
+        {...register('sideOpen')}
+        type="number"
+        error={errors?.sideOpen?.message as string}
       />
     </FormGroup>
   );

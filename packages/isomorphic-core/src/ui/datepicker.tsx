@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Input, InputProps } from "rizzui";
 import cn from "../utils/class-names";
-import { PiCalendarBlank, PiCaretDownBold } from "react-icons/pi";
+import { PiCalendarBlank, PiCaretDownBold, PiClock } from "react-icons/pi";
 import ReactDatePicker, {
   type DatePickerProps as ReactDatePickerProps,
 } from "react-datepicker";
@@ -49,13 +49,31 @@ export const DatePicker = ({
   onCalendarClose,
   popperClassName,
   calendarClassName,
+  showTimeSelect,
+  showTimeSelectOnly,
   dateFormat = "d MMMM yyyy",
   showPopperArrow = false,
+
   ...props
 }: DatePickerProps & { error?: string }) => {
-  const [isCalenderOpen, setIsCalenderOpen] = useState(false);
-  const handleCalenderOpen = () => setIsCalenderOpen(true);
-  const handleCalenderClose = () => setIsCalenderOpen(false);
+  // const [isCalenderOpen, setIsCalenderOpen] = useState(false);
+  // const handleCalenderOpen = () => setIsCalenderOpen(true);
+  // const handleCalenderClose = () => setIsCalenderOpen(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  const isTimeOnly = showTimeSelectOnly;
+
+  const finalDateFormat =
+    dateFormat ||
+    (isTimeOnly
+      ? "h:mm aa"
+      : showTimeSelect
+        ? "d MMM yyyy h:mm aa"
+        : "d MMM yyyy");
   return (
     <div
       className={cn(
@@ -64,37 +82,32 @@ export const DatePicker = ({
       )}
     >
       <ReactDatePicker
+        popperPlacement="bottom-end"
         customInput={
           customInput || (
             <Input
-              prefix={<PiCalendarBlank className="w-5 h-5 text-gray-500" />}
+              prefix={
+                isTimeOnly ? (
+                  <PiClock className="w-5 h-5 text-gray-500" />
+                ) : (
+                  <PiCalendarBlank className="w-5 h-5 text-gray-500" />
+                )
+              }
               suffix={
                 <PiCaretDownBold
                   className={cn(
                     "h-4 w-4 text-gray-500 transition",
-                    isCalenderOpen && "rotate-180",
+                    isOpen && "rotate-180",
                   )}
                 />
               }
               error={error} // 👈 important
               {...inputProps}
             />
-            // <Input
-            //   prefix={<PiCalendarBlank className="w-5 h-5 text-gray-500" />}
-            //   suffix={
-            //     <PiCaretDownBold
-            //       className={cn(
-            //         "h-4 w-4 text-gray-500 transition",
-            //         isCalenderOpen && "rotate-180",
-            //       )}
-            //     />
-            //   }
-            //   {...inputProps}
-            // />
           )
         }
-        onCalendarOpen={onCalendarOpen || handleCalenderOpen}
-        onCalendarClose={onCalendarClose || handleCalenderClose}
+        onCalendarOpen={onCalendarOpen || handleOpen}
+        onCalendarClose={onCalendarClose || handleClose}
         calendarClassName={cn(
           calendarContainerClasses.base,
           calendarContainerClasses.monthContainer.padding,
@@ -104,11 +117,22 @@ export const DatePicker = ({
           prevNextButtonClasses.children.position,
           prevNextButtonClasses.children.border,
           prevNextButtonClasses.children.size,
-          timeOnlyClasses.base,
+          // showTimeSelect && [
+          //   "[&.react-datepicker]:flex",
+          //   "[&.react-datepicker]:flex-row-reverse",
+          //   "[&_.react-datepicker__time-container]:border-r",
+          //   "[&_.react-datepicker__time-container]:border-l-0",
+          //   "[&_.react-datepicker__time-container]:border-gray-200",
+          //   "[&_.react-datepicker__month-container]:float-none",
+          //   "[&_.react-datepicker__time-container]:float-none",
+          // ],
           calendarClassName,
         )}
         popperClassName={cn(popperClasses.base, popperClassName)}
-        dateFormat={dateFormat}
+        dateFormat={finalDateFormat}
+        showTimeSelect={showTimeSelect}
+        showTimeSelectOnly={showTimeSelectOnly}
+        timeIntervals={15}
         showPopperArrow={showPopperArrow}
         {...props}
       />

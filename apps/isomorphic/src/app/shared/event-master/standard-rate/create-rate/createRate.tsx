@@ -129,7 +129,8 @@ export default function CreateStandardRate({
                       label="Event Type"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      searchable
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={eventTypeOption}
                       onChange={onChange}
@@ -186,7 +187,7 @@ export default function CreateStandardRate({
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },

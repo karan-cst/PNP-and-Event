@@ -18,9 +18,10 @@ import { useModal } from '../../modal-views/use-modal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { useSession } from 'next-auth/react';
 import { Role } from '@/config/roles';
-import { Title } from 'rizzui/typography';
+import { Text, Title } from 'rizzui/typography';
 import { Button } from 'rizzui/button';
 import { Input } from 'rizzui/input';
+import { formatPrice } from '@/config/format-pricing';
 
 const columns = () => {
   return [
@@ -86,16 +87,28 @@ const columns = () => {
     {
       header: 'Action',
       id: 'action',
-      cell: ({ row }: any) => <Action row={row} />,
+      cell: ({ row }: any) => <Action row={row.original} />,
     },
   ];
 };
 
-const Action = ({ row }: { row: null }) => {
+const Action = ({
+  row,
+}: {
+  row: {
+    id: number | string;
+    vendorName: string;
+    name: string;
+    total: number;
+    emlFileUrl?: string;
+    excelFileUrl?: string;
+  };
+}) => {
   const { openModal, closeModal } = useModal();
-  const allowApprove = ['printMng', 'pnpHead'];
+  const allowApprove = ['pnpHead'];
   const session = useSession();
   const role = session?.data?.user?.role;
+  console.log(row);
   return (
     <Flex align="center" gap="3">
       <Tooltip size="sm" content="Update Rate" placement="top" color="invert">
@@ -108,7 +121,7 @@ const Action = ({ row }: { row: null }) => {
                 <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
                   <div className="mb-7 flex items-center justify-between">
                     <Title as="h4" className="font-semibold">
-                      Update Rate
+                      Update Rate - {row.vendorName}
                     </Title>
                     <ActionIcon size="sm" variant="text" onClick={closeModal}>
                       <PiXBold className="h-auto w-5" />
@@ -121,6 +134,9 @@ const Action = ({ row }: { row: null }) => {
                       label="Updated Rate"
                       placeholder="Enter Amount"
                     />
+                    <Text className="text-sm">
+                      Previous Amount - {formatPrice(row.total)}
+                    </Text>
                     <div className="flex justify-end gap-3 pt-3">
                       <Button variant="outline" onClick={closeModal}>
                         Cancel

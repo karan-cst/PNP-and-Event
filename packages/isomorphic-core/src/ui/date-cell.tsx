@@ -1,5 +1,5 @@
-import cn from '../utils/class-names';
-import { formatDate } from '../utils/format-date';
+import cn from "../utils/class-names";
+import { formatDate } from "../utils/format-date";
 
 interface DateCellProps {
   date: Date;
@@ -15,20 +15,21 @@ export default function DateCell({
   className,
   timeClassName,
   dateClassName,
-  dateFormat = 'MMMM D, YYYY',
-  timeFormat = 'h:mm A',
+  dateFormat = "MMMM D, YYYY",
+  timeFormat = "h:mm A",
+  ...props
 }: DateCellProps) {
   return (
-    <div className={cn('grid gap-1', className)}>
+    <div className={cn("grid gap-1", className)}>
       <time
-        dateTime={formatDate(date, 'YYYY-MM-DD')}
-        className={cn('font-medium text-gray-700', dateClassName)}
+        dateTime={formatDate(date, "YYYY-MM-DD")}
+        className={cn("font-medium text-gray-700", dateClassName)}
       >
         {formatDate(date, dateFormat)}
       </time>
       <time
-        dateTime={formatDate(date, 'HH:mm:ss')}
-        className={cn('text-[13px] text-gray-500', timeClassName)}
+        dateTime={formatDate(date, "HH:mm:ss")}
+        className={cn("text-[13px] text-gray-500", timeClassName)}
       >
         {formatDate(date, timeFormat)}
       </time>

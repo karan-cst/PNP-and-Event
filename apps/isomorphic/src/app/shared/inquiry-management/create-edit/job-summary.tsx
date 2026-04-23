@@ -5,6 +5,7 @@ import { Checkbox, Input, Select, Textarea } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import { DatePicker } from '@core/ui/datepicker';
+import { useSession } from 'next-auth/react';
 
 export default function Inquiry({ className }: { className?: string }) {
   const {
@@ -12,11 +13,13 @@ export default function Inquiry({ className }: { className?: string }) {
     control,
     formState: { errors },
   } = useFormContext();
+  const session = useSession();
+  const role = session.data?.user.role;
 
   return (
     <FormGroup
-      title="Gifting Inquiry"
-      description="Add gifting inquiry details here."
+      title="Inquiry"
+      description="Add inquiry details here."
       className={cn(className)}
     >
       {/* Input Name */}
@@ -39,18 +42,42 @@ export default function Inquiry({ className }: { className?: string }) {
       {/* Budget */}
       <Input
         type="number"
-        label="Budget"
+        label="Client Budget"
         placeholder="Enter budget"
         {...register('budget')}
         error={errors?.budget?.message as string}
       />
 
       {/* Division */}
-      <Input
+      {/* <Input
         label="Division"
         placeholder="Enter division"
         {...register('division')}
         error={errors?.division?.message as string}
+      /> */}
+      <Controller
+        name={`division`}
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <Select
+            label="Division"
+            dropdownClassName="h-auto"
+            placeholder="Division..."
+            searchable
+            clearable
+            onClear={() => onChange('')}
+            options={[{ label: 'Arron', value: 'Arron' }]}
+            onChange={onChange}
+            value={value}
+            getOptionValue={(option) => option.value}
+            displayValue={(selected) =>
+              [{ label: 'Arron', value: 'Arron' }]?.find(
+                (r) => r.value === selected
+              )?.label ?? ''
+            }
+            error={errors?.role?.message as string}
+          />
+        )}
       />
 
       {/* CS Name */}
@@ -62,6 +89,14 @@ export default function Inquiry({ className }: { className?: string }) {
       />
 
       {/* Delivery Timeline */}
+
+      {/* Delivery Place */}
+      <Input
+        label="Delivery Place"
+        placeholder="Enter delivery place"
+        {...register('deliveryPlace')}
+        error={errors?.deliveryPlace?.message as string}
+      />
       <Controller
         name="deliveryTimeline"
         control={control}
@@ -77,16 +112,8 @@ export default function Inquiry({ className }: { className?: string }) {
           />
         )}
       />
-
-      {/* Delivery Place */}
       <Input
-        label="Delivery Place"
-        placeholder="Enter delivery place"
-        {...register('deliveryPlace')}
-        error={errors?.deliveryPlace?.message as string}
-      />
-      <Input
-        label="End User of Gift"
+        label="End User"
         placeholder="Enter end user"
         {...register('endUserOfGift')}
         error={errors?.endUserOfGift?.message as string}
@@ -115,24 +142,16 @@ export default function Inquiry({ className }: { className?: string }) {
       />
 
       {/* End User */}
+      {role == 'printMng' && (
+        <>
+          <div className="col-span-full">
+            <h4 className="text-base font-medium">Print Manager Approval</h4>
+            <p className="mt-2">Budget Send for this inquiry with remarks</p>
+          </div>
+          <Input type="number" label="Budget" placeholder="Enter budget" />
+          <Input label="Remarks" placeholder="Remarks" className="col-span-2" />
+        </>
+      )}
     </FormGroup>
   );
-}
-
-{
-  /* <Controller
-        name="eventType"
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            dropdownClassName="h-auto"
-            options={typeOption}
-            value={value}
-            onChange={onChange}
-            label="Event Type"
-            error={errors?.eventType?.message as string}
-            getOptionValue={(option) => option.value}
-          />
-        )}
-      /> */
 }

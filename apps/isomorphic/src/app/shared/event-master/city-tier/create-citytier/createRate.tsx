@@ -114,7 +114,7 @@ export default function CreateCityTier({
                       label="Tier Type"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select Tier"
                       options={[
                         { label: 'Tier 1', value: 1 },
@@ -144,10 +144,41 @@ export default function CreateCityTier({
                   error={errors.city?.message}
                 />
 
-                <Input
-                  label="State"
-                  {...register('state')}
-                  error={errors.state?.message}
+                <Controller
+                  control={control}
+                  name="state"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      label="State"
+                      inPortal={false}
+                      labelClassName="text-sm font-medium text-gray-900"
+                      searchable
+                      dropdownClassName="h-auto top-[43px]"
+                      placeholder="Select..."
+                      options={[
+                        { label: 'GUJARAT', value: 'gujarat' },
+                        { label: 'MAHARASHTRA', value: 'maharashtra' },
+                        { label: 'GOA', value: 'goa' },
+                        { label: 'NEPAL', value: 'nepal' },
+                        { label: 'BIHAR', value: 'bihar' },
+                        { label: 'W.BANGAL', value: 'westbangal' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { label: 'GUJARAT', value: 'gujarat' },
+                          { label: 'MAHARASHTRA', value: 'maharashtra' },
+                          { label: 'GOA', value: 'goa' },
+                          { label: 'NEPAL', value: 'nepal' },
+                          { label: 'BIHAR', value: 'bihar' },
+                          { label: 'W.BANGAL', value: 'westbangal' },
+                        ].find((r) => r.value === selected)?.label ?? ''
+                      }
+                      error={errors?.state?.message as string}
+                    />
+                  )}
                 />
 
                 <Input
@@ -165,7 +196,7 @@ export default function CreateCityTier({
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },

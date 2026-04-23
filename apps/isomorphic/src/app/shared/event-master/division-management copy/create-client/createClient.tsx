@@ -121,7 +121,8 @@ export default function CreateClient({
                       label="Company"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      searchable
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={clientOptions}
                       onChange={onChange}
@@ -146,7 +147,8 @@ export default function CreateClient({
                       label="Division"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      searchable
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={DivisionOptions}
                       onChange={onChange}
@@ -166,17 +168,20 @@ export default function CreateClient({
                   label="Name"
                   {...register('name')}
                   error={errors.name?.message}
+                  placeholder="SPOC Name"
                 />
                 <Input
                   label="Email"
                   type="email"
                   {...register('email')}
                   error={errors.email?.message as string}
+                  placeholder="SPOC Email"
                 />
                 <Input
                   label="Phone"
                   {...register('phone')}
                   error={errors.phone?.message as string}
+                  placeholder="SPOC Phone"
                 />
                 <Controller
                   control={control}
@@ -186,7 +191,7 @@ export default function CreateClient({
                       label="Status"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
                         { label: 'Active', value: 'active' },
@@ -223,7 +228,7 @@ export default function CreateClient({
               isLoading={isLoading}
               className="w-full @xl:w-auto"
             >
-              {id ? 'Update' : 'Create'} Division
+              {id ? 'Update' : 'Create'} Client
             </Button>
           </div>
         </>

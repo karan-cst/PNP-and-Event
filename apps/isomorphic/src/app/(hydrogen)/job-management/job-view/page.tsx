@@ -33,16 +33,16 @@ export default function JobViewPage() {
       vendorName: 'Skyline Solutions',
       name: 'Karan Jain',
       total: 72000,
-      emlFileUrl: null,
-      excelFileUrl: '/uploads/excel/skyline.xlsx',
+      emlFileUrl: '/uploads/xml/abc.xml',
+      excelFileUrl: '/uploads/excel/abc.xlsx',
     },
     {
       id: 3,
       vendorName: 'Prime Event Services',
       name: 'Amulakh Mistry',
       total: 38000,
-      emlFileUrl: '/uploads/xml/prime.xml',
-      excelFileUrl: null,
+      emlFileUrl: '/uploads/xml/abc.xml',
+      excelFileUrl: '/uploads/excel/abc.xlsx',
     },
   ]);
   const job = dummyJobViewData;
@@ -108,6 +108,7 @@ export default function JobViewPage() {
         'printExecutive',
         'operationHeadPrint',
         'businessHead',
+        'printMng',
         'giftMng',
         'pnpHead',
       ],

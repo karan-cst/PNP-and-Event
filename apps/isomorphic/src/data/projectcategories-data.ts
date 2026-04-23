@@ -18,7 +18,7 @@ export const ProjectCategoryData = [
     },
     vendorApprovalBy: {
       user: 'Finance Head User',
-      description: '2nd Level - Negotiation',
+      description: '2nd Level - Negotiation And Approval/Rejection',
     },
   },
   {
@@ -31,7 +31,7 @@ export const ProjectCategoryData = [
     },
     vendorApprovalBy: {
       user: 'Finance Head User',
-      description: '2nd Level - Negotiation',
+      description: '2nd Level - Negotiation And Approval/Rejection',
     },
   },
   {
@@ -45,7 +45,7 @@ export const ProjectCategoryData = [
     },
     vendorApprovalBy: {
       user: 'Finance Head User',
-      description: '2nd Level - Negotiation',
+      description: '2nd Level - Negotiation And Approval/Rejection',
     },
   },
   {
@@ -59,7 +59,7 @@ export const ProjectCategoryData = [
     },
     vendorApprovalBy: {
       user: 'Event Head User',
-      description: '2nd Level - Negotiation',
+      description: '2nd Level - Negotiation And Approval/Rejection',
     },
   },
   {
@@ -73,7 +73,7 @@ export const ProjectCategoryData = [
     },
     vendorApprovalBy: {
       user: 'Event Manager User',
-      description: '2nd Level - Approval/Rejection and Negotiation',
+      description: '2nd Level - Negotiation And Approval/Rejection',
     },
   },
 ];

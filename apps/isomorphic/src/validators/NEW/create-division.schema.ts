@@ -18,7 +18,9 @@ export const DivisionUserFormSchema = z.object({
   phone: z
     .string()
     .trim()
-    .min(10, { message: 'Phone number must be at least 10 digits' }),
+    .regex(/^[6-9]\d{9}$/, {
+      message: 'Enter a valid 10-digit mobile number',
+    }),
   isActive: z.string(),
 });
 export const DivisionUserFormWithClientSchema = z.object({

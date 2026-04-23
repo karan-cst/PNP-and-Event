@@ -19,14 +19,12 @@ import { eventDefaultValues } from './form-utils';
 import EventSummary from './event-summary';
 import EventLocation from './event-location';
 import FormNav, { formParts } from './form-nav';
-import EventScope from './event-scope';
 import EventClient from './event-client';
 import EventElements from './event-element';
 
 const MAP_STEP_TO_COMPONENT = {
   [formParts.summary]: EventSummary,
   [formParts.location]: EventLocation,
-  // [formParts.scope]: EventScope,
   [formParts.element]: EventElements,
   [formParts.client]: EventClient,
 };

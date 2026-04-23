@@ -1,5 +1,6 @@
 'use client';
 
+import { DatePicker } from '@core/ui/datepicker';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { Checkbox, Input, Text, Button, Textarea } from 'rizzui';
@@ -12,7 +13,7 @@ import * as zod from 'zod';
 const checklistSchema = zod.object({
   // Header
   delDate: zod.string().optional(),
-  checkDate: zod.string().optional(),
+  checkDate: zod.date(),
 
   // Row fields — each has ok / notOk checkbox
   jobName: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
@@ -203,6 +204,7 @@ export default function Checklist() {
             {...register('delDate')}
             size="sm"
             className="w-36"
+            value={'30/04/2026'}
             error={errors.delDate?.message}
           />
         </div>
@@ -210,11 +212,25 @@ export default function Checklist() {
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-600">
             CHECK DATE:
           </label>
-          <Input
+          {/* <Input
             {...register('checkDate')}
             size="sm"
             className="w-36"
             error={errors.checkDate?.message}
+          /> */}
+          <Controller
+            name="checkDate"
+            control={control}
+            render={({ field: { value, onChange, onBlur }, fieldState }) => (
+              <DatePicker
+                placeholderText="Check Date"
+                dateFormat="dd/MM/yyyy"
+                onChange={onChange}
+                onBlur={onBlur}
+                selected={value}
+                error={fieldState.error?.message}
+              />
+            )}
           />
         </div>
       </div>
@@ -545,7 +561,10 @@ export default function Checklist() {
       </div>
 
       {/* ── SUBMIT ── */}
-      <div className="flex justify-end pt-2">
+      <div className="flex justify-end gap-4 pt-2">
+        <Button type="button" variant="outline" size="md">
+          Save As Draft
+        </Button>
         <Button type="submit" size="md">
           Save Checklist
         </Button>

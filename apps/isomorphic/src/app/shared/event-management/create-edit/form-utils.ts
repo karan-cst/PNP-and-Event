@@ -62,7 +62,7 @@ export function eventDefaultValues(event?: CreateEventInput) {
       companyId: event?.company?.companyId ?? '',
       divisionName: event?.company?.divisionName ?? [],
       client: event?.company?.client ?? '',
-      clientTotal: event?.company?.clientTotal ?? 0,
+      // clientTotal: event?.company?.clientTotal ?? 0,
       // address: event?.company?.address ?? '',
       // contactName: event?.company?.contactName ?? '',
       // contactNumber: event?.company?.contactNumber ?? '',

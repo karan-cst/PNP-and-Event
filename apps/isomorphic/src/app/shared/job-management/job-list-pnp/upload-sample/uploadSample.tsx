@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { SubmitHandler, Controller } from 'react-hook-form';
 import { Button, FileInput, Text, Title } from 'rizzui';
 import cn from '@core/utils/class-names';
@@ -51,7 +51,7 @@ function HorizontalFormBlockWrapper({
     </div>
   );
 }
-
+type PreviewItem = { file: File; url: string; isImage: boolean };
 // main category form component for create and update category
 export default function UploadSample({
   id,
@@ -113,61 +113,154 @@ export default function UploadSample({
                 description="Basic division details"
                 isModalView={isModalView}
               >
-                <Controller
-                  name="samples"
-                  control={control}
-                  render={({ field }) => (
-                    <FileInput
-                      label="Upload Sample Files (Max 3)"
-                      accept=".jpg,.jpeg,.png,.pdf"
-                      multiple
-                      onChange={(e) => {
-                        const selectedFiles = e?.target?.files;
-                        handleFileChange(selectedFiles);
-                        field.onChange(selectedFiles);
-                      }}
-                    />
-                  )}
-                />
-              </HorizontalFormBlockWrapper>
-              <div className="col-span-2 mt-2 flex flex-wrap gap-3">
-                {files.map((file, index) => {
-                  const fileUrl = URL.createObjectURL(file);
-                  const isImage = file.type.startsWith('image');
-
-                  return (
+                <div className="col-span-2 flex items-center justify-between">
+                  <Controller
+                    name="samples"
+                    control={control}
+                    render={({ field }) => (
+                      <FileInput
+                        label="Upload Sample Files"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        onChange={(e) => {
+                          const selectedFiles = e?.target?.files;
+                          handleFileChange(selectedFiles);
+                          field.onChange(selectedFiles);
+                        }}
+                      />
+                    )}
+                  />
+                  {files.length > 0 && (
                     <div
-                      key={index}
+                      key={0}
                       className="relative h-20 w-20 overflow-hidden rounded border"
                     >
-                      {isImage ? (
+                      {files[0]?.type?.startsWith('image') ? (
                         <Image
-                          src={fileUrl}
+                          src={URL.createObjectURL(files[0])}
                           alt="preview"
                           width={200}
                           height={200}
                           className="h-full w-full object-cover"
                         />
                       ) : (
-                        <iframe src={fileUrl} className="h-full w-full" />
+                        <iframe
+                          src={URL.createObjectURL(files[0])}
+                          className="h-full w-full"
+                        />
                       )}
 
                       {/* Remove button */}
                       <button
                         type="button"
                         onClick={() => {
-                          setFiles((prev) =>
-                            prev.filter((_, i) => i !== index)
-                          );
+                          setFiles((prev) => prev.filter((_, i) => i !== 0));
                         }}
                         className="absolute right-0 top-0 bg-black px-1 text-xs text-white"
                       >
                         ✕
                       </button>
                     </div>
-                  );
-                })}
-              </div>
+                  )}
+                </div>
+                <div className="col-span-2 flex items-center justify-between">
+                  <Controller
+                    name="samples"
+                    control={control}
+                    render={({ field }) => (
+                      <FileInput
+                        label="Upload Sample Files"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        onChange={(e) => {
+                          const selectedFiles = e?.target?.files;
+                          handleFileChange(selectedFiles);
+                          field.onChange(selectedFiles);
+                        }}
+                      />
+                    )}
+                  />
+                  {files.length > 1 && (
+                    <div
+                      key={1}
+                      className="relative h-20 w-20 overflow-hidden rounded border"
+                    >
+                      {files[1]?.type?.startsWith('image') ? (
+                        <Image
+                          src={URL.createObjectURL(files[1])}
+                          alt="preview"
+                          width={200}
+                          height={200}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <iframe
+                          src={URL.createObjectURL(files[1])}
+                          className="h-full w-full"
+                        />
+                      )}
+
+                      {/* Remove button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFiles((prev) => prev.filter((_, i) => i !== 1));
+                        }}
+                        className="absolute right-0 top-0 bg-black px-1 text-xs text-white"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="col-span-2 flex items-center justify-between">
+                  <Controller
+                    name="samples"
+                    control={control}
+                    render={({ field }) => (
+                      <FileInput
+                        label="Upload Sample Files"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        onChange={(e) => {
+                          const selectedFiles = e?.target?.files;
+                          handleFileChange(selectedFiles);
+                          field.onChange(selectedFiles);
+                        }}
+                      />
+                    )}
+                  />
+                  {files.length > 2 && (
+                    <div
+                      key={2}
+                      className="relative h-20 w-20 overflow-hidden rounded border"
+                    >
+                      {files[2]?.type?.startsWith('image') ? (
+                        <Image
+                          src={URL.createObjectURL(files[2])}
+                          alt="preview"
+                          width={200}
+                          height={200}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <iframe
+                          src={URL.createObjectURL(files[2])}
+                          className="h-full w-full"
+                        />
+                      )}
+
+                      {/* Remove button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFiles((prev) => prev.filter((_, i) => i !== 2));
+                        }}
+                        className="absolute right-0 top-0 bg-black px-1 text-xs text-white"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </HorizontalFormBlockWrapper>
             </div>
           </div>
           {/* z-40   */}
@@ -190,3 +283,217 @@ export default function UploadSample({
     </Form>
   );
 }
+{
+  /* <div className="col-span-2 mt-2 flex flex-wrap gap-3">
+                {files.map((file, index) => {
+                  const fileUrl = URL.createObjectURL(file);
+                  const isImage = file.type.startsWith('image');
+
+                  return (
+                    <div
+                      key={index}
+                      className="relative h-20 w-20 overflow-hidden rounded border"
+                    >
+                      {isImage ? (
+                        <Image
+                          src={fileUrl}
+                          alt="preview"
+                          width={200}
+                          height={200}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <iframe src={fileUrl} className="h-full w-full" />
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFiles((prev) =>
+                            prev.filter((_, i) => i !== index)
+                          );
+                        }}
+                        className="absolute right-0 top-0 bg-black px-1 text-xs text-white"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  );
+                })}
+              </div> */
+}
+
+// export default function UploadSample({
+//   id,
+//   isModalView = true,
+// }: {
+//   id?: string;
+//   isModalView?: boolean;
+// }) {
+//   // 3 fixed slots
+//   const [files, setFiles] = useState<(File | null)[]>([null, null, null]);
+
+//   // to reset individual inputs after remove/replace (lets user re-pick same file)
+//   const [inputKeys, setInputKeys] = useState([0, 0, 0]);
+
+//   // keep old object URLs so we can revoke them
+//   const urlsRef = useRef<(string | null)[]>([null, null, null]);
+
+//   const previews = useMemo(() => {
+//     return files.map((f, idx) => {
+//       // revoke previous url if file changed
+//       if (urlsRef.current[idx]) {
+//         URL.revokeObjectURL(urlsRef.current[idx]!);
+//         urlsRef.current[idx] = null;
+//       }
+//       if (!f) return null;
+
+//       const url = URL.createObjectURL(f);
+//       urlsRef.current[idx] = url;
+
+//       return { url, isImage: f.type.startsWith('image/'), type: f.type };
+//     });
+//   }, [files]);
+
+//   useEffect(() => {
+//     return () => {
+//       // cleanup all urls on unmount
+//       urlsRef.current.forEach((u) => u && URL.revokeObjectURL(u));
+//     };
+//   }, []);
+
+//   const onSubmit: SubmitHandler<GiftInquiryFormType> = async (data) => {
+//     // data.samples will be [File|null, File|null, File|null]
+//     // upload however you want (FormData recommended)
+//   };
+
+//   const replaceFileAtIndex = (index: number, fileList: FileList | null) => {
+//     const file = fileList?.[0] ?? null; // slot takes only 1 file
+//     setFiles((prev) => {
+//       const next = [...prev];
+//       next[index] = file;
+//       return next;
+//     });
+//   };
+
+//   const removeFileAtIndex = (index: number) => {
+//     setFiles((prev) => {
+//       const next = [...prev];
+//       next[index] = null;
+//       return next;
+//     });
+//     setInputKeys((prev) => {
+//       const next = [...prev];
+//       next[index] = next[index] + 1;
+//       return next;
+//     });
+//   };
+
+//   return (
+//     <Form<GiftInquiryFormType>
+//       validationSchema={giftInquirySchema}
+//       onSubmit={onSubmit}
+//       useFormProps={{
+//         mode: 'onChange',
+//         defaultValues: {
+//           // IMPORTANT: so modal reopen can show existing if you keep form state outside
+//           samples: [null, null, null],
+//         } as any,
+//       }}
+//       className="isomorphic-form flex flex-grow flex-col @container"
+//     >
+//       {({ control, setValue }) => (
+//         <>
+//           <div className="flex-grow pb-10">
+//             <HorizontalFormBlockWrapper
+//               title="Division Information"
+//               description="Basic division details"
+//               isModalView={isModalView}
+//             >
+//               <div className="col-span-2 grid gap-4">
+//                 {[0, 1, 2].map((index) => (
+//                   <div
+//                     key={index}
+//                     className="flex items-center justify-between gap-4"
+//                   >
+//                     <Controller
+//                       name={`samples.${index}` as any}
+//                       control={control}
+//                       render={({ field }) => (
+//                         <FileInput
+//                           key={inputKeys[index]}
+//                           label={`Upload Sample ${index + 1}`}
+//                           accept=".jpg,.jpeg,.png,.pdf"
+//                           onChange={(e) => {
+//                             const list = e.target.files;
+//                             replaceFileAtIndex(index, list);
+
+//                             const picked = list?.[0] ?? null;
+//                             field.onChange(picked);
+
+//                             // keep RHF array in sync (optional but nice)
+//                             setValue(`samples.${index}` as any, picked, {
+//                               shouldValidate: true,
+//                               shouldDirty: true,
+//                             });
+
+//                             // allow picking same file again
+//                             e.target.value = '';
+//                           }}
+//                         />
+//                       )}
+//                     />
+
+//                     <div className="relative h-20 w-20 overflow-hidden rounded border">
+//                       {files[index] ? (
+//                         previews[index]?.isImage ? (
+//                           <Image
+//                             src={previews[index]!.url}
+//                             alt={`preview-${index}`}
+//                             width={200}
+//                             height={200}
+//                             className="h-full w-full object-cover"
+//                           />
+//                         ) : (
+//                           <iframe
+//                             src={previews[index]!.url}
+//                             className="h-full w-full"
+//                           />
+//                         )
+//                       ) : (
+//                         <div className="flex h-full w-full items-center justify-center text-xs text-gray-400">
+//                           Empty
+//                         </div>
+//                       )}
+
+//                       {files[index] && (
+//                         <button
+//                           type="button"
+//                           onClick={() => removeFileAtIndex(index)}
+//                           className="absolute right-0 top-0 bg-black px-1 text-xs text-white"
+//                         >
+//                           ✕
+//                         </button>
+//                       )}
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </HorizontalFormBlockWrapper>
+//           </div>
+
+//           <div
+//             className={cn(
+//               'sticky bottom-0 flex items-center justify-end gap-3 bg-gray-0/10 backdrop-blur @lg:gap-4 @xl:grid @xl:auto-cols-max @xl:grid-flow-col',
+//               isModalView ? '-mx-10 -mb-7 px-10 py-5' : 'py-1'
+//             )}
+//           >
+//             <Button type="submit" className="w-full @xl:w-auto">
+//               Upload Sample
+//             </Button>
+//           </div>
+//         </>
+//       )}
+//     </Form>
+//   );
+// }

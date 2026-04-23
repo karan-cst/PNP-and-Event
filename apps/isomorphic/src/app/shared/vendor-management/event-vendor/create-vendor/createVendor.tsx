@@ -151,8 +151,9 @@ export default function CreateVendor({
                     <Select
                       label="City"
                       inPortal={false}
+                      searchable
                       labelClassName="text-sm font-medium text-gray-900"
-                      dropdownClassName="h-auto"
+                      dropdownClassName="h-auto top-[43px]"
                       placeholder="Select city..."
                       options={[
                         { label: 'Ahmedabad', value: 'Ahemdabad' },
@@ -183,7 +184,7 @@ export default function CreateVendor({
               isLoading={isLoading}
               className="w-full @xl:w-auto"
             >
-              {id ? 'Update' : 'Create'} User
+              {id ? 'Update' : 'Create'} Vendor
             </Button>
           </div>
         </>
