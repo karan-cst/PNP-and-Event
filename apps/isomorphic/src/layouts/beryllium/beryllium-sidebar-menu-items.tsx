@@ -21,6 +21,7 @@ import {
   PiUserCircleGearDuotone,
   PiUsersDuotone,
 } from 'react-icons/pi';
+import { RiUserFollowFill } from 'react-icons/ri';
 export type SidebarItem = {
   name: string;
   href?: string;
@@ -435,6 +436,12 @@ export const berylliumSidebarMenuItems: SidebarItem[] = [
     name: 'Vendor Delivery',
     href: routes.deliveryManagement.vendor,
     icon: <FaUserTie />,
+    roles: ['deliveryUser'],
+  },
+  {
+    name: 'Today Follow Up',
+    href: routes.deliveryManagement.delivery,
+    icon: <RiUserFollowFill />,
     roles: ['deliveryUser'],
   },
 

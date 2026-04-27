@@ -18,6 +18,9 @@ import { PiMagnifyingGlassBold } from 'react-icons/pi';
 import { Select } from 'rizzui/select';
 import DateFiled from '@core/components/controlled-table/date-field';
 import { getDateRangeStateValues } from '@core/utils/get-formatted-date';
+import UpdateForm from './updateForm';
+import { useRouter } from 'next/navigation';
+import { Drawer } from 'rizzui/drawer';
 
 export type DeliveryDataType = (typeof deliveryDummyData)[number];
 
@@ -46,6 +49,12 @@ export default function DeliveryTable({
     jobType: '',
     location: '',
   });
+  const router = useRouter();
+
+  const [selectedJob, setSelectedJob] = React.useState<DeliveryDataType | null>(
+    null
+  );
+  const [open, setOpen] = React.useState(false);
   const { data: session } = useSession();
   const role = session?.user.role;
   const [dateRange, setDateRange] = React.useState<
@@ -64,9 +73,21 @@ export default function DeliveryTable({
     ],
   };
 
+  const columns = React.useMemo(
+    () =>
+      DeliveryListColumns({
+        onEdit: (delivery) => {
+          setSelectedJob(delivery);
+          setOpen(true);
+        },
+        onOpenJob: () => router.push(`/job-management/job-view`),
+      }),
+    [router]
+  );
+
   const { table, setData } = useTanStackTable<DeliveryDataType>({
     tableData: deliveryDummyData,
-    columnConfig: DeliveryListColumns(role),
+    columnConfig: columns,
     options: {
       initialState: {
         pagination: {
@@ -123,6 +144,19 @@ export default function DeliveryTable({
           className={cn('py-4', paginationClassName)}
         />
       )}
+      <Drawer
+        isOpen={selectedJob !== null} // or `open={open}`
+        onClose={() => setSelectedJob(null)} // or `setOpen(false)`
+        size="md"
+      >
+        <div className="grid grid-cols-1 gap-6 p-6">
+          <UpdateForm
+            selectedJob={selectedJob}
+            setSelectedJob={setSelectedJob}
+            // optional: onSuccess={() => setOpen(false)}
+          />
+        </div>
+      </Drawer>
       <FilterDrawerView
         isOpen={openDrawer}
         drawerTitle="Jobs Filters"

@@ -86,6 +86,7 @@ export default function CreateStandardRate({
         eventType: '',
         elementType: '',
         elementItem: '',
+        unitType: 'perpcs',
         tier1Price: 0,
         tier2Price: 0,
         tier3Price: 0,
@@ -154,6 +155,33 @@ export default function CreateStandardRate({
                   label="Element Item"
                   {...register('elementItem')}
                   error={errors.elementItem?.message}
+                />
+                <Controller
+                  control={control}
+                  name="unitType"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      label="Unit Type"
+                      inPortal={false}
+                      labelClassName="text-sm font-medium text-gray-900"
+                      dropdownClassName="h-auto top-[43px]"
+                      placeholder="Select..."
+                      options={[
+                        { value: 'perpcs', label: 'Per Piece' },
+                        { value: 'persqft', label: 'Per SQFT.' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { value: 'perpcs', label: 'Per Piece' },
+                          { value: 'persqft', label: 'Per SQFT.' },
+                        ].find((r) => r.value === selected)?.label ?? ''
+                      }
+                      error={errors?.eventType?.message as string}
+                    />
+                  )}
                 />
                 <Input
                   label="Tier 1 Price"

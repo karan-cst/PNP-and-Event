@@ -3,16 +3,15 @@
 import cn from '@core/utils/class-names';
 import React, { useState } from 'react';
 import { Text } from 'rizzui/typography';
-import { SubmitHandler, Controller } from 'react-hook-form';
-import { Button, Input, Select, Title } from 'rizzui';
+import { Controller, SubmitHandler } from 'react-hook-form';
+import { Button, Select, Title } from 'rizzui';
 import { Form } from '@core/ui/form';
 import {
   PNPUpdateFormSchema,
   PNPUpdateFormSchemaFormInput,
 } from '@/validators/NEW/update-pnp.schema';
-import { JobFormDataType } from '@/data/jobpnp-data';
 import { RxCross1 } from 'react-icons/rx';
-import Logs from '../../job-management/job-view/Logs';
+import { DeliveryDataType } from './table';
 import DateFiled from '@core/components/controlled-table/date-field';
 import FormGroup from '../../form-group';
 
@@ -22,8 +21,8 @@ const UpdateForm = ({
   setSelectedJob,
 }: {
   className?: string;
-  selectedJob: JobFormDataType | null;
-  setSelectedJob: React.Dispatch<React.SetStateAction<JobFormDataType | null>>;
+  selectedJob: DeliveryDataType | null;
+  setSelectedJob: React.Dispatch<React.SetStateAction<DeliveryDataType | null>>;
 }) => {
   return (
     <div className={cn('space-y-6', className)}>
@@ -31,7 +30,7 @@ const UpdateForm = ({
         {/* <div className="block"> */}
         <div className="relative flex items-center justify-between p-3">
           <Text className="font-inter text-[18px] font-semibold">
-            Job Detailes Update
+            Job Detailes Update - {selectedJob?.jobName}
           </Text>
           <RxCross1 size={16} onClick={() => setSelectedJob(null)} />
         </div>
@@ -107,22 +106,12 @@ export function UpdateJob({
       setLoading(false);
       setReset({
         location: '',
-        deliveryDate: '',
+        followupDate: '',
         Status: '',
         VendorRemarks: '',
       });
     }, 600);
   };
-
-  const dayOptions = [
-    { label: 'Mon', value: 'Mon' },
-    { label: 'Tue', value: 'Tue' },
-    { label: 'Wed', value: 'Wed' },
-    { label: 'Thu', value: 'Thu' },
-    { label: 'Fri', value: 'Fri' },
-    { label: 'Sat', value: 'Sat' },
-    { label: 'Sun', value: 'Sun' },
-  ];
 
   return (
     <Form<PNPUpdateFormSchemaFormInput>
@@ -135,7 +124,7 @@ export function UpdateJob({
       }}
       className="isomorphic-form flex flex-grow flex-col @container"
     >
-      {({ register, control, watch, setValue, formState: { errors } }) => {
+      {({ control, watch, setValue, formState: { errors } }) => {
         const selectedDivision = watch('division');
         return (
           <>
@@ -148,11 +137,6 @@ export function UpdateJob({
                     : 'gap-5'
                 )}
               >
-                {/* <HorizontalFormBlockWrapper
-                  title="Division Information"
-                  description="Basic division details"
-                  isModalView={isModalView}
-                > */}
                 <FormGroup
                   title="Update Delivery Information"
                   description="Select Division for the job and update delivery details"
@@ -169,7 +153,7 @@ export function UpdateJob({
                         selected={field.value ?? null}
                         onChange={field.onChange}
                         inputProps={{
-                          label: 'Follow Up  Date',
+                          label: 'Revise Follow Up  Date',
                           labelClassName: '[@media(min-width:1860px)]:hidden',
                         }}
                         isClearable={true}
@@ -189,7 +173,7 @@ export function UpdateJob({
                         selected={field.value ?? null}
                         onChange={field.onChange}
                         inputProps={{
-                          label: 'Printer Date',
+                          label: 'Revise Printer Delivery Date',
                           labelClassName: '[@media(min-width:1860px)]:hidden',
                         }}
                         isClearable={true}
@@ -292,7 +276,6 @@ export function UpdateJob({
                     </>
                   )}
                 </FormGroup>
-                {/* </HorizontalFormBlockWrapper> */}
               </div>
             </div>
             {/* z-40   */}

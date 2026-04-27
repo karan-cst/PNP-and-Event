@@ -3,6 +3,7 @@ export type standardRateType = {
   eventType: string;
   elementType: string;
   elementItem: string;
+  unitType: 'perpcs' | 'persqft';
   tier1Price: number;
   tier2Price: number;
   tier3Price: number;
@@ -12,12 +13,13 @@ export type standardRateType = {
   src?: string;
 };
 
-export const standardRateData = [
+export const standardRateData: standardRateType[] = [
   {
     id: 1,
     eventType: 'Conference',
     elementType: 'Stage Setup',
     elementItem: 'Chair',
+    unitType: 'perpcs',
     tier1Price: 100,
     tier2Price: 90,
     tier3Price: 80,
@@ -31,6 +33,7 @@ export const standardRateData = [
     eventType: 'Stall',
     elementType: 'Sound Box',
     elementItem: '3D Box',
+    unitType: 'perpcs',
     tier1Price: 100,
     tier2Price: 95,
     tier3Price: 85,
@@ -44,6 +47,7 @@ export const standardRateData = [
     eventType: 'Lighting',
     elementType: 'Item Name',
     elementItem: 'Halogen Light',
+    unitType: 'perpcs',
     tier1Price: 100,
     tier2Price: 80,
     tier3Price: 75,

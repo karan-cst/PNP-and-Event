@@ -2,13 +2,9 @@
 
 import React from 'react';
 import PageHeader from '@/app/shared/page-header';
-import { Button, Flex, Input, Select } from 'rizzui';
+import { Button, Flex, Input } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
-import { PiFunnel, PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
-import { useModal } from '@/app/shared/modal-views/use-modal';
-import ToggleColumns from '@core/components/table-utils/toggle-columns';
-
-import { useRouter } from 'next/navigation';
+import { PiFunnel, PiMagnifyingGlassBold } from 'react-icons/pi';
 
 type PageHeaderTypes<T extends Record<string, any>> = {
   title: string;
@@ -27,8 +23,7 @@ export default function Header<T extends Record<string, any>>({
   openDrawer,
   setOpenDrawer,
 }: PageHeaderTypes<T>) {
-  const router = useRouter();
-  const { isOpen, openModal, closeModal } = useModal();
+  const [today, setToday] = React.useState(false);
   return (
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} className={className}>
@@ -37,6 +32,13 @@ export default function Header<T extends Record<string, any>>({
           gap="3"
           className="w-full sm:flex-row sm:items-center sm:justify-end"
         >
+          {/* <Button
+            variant={'outline'}
+            onClick={() => setToday(!today)}
+            className={`h-9 pe-3 ps-2.5 ${today ? 'bg-gray-200 text-gray-700' : 'bg-primary text-white hover:text-white'}`}
+          >
+            Today Followup
+          </Button> */}
           <Input
             type="search"
             placeholder="Search..."

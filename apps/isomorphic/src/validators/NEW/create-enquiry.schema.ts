@@ -26,6 +26,11 @@ export const giftInquirySchema = z.object({
   endUserOfGift: z.string().optional(),
 
   samples: z.array(z.any()).max(3, 'Max 3 files allowed'),
+  jobType: z.array(
+    z.enum(['print', 'gift'], {
+      required_error: 'Job type is required',
+    })
+  ),
 });
 
 export type GiftInquiryFormType = z.infer<typeof giftInquirySchema>;

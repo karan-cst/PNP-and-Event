@@ -47,9 +47,10 @@ export type JobFormDataType = {
   // PrintExecutiveStatus: PrintExecutiveStatus;
   finalizedVendor?: string;
   finalizedVendorCost?: number;
-  operationHead?: ApprovalStage;
+  // operationHead?: ApprovalStage;
 
-  // 4️⃣ Design Cost + Business Head
+  // 4️⃣ Design Cost + Business Head OR Operation Head
+  operationHead?: designApprovalStage;
   designCost?: number;
   businessHeadName?: designApprovalStage;
 
@@ -61,10 +62,12 @@ export type JobFormDataType = {
     managerName: string;
     vendorSelectionStatus: ApprovalStatus;
     date?: string;
+    remarks?: string;
   };
 
   // 7️⃣ Finalized Vendor
   finalizedVendorName?: string;
+  isRejected?: boolean;
 };
 export type JobType = 'print' | 'gift' | 'printngift';
 export type PrintExecutiveStatus = 'Approved' | 'Rejected';
@@ -119,11 +122,12 @@ export const dummyJobData: JobFormDataType[] = [
     jobType: 'print',
     // PrintExecutiveStatus: 'Approved',
     // 3️⃣ Operation Head
-    operationHead: {
-      userName: 'Amit Shah',
-      status: 'Approved',
-      date: '11/02/2026',
-    },
+    // operationHead: {
+    //   userName: 'Amit Shah',
+    //   status: 'Approved',
+    //   date: '11/02/2026',
+    //   remark: '',
+    // },
 
     // 4️⃣ Design Cost + Business Head
     designCost: 5000,
@@ -132,6 +136,7 @@ export const dummyJobData: JobFormDataType[] = [
       status: 'Approved',
       date: '11/02/2026',
       designCost: 5000,
+      designerName: 'Mayera Mehara',
     },
 
     // 5️⃣ Print Executive
@@ -153,7 +158,7 @@ export const dummyJobData: JobFormDataType[] = [
   },
   {
     _id: '2',
-    jobName: 'Pamphlet_Gaurav Gupta',
+    jobName: 'Magazine_canities',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',
 
@@ -198,11 +203,36 @@ export const dummyJobData: JobFormDataType[] = [
     specialInstructions: 'Ensure high resolution print quality.',
     createdAt: '2026-02-10',
     jobType: 'print',
+    designCost: 5000,
+    operationHead: {
+      userName: 'Rakesh Mehta',
+      status: 'Approved',
+      date: '11/02/2026',
+      designCost: 5000,
+      designerName: 'Mayera Mehara',
+    },
+
+    // 5️⃣ Print Executive
+    printExecutive: {
+      userName: 'Umesh Yadav',
+      status: 'Approved',
+      date: '12/02/2026',
+    },
+
+    // 6️⃣ Print Manager
+    printManager: {
+      managerName: 'Manoj Jain',
+      vendorSelectionStatus: 'Rejected',
+      date: '12/02/2026',
+      remarks: 'Vendor quoted a price higher than the budgeted amount.',
+    },
+    isRejected: true,
+
     // PrintExecutiveStatus: 'Approved',
   },
   {
     _id: '3',
-    jobName: 'Pamphlet_Gaurav Gupta',
+    jobName: 'Magazine_Telsa-Biso Digest June Issue',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',
 
@@ -251,7 +281,7 @@ export const dummyJobData: JobFormDataType[] = [
   },
   {
     _id: '4',
-    jobName: 'Pamphlet_Gaurav Gupta',
+    jobName: 'Pamphlet',
     jobNo: 'ADR67101JUN/25-26',
     date: '2025-06-24',
 
@@ -306,6 +336,7 @@ export type ApprovalStage = {
   userName?: string;
   status: ApprovalStatus;
   date?: string; // dd/mm/yyyy
+  remarks?: string;
 };
 
 export type designApprovalStage = {
@@ -373,6 +404,7 @@ export const dummyJobTrackerData: JobTrackerTableType[] = [
       status: 'Approved',
       date: '11/02/2026',
       designCost: 5000,
+      remarks: '',
     },
 
     // 5️⃣ Print Executive

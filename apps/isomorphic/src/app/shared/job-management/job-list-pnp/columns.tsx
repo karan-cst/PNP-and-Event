@@ -93,34 +93,37 @@ export const JobListColumns = () => {
       id: 'jobName',
       size: 250,
       header: 'Job Details',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          <Link
-            href={`/job-management/job-view`}
-            className="group inline-block"
-          >
-            <Title
-              as="h5"
-              className="cursor-pointer !text-sm font-medium text-blue-600 transition group-hover:underline"
+      cell: ({ row }) => {
+        return (
+          <div className={cn('grid gap-1')}>
+            <Link
+              href={`/job-management/job-view`}
+              className="group inline-block"
             >
-              {row.original.jobName}
-            </Title>
-          </Link>
-          <Text className="text-sm">
-            {row.original?.division}-{row.original.jobType}
-          </Text>
-          <Text className="text-sm">{row.original.jobNo}</Text>
-        </div>
-      ),
+              <Title
+                as="h5"
+                className={`cursor-pointer !text-sm font-medium ${row.original.isRejected ? 'text-red-500' : 'text-blue-600'} transition group-hover:underline`}
+              >
+                {row.original.jobName}
+              </Title>
+            </Link>
+            <Text className="text-sm">
+              {row.original?.division}-{row.original.jobType}
+            </Text>
+            <Text className="text-sm">{row.original.jobNo}</Text>
+          </div>
+        );
+      },
     }),
     columnHelper.display({
       id: 'user',
-      size: 120,
+      size: 140,
       header: 'User Name',
       cell: ({ row }) => (
         <>
           <Text className="text-sm">ABC</Text>
-          <Text className="text-sm">CS User</Text>
+          <Text className="text-xs">cs User</Text>
+          <Text className="text-xs">{row.original.date}</Text>
         </>
       ),
     }),
@@ -135,29 +138,11 @@ export const JobListColumns = () => {
         </>
       ),
     }),
-    columnHelper.display({
-      id: 'PrintExecutiveStatus',
-      size: 120,
-      header: 'Print Executive Status',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          <Title
-            as="h5"
-            className="cursor-pointer !text-sm font-medium transition group-hover:underline"
-          >
-            {row.original?.printExecutive?.userName || '-'}
-          </Title>
-          <Text className="text-xs">
-            {row.original?.printExecutive?.status || ''}-
-            {row.original?.printExecutive?.date || ''}
-          </Text>
-        </div>
-      ),
-    }),
+
     columnHelper.accessor('operationHead', {
       id: 'operationHead',
       size: 200,
-      header: 'Operation Head',
+      header: 'Design Cost + Operation Head',
       cell: ({ row }) => {
         const stage = row.original?.operationHead;
         return (
@@ -165,10 +150,24 @@ export const JobListColumns = () => {
             <Text className="text-sm font-medium">
               {stage?.userName || '-'}
             </Text>
-            <Text className="text-xs">
-              {stage?.status}
-              {stage?.date ? ` • ${stage?.date}` : ''}
+            <Text className="text-xs text-gray-500">
+              {formatPrice(stage?.designCost || null)} -
+              {stage?.designerName ?? null}
             </Text>
+
+            <Tooltip
+              size="sm"
+              content={stage?.remarks ?? null}
+              placement="top"
+              color="invert"
+            >
+              <Text
+                className={`text-xs ${stage?.status === 'Rejected' ? 'text-red-500' : ''}`}
+              >
+                {stage?.status}
+                {stage?.date ? ` • ${stage?.date}` : null}
+              </Text>
+            </Tooltip>
           </div>
         );
       },
@@ -182,18 +181,48 @@ export const JobListColumns = () => {
         return (
           <div className="grid gap-1">
             <Text className="text-sm font-medium">
-              {formatPrice(row.original.designCost || 0)}
-            </Text>
-            <Text className="text-xs text-gray-500">
               {row.original?.businessHeadName?.userName || '-'}
             </Text>
-            <Text className="text-xs">
-              {stage?.status}
-              {stage?.date ? ` • ${stage?.date}` : ''}
+            <Text className="text-xs text-gray-500">
+              {formatPrice(stage?.designCost || null)} -
+              {row.original?.businessHeadName?.designerName ?? null}
             </Text>
+
+            <Tooltip
+              size="sm"
+              content={stage?.remarks ?? null}
+              placement="top"
+              color="invert"
+            >
+              <Text
+                className={`text-xs ${stage?.status === 'Rejected' ? 'text-red-500' : ''}`}
+              >
+                {stage?.status}
+                {stage?.date ? ` • ${stage?.date}` : null}
+              </Text>
+            </Tooltip>
           </div>
         );
       },
+    }),
+    columnHelper.display({
+      id: 'PrintExecutiveStatus',
+      size: 120,
+      header: 'Print Executive Status',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm font-medium">
+            {row.original?.printExecutive?.userName || '-'}
+          </Text>
+
+          <Text
+            className={`text-xs ${row.original?.printExecutive?.status === 'Rejected' ? 'text-red-500' : ''}`}
+          >
+            {row.original?.printExecutive?.status || ''}-
+            {row.original?.printExecutive?.date || ''}
+          </Text>
+        </div>
+      ),
     }),
     columnHelper.accessor('printManager', {
       id: 'printManager',
@@ -206,10 +235,19 @@ export const JobListColumns = () => {
             <Text className="text-sm font-medium">
               {manager?.managerName || '-'}
             </Text>
-            <Text className="text-xs">
-              {manager?.vendorSelectionStatus}
-              {manager?.date ? ` • ${manager?.date}` : ''}
-            </Text>
+            <Tooltip
+              size="sm"
+              content={manager?.remarks ?? null}
+              placement="top"
+              color="invert"
+            >
+              <Text
+                className={`text-xs ${manager?.vendorSelectionStatus === 'Rejected' ? 'text-red-500' : ''}`}
+              >
+                {manager?.vendorSelectionStatus}
+                {manager?.date ? ` • ${manager?.date}` : ''}
+              </Text>
+            </Tooltip>
           </div>
         );
       },
@@ -223,19 +261,6 @@ export const JobListColumns = () => {
           <Text className="text-sm">
             {row.original?.finalizedVendor ? 'Done' : 'Pending'}
           </Text>
-          {/* <Text
-          className={cn(
-            'flex items-center gap-1 text-sm font-semibold',
-            row.original?.finalizedVendor
-              ? 'cursor-pointer text-blue-600 hover:underline'
-              : 'cursor-not-allowed text-gray-400'
-          )}
-        >
-          {formatPrice(row.original?.finalizedVendorCost)}
-          <span>
-            <AiOutlineExport />
-          </span>
-        </Text> */}
         </>
       ),
     }),
@@ -246,10 +271,10 @@ export const JobListColumns = () => {
       header: 'Delivery Date',
       cell: ({ row }) => (
         <div className="grid gap-1">
-          <Text className="text-sm">
+          <Text className="text-sm">{row.original?.deliveryPlace || ''}</Text>
+          <Text className="text-xs">
             {dayjs(row.original.deliveryDate).format('DD/MM/YYYY')}
           </Text>
-          <Text className="text-sm">{row.original?.deliveryPlace || ''}</Text>
         </div>
       ),
     }),
@@ -265,6 +290,22 @@ export const JobListColumns = () => {
           <Text className="text-xs">
             {row.original?._id == '1' ? 'Karan Jain' : ''}
             {row.original?._id == '1' ? ' • Pending' : ''}
+          </Text>
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: 'poNumber',
+      size: 200,
+      header: 'PO Number',
+      cell: ({ row }) => (
+        <div className="grid gap-1">
+          <Text className="text-sm">
+            {row.original?._id == '1' ? 'Rajesh Mehara ' : '-'}
+          </Text>
+          <Text className="text-xs">
+            {row.original?._id == '1' ? '123ABC56' : ''}
+            {row.original?._id == '1' ? ' • 27/04/2026' : ''}
           </Text>
         </div>
       ),
@@ -345,12 +386,7 @@ export const JobListColumns = () => {
                   size="sm"
                   variant="outline"
                   aria-label={'Download PDF'}
-                  onClick={() => {
-                    window.open(
-                      '/templates/Vendor_Quote_Template.xlsx',
-                      '_blank'
-                    );
-                  }}
+                  onClick={() => {}}
                 >
                   <BsFiletypePdf className="h-4 w-4" />
                 </ActionIcon>
@@ -412,7 +448,7 @@ const AddPO = ({ job }: { job: JobFormDataType }) => {
                 <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
                   <div className="mb-7 flex items-center justify-between">
                     <Title as="h4" className="font-semibold">
-                      Add PO Number
+                      Add PO Number - {job.jobName}
                     </Title>
                     <ActionIcon
                       size="sm"

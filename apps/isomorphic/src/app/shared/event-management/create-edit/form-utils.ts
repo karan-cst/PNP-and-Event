@@ -44,16 +44,28 @@ export function eventDefaultValues(event?: CreateEventInput) {
     // },
 
     // 4️⃣ Elements (Dynamic Field Array)
-    elements: isEmpty(event?.elements)
-      ? [
-          {
-            standardElementName: '',
-            quantity: 1,
-            standardRate: undefined,
-            total: undefined,
-          },
-        ]
-      : event?.elements,
+    elements: event?.elements ?? [],
+    elementDraft: {
+      standardElementName: undefined,
+      standardRate: 0,
+      days: 1,
+      quantity: 1,
+      width: undefined,
+      length: undefined,
+      height: undefined,
+      depth: undefined,
+    },
+
+    // elements: isEmpty(event?.elements)
+    //   ? [
+    //       {
+    //         standardElementName: '',
+    //         quantity: 1,
+    //         standardRate: undefined,
+    //         total: undefined,
+    //       },
+    //     ]
+    //   : event?.elements,
 
     // 5️⃣ Client Section
     divisionName: event?.divisionName ?? '',

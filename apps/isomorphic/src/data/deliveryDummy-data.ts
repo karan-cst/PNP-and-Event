@@ -2,6 +2,7 @@ export type DeliveryDataType = {
   id: string;
   jobId: string;
   jobName: string;
+  createdBy: string;
   createdAt: string;
   sapCode: string[];
   description: string;
@@ -19,8 +20,9 @@ export type DeliveryDataType = {
 export const deliveryDummyData: DeliveryDataType[] = [
   {
     id: '1',
-    jobId: 'JOB-001',
-    jobName: 'Brochure Printing',
+    jobId: 'ADR67101JUN/25-26',
+    jobName: 'Pamphlet_Gaurav Gupta',
+    createdBy: 'ABC',
     createdAt: '2026-03-10',
     sapCode: ['221229', '221227'],
     description: 'Brochure Printing',

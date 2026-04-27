@@ -15,7 +15,7 @@ const columnHelper = createColumnHelper<standardRateDataType>();
 export const HSNListColumns = [
   columnHelper.display({
     id: 'id',
-    size: 130,
+    size: 100,
     header: 'Rate ID',
     cell: ({ row }) => <Text className="text-sm">{row.original.id}</Text>,
   }),
@@ -41,7 +41,7 @@ export const HSNListColumns = [
   }),
   columnHelper.display({
     id: 'elementItem',
-    size: 150,
+    size: 170,
     header: 'Element Item',
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
@@ -50,7 +50,10 @@ export const HSNListColumns = [
           size="md"
           src={row.original.src}
         />
-        <Text className="text-sm">{row.original.elementItem}</Text>
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">{row.original.elementItem}</Text>
+          <Text className="text-xs">{row.original.unitType}</Text>
+        </div>
       </div>
     ),
   }),
@@ -96,7 +99,7 @@ export const HSNListColumns = [
   }),
   columnHelper.accessor('createdAt', {
     id: 'createdAt',
-    size: 200,
+    size: 190,
     header: 'Created At',
     cell: ({ row }) => <DateCell date={new Date(row.original.createdAt)} />,
   }),

@@ -1,4 +1,35 @@
-import { z } from 'zod';
+import { optional, z } from 'zod';
+
+const optionalNumber = z.preprocess((val) => {
+  // Convert empty input to undefined
+  if (val === '' || val === null || val === undefined) return undefined;
+
+  // Convert string to number
+  const n = typeof val === 'string' ? Number(val) : val;
+
+  // If not a valid number, keep as-is so Zod throws a proper error
+  return Number.isFinite(n) ? n : val;
+}, z.number().optional());
+
+export const eventElementSchema = z.object({
+  standardElementName: z.string().optional(),
+  width: optionalNumber,
+  length: optionalNumber,
+  height: optionalNumber,
+  depth: optionalNumber,
+
+  days: z.coerce.number().min(1, 'Days must be at least 1'),
+  quantity: z.coerce.number().min(1, 'Quantity must be at least 1'),
+  standardRate: z.coerce.number().min(0, 'Rate cannot be negative'),
+  sqft: optionalNumber, // derived
+  total: optionalNumber, // derived
+});
+
+// In your main schema:
+// export const eventFormSchema = z.object({
+//   // ...
+//   elements: z.array(eventElementSchema).optional(),
+// });
 
 export const eventFormSchema = z.object({
   // 1️⃣ Basic Info
@@ -24,7 +55,6 @@ export const eventFormSchema = z.object({
   stallSize: z.coerce.number().optional(),
   sideOpen: z.coerce.number().min(0).max(4).optional(),
 
-  // 2️⃣ Venue Details
   location: z.object({
     addressLine1: z.string().min(1, 'Address Line 1 is required'),
     addressLine2: z.string().optional(),
@@ -33,25 +63,16 @@ export const eventFormSchema = z.object({
     city: z.string().min(1, 'City is required'),
   }),
   elements: z
-    .array(
-      z.object({
-        standardElementName: z.string().min(1, 'Element name required'),
-        quantity: z.coerce.number().min(1, 'Quantity must be at least 1'),
-        days: z.coerce.number().min(1, 'Days must be at least 1'),
-        standardRate: z.coerce.number().min(0),
-        total: z.coerce.number().min(0),
-      })
-    )
+    .array(eventElementSchema)
     .min(1, 'At least one element is required'),
+  elementDraft: eventElementSchema.optional(),
 
   // 5️⃣ Client Section
   company: z.object({
     companyId: z.string().min(1, 'Client is required'),
     divisionName: z.array(z.string()).optional(),
     client: z.string().optional(),
-    // quotationFile: z.string(),
     emailFile: z.string(),
-    // clientTotal: z.number(),
   }),
   divisionName: z.string().optional(),
   priority: z.enum(['Low', 'Medium', 'High'], {

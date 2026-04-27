@@ -19,6 +19,7 @@ import {
   PiUser,
   PiUsersDuotone,
 } from 'react-icons/pi';
+import { RiUserFollowFill } from 'react-icons/ri';
 import { AiTwotoneFileText } from 'react-icons/ai';
 import { FaUserGroup, FaUserTie } from 'react-icons/fa6';
 import { HiOutlineTruck } from 'react-icons/hi2';
@@ -656,7 +657,7 @@ export const berylliumMenuItems: MenuItemsType[] = [
   //   ],
   // },
   {
-    id: '15',
+    id: '14',
     name: 'Inquiry',
     title: 'inquiry',
     icon: PiFile,
@@ -699,6 +700,22 @@ export const berylliumMenuItems: MenuItemsType[] = [
         name: 'Vendor Delivery',
         href: routes.deliveryManagement.vendor,
         icon: FaUserTie,
+        roles: ['deliveryUser'],
+      },
+    ],
+  },
+  {
+    id: '17',
+    name: 'Follow Up',
+    title: 'Follow Up',
+    icon: RiUserFollowFill,
+    roles: ['deliveryUser'],
+    isExpnad: false,
+    menuItems: [
+      {
+        name: 'Today Follow Up',
+        href: routes.deliveryManagement.delivery,
+        icon: RiUserFollowFill,
         roles: ['deliveryUser'],
       },
     ],

@@ -19,6 +19,7 @@ import {
 import { AiTwotoneFileText } from 'react-icons/ai';
 import { HiOutlineTruck } from 'react-icons/hi2';
 import { FaUserTie } from 'react-icons/fa6';
+import { RiUserFollowFill } from 'react-icons/ri';
 
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
@@ -405,18 +406,6 @@ export const menuItems = [
   },
 
   {
-    name: 'Vendor Delivery',
-    href: routes.deliveryManagement.vendor,
-    icon: PiFile,
-    roles: ['deliveryUser'],
-  },
-  {
-    name: 'Client Delivery',
-    href: routes.deliveryManagement.client,
-    icon: PiFile,
-    roles: ['deliveryUser'],
-  },
-  {
     name: 'JOB Management',
     href: routes.jobManagement.job,
     icon: <PiPrinterDuotone />,
@@ -455,6 +444,12 @@ export const menuItems = [
     name: 'Vendor Delivery',
     href: routes.deliveryManagement.vendor,
     icon: <FaUserTie />,
+    roles: ['deliveryUser'],
+  },
+  {
+    name: 'Today Follow Up',
+    href: routes.deliveryManagement.delivery,
+    icon: <RiUserFollowFill />,
     roles: ['deliveryUser'],
   },
 

@@ -69,7 +69,6 @@ export default function CreateVendor({
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      console.log('createCategory data ->', data);
       setReset({
         companyName: '',
         name: '',
@@ -78,6 +77,7 @@ export default function CreateVendor({
         city: '',
         vendorType: '',
         address: '',
+        isActive: 'active',
       });
     }, 600);
   };
@@ -163,6 +163,33 @@ export default function CreateVendor({
                       value={value}
                       getOptionValue={(option) => option.label}
                       error={errors?.vendorType?.message as string}
+                    />
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name="isActive"
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      label="Status"
+                      inPortal={false}
+                      labelClassName="text-sm font-medium text-gray-900"
+                      dropdownClassName="h-auto top-[43px]"
+                      placeholder="Select..."
+                      options={[
+                        { label: 'Active', value: 'active' },
+                        { label: 'Deactive', value: 'inactive' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { label: 'Active', value: 'active' },
+                          { label: 'Deactive', value: 'inactive' },
+                        ]?.find((r) => r.value === selected)?.label ?? ''
+                      }
+                      error={errors?.isActive?.message as string}
                     />
                   )}
                 />

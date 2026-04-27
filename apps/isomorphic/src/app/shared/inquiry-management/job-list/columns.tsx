@@ -51,9 +51,12 @@ export const InquiryListColumns = [
   columnHelper.accessor('createdDate', {
     id: 'createdDate',
     size: 120,
-    header: 'Created Date',
+    header: 'Created By',
     cell: ({ row }) => (
-      <Text className="text-sm">{row.original.createdDate}</Text>
+      <div className="grid gap-1">
+        <Text className="text-sm">ABC</Text>
+        <Text className="text-xs">{row.original.createdDate}</Text>
+      </div>
     ),
   }),
 

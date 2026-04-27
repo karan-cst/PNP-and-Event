@@ -13,6 +13,7 @@ export const StandardRateFormSchema = z.object({
     .string()
     .trim()
     .min(1, { message: 'Element Item is required' }),
+  unitType: z.enum(['perpcs', 'persqft']),
 
   tier1Price: z
     .number()

@@ -1,7 +1,7 @@
 'use client';
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { Checkbox, Input, Select, Textarea } from 'rizzui';
+import { CheckboxGroup, Checkbox, Input, Select, Text, Textarea } from 'rizzui';
 import cn from '@core/utils/class-names';
 import FormGroup from '@/app/shared/form-group';
 import { DatePicker } from '@core/ui/datepicker';
@@ -48,13 +48,6 @@ export default function Inquiry({ className }: { className?: string }) {
         error={errors?.budget?.message as string}
       />
 
-      {/* Division */}
-      {/* <Input
-        label="Division"
-        placeholder="Enter division"
-        {...register('division')}
-        error={errors?.division?.message as string}
-      /> */}
       <Controller
         name={`division`}
         control={control}
@@ -123,12 +116,33 @@ export default function Inquiry({ className }: { className?: string }) {
         name="customized"
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Checkbox
-            value={value}
-            checked={value}
-            onChange={onChange}
-            label="Customized"
-          />
+          <div className="col-span-1 flex flex-col gap-2">
+            <Text className="font-medium">Design</Text>
+            <Checkbox
+              value={value}
+              checked={value}
+              onChange={onChange}
+              label="Customized"
+            />
+          </div>
+        )}
+      />
+
+      <Controller
+        name="jobType"
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <div className="col-span-1 flex flex-col gap-2">
+            <Text className="font-medium">Job Type</Text>
+            <CheckboxGroup
+              values={value || []}
+              setValues={onChange}
+              className="flex flex-row items-center gap-4"
+            >
+              <Checkbox label="Print" value="print" />
+              <Checkbox label="Gift" value="gift" />
+            </CheckboxGroup>
+          </div>
         )}
       />
 

@@ -33,7 +33,7 @@ export const EventListColumns = (role?: string) => {
     }),
     columnHelper.accessor('eventName', {
       id: 'eventName',
-      size: 220,
+      size: 240,
       header: 'Event Details',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
@@ -47,7 +47,7 @@ export const EventListColumns = (role?: string) => {
               <AiOutlineExport />
             </span>
           </Title>
-          <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType}`}</Text>
+          <Text className="text-sm">{`${row.original.isPharma ? row.original?.divisionName : row.original.clientName} - ${row.original.eventType} - ${row.original.eventId}`}</Text>
         </div>
       ),
     }),

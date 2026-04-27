@@ -35,6 +35,7 @@ export function CreateStandardrateModalView({
             eventType: '',
             elementType: '',
             elementItem: '',
+            unitType: 'perpcs',
             tier1Price: 0,
             tier2Price: 0,
             tier3Price: 0,
