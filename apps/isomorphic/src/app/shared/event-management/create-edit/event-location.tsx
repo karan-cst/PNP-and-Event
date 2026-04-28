@@ -51,6 +51,9 @@ export default function EventLocation({ className }: { className?: string }) {
           render={({ field: { onChange, value } }) => (
             <Select
               dropdownClassName="h-auto"
+              searchable
+              clearable
+              onClear={() => onChange(null)}
               options={stateOption}
               value={value}
               onChange={onChange}
@@ -66,6 +69,9 @@ export default function EventLocation({ className }: { className?: string }) {
           render={({ field: { onChange, value } }) => (
             <Select
               dropdownClassName="h-auto"
+              searchable
+              clearable
+              onClear={() => onChange(null)}
               options={cityOption}
               value={value}
               onChange={onChange}

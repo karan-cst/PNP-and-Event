@@ -1,15 +1,15 @@
 'use client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ActionIcon, Text, Title, Tooltip } from 'rizzui';
+import { ActionIcon, FileInput, Text, Title, Tooltip } from 'rizzui';
 import { EventTrackerDataType } from './table';
 import cn from '@core/utils/class-names';
-import { PiDownloadDuotone, PiEyeBold } from 'react-icons/pi';
 import { AiOutlineCloudDownload, AiOutlineExport } from 'react-icons/ai';
 import { formatPrice } from '@/config/format-pricing';
 import { useModal } from '../../modal-views/use-modal';
 import { VendorViewModalView } from '../vendor-view/vendorViewModal';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
+import { PiXBold } from 'react-icons/pi';
 
 const columnHelper = createColumnHelper<EventTrackerDataType>();
 
@@ -173,35 +173,7 @@ export const EventTrackerListColumns = () => {
       id: 'invoiceStatus',
       size: 120,
       header: 'Invoice Status',
-      cell: ({ row }) => (
-        <div className={cn('grid gap-1')}>
-          {row.original?.invoiceStatus ? (
-            <div className={cn('grid gap-1')}>
-              <Tooltip
-                size="sm"
-                content={'Download Invoice'}
-                placement="top"
-                color="invert"
-              >
-                <Text
-                  className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
-                  onClick={() => {}}
-                >
-                  {row?.original?.invoiceStatus}
-                  <span>
-                    <AiOutlineCloudDownload />
-                  </span>
-                </Text>
-              </Tooltip>
-              {row?.original?.invoiceStatus == 'Done' && (
-                <Text className="text-xs">Mayur Patel, 23/03/2026 13:10</Text>
-              )}
-            </div>
-          ) : (
-            '-'
-          )}
-        </div>
-      ),
+      cell: ({ row }) => <UploadButton job={row.original} />,
     }),
     columnHelper.display({
       id: 'paymentStatus',
@@ -260,3 +232,64 @@ export const ShowPrice = ({
     </Tooltip>
   );
 };
+
+const UploadButton = ({ job }: { job: EventTrackerDataType }) => {
+  const { openModal } = useModal();
+  return (
+    <div className={cn('grid gap-1')}>
+      {job.invoiceStatus ? (
+        <div className={cn('grid gap-1')}>
+          <Tooltip
+            size="sm"
+            content={`${job.invoiceStatus == 'Awaiting' ? 'Upload' : 'Download'} - Invoice`}
+            placement="top"
+            color="invert"
+          >
+            <Text
+              className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+              onClick={() =>
+                openModal({
+                  view: <UploadSampleModalView />,
+                  customSize: 720,
+                })
+              }
+            >
+              {job.invoiceStatus}
+              <span>
+                <AiOutlineCloudDownload />
+              </span>
+            </Text>
+          </Tooltip>
+          {job.invoiceStatus == 'Done' && (
+            <Text className="text-xs">Mayur Patel, 23/03/2026 13:10</Text>
+          )}
+        </div>
+      ) : (
+        '-'
+      )}
+    </div>
+  );
+};
+
+export function UploadSampleModalView() {
+  const { closeModal } = useModal();
+  return (
+    <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+      <div className="mb-7 flex items-center justify-between">
+        <Title as="h4" className="font-semibold">
+          Upload Invoice
+        </Title>
+        <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
+          <PiXBold className="h-auto w-5" />
+        </ActionIcon>
+      </div>
+      <FileInput
+        label="Upload Invoice File"
+        accept=".jpg,.jpeg,.png,.pdf"
+        onChange={(e) => {
+          const selectedFiles = e?.target?.files;
+        }}
+      />
+    </div>
+  );
+}

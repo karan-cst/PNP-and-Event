@@ -67,7 +67,7 @@ export default function EventClient({ className }: { className?: string }) {
         control={control}
         render={({ field: { value, onChange }, fieldState }) => (
           <Select
-            label="Client"
+            label="Company"
             options={companyOptions}
             searchable
             value={companyOptions.find((opt) => opt.value === value) ?? null}

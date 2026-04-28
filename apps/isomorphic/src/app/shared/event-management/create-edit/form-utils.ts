@@ -107,14 +107,14 @@ export const stateOption = [
     value: 'Gujarat',
     label: 'Gujarat',
   },
-  // {
-  //   value: 'maharashtra',
-  //   label: 'Maharashtra',
-  // },
-  // {
-  //   value: 'rajasthan',
-  //   label: 'Rajasthan',
-  // },
+  {
+    value: 'maharashtra',
+    label: 'Maharashtra',
+  },
+  {
+    value: 'rajasthan',
+    label: 'Rajasthan',
+  },
 ];
 export const cityOption = [
   {

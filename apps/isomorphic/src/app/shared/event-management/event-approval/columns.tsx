@@ -378,8 +378,9 @@ export const Action = ({
           size="sm"
           variant="outline"
           aria-label={'Download PO'}
-          onClick={() => (disabled ? null : handleOpen())}
-          disabled={disabled}
+          // onClick={() => (disabled ? null : handleOpen())}
+          onClick={() => handleOpen()}
+          // disabled={disabled}
         >
           <PiCheckFatDuotone className="h-6 w-6" />
         </ActionIcon>

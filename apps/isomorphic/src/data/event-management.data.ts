@@ -33,7 +33,17 @@ export type EventDataType = {
     emlFileUrl: string;
     excelFileUrl: string;
   }[];
+  firstLevelHistory: ApprovalHistory[];
+  secondLevelHistory: ApprovalHistory[];
+  poStatus?: string;
 };
+
+// export type ApprovalHistory = {
+//   userName: string;
+//   status: string;
+//   comment: string;
+//   date?: string;
+// };
 
 export const eventDummyData: EventDataType[] = [
   {
@@ -85,6 +95,29 @@ export const eventDummyData: EventDataType[] = [
         excelFileUrl: 'excelFileUrl',
       },
     ],
+    firstLevelHistory: [
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
+    secondLevelHistory: [
+      {
+        userName: 'Vijay Kumar',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
   },
   {
     id: 2,
@@ -108,6 +141,30 @@ export const eventDummyData: EventDataType[] = [
     finalizedBy: 'Ankit (EH)',
     finalizedVendorName: 'Vendor 1',
     reasonToChoose: 'Better stall design quality',
+    firstLevelHistory: [
+      {
+        userName: 'Amit Jain',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '10 Mar 2026',
+      },
+      {
+        userName: 'Rahul Sharma',
+        status: 'approve',
+        comment: 'Looks good',
+        date: '12 Mar 2026',
+      },
+    ],
+    secondLevelHistory: [
+      {
+        userName: 'Vijay Kumar',
+        status: 'reject',
+        comment:
+          'Vendor cost is higher than the approved budget. Please revise the quotation or provide justification for the additional charges.',
+        date: '12 Mar 2026',
+      },
+    ],
   },
   {
     id: 3,
@@ -129,6 +186,8 @@ export const eventDummyData: EventDataType[] = [
     finalizedBy: null,
     finalizedVendorName: null,
     reasonToChoose: null,
+    firstLevelHistory: [],
+    secondLevelHistory: [],
   },
 ];
 

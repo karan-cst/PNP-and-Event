@@ -13,6 +13,7 @@ import { eventDummyData } from '@/data/event-management.data';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { EventMobileCard } from './eventMobileViewCard';
+import { CustomExpandedComponent } from '../vendor-approval/expand';
 
 export type EventDataType = (typeof eventDummyData)[number];
 
@@ -57,12 +58,15 @@ export default function EventsTable({
       type == 'all'
         ? eventDummyData
         : eventDummyData.filter((e) => e.isPharma !== type),
-    columnConfig: EventListColumns(role),
+    columnConfig: EventListColumns(),
     options: {
       initialState: {
         pagination: {
           pageIndex: 0,
           pageSize: pageSize,
+        },
+        columnPinning: {
+          right: ['action'],
         },
       },
       meta: {
@@ -120,6 +124,9 @@ export default function EventsTable({
           classNames={{
             ...classNames,
             cellClassName: '!py-2', // 👈 KEY FIX
+          }}
+          components={{
+            expandedComponent: CustomExpandedComponent,
           }}
         />
       </div>

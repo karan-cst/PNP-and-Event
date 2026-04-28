@@ -1,5 +1,4 @@
 'use client';
-
 import { useMemo } from 'react';
 import {
   Controller,
@@ -12,14 +11,6 @@ import type { CreateEventInput } from '@/validators/NEW/create-event.schema';
 import { formatPrice } from '@/config/format-pricing';
 
 const toNumberOrUndef = (v: any) => (v === '' ? undefined : Number(v));
-
-// function calcSqftFromAnyTwo(dims: Array<number | undefined>) {
-//   const nums = dims.filter(
-//     (n) => typeof n === 'number' && Number.isFinite(n) && n > 0
-//   ) as number[];
-//   if (nums.length < 2) return undefined;
-//   return nums[0] * nums[1];
-// }
 function calcSqftFromAllProvided(dims: Array<number | undefined>) {
   const nums = dims.filter(
     (n) => typeof n === 'number' && Number.isFinite(n) && n > 0
@@ -58,7 +49,7 @@ export default function EventElements() {
   const options = useMemo(
     () =>
       standardElementsFromBackend.map((el) => ({
-        label: `${el.name} - ₹${el.rate}`,
+        label: `${el.name} - ₹${el.rate} - ${el.unitType}`,
         value: el.name,
         rate: el.rate,
       })),
@@ -139,6 +130,13 @@ export default function EventElements() {
       },
     });
   };
+  console.log(
+    'render',
+    !standardElementName ||
+      (Number(quantity) || 0) < 1 ||
+      (Number(days) || 0) < 1 ||
+      fields.some((field) => field.standardElementName === standardElementName)
+  );
 
   return (
     <div className="space-y-6">
@@ -180,7 +178,6 @@ export default function EventElements() {
             })}
             error={draftErr?.stdRate?.message}
           />
-
           <Input
             type="number"
             className="col-span-1"
@@ -238,7 +235,18 @@ export default function EventElements() {
           </div>
 
           <div className="col-span-12 flex justify-end">
-            <Button type="button" onClick={addToTable}>
+            <Button
+              type="button"
+              onClick={addToTable}
+              disabled={
+                !standardElementName ||
+                (Number(quantity) || 0) < 1 ||
+                (Number(days) || 0) < 1 ||
+                fields.some(
+                  (field) => field.standardElementName === standardElementName
+                )
+              }
+            >
               Add to Table
             </Button>
           </div>

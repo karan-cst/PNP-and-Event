@@ -5,10 +5,10 @@ import PageHeader from '@/app/shared/page-header';
 import { Button, Flex, Input, Select } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import { PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
-import { useModal } from '@/app/shared/modal-views/use-modal';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 type PageHeaderTypes<T extends Record<string, any>> = {
   title: string;
@@ -28,7 +28,9 @@ export default function UserPageHeader<T extends Record<string, any>>({
   setType,
 }: PageHeaderTypes<T>) {
   const router = useRouter();
-  const { isOpen, openModal, closeModal } = useModal();
+  const session = useSession();
+  const role = session?.data?.user?.role;
+  const allowCreate = ['eventUser', 'operationHead'];
   return (
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} className={className}>
@@ -65,13 +67,15 @@ export default function UserPageHeader<T extends Record<string, any>>({
             dropdownClassName="z-[10000]"
             className="w-[50%]"
           />
-          <Button
-            as="span"
-            className="mt-0 w-auto cursor-pointer @sm:w-16 @lg:w-auto"
-            onClick={() => router.push('/event-management/create-event')}
-          >
-            <PiPlusBold className="h-[15px] w-[15px]" />
-          </Button>
+          {role && allowCreate.includes(role) && (
+            <Button
+              as="span"
+              className="mt-0 w-auto cursor-pointer @sm:w-16 @lg:w-auto"
+              onClick={() => router.push('/event-management/create-event')}
+            >
+              <PiPlusBold className="h-[15px] w-[15px]" />
+            </Button>
+          )}
           <ToggleColumns table={table} />
         </Flex>
       </PageHeader>

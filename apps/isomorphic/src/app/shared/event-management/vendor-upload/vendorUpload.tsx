@@ -50,13 +50,16 @@ export default function VendorUploadModal({
         {/* Vendor Selection */}
         <Select
           label="Select Vendor"
-          options={[
-            { label: 'Vendor A', value: 'vendorA' },
-            { label: 'Vendor B', value: 'vendorB' },
-          ]}
+          inPortal={false}
+          labelClassName="text-sm font-medium text-gray-900"
+          dropdownClassName="h-auto top-[43px]"
+          placeholder="Select Vendor..."
+          searchable
+          clearable
+          onClear={() => setVendor(null)}
+          options={[{ label: 'Arron', value: 'Arron' }]}
           value={vendor}
-          onChange={(value: string) => setVendor(value || 'vendorA')}
-          placeholder="Choose vendor"
+          onChange={(value: string) => setVendor(value)}
         />
 
         {/* Excel Upload */}

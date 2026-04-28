@@ -1,5 +1,5 @@
 import { metaObject } from '@/config/site.config';
-import EventjobsTable from '@/app/shared/job-management/event-jobs/eventjobs-list/table';
+import EventsTable from '@/app/shared/event-management/event-list/table';
 
 export const metadata = {
   ...metaObject('Products'),
@@ -8,7 +8,7 @@ export const metadata = {
 export default function Eventjobs() {
   return (
     <>
-      <EventjobsTable pageSize={10} />
+      <EventsTable pageSize={10} />
     </>
   );
 }
