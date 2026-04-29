@@ -16,6 +16,7 @@ import { useModal } from '../../modal-views/use-modal';
 import { useRouter } from 'next/navigation';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { PiPlusBold } from 'react-icons/pi';
+import { formatPrice } from '@/config/format-pricing';
 
 export type EventApproveDataType = (typeof EventApproveData)[number];
 
@@ -51,11 +52,77 @@ export default function EventDetailesPage() {
       customSize: 900,
     });
   };
+
+  const fields = [
+    {
+      id: 1,
+      standardElementName: 'Banner',
+      standardRate: 100,
+      days: 5,
+      quantity: 10,
+      width: 10,
+      length: 20,
+      height: 15,
+      depth: 5,
+      sqft: 15000,
+      amount: 750000,
+    },
+    {
+      id: 2,
+      standardElementName: 'Stall',
+      standardRate: 15,
+      days: 1,
+      quantity: 1,
+      width: 12,
+      length: 24,
+      height: 18,
+      depth: 6,
+      sqft: 31104,
+      amount: 466560,
+    },
+  ];
+
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
+
       <div className="space-y-6 py-2">
         <EventHeader event={event} />
+        <Title as="h4" className="fontSize-sm">
+          Elements
+        </Title>
+        <div className="overflow-x-auto rounded-md border border-muted px-4">
+          <table className="min-w-full text-sm">
+            <thead className="border-b">
+              <tr className="text-left">
+                <th className="py-2 pr-4">Element</th>
+                <th className="py-2 pr-4">Rate</th>
+                <th className="py-2 pr-4">Days</th>
+                <th className="py-2 pr-4">Qty</th>
+                <th className="py-2 pr-4">W x L x H x D</th>
+                <th className="py-2 pr-4">Sqft</th>
+                <th className="py-2 pr-4">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fields.map((row, idx) => (
+                <tr key={row.id} className="border-b">
+                  <td className="py-2 pr-4">
+                    {(row as any).standardElementName}
+                  </td>
+                  <td className="py-2 pr-4">₹{(row as any).standardRate}</td>
+                  <td className="py-2 pr-4">{(row as any).days}</td>
+                  <td className="py-2 pr-4">{(row as any).quantity}</td>
+                  <td className="py-2 pr-4">{`${(row as any).width ?? '-'} ${`x ${(row as any).length ?? '-'} `}${` x ${(row as any).height ?? '-'}`} ${`x ${(row as any).depth ?? '-'}`}`}</td>
+                  <td className="py-2 pr-4">{(row as any).sqft ?? '-'}</td>
+                  <td className="py-2 pr-4">
+                    {formatPrice((row as any).amount) ?? '-'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <div className="mb-2 flex items-center justify-between">
           <Title as="h4" className="fontSize-sm border-b border-muted/50 pb-1">
             Vendors
