@@ -387,8 +387,9 @@ export const menuItems = [
       'financeManager',
       'financeHead',
       'eventUser',
+      'eventHead',
       // 'operationHead',
-      // 'eventHead',
+      //
     ],
   },
 

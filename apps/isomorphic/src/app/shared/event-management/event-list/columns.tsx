@@ -34,6 +34,8 @@ import RateNegotiationModal from '../RateNegotiationModal';
 import { RiUserFollowFill } from 'react-icons/ri';
 import { TbMoneybag } from 'react-icons/tb';
 import { useSession } from 'next-auth/react';
+import UploadIcon from '@core/components/shape/upload';
+import UploadSample from './upload-sample/uploadSample';
 
 const columnHelper = createColumnHelper<EventDataType>();
 
@@ -377,6 +379,7 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
           </ActionIcon>
         </Tooltip>
       )}
+      <UploadButton id={'event.id'} />
     </Flex>
   );
 };
@@ -630,3 +633,42 @@ export const Approve = ({
     </div>
   );
 };
+
+const UploadButton = ({ id }: { id: string }) => {
+  const { openModal } = useModal();
+  return (
+    <Tooltip size="sm" content={'Upload Sample'} placement="top" color="invert">
+      <ActionIcon
+        as="span"
+        size="sm"
+        variant="outline"
+        aria-label={'Upload Sample'}
+        onClick={() =>
+          openModal({
+            view: <UploadSampleModalView id={id} />,
+            customSize: 720,
+          })
+        }
+      >
+        <UploadIcon className="h-4 w-4" />
+      </ActionIcon>
+    </Tooltip>
+  );
+};
+
+export function UploadSampleModalView({ id }: { id: string }) {
+  const { closeModal } = useModal();
+  return (
+    <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+      <div className="mb-7 flex items-center justify-between">
+        <Title as="h4" className="font-semibold">
+          Add Sample Files
+        </Title>
+        <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
+          <PiXBold className="h-auto w-5" />
+        </ActionIcon>
+      </div>
+      <UploadSample isModalView={false} id={id} />
+    </div>
+  );
+}

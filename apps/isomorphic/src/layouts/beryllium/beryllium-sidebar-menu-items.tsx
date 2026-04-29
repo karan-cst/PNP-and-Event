@@ -366,6 +366,7 @@ export const berylliumSidebarMenuItems: SidebarItem[] = [
       'financeManager',
       'financeHead',
       'eventUser',
+      'eventHead',
       // 'operationHead',
       // 'eventHead',
     ],

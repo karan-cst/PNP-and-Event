@@ -17,13 +17,16 @@ type NegotiationRow = {
   total: number;
   stdRate: number;
   stdTotal: number;
-  negotiationTotal?: number;
+  negotiation?: number;
+  negotiationToal?: number;
 };
 
 export default function RateNegotiationModal() {
   const { closeModal } = useModal();
-
-  // const [rowInputs, setRowInputs] = useState<Record<string, number>>({});
+  const [grandNegotiationTotal, setGrandNegotiationTotal] = useState<
+    number | ''
+  >('');
+  const [hasGrandTotal, setHasGrandTotal] = useState(false);
 
   const data: NegotiationRow[] = useMemo(
     () => [
@@ -52,14 +55,6 @@ export default function RateNegotiationModal() {
     ],
     []
   );
-
-  // const handleInputField = (value: number, rowId: string) => {
-  //   setRowInputs((prev) => ({
-  //     ...prev,
-  //     [rowId]: value,
-  //   }));
-  // };
-
   const columnHelper = createColumnHelper<NegotiationRow>();
 
   const columns = [
@@ -98,7 +93,7 @@ export default function RateNegotiationModal() {
 
     // 🔥 INPUT COLUMN
     columnHelper.display({
-      id: 'negotiationTotal',
+      id: 'negotiation',
       header: 'Negotiation Total',
       cell: ({ row }) => {
         const rowId = row.original.id;
@@ -106,7 +101,9 @@ export default function RateNegotiationModal() {
         return (
           <input
             type="number"
-            value={row.original.negotiationTotal ?? ''}
+            disabled={hasGrandTotal}
+            value={row.original.negotiation ?? ''}
+            min={0}
             onChange={(e) => handleInputField(Number(e.target.value), rowId)}
             className="w-28 rounded border px-2 py-1"
           />
@@ -120,12 +117,63 @@ export default function RateNegotiationModal() {
     columnConfig: columns,
   });
 
-  const handleInputField = (value: number, rowId: string) => {
+  const hasRowNegotiation = table.options.data.some(
+    (row) =>
+      row.negotiation !== undefined &&
+      row.negotiation !== null &&
+      row.negotiation !== 0
+  );
+
+  // check if total has value
+  useEffect(() => {
+    setHasGrandTotal(
+      grandNegotiationTotal !== '' && Number(grandNegotiationTotal) > 0
+    );
+  }, [grandNegotiationTotal]);
+
+  // const handleInputField = (value: number | '', rowId: string) => {
+  //   setData((prev: NegotiationRow[]) =>
+  //     prev.map((row) =>
+  //       row.id === rowId
+  //         ? {
+  //             ...row,
+  //             negotiation: value === '' ? undefined : Number(value),
+  //           }
+  //         : row
+  //     )
+  //   );
+  // };
+
+  const handleInputField = (value: number | '', rowId: string) => {
+    // if row input used -> clear grand total
+    setGrandNegotiationTotal('');
+
     setData((prev: NegotiationRow[]) =>
       prev.map((row) =>
-        row.id === rowId ? { ...row, negotiationTotal: value } : row
+        row.id === rowId
+          ? {
+              ...row,
+              negotiation: value === '' ? undefined : Number(value),
+            }
+          : row
       )
     );
+  };
+
+  const handleGrandTotalChange = (value: string) => {
+    const numValue = value === '' ? '' : Number(value);
+
+    setGrandNegotiationTotal(numValue);
+
+    // if grand total entered -> clear row values
+    if (numValue !== '') {
+      setData((prev: NegotiationRow[]) =>
+        prev.map((row) => ({
+          ...row,
+          negotiation: undefined,
+        }))
+      );
+    }
   };
 
   return (
@@ -139,6 +187,23 @@ export default function RateNegotiationModal() {
       </div>
 
       <Table table={table} variant="modern" />
+
+      <div className="mt-5 flex items-center justify-end gap-3">
+        <Text>Total Negotiation</Text>
+
+        <Input
+          type="number"
+          disabled={hasRowNegotiation}
+          value={grandNegotiationTotal}
+          onChange={
+            (e) => handleGrandTotalChange(e.target.value)
+            // setGrandNegotiationTotal(
+            //   e.target.value === '' ? '' : Number(e.target.value)
+            // )
+          }
+          className="w-40"
+        />
+      </div>
 
       <div className="mt-6 flex justify-end">
         <Button

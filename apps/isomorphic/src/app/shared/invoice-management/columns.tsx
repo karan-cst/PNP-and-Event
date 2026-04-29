@@ -153,7 +153,7 @@ export const getInvoiceColumns = (role?: string) => [
             <PiDownloadDuotone className="h-4 w-4" />
           </ActionIcon>
         </Tooltip>
-        {role == 'financeExecutive' && (
+        {role && ['financeExecutive'].includes(role) && (
           <Tooltip
             size="sm"
             content={'Upload Invoice'}
@@ -174,9 +174,8 @@ export const getInvoiceColumns = (role?: string) => [
       </Flex>
     ),
   }),
-  ...(role !== 'financeManager' && role !== 'financeHead'
-    ? []
-    : [
+  ...(role && ['financeManager', 'financeHead'].includes(role)
+    ? [
         columnHelper.accessor('poStatus', {
           id: 'action',
           size: 150,
@@ -237,7 +236,54 @@ export const getInvoiceColumns = (role?: string) => [
             );
           },
         }),
-      ]),
+      ]
+    : role && ['eventHead'].includes(role)
+      ? [
+          columnHelper.accessor('poStatus', {
+            id: 'action',
+            size: 150,
+            header: 'Event Head Approval',
+            cell: ({ row }) => {
+              return (
+                <Flex align="center" justify="start" gap="3" className="pe-4">
+                  <Tooltip
+                    size="sm"
+                    content="Approve Invoice"
+                    placement="top"
+                    color="invert"
+                  >
+                    <ActionIcon
+                      as="span"
+                      size="sm"
+                      variant="outline"
+                      aria-label="Approve Invoice"
+                      onClick={() => {}}
+                    >
+                      <PiCheckFatDuotone className="h-4 w-4" />
+                    </ActionIcon>
+                  </Tooltip>
+                  <Tooltip
+                    size="sm"
+                    content="Reject Invoice"
+                    placement="top"
+                    color="invert"
+                  >
+                    <ActionIcon
+                      as="span"
+                      size="sm"
+                      variant="outline"
+                      aria-label="Reject Invoice"
+                      onClick={() => {}}
+                    >
+                      <PiXLogoDuotone className="h-4 w-4" />
+                    </ActionIcon>
+                  </Tooltip>
+                </Flex>
+              );
+            },
+          }),
+        ]
+      : []),
 ];
 
 export type ApprovalHistory = {
@@ -281,7 +327,6 @@ export const ShowComment = ({
                 >
                   <div className="flex justify-between">
                     <Text className="font-semibold">{item.userName}</Text>
-
                     <Text
                       className={cn(
                         'text-sm font-medium',
