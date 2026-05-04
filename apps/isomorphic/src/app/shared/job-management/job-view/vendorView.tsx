@@ -23,7 +23,7 @@ import { Button } from 'rizzui/button';
 import { Input } from 'rizzui/input';
 import { formatPrice } from '@/config/format-pricing';
 
-const columns = () => {
+const columns = (viewOnly: boolean) => {
   return [
     {
       header: 'Vendor Name',
@@ -84,16 +84,20 @@ const columns = () => {
           '-'
         ),
     },
+
     {
       header: 'Action',
       id: 'action',
-      cell: ({ row }: any) => <Action row={row.original} />,
+      cell: ({ row }: any) => {
+        !viewOnly ? <Action row={row.original} viewOnly={viewOnly} /> : null;
+      },
     },
   ];
 };
 
 const Action = ({
   row,
+  viewOnly = false,
 }: {
   row: {
     id: number | string;
@@ -103,6 +107,7 @@ const Action = ({
     emlFileUrl?: string;
     excelFileUrl?: string;
   };
+  viewOnly?: boolean;
 }) => {
   const { openModal, closeModal } = useModal();
   const allowApprove = ['pnpHead'];
@@ -186,8 +191,8 @@ const Action = ({
 export default function VendorsPNPTable({
   vendors,
   pageSize = 5,
+  viewOnly = false,
   hideFilters = true,
-
   hidePagination = false,
   hideFooter = false,
   classNames = {
@@ -205,6 +210,7 @@ export default function VendorsPNPTable({
     excelFileUrl?: string;
   }[];
   pageSize?: number;
+  viewOnly?: boolean;
   hideFilters?: boolean;
   hideHeader?: boolean;
   hidePagination?: boolean;
@@ -214,7 +220,7 @@ export default function VendorsPNPTable({
 }) {
   const { table, setData } = useTanStackTable({
     tableData: vendors,
-    columnConfig: columns(),
+    columnConfig: columns(viewOnly),
     options: {
       initialState: {
         pagination: {

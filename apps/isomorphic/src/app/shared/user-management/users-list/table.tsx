@@ -20,6 +20,9 @@ export const eventUser = [
   'Event Team - User',
   'Operation Head - Event',
   'Event Head',
+  'Buissness Head - Event',
+  'Delivery User - Event',
+  'Design User - Event',
 ];
 
 export default function UsersTable({

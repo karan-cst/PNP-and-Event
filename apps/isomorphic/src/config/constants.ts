@@ -1,3 +1,5 @@
+import DeliveryEvent from '@/app/shared/ecommerce/product/create-edit/delivery-event';
+
 export const CART_KEY = 'isomorphic-cart';
 export const POS_CART_KEY = 'isomorphic-pos-cart';
 export const DUMMY_ID = 'FC6723757651DB74';
@@ -44,7 +46,10 @@ export const USERTYPE = {
   Admin: 'Admin',
   EventTeam: 'Event Team - User',
   OperationHeadEvent: 'Operation Head - Event',
+  BusinessHeadEvent: 'Business Head - Event',
   EventHead: 'Event Head',
+  DeliveryEvent: 'Delivery User - Event',
+  DesignEvent: 'Design User - Event',
   CS: 'CS',
   OperationHeadPnP: 'Operation Head - PnP',
   BusinessHeadPnp: 'Business Head - PnP',

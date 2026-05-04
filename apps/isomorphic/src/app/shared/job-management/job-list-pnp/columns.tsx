@@ -15,6 +15,7 @@ import PencilIcon from '@core/components/icons/pencil';
 import { formatPrice } from '@/config/format-pricing';
 import { JobFormDataType } from '@/data/jobpnp-data';
 import {
+  PiEye,
   PiMicrosoftExcelLogo,
   PiUserCirclePlusDuotone,
   PiXBold,
@@ -28,6 +29,9 @@ import { useSession } from 'next-auth/react';
 import UploadIcon from '@core/components/shape/upload';
 import UploadSample from './upload-sample/uploadSample';
 import { BsFiletypePdf } from 'react-icons/bs';
+import JobDetailModal from './jobDetailModal';
+import VendorUploadModal from '../vendor-upload/vendorUpload';
+import { TbMoneybag } from 'react-icons/tb';
 const allowEdit = [
   'csUser',
   'printExecutive',
@@ -151,8 +155,7 @@ export const JobListColumns = () => {
               {stage?.userName || '-'}
             </Text>
             <Text className="text-xs text-gray-500">
-              {formatPrice(stage?.designCost || null)} -
-              {stage?.designerName ?? null}
+              {formatPrice(stage?.designCost || null)}
             </Text>
 
             <Tooltip
@@ -184,8 +187,7 @@ export const JobListColumns = () => {
               {row.original?.businessHeadName?.userName || '-'}
             </Text>
             <Text className="text-xs text-gray-500">
-              {formatPrice(stage?.designCost || null)} -
-              {row.original?.businessHeadName?.designerName ?? null}
+              {formatPrice(stage?.designCost || null)}
             </Text>
 
             <Tooltip
@@ -242,7 +244,7 @@ export const JobListColumns = () => {
               color="invert"
             >
               <Text
-                className={`text-xs ${manager?.vendorSelectionStatus === 'Rejected' ? 'text-red-500' : ''}`}
+                className={`text-xs ${manager?.vendorSelectionStatus === 'Rejected' ? 'text-red-500' : 'font-bold text-green-600'}`}
               >
                 {manager?.vendorSelectionStatus}
                 {manager?.date ? ` • ${manager?.date}` : ''}
@@ -275,6 +277,16 @@ export const JobListColumns = () => {
           <Text className="text-xs">
             {dayjs(row.original.deliveryDate).format('DD/MM/YYYY')}
           </Text>
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: 'designerName',
+      size: 200,
+      header: 'Designer Name',
+      cell: ({ row }) => (
+        <div className="grid gap-1">
+          <Text className="text-sm">{row.original?.designerName || '-'}</Text>
         </div>
       ),
     }),
@@ -373,6 +385,9 @@ export const JobListColumns = () => {
               </Tooltip>
             </Flex>
           )}
+          {role && ['poUser'].includes(role) && (
+            <ViewDetailes job={row.original as JobFormDataType} />
+          )}
           {role && allowPDF.includes(role) && (
             <Flex>
               <Tooltip
@@ -395,6 +410,9 @@ export const JobListColumns = () => {
           )}
           {role && ['poUser'].includes(role) && (
             <AddPO job={row.original as JobFormDataType} />
+          )}
+          {role && ['pnpHead'].includes(role) && (
+            <RevisedRate job={row.original as JobFormDataType} />
           )}
         </div>
       ),
@@ -473,6 +491,88 @@ const AddPO = ({ job }: { job: JobFormDataType }) => {
           }}
         >
           <PencilIcon className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+    </Flex>
+  );
+};
+const RevisedRate = ({ job }: { job: JobFormDataType }) => {
+  const { openModal, closeModal } = useModal();
+  return (
+    <Flex>
+      <Tooltip size="sm" content="Revised Rate" placement="top" color="invert">
+        <ActionIcon
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            openModal({
+              view: (
+                <VendorUploadModal
+                  rowData={job}
+                  onClose={() => closeModal()}
+                  selectedVendor={true}
+                />
+              ),
+            });
+          }}
+        >
+          <TbMoneybag className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+    </Flex>
+  );
+};
+
+const ViewDetailes = ({ job }: { job: JobFormDataType }) => {
+  // const handleEdit = () => {
+  //   router.push(`/job-management/edit-job`);
+  // };
+  const { openModal, closeModal } = useModal();
+  return (
+    <Flex>
+      <Tooltip
+        size="sm"
+        content={'View Details'}
+        placement="top"
+        color="invert"
+      >
+        <ActionIcon
+          as="span"
+          size="sm"
+          variant="outline"
+          aria-label={'View Details'}
+          onClick={() => {
+            openModal({
+              view: (
+                <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+                  <div className="mb-7 flex items-center justify-between">
+                    <Title as="h4" className="font-semibold">
+                      Details of - {job.jobName}
+                    </Title>
+                    <ActionIcon
+                      size="sm"
+                      variant="text"
+                      onClick={() => closeModal()}
+                    >
+                      <PiXBold className="h-auto w-5" />
+                    </ActionIcon>
+                  </div>
+                  <JobDetailModal job={job} />
+                  {/* <Input
+                    label="Add PO Number"
+                    type="number"
+                    placeholder="PO Number"
+                  />
+                  <div className="mt-4 flex items-center justify-end">
+                    <Button variant="solid">Submit</Button>
+                  </div> */}
+                </div>
+              ),
+              customSize: 700,
+            });
+          }}
+        >
+          <PiEye className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
     </Flex>

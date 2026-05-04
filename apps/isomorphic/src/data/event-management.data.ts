@@ -36,6 +36,7 @@ export type EventDataType = {
   firstLevelHistory: ApprovalHistory[];
   secondLevelHistory: ApprovalHistory[];
   poStatus?: string;
+  isRejected?: boolean;
 };
 
 // export type ApprovalHistory = {
@@ -165,6 +166,7 @@ export const eventDummyData: EventDataType[] = [
         date: '12 Mar 2026',
       },
     ],
+    isRejected: true,
   },
   {
     id: 3,

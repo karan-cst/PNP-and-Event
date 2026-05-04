@@ -32,7 +32,6 @@ const dummyJob: Partial<JobFormDataType> = {
     userName: 'Rahul Verma',
     status: 'Approved',
     designCost: 4500,
-    designerName: 'Neha Joshi',
     date: '22/04/2026',
   },
   printExecutive: {
@@ -47,6 +46,7 @@ const dummyJob: Partial<JobFormDataType> = {
     vendorSelectionStatus: 'Pending',
   },
   finalizedVendorName: '',
+  designerName: 'Neha Joshi',
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -487,7 +487,7 @@ export default function ApprovalDetails({
     designerName?: string;
     designCost?: number;
   }>({
-    designerName: job.businessHeadName?.designerName || '',
+    designerName: job?.designerName || '',
     designCost: job.businessHeadName?.designCost,
   });
   const [step2Meta, setStep2Meta] = useState<{ comment?: string }>({});

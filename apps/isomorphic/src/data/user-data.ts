@@ -217,4 +217,16 @@ export const userData = [
     address:
       'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
   },
+  {
+    id: 'U016',
+    firstName: 'Mahira',
+    lastName: 'Sheikh',
+    email: 'mahira.sheikh@gamil.com',
+    userType: USERTYPE.DesignEvent,
+    createdAt: '2026-02-10T16:01:40.021Z',
+    mobile: '7894561234',
+    isActive: 'active',
+    address:
+      'Titanium City Center Mall, B-207, Road, Prahlad Nagar, Ahmedabad, Gujarat 380015',
+  },
 ];

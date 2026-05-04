@@ -23,7 +23,9 @@ const columns = [
     accessorKey: 'vendorName',
     id: 'vendorName',
     cell: ({ row }: any) => (
-      <div className="font-medium">{row.original.vendorName}</div>
+      <div className="font-medium">
+        {row.original.vendorName || row.original.companyName}
+      </div>
     ),
   },
   {

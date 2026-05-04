@@ -69,7 +69,7 @@ export const EventListColumns = (expanded: boolean = true) => {
         <div className={cn('grid gap-1')}>
           <Title
             as="h5"
-            className="flex cursor-pointer items-center gap-1 !text-sm font-medium hover:underline"
+            className={`flex cursor-pointer items-center gap-1 !text-sm font-medium hover:underline ${row.original.isRejected ? 'text-red-500' : 'text-blue-600'}`}
             onClick={() => router.push(`/event-management/event-detailes`)}
           >
             {`${row.original.eventName}`}

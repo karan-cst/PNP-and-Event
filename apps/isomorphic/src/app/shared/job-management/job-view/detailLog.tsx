@@ -10,7 +10,6 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { Text, Title } from 'rizzui/typography';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { Tags } from '../../explore-flight/listing-filters/tags';
 import { Badge } from 'rizzui/badge';
 
 export default function DetailLogTable({

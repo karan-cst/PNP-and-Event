@@ -233,6 +233,31 @@ export default function JobSummary({ className }: { className?: string }) {
         error={errors?.masterBoxQty?.message as string}
       />
       <Controller
+        name="designerName"
+        control={control}
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
+          <Select
+            label="Designer Name"
+            labelClassName="text-sm font-medium text-gray-900"
+            dropdownClassName="h-auto"
+            placeholder="Select Designer..."
+            searchable
+            clearable
+            onClear={() => onChange('')}
+            options={[{ label: 'Mahira Sheikh', value: 'mahira-sheikh' }]}
+            onChange={onChange}
+            value={value}
+            getOptionValue={(option) => option.value}
+            displayValue={(selected) =>
+              [{ label: 'Mahira Sheikh', value: 'mahira-sheikh' }]?.find(
+                (r) => r.value === selected
+              )?.label ?? 'Select Designer...'
+            }
+            error={errors?.designerName?.message as string}
+          />
+        )}
+      />
+      <Controller
         name="jobType"
         control={control}
         render={({ field: { value, onChange, onBlur }, fieldState }) => {

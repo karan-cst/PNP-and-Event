@@ -88,6 +88,7 @@ export default function JobViewPage() {
         'giftMng',
         'deliveryUser',
         'pnpHead',
+        'pnpAdmin',
       ],
     },
     {
@@ -130,6 +131,7 @@ export default function JobViewPage() {
         'giftMng',
         'deliveryUser',
         'pnpHead',
+        'pnpAdmin',
       ],
     },
   ];

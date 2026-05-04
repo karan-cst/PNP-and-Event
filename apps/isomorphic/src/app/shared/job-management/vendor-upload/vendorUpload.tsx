@@ -7,11 +7,13 @@ import { PiXBold } from 'react-icons/pi';
 interface VendorUploadModalProps {
   rowData: any;
   onClose: () => void;
+  selectedVendor?: boolean;
 }
 
 export default function VendorUploadModal({
   rowData,
   onClose,
+  selectedVendor = false,
 }: VendorUploadModalProps) {
   const [vendor, setVendor] = useState<string | null>(null);
   const [quotationFile, setQuotationFile] = useState<File | null>(null);
@@ -40,7 +42,7 @@ export default function VendorUploadModal({
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          Upload vendor
+          {!selectedVendor ? 'Upload vendor' : 'Revised vendor Rate'}
         </Title>
         <ActionIcon size="sm" variant="text" onClick={onClose}>
           <PiXBold className="h-auto w-5" />
@@ -48,16 +50,18 @@ export default function VendorUploadModal({
       </div>
       <div className="space-y-4">
         {/* Vendor Selection */}
-        <Select
-          label="Select Vendor"
-          options={[
-            { label: 'Vendor A', value: 'vendorA' },
-            { label: 'Vendor B', value: 'vendorB' },
-          ]}
-          value={vendor}
-          onChange={(value: string) => setVendor?.(value || 'vendorA')}
-          placeholder="Choose vendor"
-        />
+        {!selectedVendor ? (
+          <Select
+            label="Select Vendor"
+            options={[
+              { label: 'Vendor A', value: 'vendorA' },
+              { label: 'Vendor B', value: 'vendorB' },
+            ]}
+            value={vendor}
+            onChange={(value: string) => setVendor?.(value || 'vendorA')}
+            placeholder="Choose vendor"
+          />
+        ) : null}
 
         {/* Excel Upload */}
         <FileInput

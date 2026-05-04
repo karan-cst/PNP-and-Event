@@ -35,6 +35,7 @@ export const jobFormSchema = z
       )
       .min(1, 'At least one packing type must be selected'),
     requisitionerName: z.string().min(1, 'Requisitioner name is required'),
+    designerName: z.string().min(1, 'Designer name is required'),
     floor: z.string().min(1, 'Floor is required'),
     masterDivision: z.string().optional(),
     sbuDivision: z.string().optional(),

@@ -283,11 +283,6 @@ export const berylliumMenuItems: MenuItemsType[] = [
             href: routes.pnpMaster.hsn,
             badge: '',
           },
-          // {
-          //   name: 'Division Code and CC',
-          //   href: routes.pnpMaster.division,
-          //   badge: '',
-          // },
           {
             name: 'Delivery Location',
             href: routes.pnpMaster.delivery,
@@ -332,11 +327,6 @@ export const berylliumMenuItems: MenuItemsType[] = [
             href: routes.eventMaster.type,
             badge: '',
           },
-          // {
-          //   name: 'Division Code and CC',
-          //   href: routes.eventMaster.division,
-          //   badge: '',
-          // },
           {
             name: 'Standard Rates',
             href: routes.eventMaster.rate,
@@ -377,12 +367,6 @@ export const berylliumMenuItems: MenuItemsType[] = [
             badge: '',
             roles: ['superAdmin', 'pnpAdmin'],
           },
-          // {
-          //   name: 'PNP Jobs',
-          //   href: routes.jobManagement.pnp,
-          //   badge: '',
-          //   roles: ['superAdmin', 'pnpAdmin'],
-          // },
         ],
       },
     ],
@@ -663,14 +647,14 @@ export const berylliumMenuItems: MenuItemsType[] = [
     name: 'Inquiry',
     title: 'inquiry',
     icon: PiFile,
-    roles: ['csUser', 'operationHeadPrint', 'businessHead'],
+    roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printMng'],
     isExpnad: false,
     menuItems: [
       {
         name: 'Inquiry Management',
         href: routes.inquiryManagement.inquiry,
         icon: PiFile,
-        roles: ['csUser', 'operationHeadPrint', 'businessHead'],
+        roles: ['csUser', 'operationHeadPrint', 'businessHead', 'printMng'],
       },
     ],
   },

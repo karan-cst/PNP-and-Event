@@ -3,23 +3,22 @@ export type JobFormDataType = {
   jobName: string;
   jobNo: string;
   date: string;
-
+  designerName?: string;
   glCode: string;
   sapCode: string;
   ccCode: string;
   hsnCode: string;
-
   requisitionerName: string;
   floor: string;
   division: string;
-
+  masterDivision: string;
   totalQty: number;
   stdTotal: number;
   deliveryPlace: string;
   deliveryDate: string;
   packageQty: number;
   deliveryComment: string;
-
+  masterPackingQty?: number;
   size: string;
   paper: string;
   colour: string;
@@ -68,6 +67,39 @@ export type JobFormDataType = {
   // 7️⃣ Finalized Vendor
   finalizedVendorName?: string;
   isRejected?: boolean;
+
+  printingInstructions?: string[];
+  packingType?: string[];
+  specifications?: {
+    size: string;
+    paper: string;
+    colour: string;
+    budget: number | null;
+
+    lamination: boolean;
+    matt: boolean;
+    gloss: boolean;
+    front: boolean;
+    back: boolean;
+    uv: boolean;
+    vaidB2B: boolean;
+    hBound: boolean;
+    spiral: boolean;
+    wiroWire: boolean;
+    indexing: boolean;
+    foil: boolean;
+
+    otherLamination?: string;
+  };
+  divisions?: {
+    division: string;
+    sapCode: string;
+    printsapCode: string;
+    ccCode: string;
+    Qty: number;
+    deliveryPlace: string;
+    deliveryDate: string;
+  }[];
 };
 export type JobType = 'print' | 'gift' | 'printngift';
 export type PrintExecutiveStatus = 'Approved' | 'Rejected';
@@ -76,14 +108,14 @@ export const dummyJobData: JobFormDataType[] = [
   {
     _id: '1',
     jobName: 'Pamphlet_Gaurav Gupta',
-    jobNo: 'ADR67101JUN/25-26',
+    jobNo: 'ADR_67101_JUN_25_26',
     date: '2025-06-24',
-
+    designerName: 'Mahira Sheikh',
     glCode: '5153700007',
     sapCode: '2273043',
     ccCode: '1450',
     hsnCode: '49011020',
-
+    masterDivision: 'ADRINA',
     requisitionerName: 'Dhaval Patel',
     floor: '2nd Floor',
     division: 'ADRINA',
@@ -120,14 +152,6 @@ export const dummyJobData: JobFormDataType[] = [
     specialInstructions: 'Ensure high resolution print quality.',
     createdAt: '2026-02-10',
     jobType: 'print',
-    // PrintExecutiveStatus: 'Approved',
-    // 3️⃣ Operation Head
-    // operationHead: {
-    //   userName: 'Amit Shah',
-    //   status: 'Approved',
-    //   date: '11/02/2026',
-    //   remark: '',
-    // },
 
     // 4️⃣ Design Cost + Business Head
     designCost: 5000,
@@ -136,7 +160,6 @@ export const dummyJobData: JobFormDataType[] = [
       status: 'Approved',
       date: '11/02/2026',
       designCost: 5000,
-      designerName: 'Mayera Mehara',
     },
 
     // 5️⃣ Print Executive
@@ -155,13 +178,60 @@ export const dummyJobData: JobFormDataType[] = [
 
     finalizedVendor: 'ABC',
     finalizedVendorCost: 12000,
+    printingInstructions: [
+      'Die Cut required for front cover',
+      'UV coating on logo only',
+      'Maintain exact brand color tone',
+    ],
+    packingType: ['Bubble', 'Polythin'],
+    specifications: {
+      size: '8.2 x 11.7 inches (A4)',
+      paper: 'Standard Gloss Paper 130 GSM',
+      colour: '4 Color (CMYK)',
+      budget: 25000,
+
+      lamination: true,
+      matt: false,
+      gloss: true,
+      front: true,
+      back: false,
+      uv: true,
+      vaidB2B: false,
+      hBound: false,
+      spiral: false,
+      wiroWire: false,
+      indexing: false,
+      foil: true,
+
+      otherLamination: 'Soft Touch Lamination',
+    },
+    divisions: [
+      {
+        division: 'ADRINA',
+        sapCode: '2273043',
+        printsapCode: '2273044',
+        ccCode: '1450',
+        Qty: 1000,
+        deliveryPlace: 'Matoda',
+        deliveryDate: '30/03/2026',
+      },
+      {
+        division: 'ARTEMIS',
+        sapCode: '2273043',
+        printsapCode: '2273044',
+        ccCode: '1450',
+        Qty: 2000,
+        deliveryPlace: 'HQ',
+        deliveryDate: '05/04/2026',
+      },
+    ],
   },
   {
     _id: '2',
     jobName: 'Magazine_canities',
-    jobNo: 'ADR67101JUN/25-26',
+    jobNo: 'ADR_67101_JUN_25_26',
     date: '2025-06-24',
-
+    masterDivision: 'ADRINA',
     glCode: '5153700007',
     sapCode: '2273043',
     ccCode: '1450',
@@ -209,7 +279,6 @@ export const dummyJobData: JobFormDataType[] = [
       status: 'Approved',
       date: '11/02/2026',
       designCost: 5000,
-      designerName: 'Mayera Mehara',
     },
 
     // 5️⃣ Print Executive
@@ -233,9 +302,9 @@ export const dummyJobData: JobFormDataType[] = [
   {
     _id: '3',
     jobName: 'Magazine_Telsa-Biso Digest June Issue',
-    jobNo: 'ADR67101JUN/25-26',
+    jobNo: 'ADR_67101_JUN_25_26',
     date: '2025-06-24',
-
+    masterDivision: 'ADRINA',
     glCode: '5153700007',
     sapCode: '2273043',
     ccCode: '1450',
@@ -282,9 +351,9 @@ export const dummyJobData: JobFormDataType[] = [
   {
     _id: '4',
     jobName: 'Pamphlet',
-    jobNo: 'ADR67101JUN/25-26',
+    jobNo: 'ADR_67101_JUN_25_26',
     date: '2025-06-24',
-
+    masterDivision: 'ADRINA',
     glCode: '5153700007',
     sapCode: '2273043',
     ccCode: '1450',
@@ -344,7 +413,6 @@ export type designApprovalStage = {
   status: ApprovalStatus;
   date?: string; // dd/mm/yyyy
   designCost?: number;
-  designerName?: string;
   remarks?: string;
 };
 
