@@ -124,11 +124,13 @@ export const JobListColumns = [
       return (
         <div className="grid gap-1">
           <Text className="text-sm font-medium">
-            {manager?.managerName || '-'}
+            {manager?.vendorSelection?.userName || '-'}
           </Text>
           <Text className="text-xs">
-            {manager?.vendorSelectionStatus}
-            {manager?.date ? ` • ${manager?.date}` : ''}
+            {manager?.vendorSelection?.status}
+            {manager?.vendorSelection?.date
+              ? ` • ${manager?.vendorSelection?.date}`
+              : ''}
           </Text>
         </div>
       );

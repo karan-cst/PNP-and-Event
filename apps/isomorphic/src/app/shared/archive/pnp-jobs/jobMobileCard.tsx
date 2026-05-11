@@ -121,9 +121,9 @@ export function JobMobileCard({ job }: { job: JobFormDataType }) {
 
         <ApproverBlock
           label="Print Manager"
-          name={job?.printManager?.managerName}
-          status={job?.printManager?.vendorSelectionStatus}
-          date={job?.printManager?.date}
+          name={job?.printManager?.vendorSelection?.userName}
+          status={job?.printManager?.vendorSelection?.status}
+          date={job?.printManager?.vendorSelection?.date}
         />
 
         {/* Vendor */}

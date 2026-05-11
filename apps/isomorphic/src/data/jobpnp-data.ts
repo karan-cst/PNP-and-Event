@@ -58,10 +58,16 @@ export type JobFormDataType = {
 
   // 6️⃣ Print Manager + Vendor Selection
   printManager?: {
+    vendorSelection?: ApprovalStage;
+
+    jobSendToVendor?: ApprovalStage;
+  };
+
+  pnpHead?: {
     managerName: string;
-    vendorSelectionStatus: ApprovalStatus;
     date?: string;
     remarks?: string;
+    vendorSelectionStatus: ApprovalStatus;
   };
 
   // 7️⃣ Finalized Vendor
@@ -171,7 +177,19 @@ export const dummyJobData: JobFormDataType[] = [
 
     // 6️⃣ Print Manager
     printManager: {
-      managerName: 'Manoj Jain',
+      vendorSelection: {
+        userName: 'Manoj Jain',
+        status: 'Approved',
+        date: '12/02/2026',
+      },
+      jobSendToVendor: {
+        userName: 'Manoj Jain',
+        status: 'Approved',
+        date: '12/02/2026',
+      },
+    },
+    pnpHead: {
+      managerName: 'Vijay Mishra',
       vendorSelectionStatus: 'Approved',
       date: '12/02/2026',
     },
@@ -290,11 +308,14 @@ export const dummyJobData: JobFormDataType[] = [
 
     // 6️⃣ Print Manager
     printManager: {
-      managerName: 'Manoj Jain',
-      vendorSelectionStatus: 'Rejected',
-      date: '12/02/2026',
-      remarks: 'Vendor quoted a price higher than the budgeted amount.',
+      vendorSelection: {
+        userName: 'Manoj Jain',
+        date: '12/02/2026',
+        status: 'Rejected',
+        remarks: 'Vendor quoted a price higher than the budgeted amount.',
+      },
     },
+
     isRejected: true,
 
     // PrintExecutiveStatus: 'Approved',

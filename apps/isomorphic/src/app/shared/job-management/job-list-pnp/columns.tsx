@@ -235,19 +235,21 @@ export const JobListColumns = () => {
         return (
           <div className="grid gap-1">
             <Text className="text-sm font-medium">
-              {manager?.managerName || '-'}
+              {manager?.vendorSelection?.userName || '-'}
             </Text>
             <Tooltip
               size="sm"
-              content={manager?.remarks ?? null}
+              content={manager?.vendorSelection?.remarks ?? null}
               placement="top"
               color="invert"
             >
               <Text
-                className={`text-xs ${manager?.vendorSelectionStatus === 'Rejected' ? 'text-red-500' : 'font-bold text-green-600'}`}
+                className={`text-xs ${manager?.vendorSelection?.status === 'Rejected' ? 'text-red-500' : 'font-bold text-green-600'}`}
               >
-                {manager?.vendorSelectionStatus}
-                {manager?.date ? ` • ${manager?.date}` : ''}
+                {manager?.vendorSelection?.status}
+                {manager?.vendorSelection?.date
+                  ? ` • ${manager?.vendorSelection?.date}`
+                  : ''}
               </Text>
             </Tooltip>
           </div>
@@ -401,7 +403,9 @@ export const JobListColumns = () => {
                   size="sm"
                   variant="outline"
                   aria-label={'Download PDF'}
-                  onClick={() => {}}
+                  onClick={() => {
+                    window.open('/templates/pnp_pdf_demo.pdf', '_blank');
+                  }}
                 >
                   <BsFiletypePdf className="h-4 w-4" />
                 </ActionIcon>

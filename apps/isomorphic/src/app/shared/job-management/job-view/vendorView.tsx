@@ -5,7 +5,6 @@ import { useTanStackTable } from '@core/components/table/custom/use-TanStack-Tab
 import { TableClassNameProps } from '@core/components/table/table-types';
 import { AiTwotoneMail } from 'react-icons/ai';
 import {
-  PiEyeBold,
   PiMicrosoftExcelLogo,
   PiCheckFatDuotone,
   PiXBold,
@@ -17,83 +16,106 @@ import { Tooltip } from 'rizzui/tooltip';
 import { useModal } from '../../modal-views/use-modal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { useSession } from 'next-auth/react';
-import { Role } from '@/config/roles';
 import { Text, Title } from 'rizzui/typography';
 import { Button } from 'rizzui/button';
 import { Input } from 'rizzui/input';
 import { formatPrice } from '@/config/format-pricing';
+import { UpdateRateModalView } from './UpdateRate';
+
+const BAseColumns = [
+  {
+    header: 'Vendor Name',
+    accessorKey: 'vendorName',
+    id: 'vendorName',
+    cell: ({ row }: any) => (
+      <div className="font-medium">{row.original.vendorName}</div>
+    ),
+  },
+  {
+    header: 'Spoc Name',
+    accessorKey: 'name',
+    id: 'name',
+  },
+  {
+    header: 'Price',
+    accessorKey: 'price',
+    id: 'price',
+    cell: ({ row }: any) => `Rs. ${row.original.price} x 3000 QTY`,
+  },
+  {
+    header: 'Total',
+    accessorKey: 'total',
+    id: 'total',
+    cell: ({ row }: any) => `Rs. ${row.original.total}`,
+  },
+  {
+    header: 'EML Uploaded',
+    accessorKey: 'emlFileUrl',
+    id: 'emlFileUrl',
+    cell: ({ row }: any) =>
+      row.original.emlFileUrl ? (
+        <Tooltip
+          size="sm"
+          content="View EML File"
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon size="sm" variant="outline">
+            <AiTwotoneMail className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip>
+      ) : (
+        '-'
+      ),
+  },
+  {
+    header: 'Excel Uploaded',
+    accessorKey: 'excelFileUrl',
+    id: 'excelFileUrl',
+    cell: ({ row }: any) =>
+      row.original.excelFileUrl ? (
+        <Tooltip
+          size="sm"
+          content="Download Excel File"
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon size="sm" variant="outline">
+            <PiMicrosoftExcelLogo className="h-4 w-4" />
+          </ActionIcon>
+        </Tooltip>
+      ) : (
+        '-'
+      ),
+  },
+];
 
 const columns = (viewOnly: boolean) => {
-  return [
-    {
-      header: 'Vendor Name',
-      accessorKey: 'vendorName',
-      id: 'vendorName',
-      cell: ({ row }: any) => (
-        <div className="font-medium">{row.original.vendorName}</div>
-      ),
-    },
-    {
-      header: 'Spoc Name',
-      accessorKey: 'name',
-      id: 'name',
-    },
-    {
-      header: 'Total',
-      accessorKey: 'total',
-      id: 'total',
-      cell: ({ row }: any) => `Rs. ${row.original.total}`,
-    },
-    {
-      header: 'EML Uploaded',
-      accessorKey: 'emlFileUrl',
-      id: 'emlFileUrl',
-      cell: ({ row }: any) =>
-        row.original.emlFileUrl ? (
-          <Tooltip
-            size="sm"
-            content="View EML File"
-            placement="top"
-            color="invert"
-          >
-            <ActionIcon size="sm" variant="outline">
-              <AiTwotoneMail className="h-4 w-4" />
-            </ActionIcon>
-          </Tooltip>
-        ) : (
-          '-'
-        ),
-    },
-    {
-      header: 'Excel Uploaded',
-      accessorKey: 'excelFileUrl',
-      id: 'excelFileUrl',
-      cell: ({ row }: any) =>
-        row.original.excelFileUrl ? (
-          <Tooltip
-            size="sm"
-            content="Download Excel File"
-            placement="top"
-            color="invert"
-          >
-            <ActionIcon size="sm" variant="outline">
-              <PiMicrosoftExcelLogo className="h-4 w-4" />
-            </ActionIcon>
-          </Tooltip>
-        ) : (
-          '-'
-        ),
-    },
-
-    {
-      header: 'Action',
-      id: 'action',
-      cell: ({ row }: any) => {
-        !viewOnly ? <Action row={row.original} viewOnly={viewOnly} /> : null;
-      },
-    },
-  ];
+  return viewOnly
+    ? [
+        ...BAseColumns,
+        {
+          header: 'Action',
+          id: 'action',
+          cell: ({ row }: any) => {
+            return viewOnly ? (
+              <Action row={row.original} viewOnly={viewOnly} />
+            ) : null;
+          },
+        },
+      ]
+    : BAseColumns;
 };
+
+// {
+//       header: 'Action',
+//       id: 'action',
+//       cell: ({ row }: any) => {
+//         return viewOnly ? (
+//           <Action row={row.original} viewOnly={viewOnly} />
+//         ) : null;
+//       },
+//     },
 
 const Action = ({
   row,
@@ -102,10 +124,12 @@ const Action = ({
   row: {
     id: number | string;
     vendorName: string;
+    qty: number;
     name: string;
     total: number;
     emlFileUrl?: string;
     excelFileUrl?: string;
+    price: number;
   };
   viewOnly?: boolean;
 }) => {
@@ -123,33 +147,35 @@ const Action = ({
           onClick={() => {
             openModal({
               view: (
-                <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
-                  <div className="mb-7 flex items-center justify-between">
-                    <Title as="h4" className="font-semibold">
-                      Update Rate - {row.vendorName}
-                    </Title>
-                    <ActionIcon size="sm" variant="text" onClick={closeModal}>
-                      <PiXBold className="h-auto w-5" />
-                    </ActionIcon>
-                  </div>
-                  <div className="space-y-4">
-                    {/* Vendor Selection */}
-                    <Input
-                      type="number"
-                      label="Updated Rate"
-                      placeholder="Enter Amount"
-                    />
-                    <Text className="text-sm">
-                      Previous Amount - {formatPrice(row.total)}
-                    </Text>
-                    <div className="flex justify-end gap-3 pt-3">
-                      <Button variant="outline" onClick={closeModal}>
-                        Cancel
-                      </Button>
-                      <Button onClick={() => {}}>Submit</Button>
-                    </div>
-                  </div>
-                </div>
+                <UpdateRateModalView row={row} />
+                // <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
+                //   <div className="mb-7 flex items-center justify-between">
+                //     <Title as="h4" className="font-semibold">
+                //       Update Rate - {row.vendorName}
+                //     </Title>
+                //     <ActionIcon size="sm" variant="text" onClick={closeModal}>
+                //       <PiXBold className="h-auto w-5" />
+                //     </ActionIcon>
+                //   </div>
+                //   <div className="space-y-4">
+                //     {/* Vendor Selection */}
+                //     <Input
+                //       type="number"
+                //       label="Updated Rate"
+                //       placeholder="Enter Updated price per piece"
+                //     />
+
+                //     <Text className="text-sm">
+                //       Previous Amount - {formatPrice(row.total)}
+                //     </Text>
+                //     <div className="flex justify-end gap-3 pt-3">
+                //       <Button variant="outline" onClick={closeModal}>
+                //         Cancel
+                //       </Button>
+                //       <Button onClick={() => {}}>Submit</Button>
+                //     </div>
+                //   </div>
+                // </div>
               ),
             });
           }}
@@ -192,9 +218,6 @@ export default function VendorsPNPTable({
   vendors,
   pageSize = 5,
   viewOnly = false,
-  hideFilters = true,
-  hidePagination = false,
-  hideFooter = false,
   classNames = {
     container: '[&_td]:py-2 border border-muted rounded-md ',
     rowClassName: 'last:border-0',
@@ -205,9 +228,11 @@ export default function VendorsPNPTable({
     id: number | string;
     vendorName: string;
     name: string;
+    price: number;
     total: number;
     emlFileUrl?: string;
     excelFileUrl?: string;
+    qty: number;
   }[];
   pageSize?: number;
   viewOnly?: boolean;

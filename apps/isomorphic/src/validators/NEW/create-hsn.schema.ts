@@ -12,10 +12,6 @@ export const HSNFormSchema = z.object({
   subtitle: z.string().trim().min(1, { message: 'Sub Title is required' }),
   description: z.string().trim().min(1, { message: 'Description is required' }),
   gst: z.number(),
-  // .trim()
-  // .regex(/^\d+(\.\d{1,2})?$/, {
-  //   message: 'GST must be a valid number',
-  // }),
   isActive: z.string(),
 });
 

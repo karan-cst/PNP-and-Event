@@ -24,7 +24,9 @@ export default function JobViewPage() {
       id: 1,
       vendorName: 'ABC Technologies',
       name: 'Ankit Gandhi',
-      total: 45000,
+      price: 2.25,
+      total: 6750,
+      qty: 3000,
       emlFileUrl: '/uploads/xml/abc.xml',
       excelFileUrl: '/uploads/excel/abc.xlsx',
     },
@@ -32,7 +34,9 @@ export default function JobViewPage() {
       id: 2,
       vendorName: 'Skyline Solutions',
       name: 'Karan Jain',
-      total: 72000,
+      price: 3,
+      total: 9000,
+      qty: 3000,
       emlFileUrl: '/uploads/xml/abc.xml',
       excelFileUrl: '/uploads/excel/abc.xlsx',
     },
@@ -40,7 +44,9 @@ export default function JobViewPage() {
       id: 3,
       vendorName: 'Prime Event Services',
       name: 'Amulakh Mistry',
-      total: 38000,
+      price: 3.2,
+      total: 9600,
+      qty: 3000,
       emlFileUrl: '/uploads/xml/abc.xml',
       excelFileUrl: '/uploads/excel/abc.xlsx',
     },
@@ -99,7 +105,7 @@ export default function JobViewPage() {
         'giftMng',
         'pnpHead',
         'operationHeadPrint',
-        // 'businessHead',
+        'businessHead',
       ],
     },
     {
@@ -169,13 +175,20 @@ export default function JobViewPage() {
         {activeTab === 'spec' && <JobSpecifications job={job} />}
         {activeTab === 'vendor' && (
           <>
-            <div className="mb-4 flex justify-end">
-              <Button onClick={() => handleOpenModal()}>
-                <PiPlusBold className="mr-2" />
-                Upload Rate
-              </Button>
-            </div>
-            <VendorsPNPTable vendors={vendors} />
+            {role && role === 'printMng' && (
+              <div className="mb-4 flex justify-end">
+                <Button onClick={() => handleOpenModal()}>
+                  <PiPlusBold className="mr-2" />
+                  Upload Rate
+                </Button>
+              </div>
+            )}
+            <VendorsPNPTable
+              vendors={vendors}
+              viewOnly={
+                role ? ['printMng', 'giftMng', 'pnpHead'].includes(role) : false
+              }
+            />
           </>
         )}
         {activeTab === 'approval' && <ApprovalDetails />}

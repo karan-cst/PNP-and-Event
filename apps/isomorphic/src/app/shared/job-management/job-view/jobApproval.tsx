@@ -42,8 +42,21 @@ const dummyJob: Partial<JobFormDataType> = {
   },
 
   printManager: {
-    managerName: 'Suresh Patil',
+    vendorSelection: {
+      userName: 'Suresh Patil',
+      status: 'Approved',
+      date: '22/04/2026',
+    },
+    jobSendToVendor: {
+      userName: 'Suresh Patil',
+      status: 'Pending',
+      date: '22/04/2026',
+    },
+  },
+  pnpHead: {
+    managerName: 'Vijay Mishra',
     vendorSelectionStatus: 'Pending',
+    date: '22/04/2026',
   },
   finalizedVendorName: '',
   designerName: 'Neha Joshi',
@@ -154,7 +167,7 @@ function ActionPanel({
       {/* Business Head extras — only shown when approving */}
       {showDesignerFields && isApproving && (
         <div className="grid grid-cols-2 gap-2">
-          <div>
+          {/* <div>
             <Input
               size="sm"
               label="Designer Name *"
@@ -164,7 +177,7 @@ function ActionPanel({
               error={errors.designerName}
               className="text-xs"
             />
-          </div>
+          </div> */}
           <div>
             <Input
               size="sm"
@@ -179,21 +192,6 @@ function ActionPanel({
           </div>
         </div>
       )}
-
-      {/* Print Manager extras — vendor name when approving */}
-      {showVendorField && isApproving && (
-        <Input
-          size="sm"
-          label="Finalized Vendor Name *"
-          placeholder="e.g. Ravi Print Works"
-          value={form.vendorName}
-          onChange={(e) => onFormChange('vendorName', e.target.value)}
-          error={errors.vendorName}
-          className="text-xs"
-        />
-      )}
-
-      {/* Comment — always */}
       <Textarea
         size="sm"
         label={isApproving ? 'Remarks (optional)' : 'Reason for Rejection *'}
@@ -494,6 +492,9 @@ export default function ApprovalDetails({
   const [step3Meta, setStep3Meta] = useState<{ comment?: string }>({});
   const [step4Meta, setStep4Meta] = useState<{
     comment?: string;
+  }>({});
+  const [step5Meta, setStep5Meta] = useState<{
+    comment?: string;
     vendorName?: string;
   }>({});
   const session = useSession();
@@ -569,14 +570,16 @@ export default function ApprovalDetails({
       },
     });
   };
-
+  // vendorName: form.vendorName
   const handlePMApprove = (form: StepFormState) => {
-    setStep4Meta({ comment: form.comment, vendorName: form.vendorName });
+    setStep4Meta({ comment: form.comment });
     update({
       printManager: {
-        ...job.printManager!,
-        vendorSelectionStatus: 'Approved',
-        date: today,
+        vendorSelection: {
+          ...job.printManager!,
+          status: 'Approved',
+          date: today,
+        },
       },
       finalizedVendorName: form.vendorName,
     });
@@ -585,9 +588,11 @@ export default function ApprovalDetails({
     setStep4Meta({ comment: form.comment });
     update({
       printManager: {
-        ...job.printManager!,
-        vendorSelectionStatus: 'Rejected',
-        date: today,
+        vendorSelection: {
+          ...job.printManager!,
+          status: 'Rejected',
+          date: today,
+        },
       },
     });
   };
@@ -598,6 +603,7 @@ export default function ApprovalDetails({
   const oh = job.operationHead;
   const bh = job.businessHeadName;
   const pm = job.printManager;
+  const ph = job.pnpHead;
   // const step1Done = bh?.status === 'Approved' || oh?.status === 'Approved';
   const step1Done = role
     ? role == 'businessHead' || role == 'operationHeadPrint'
@@ -609,17 +615,20 @@ export default function ApprovalDetails({
   const step3Done = role
     ? role == 'printExecutive'
       ? false
-      : role == 'printMng'
+      : role == 'printMng' || role == 'pnpHead'
         ? true
         : pe?.status === 'Approved'
     : pe?.status === 'Approved';
   const step4Done = role
-    ? role == 'printMng'
+    ? role == 'pnpHead'
       ? true
-      : pm?.vendorSelectionStatus === 'Approved'
-    : pm?.vendorSelectionStatus === 'Approved';
+      : pm?.vendorSelection?.status === 'Approved'
+    : pm?.jobSendToVendor?.status === 'Approved';
 
-  const stepsApproved = [step1Done, step3Done, step4Done && step3Done].filter(
+  const step5Done = ph?.vendorSelectionStatus === 'Approved';
+
+  // && step3Done
+  const stepsApproved = [step1Done, step3Done, step4Done, step5Done].filter(
     Boolean
   ).length;
   const progressPct = Math.round((stepsApproved / 3) * 100);
@@ -699,13 +708,41 @@ export default function ApprovalDetails({
         step={3}
         title="Print Manager"
         subtitle="All Vendor Quote received and send for Vendore Selection"
-        status={step4Done ? pm?.vendorSelectionStatus : 'Pending'}
+        status={step4Done ? pm?.vendorSelection?.status : 'Pending'}
         isLocked={step4Done ? !step3Done : true}
-        userName={pm?.managerName}
-        date={pm?.date}
-        showVendorField
-        savedVendorName={step4Meta.vendorName}
+        userName={pm?.vendorSelection?.userName}
+        date={pm?.vendorSelection?.date}
         savedComment={step4Meta.comment}
+        onApprove={handlePMApprove}
+        onReject={handlePMReject}
+      />
+      <Connector done={step4Done} locked={!step1Done} />
+      <StepCard
+        step={4}
+        title="Print Head"
+        subtitle="Vendor Selection Done"
+        status={step5Done ? ph?.vendorSelectionStatus : 'Pending'}
+        isLocked={role == 'pnpHead' ? false : true}
+        userName={ph?.managerName}
+        date={ph?.date}
+        showVendorField
+        savedVendorName={step5Meta.vendorName}
+        savedComment={step5Meta.comment}
+        onApprove={handlePMApprove}
+        onReject={handlePMReject}
+      />
+      <Connector done={step5Done} locked={!step1Done} />
+      <StepCard
+        step={5}
+        title="Print Manager"
+        subtitle="Vendor Email Send"
+        status={step5Done ? pm?.jobSendToVendor?.status : 'Pending'}
+        isLocked={true}
+        userName={ph?.managerName}
+        date={ph?.date}
+        showVendorField
+        savedVendorName={step5Meta.vendorName}
+        savedComment={step5Meta.comment}
         onApprove={handlePMApprove}
         onReject={handlePMReject}
       />
