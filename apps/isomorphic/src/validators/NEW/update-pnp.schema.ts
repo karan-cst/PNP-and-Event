@@ -9,6 +9,7 @@ export const PNPUpdateFormSchema = z.object({
   followupDate: z.date({ invalid_type_error: 'Follow Up Date is required' }),
   printerDate: z.date({ invalid_type_error: 'Printer Date is required' }),
   division: z.string().trim().min(1, { message: 'Division is required' }),
+  remarks: z.string().optional(),
 });
 
 // generate form types from zod validation schema

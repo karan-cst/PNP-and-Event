@@ -31,7 +31,8 @@ import UploadSample from './upload-sample/uploadSample';
 import { BsFiletypePdf } from 'react-icons/bs';
 import JobDetailModal from './jobDetailModal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
-import { TbMoneybag } from 'react-icons/tb';
+import { TbMoneybag, TbReplace } from 'react-icons/tb';
+import ChangeVendorModal from './VendorChange/vendorChange';
 const allowEdit = [
   'csUser',
   'printExecutive',
@@ -416,7 +417,10 @@ export const JobListColumns = () => {
             <AddPO job={row.original as JobFormDataType} />
           )}
           {role && ['pnpHead'].includes(role) && (
-            <RevisedRate job={row.original as JobFormDataType} />
+            <div className="flex gap-1">
+              <RevisedRate job={row.original as JobFormDataType} />
+              <VendorChange job={row.original as JobFormDataType} />
+            </div>
           )}
         </div>
       ),
@@ -508,6 +512,7 @@ const RevisedRate = ({ job }: { job: JobFormDataType }) => {
         <ActionIcon
           size="sm"
           variant="outline"
+          disabled={!job?.finalizedVendor}
           onClick={() => {
             openModal({
               view: (
@@ -521,6 +526,29 @@ const RevisedRate = ({ job }: { job: JobFormDataType }) => {
           }}
         >
           <TbMoneybag className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+    </Flex>
+  );
+};
+const VendorChange = ({ job }: { job: JobFormDataType }) => {
+  const { openModal, closeModal } = useModal();
+  return (
+    <Flex>
+      <Tooltip size="sm" content="Change Vendor" placement="top" color="invert">
+        <ActionIcon
+          size="sm"
+          variant="outline"
+          disabled={!job?.finalizedVendor}
+          onClick={() => {
+            openModal({
+              view: (
+                <ChangeVendorModal rowData={job} onClose={() => closeModal()} />
+              ),
+            });
+          }}
+        >
+          <TbReplace className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
     </Flex>

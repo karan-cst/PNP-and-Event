@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { env } from '@/env.mjs';
 import { pagesOptions } from './pages-options';
+import axios from 'axios';
 
 export const authOptions: NextAuthOptions = {
   // debug: true,
@@ -15,12 +16,14 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
+      // First login
       if (user) {
-        // return user as JWT
-        // token.user = user;
         token.role = user.role;
         token.id = user.id;
+        // token.user = user;
+        // token.accessToken = user.token;
       }
+
       return token;
     },
     async session({ session, token }) {
@@ -28,25 +31,16 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.role = token.role!;
         session.user.id = token.id as string;
+        // session.user = token.user as any;
+        // session.accessToken = token.accessToken as string;
+
+        // session.user.role = token.role!;
+        // session.user.id = token.id as string;
       }
       return session;
-      // return {
-      //   ...session,
-      //   user: {
-      //     ...session.user,
-      //     id: token.idToken as string,
-      //   },
-      // };
     },
 
     async redirect({ url, baseUrl }) {
-      // const parsedUrl = new URL(url, baseUrl);
-      // if (parsedUrl.searchParams.has('callbackUrl')) {
-      //   return `${baseUrl}${parsedUrl.searchParams.get('callbackUrl')}`;
-      // }
-      // if (parsedUrl.origin === baseUrl) {
-      //   return url;
-      // }
       return baseUrl;
     },
   },
@@ -56,20 +50,29 @@ export const authOptions: NextAuthOptions = {
       name: 'Credentials',
       credentials: {},
       async authorize(credentials: any) {
+        //   try {
         const { email, password } = credentials as any;
-        // const user = {
-        //   email: 'admin@oneadvt.com',
-        //   password: 'admin',
-        // };
+        //     const result = await axios.post(
+        //       'http://localhost:9003/api/auth/login',
+        //       { email, password }
+        //     );
+        //     if (result.data.success) {
+        //       return {
+        //         ...result.data.data,
+        //         token: result.data.token,
+        //       };
+        //     } else {
+        //       console.log('/*/*/*/*/*/*/*/*/*', result.data.message);
+        //     }
 
-        // if (
-        //   isEqual(user, {
-        //     email: credentials?.email,
-        //     password: credentials?.password,
-        //   })
-        // ) {
-        //   return user as any;
-        // }
+        //     return null;
+        //   } catch (error) {
+        //     console.log('error**********', error);
+
+        //     return null;
+        //   }
+        // },
+
         if (email === 'super@oneadvt.com' && password === 'admin') {
           return {
             id: '1',
@@ -78,7 +81,6 @@ export const authOptions: NextAuthOptions = {
             role: 'superAdmin',
           };
         }
-
         if (email === 'pnp@oneadvt.com' && password === 'admin') {
           return {
             id: '2',

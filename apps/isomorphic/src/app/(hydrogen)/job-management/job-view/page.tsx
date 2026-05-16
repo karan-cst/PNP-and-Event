@@ -123,7 +123,7 @@ export default function JobViewPage() {
     {
       key: 'checklist',
       label: 'Printing Checklist',
-      roles: ['printExecutive', 'pnpHead'],
+      roles: ['printExecutive', 'pnpHead', 'csUser'],
     },
     {
       key: 'logs',
@@ -184,6 +184,7 @@ export default function JobViewPage() {
               </div>
             )}
             <VendorsPNPTable
+              job={job}
               vendors={vendors}
               viewOnly={
                 role ? ['printMng', 'giftMng', 'pnpHead'].includes(role) : false

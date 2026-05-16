@@ -79,10 +79,19 @@ export const DeliveryListColumns = (opts: {
     columnHelper.accessor('qty', {
       id: 'qty',
       size: 140,
-      header: 'Total Qty / Packing Qty',
+      header: 'Total Qty ',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
           <Text className="text-sm font-semibold">{`${row.original?.qty ? row.original?.qty : '-'}`}</Text>
+        </div>
+      ),
+    }),
+    columnHelper.accessor('packing', {
+      id: 'qty',
+      size: 140,
+      header: 'Packing Qty',
+      cell: ({ row }) => (
+        <div className={cn('grid gap-1')}>
           <Text className="text-sm">{`${row.original?.packing ? row.original?.packing : '-'}`}</Text>
         </div>
       ),
@@ -94,18 +103,27 @@ export const DeliveryListColumns = (opts: {
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
           <Text className="text-sm font-semibold">{`${row.original?.deliveryLocation ? row.original?.deliveryLocation : '-'}`}</Text>
-          <Text className="text-sm">{`${row.original?.deliveryDate ? row.original?.deliveryDate : '-'}`}</Text>
         </div>
       ),
     }),
     columnHelper.display({
-      id: 'status',
+      id: 'deliveryDate',
       size: 150,
-      header: 'Status',
+      header: 'Delivery Date',
       cell: ({ row }) => (
-        <Text className="text-sm">{`${row.original?.status ? row.original?.status : '-'}`}</Text>
+        <div className={cn('grid gap-1')}>
+          <Text className="text-sm">{`${row.original?.deliveryDate ? row.original?.deliveryDate : '-'}`}</Text>
+        </div>
       ),
     }),
+    // columnHelper.display({
+    //   id: 'status',
+    //   size: 150,
+    //   header: 'Status',
+    //   cell: ({ row }) => (
+    //     <Text className="text-sm">{`${row.original?.status ? row.original?.status : '-'}`}</Text>
+    //   ),
+    // }),
     columnHelper.display({
       id: 'followupDate',
       size: 150,
@@ -119,6 +137,31 @@ export const DeliveryListColumns = (opts: {
       cell: ({ row }) => (
         <Text className="text-sm">{`${row.original?.printerDate ? row.original?.printerDate : '-'}`}</Text>
       ),
+    }),
+    columnHelper.display({
+      id: 'remarks',
+      size: 200,
+      header: 'Remarks',
+      cell: ({ row }) => {
+        const remarks = row.original?.remarks || '';
+
+        return (
+          <Tooltip
+            size="sm"
+            content={
+              <div className="max-w-[300px] whitespace-pre-wrap break-words">
+                {remarks}
+              </div>
+            }
+            placement="top"
+            color="invert"
+          >
+            <Text className="text-sm">
+              {remarks.length > 50 ? `${remarks.slice(0, 50)}...` : remarks}
+            </Text>
+          </Tooltip>
+        );
+      },
     }),
     columnHelper.display({
       id: 'action',

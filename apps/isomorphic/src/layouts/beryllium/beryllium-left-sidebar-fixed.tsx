@@ -88,6 +88,7 @@ function MenuItems() {
   const { data: session } = useSession();
   if (!session?.user?.role) return null;
   const role = session.user.role;
+  console.log('session/*/*/*/*/*/*', session, role);
 
   const filteredMenu = berylliumMenuItems
     // 1️⃣ Filter top-level sections

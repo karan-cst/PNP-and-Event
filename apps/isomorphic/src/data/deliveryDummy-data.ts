@@ -15,6 +15,7 @@ export type DeliveryDataType = {
   status: string;
   studioRemarks: string;
   printerDate: string;
+  remarks?: string;
 };
 
 export const deliveryDummyData: DeliveryDataType[] = [
@@ -35,5 +36,7 @@ export const deliveryDummyData: DeliveryDataType[] = [
     status: 'In Progress',
     studioRemarks: 'Urgent delivery required',
     printerDate: '2026-03-20',
+    remarks:
+      'Add remarks for the PO team. Example: Create separate POs for each vendor OR create one combined PO for selected vendors with shared delivery and billing.\nAdd remarks for the PO team. Example: Create separate POs for each vendor OR create one combined PO for selected vendors with shared delivery and billing.Add remarks for the PO team. Example: Create separate POs for each vendor OR create one combined PO for selected vendors with shared delivery and billing.Add remarks for the PO team. Example: Create separate POs for each vendor OR create one combined PO for selected vendors with shared delivery and billing.Add remarks for the PO team. Example: Create separate POs for each vendor OR create one combined PO for selected vendors with shared delivery and billing.Add remarks for the PO team. Example: Create separate POs for each vendor OR create one combined PO for selected vendors with shared delivery and billing.',
   },
 ];

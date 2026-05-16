@@ -4,7 +4,7 @@ import cn from '@core/utils/class-names';
 import React, { useState } from 'react';
 import { Text } from 'rizzui/typography';
 import { SubmitHandler, Controller } from 'react-hook-form';
-import { Button, Input, Select, Title } from 'rizzui';
+import { Button, Input, Select, Textarea, Title } from 'rizzui';
 import { Form } from '@core/ui/form';
 import {
   PNPUpdateFormSchema,
@@ -291,6 +291,11 @@ export function UpdateJob({
                       />
                     </>
                   )}
+                  <Textarea
+                    {...register('remarks')}
+                    placeholder="Reamrks"
+                    // rows={2}
+                  />
                 </FormGroup>
                 {/* </HorizontalFormBlockWrapper> */}
               </div>

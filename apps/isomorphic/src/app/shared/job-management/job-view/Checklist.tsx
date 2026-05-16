@@ -2,6 +2,7 @@
 
 import { DatePicker } from '@core/ui/datepicker';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { useForm, Controller } from 'react-hook-form';
 import { Checkbox, Input, Text, Button, Textarea } from 'rizzui';
 import * as zod from 'zod';
@@ -20,30 +21,29 @@ const checklistSchema = zod.object({
   jobNo: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
   quantity: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
   delMatoda: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
-  hg: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
+  ho: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
   size: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
   paper1: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
   paper2: zod.object({ ok: zod.boolean(), notOk: zod.boolean() }).optional(),
   printingQuality: zod
     .object({ ok: zod.boolean(), notOk: zod.boolean() })
     .optional(),
+  fabrication: zod
+    .object({ ok: zod.boolean(), notOk: zod.boolean() })
+    .optional(),
 
   // Right side
   percentageChecked: zod.string().optional(),
   noOfBoxes: zod.string().optional(),
-  gapCodePrint: zod.boolean().optional(),
-  png1: zod.boolean().optional(),
+  sapCodePrint: zod.boolean().optional(),
+  pkg1: zod.boolean().optional(),
   pkg: zod.boolean().optional(),
   masterCarken3pv: zod.boolean().optional(),
   masterCarken7pv: zod.boolean().optional(),
   bubbleWrap: zod.boolean().optional(),
-  packingBisbo: zod.boolean().optional(),
+  packingBibo: zod.boolean().optional(),
   looscePack: zod.boolean().optional(),
   photosAttached: zod.string().optional().optional(),
-
-  // Fabrication OK / NOT OK rows
-  fabricationOk: zod.boolean().optional(),
-  fabricationNotOk: zod.boolean().optional(),
 
   dCut: zod.boolean().optional(),
   pasting: zod.boolean().optional(),
@@ -92,11 +92,12 @@ function OkNotOk({
     | 'jobNo'
     | 'quantity'
     | 'delMatoda'
-    | 'hg'
+    | 'ho'
     | 'size'
     | 'paper1'
     | 'paper2'
-    | 'printingQuality';
+    | 'printingQuality'
+    | 'fabrication';
   control: any;
 }) {
   return (
@@ -177,13 +178,16 @@ export default function Checklist() {
       jobNo: { ok: false, notOk: false },
       quantity: { ok: false, notOk: false },
       delMatoda: { ok: false, notOk: false },
-      hg: { ok: false, notOk: false },
+      ho: { ok: false, notOk: false },
       size: { ok: false, notOk: false },
       paper1: { ok: false, notOk: false },
       paper2: { ok: false, notOk: false },
       printingQuality: { ok: false, notOk: false },
+      fabrication: { ok: false, notOk: false },
     },
   });
+  const session = useSession();
+  const role = session?.data?.user?.role;
   console.log('errors', errors);
   const onSubmit = (data: ChecklistFormValues) => {
     console.log('Checklist submitted:', data);
@@ -212,12 +216,7 @@ export default function Checklist() {
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-600">
             CHECK DATE:
           </label>
-          {/* <Input
-            {...register('checkDate')}
-            size="sm"
-            className="w-36"
-            error={errors.checkDate?.message}
-          /> */}
+
           <Controller
             name="checkDate"
             control={control}
@@ -274,9 +273,9 @@ export default function Checklist() {
           {/* H.G. */}
           <div className="flex items-center gap-3">
             <span className="w-32 text-xs font-semibold uppercase text-gray-600">
-              H.G.:
+              H.O.:
             </span>
-            <OkNotOk name="hg" control={control} />
+            <OkNotOk name="ho" control={control} />
           </div>
 
           {/* SIZE */}
@@ -310,6 +309,12 @@ export default function Checklist() {
             </span>
             <OkNotOk name="printingQuality" control={control} />
           </div>
+          <div className="flex items-center gap-3">
+            <span className="w-32 text-xs font-semibold uppercase text-gray-600">
+              FABRICATION:
+            </span>
+            <OkNotOk name="fabrication" control={control} />
+          </div>
         </div>
 
         {/* ── RIGHT COLUMN ── */}
@@ -335,11 +340,11 @@ export default function Checklist() {
           {/* GAP CODE PRINT */}
           <div className="flex items-center gap-2">
             <Controller
-              name="gapCodePrint"
+              name="sapCodePrint"
               control={control}
               render={({ field }) => (
                 <Checkbox
-                  label="GAP CODE PRINT"
+                  label="SAP CODE PRINT"
                   checked={!!field.value}
                   onChange={field.onChange}
                   className="text-xs"
@@ -351,11 +356,11 @@ export default function Checklist() {
           {/* PNG */}
           <div className="flex items-center gap-2">
             <Controller
-              name="png1"
+              name="pkg1"
               control={control}
               render={({ field }) => (
                 <Checkbox
-                  label="PNG."
+                  label="PKG."
                   checked={!!field.value}
                   onChange={field.onChange}
                   className="text-xs"
@@ -429,11 +434,11 @@ export default function Checklist() {
           <div className="flex items-center gap-3">
             <span className="text-xs text-gray-600">PACKING:</span>
             <Controller
-              name="packingBisbo"
+              name="packingBibo"
               control={control}
               render={({ field }) => (
                 <Checkbox
-                  label="BISBO"
+                  label="BIBO"
                   checked={!!field.value}
                   onChange={field.onChange}
                   className="text-xs"
@@ -472,42 +477,13 @@ export default function Checklist() {
       {/* ── FABRICATION SECTION ── */}
       <div className="mt-4 rounded-md border-2 border-gray-400 p-4">
         {/* Section header */}
-        <div className="mb-3 flex items-center gap-6">
-          <span className="text-xs font-bold uppercase tracking-wide text-gray-700">
-            FABRICATION
-          </span>
-          <Controller
-            name="fabricationOk"
-            control={control}
-            render={({ field }) => (
-              <Checkbox
-                label="OK"
-                checked={!!field.value}
-                onChange={field.onChange}
-                className="text-xs"
-              />
-            )}
-          />
-          <Controller
-            name="fabricationNotOk"
-            control={control}
-            render={({ field }) => (
-              <Checkbox
-                label="NOT OK"
-                checked={!!field.value}
-                onChange={field.onChange}
-                className="text-xs"
-              />
-            )}
-          />
-        </div>
 
         {/* Fabrication grid - 4 columns */}
         <div className="grid grid-cols-2 gap-y-3 md:grid-cols-4">
           {/* Row 1 */}
           <FabCell name="dCut" label="D CUT" control={control} />
           <FabCell name="pasting" label="PASTING" control={control} />
-          <FabCell name="greasing" label="GREASING" control={control} />
+          <FabCell name="greasing" label="CREASING" control={control} />
           <FabCell name="indexing" label="INDEXING" control={control} />
 
           {/* Row 2 */}
@@ -520,7 +496,7 @@ export default function Checklist() {
           <FabCell name="bToB" label="B TO B" control={control} />
           <FabCell name="uv" label="UV" control={control} />
           <FabCell name="spiral" label="SPIRAL" control={control} />
-          <FabCell name="windDWire" label='WIND "D" WIRE' control={control} />
+          <FabCell name="windDWire" label='WIRO "O" WIRE' control={control} />
 
           {/* Row 4 - LAM */}
           <FabCell name="lamMatt" label="LAM: MATT" control={control} />
@@ -543,11 +519,12 @@ export default function Checklist() {
       </div>
 
       {/* ── NOTE ── */}
-      <div className="rounded-md bg-gray-50 p-3 text-xs text-gray-600">
+      <div className="rounded-md bg-gray-50 p-3 text-sm text-gray-600">
         <p className="mb-2">
-          <strong>NOTE:</strong> The Printer will be held responsible for the
-          failure to comply with the above mentioned parameters and may be
-          penalized for the same.
+          <strong>NOTE:</strong> This is to ensure that the dummy attached
+          herewith complies with the parameters mentioned in this form. The
+          Printer will be held responsible for the failure to comply with the
+          above mentioned parameters and may be penalized for the same.
         </p>
         <div className="flex items-start gap-2">
           <label className="mt-1 font-semibold">NOTE:</label>
@@ -561,14 +538,16 @@ export default function Checklist() {
       </div>
 
       {/* ── SUBMIT ── */}
-      <div className="flex justify-end gap-4 pt-2">
-        <Button type="button" variant="outline" size="md">
-          Save As Draft
-        </Button>
-        <Button type="submit" size="md">
-          Save Checklist
-        </Button>
-      </div>
+      {role && ['printExecutive'].includes(role) && (
+        <div className="flex justify-end gap-4 pt-2">
+          <Button type="button" variant="outline" size="md">
+            Save As Draft
+          </Button>
+          <Button type="submit" size="md">
+            Save Checklist
+          </Button>
+        </div>
+      )}
     </form>
   );
 }

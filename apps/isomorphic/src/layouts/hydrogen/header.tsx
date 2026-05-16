@@ -28,13 +28,15 @@ export default function Header() {
           <Logo iconOnly={true} />
         </Link> */}
         <div>
-          <h6>{session?.user?.name || 'Super Admin'}</h6>
+          <h6>{session?.user?.role || 'Super Admin'}</h6>
           <p className="font-normal">
-            {session?.user?.role == 'pnpAdmin'
+            {session?.user?.userType == 'pnp'
               ? 'PNP Management'
-              : session?.user?.role == 'eventAdmin'
+              : session?.user?.userType == 'event'
                 ? 'Event Management'
-                : 'PNP & Event Management'}
+                : session?.user?.userType == 'admin'
+                  ? 'PNP & Event Management'
+                  : 'PNP & Event Management'}
           </p>
         </div>
         <Switch

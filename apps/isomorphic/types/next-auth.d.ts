@@ -7,6 +7,13 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
+      // token: string;
+      // accessToken: string;
+      userType?: string;
+      // firstName: string;
+      // lastName: string;
+      // email: string;
+      // address: string;
       role:
         | 'superAdmin'
         | 'pnpAdmin'
@@ -30,6 +37,7 @@ declare module 'next-auth' {
   }
 
   interface User {
+    // token: string;
     role:
       | 'superAdmin'
       | 'pnpAdmin'
@@ -96,3 +104,4 @@ declare module 'next-auth/jwt' {
 //     idToken?: string;
 //   }
 // }
+// 'eventUser' ,'operationHead' ,'eventHead' ,'financeExecutive' ,'financeManager' ,'financeHead','giftMng' ,'pnpHead' ,'poUser'

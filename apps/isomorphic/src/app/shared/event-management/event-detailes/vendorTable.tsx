@@ -20,6 +20,7 @@ import { formatPrice } from '@/config/format-pricing';
 import { useModal } from '../../modal-views/use-modal';
 import VendorUploadModal from '../vendor-upload/vendorUpload';
 import { VendorViewModalView } from '../vendor-view/vendorViewModal';
+import { useSession } from 'next-auth/react';
 
 const columns = [
   {
@@ -85,6 +86,7 @@ const columns = [
 
 const Action = ({ row }: { row: null }) => {
   const { openModal, closeModal } = useModal();
+
   const handleOpen = () => {
     openModal({
       view: (
@@ -117,6 +119,8 @@ const Action = ({ row }: { row: null }) => {
   };
   return (
     <Flex align="center" gap="3">
+      {/* {role && [""].includes(role) && (
+        <> */}
       <Tooltip size="sm" content="Edit Vendor" placement="top" color="invert">
         <ActionIcon
           size="sm"
@@ -146,6 +150,8 @@ const Action = ({ row }: { row: null }) => {
           <PiEyeBold className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
+      {/* </>
+      )} */}
       <Tooltip
         size="sm"
         content="Approve Vendor"

@@ -4,7 +4,7 @@ import cn from '@core/utils/class-names';
 import React, { useState } from 'react';
 import { Text } from 'rizzui/typography';
 import { Controller, SubmitHandler } from 'react-hook-form';
-import { Button, Select, Title } from 'rizzui';
+import { Button, Select, Textarea, Title } from 'rizzui';
 import { Form } from '@core/ui/form';
 import {
   PNPUpdateFormSchema,
@@ -109,6 +109,7 @@ export function UpdateJob({
         followupDate: '',
         Status: '',
         VendorRemarks: '',
+        remarks: '',
       });
     }, 600);
   };
@@ -124,7 +125,7 @@ export function UpdateJob({
       }}
       className="isomorphic-form flex flex-grow flex-col @container"
     >
-      {({ control, watch, setValue, formState: { errors } }) => {
+      {({ control, watch, setValue, register, formState: { errors } }) => {
         const selectedDivision = watch('division');
         return (
           <>
@@ -275,6 +276,12 @@ export function UpdateJob({
                       />
                     </>
                   )}
+
+                  <Textarea
+                    {...register('remarks')}
+                    placeholder="Reamrks"
+                    // rows={2}
+                  />
                 </FormGroup>
               </div>
             </div>
