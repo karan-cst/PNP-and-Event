@@ -7,13 +7,13 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
-      // token: string;
-      // accessToken: string;
+      token: string;
+      accessToken: string;
       userType?: string;
-      // firstName: string;
-      // lastName: string;
-      // email: string;
-      // address: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      address: string;
       role:
         | 'superAdmin'
         | 'pnpAdmin'
@@ -37,7 +37,7 @@ declare module 'next-auth' {
   }
 
   interface User {
-    // token: string;
+    token: string;
     role:
       | 'superAdmin'
       | 'pnpAdmin'

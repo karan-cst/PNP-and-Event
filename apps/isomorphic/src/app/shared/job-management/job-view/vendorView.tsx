@@ -221,7 +221,7 @@ export default function VendorsPNPTable({
   const { openModal, closeModal } = useModal();
   useEffect(() => {
     if (role) setCanFinalize(allowFinalize.includes(role));
-  }, [role]);
+  }, [role, allowFinalize]);
   const { table, setData } = useTanStackTable({
     tableData: vendors,
     columnConfig: columns(viewOnly),

@@ -171,7 +171,7 @@ export default function CreateVendor({
                       //     { label: 'Surat', value: 'Surat' },
                       //   ]?.find((r) => r.value === selected)?.label ?? ''
                       // }
-                      error={errors?.vendorType?.message as string}
+                      error={errors?.city?.message as string}
                     />
                   )}
                 />

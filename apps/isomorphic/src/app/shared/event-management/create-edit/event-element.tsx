@@ -53,7 +53,7 @@ export default function EventElements() {
         value: el.name,
         rate: el.rate,
       })),
-    []
+    [standardElementsFromBackend]
   );
 
   // watch draft fields
