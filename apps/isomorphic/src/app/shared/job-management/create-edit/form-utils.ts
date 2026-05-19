@@ -39,6 +39,7 @@ export interface JobFormValues {
   floor: string;
   divisions: {
     division: string;
+    language: string;
     sapCode: string;
     printsapCode: string;
     ccCode: string;
@@ -101,7 +102,8 @@ export function jobDefaultValues(job?: CreateJobInput): JobFormValues {
     floor: '2nd Floor',
     divisions: [
       {
-        division: 'ADRINA',
+        division: 'Arron',
+        language: 'english',
         sapCode: '2273043',
         printsapCode: '237044',
         ccCode: '1450',

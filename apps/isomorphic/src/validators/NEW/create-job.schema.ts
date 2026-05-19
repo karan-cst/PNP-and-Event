@@ -43,6 +43,7 @@ export const jobFormSchema = z
       .array(
         z.object({
           division: z.string().min(1, 'Division is required'),
+          language: z.string().min(1, 'Language is required'),
           sapCode: z.string().min(1, 'SAP Code is required'),
           ccCode: z.string().min(1, 'CC Code is required'),
           Qty: z.coerce.number().min(1, 'Total quantity must be at least 1'),

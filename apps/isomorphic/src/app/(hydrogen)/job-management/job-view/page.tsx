@@ -104,8 +104,8 @@ export default function JobViewPage() {
         'printMng',
         'giftMng',
         'pnpHead',
-        'operationHeadPrint',
-        'businessHead',
+        // 'operationHeadPrint',
+        // 'businessHead',
       ],
     },
     {

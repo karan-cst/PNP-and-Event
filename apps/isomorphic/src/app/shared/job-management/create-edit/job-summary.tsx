@@ -312,6 +312,7 @@ export default function JobSummary({ className }: { className?: string }) {
           onClick={() =>
             append({
               division: '',
+              language: '',
               sapCode: '',
               printsapCode: '',
               ccCode: '',
@@ -346,7 +347,7 @@ export default function JobSummary({ className }: { className?: string }) {
 
             <div key={field.id}>
               {/* inner grid */}
-              <div className="grid grid-cols-1 gap-6 @2xl:grid-cols-6 @3xl:grid-cols-6">
+              <div className="grid grid-cols-1 gap-6 @2xl:grid-cols-7 @3xl:grid-cols-7">
                 {/* <Input
                   label="Division"
                   {...register(`divisions.${index}.division`)}
@@ -373,6 +374,39 @@ export default function JobSummary({ className }: { className?: string }) {
                         [{ label: 'Arron', value: 'Arron' }]?.find(
                           (r) => r.value === selected
                         )?.label ?? ''
+                      }
+                      error={errors?.role?.message as string}
+                    />
+                  )}
+                />
+                <Controller
+                  name={`divisions.${index}.language`}
+                  control={control}
+                  render={({
+                    field: { value, onChange, onBlur },
+                    fieldState,
+                  }) => (
+                    <Select
+                      label="Language"
+                      dropdownClassName="h-auto"
+                      placeholder="Language..."
+                      searchable
+                      clearable
+                      onClear={() => onChange('')}
+                      options={[
+                        { label: 'English', value: 'english' },
+                        { label: 'Gujarati', value: 'gujarati' },
+                        { label: 'Kannada', value: 'kannada' },
+                      ]}
+                      onChange={onChange}
+                      value={value}
+                      getOptionValue={(option) => option.value}
+                      displayValue={(selected) =>
+                        [
+                          { label: 'English', value: 'english' },
+                          { label: 'Gujarati', value: 'gujarati' },
+                          { label: 'Kannada', value: 'kannada' },
+                        ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.role?.message as string}
                     />

@@ -19,10 +19,13 @@ export default function JobSpecifications({ job }: Props) {
           {job.divisions.map((division, index) => (
             <div
               key={index}
-              className="grid grid-cols-2 gap-6 text-sm md:grid-cols-5"
+              className="grid grid-cols-2 gap-6 text-sm md:grid-cols-6"
             >
               <p>
                 <strong>Division:</strong> {division.division}
+              </p>
+              <p>
+                <strong>Language:</strong> {division.language}
               </p>
               <p>
                 <strong>SAP Code:</strong> {division.sapCode}

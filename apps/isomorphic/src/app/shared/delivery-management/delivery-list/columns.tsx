@@ -72,7 +72,7 @@ export const DeliveryListColumns = (opts: {
       header: 'Printer Name',
       cell: ({ row }) => (
         <div className={cn('grid gap-1')}>
-          <Text className="text-sm">{`${row.original?.printer ? row.original?.printer : '-'}`}</Text>
+          <Text className="text-sm">{`${row.original?.printer ? [row.original?.printer, 'Silver print'].join(', ') : '-'}`}</Text>
         </div>
       ),
     }),

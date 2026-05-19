@@ -596,6 +596,7 @@ export type JobViewType = {
 
   divisions: {
     division: string;
+    language: string;
     sapCode: string;
     printsapCode: string;
     ccCode: string;
@@ -672,6 +673,7 @@ export const dummyJobViewData: JobViewType = {
   divisions: [
     {
       division: 'ADRINA',
+      language: 'English',
       sapCode: '2273043',
       printsapCode: '2273044',
       ccCode: '1450',
@@ -681,6 +683,7 @@ export const dummyJobViewData: JobViewType = {
     },
     {
       division: 'ARTEMIS',
+      language: 'Kannada',
       sapCode: '2273043',
       printsapCode: '2273044',
       ccCode: '1450',

@@ -49,9 +49,9 @@ export default function JobHeader({ job }: Props) {
           <p>
             <strong>HSN Code:</strong> {job.hsnCode}
           </p>
-          <p>
+          {/* <p>
             <strong>FInalized Vendor:</strong> ABC
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
