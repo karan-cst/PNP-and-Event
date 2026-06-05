@@ -58,7 +58,7 @@ export const eventFormSchema = z.object({
   location: z.object({
     addressLine1: z.string().min(1, 'Address Line 1 is required'),
     addressLine2: z.string().optional(),
-    pincode: z.string().min(6, 'Valid pincode required'),
+    pincode: z.string().optional(),
     state: z.string().min(1, 'State is required'),
     city: z.string().min(1, 'City is required'),
   }),
@@ -70,8 +70,10 @@ export const eventFormSchema = z.object({
   // 5️⃣ Client Section
   company: z.object({
     companyId: z.string().min(1, 'Client is required'),
-    divisionName: z.array(z.string()).optional(),
-    client: z.string().optional(),
+    divisionName: z
+      .array(z.string())
+      .min(1, 'At least one division is required'),
+    client: z.string().min(1, 'Client is required'),
     emailFile: z.string(),
   }),
   divisionName: z.string().optional(),

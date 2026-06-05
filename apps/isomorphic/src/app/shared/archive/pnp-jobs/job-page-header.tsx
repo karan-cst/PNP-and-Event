@@ -5,8 +5,6 @@ import { Button, Flex, Input, Select } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
 import { PiFunnel, PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
-import { FaFileArchive } from 'react-icons/fa';
-
 import { useRouter } from 'next/navigation';
 import { FilterDrawerView } from '@core/components/controlled-table/table-filter';
 import DateFiled from '@core/components/controlled-table/date-field';

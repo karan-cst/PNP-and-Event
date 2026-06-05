@@ -46,12 +46,11 @@ export default function CreateEditEvent({
     resolver: zodResolver(eventFormSchema),
     defaultValues: eventDefaultValues(event),
   });
-  console.log('rendering form with event', event);
+
   const onSubmit: SubmitHandler<CreateEventInput> = (data) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      console.log('event_data', data);
       toast.success(
         <Text as="b">Event successfully {slug ? 'updated' : 'created'}</Text>
       );

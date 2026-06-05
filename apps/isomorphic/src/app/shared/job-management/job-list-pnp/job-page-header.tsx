@@ -1,14 +1,18 @@
 'use client';
 import React from 'react';
 import PageHeader from '@/app/shared/page-header';
-import { Button, Flex, Input } from 'rizzui';
+import { Button, Flex, Input, Select } from 'rizzui';
 import { type Table as ReactTableType } from '@tanstack/react-table';
-import { PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
+import { PiFunnel, PiMagnifyingGlassBold, PiPlusBold } from 'react-icons/pi';
 import ToggleColumns from '@core/components/table-utils/toggle-columns';
 import { FaFileArchive } from 'react-icons/fa';
 
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { FilterDrawerView } from '@core/components/controlled-table/table-filter';
+import DateFiled from '@core/components/controlled-table/date-field';
+import { getDateRangeStateValues } from '@core/utils/get-formatted-date';
+import cn from '@core/utils/class-names';
 
 type PageHeaderTypes<T extends Record<string, any>> = {
   title: string;
@@ -27,6 +31,15 @@ export default function JobPageHeader<T extends Record<string, any>>({
   const role = session?.data?.user?.role;
   const router = useRouter();
   const allowCreate = ['csUser', 'operationHeadPrint'];
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [filter, setFilter] = React.useState({
+    search: '',
+    jobType: '',
+    division: '',
+  });
+  const [dateRange, setDateRange] = React.useState<
+    [string | null, string | null]
+  >([null, null]);
 
   return (
     <>
@@ -57,7 +70,86 @@ export default function JobPageHeader<T extends Record<string, any>>({
             </Button>
           )}
           <ToggleColumns table={table} />
+          <Button
+            variant={'outline'}
+            onClick={() => setOpenDrawer(!openDrawer)}
+            className="h-9 pe-3 ps-2.5"
+          >
+            <PiFunnel className="me-1.5 size-[18px]" strokeWidth={1.7} />
+            Filters
+          </Button>
         </Flex>
+        <FilterDrawerView
+          isOpen={openDrawer}
+          drawerTitle="Jobs Filters"
+          setOpenDrawer={setOpenDrawer}
+        >
+          <div className="grid grid-cols-1 gap-6">
+            <DateFiled
+              selectsRange
+              dateFormat={'dd-MMM-yyyy'}
+              className="w-full"
+              placeholderText="Select dates"
+              endDate={getDateRangeStateValues(dateRange[1])!}
+              selected={getDateRangeStateValues(dateRange[0])}
+              startDate={getDateRangeStateValues(dateRange[0])!}
+              onChange={(date: [Date | null, Date | null]) =>
+                setDateRange(date as [string | null, string | null])
+              }
+              inputProps={{
+                label: 'Created Date',
+                labelClassName: '[@media(min-width:1860px)]:hidden',
+              }}
+              isClearable={true}
+              onClear={() => setDateRange([null, null])}
+              clearButtonClassName={cn('translate-y-1 -translate-x-7 mt-2')}
+            />
+            <Input
+              type="search"
+              placeholder="Search Job Name..."
+              value={filter.search ?? ''}
+              onClear={() => setFilter((prev) => ({ ...prev, search: '' }))}
+              onChange={(e) =>
+                setFilter((prev) => ({ ...prev, search: e.target.value }))
+              }
+              label="Job Search"
+              inputClassName="h-9"
+              clearable={true}
+              prefix={<PiMagnifyingGlassBold className="size-4" />}
+            />
+            <Select
+              placeholder="Select Job Type..."
+              options={[
+                { label: 'All', value: '' },
+                { label: 'Print', value: 'print' },
+                { label: 'Gift', value: 'gift' },
+              ]}
+              value={filter.jobType ?? ''}
+              label="Job Type"
+              clearable={true}
+              onClear={() => setFilter((prev) => ({ ...prev, jobType: '' }))}
+              onChange={(value: string) =>
+                setFilter((prev) => ({ ...prev, jobType: value }))
+              }
+            />
+            <Select
+              placeholder="Select Division..."
+              options={[
+                { label: 'Arron', value: 'Arron' },
+                { label: 'Altis', value: 'Altis' },
+                { label: 'Ortho', value: 'Ortho' },
+                { label: 'Optho', value: 'Optho' },
+              ]}
+              value={filter.division ?? ''}
+              onChange={(value: string) =>
+                setFilter((prev) => ({ ...prev, division: value }))
+              }
+              label="Division"
+              clearable={true}
+              onClear={() => setFilter((prev) => ({ ...prev, division: '' }))}
+            />
+          </div>
+        </FilterDrawerView>
       </PageHeader>
     </>
   );

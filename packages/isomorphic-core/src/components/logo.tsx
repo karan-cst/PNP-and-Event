@@ -6,10 +6,10 @@ import Image from "next/image";
 export default function Logo({ iconOnly = false, ...props }: IconProps) {
   return (
     <Image
-      src="/logo/onelogohalf.svg"
+      src="/logo/onelogo.svg"
       alt="Logo"
-      width={iconOnly ? 48 : 100}
-      height={iconOnly ? 26 : 24}
+      width={iconOnly ? 48 : 160}
+      height={iconOnly ? 26 : 40}
       priority
     />
   );

@@ -16,6 +16,7 @@ import PencilIcon from '@core/components/icons/pencil';
 import {
   PiCaretDownBold,
   PiCaretUpBold,
+  PiLink,
   PiMicrosoftExcelLogo,
   PiUserSwitchDuotone,
   PiXBold,
@@ -176,40 +177,6 @@ export const EventListColumns = (expanded: boolean = true) => {
         </Flex>
       ),
     }),
-    // columnHelper.display({
-    //   id: 'action',
-    //   size: 150,
-    //   header: 'Action',
-    //   cell: ({ row }) => (
-    //     <Flex align="center" gap="3">
-    //       <Action data={row.original} role={role} />
-    //     </Flex>
-    //   ),
-    // }),
-    // columnHelper.accessor('clientRate', {
-    //   id: 'clientRate',
-    //   size: 120,
-    //   header: 'Client Rate',
-    //   cell: ({ row }) => (
-    //     <div className={cn('grid gap-1')}>
-    //       <Text className="text-sm">
-    //         {formatPrice(row.original.clientRate)}/
-    //       </Text>
-    //     </div>
-    //   ),
-    // }),
-    // columnHelper.display({
-    //   id: 'priority',
-    //   size: 100,
-    //   header: 'Priority',
-    //   cell: ({ row }) => getStatusBadge(row.original.priority),
-    // }),
-    // columnHelper.display({
-    //   id: 'status',
-    //   size: 100,
-    //   header: 'Status',
-    //   cell: ({ row }) => row.original.status,
-    // }),
     columnHelper.display({
       id: 'action',
       size: 150,
@@ -249,6 +216,7 @@ const expandedOrdersColumns = columnHelper.display({
   ),
 });
 const EventEdit = ({ event }: { event: EventDataType }) => {
+  const router = useRouter();
   return (
     <Tooltip size="sm" content={'Edit Event'} placement="top" color="invert">
       <ActionIcon
@@ -256,7 +224,9 @@ const EventEdit = ({ event }: { event: EventDataType }) => {
         size="sm"
         variant="outline"
         aria-label={'Edit Product'}
-        onClick={() => {}}
+        onClick={() => {
+          router.push(`/event-management/edit-event/${event.id}`);
+        }}
       >
         <PencilIcon className="h-4 w-4" />
       </ActionIcon>
@@ -312,13 +282,6 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
       customSize: 500,
     });
   };
-
-  const handleClient = (data: EventDataType) => {
-    openModal({
-      view: <ClientUploadModal rowData={data} onClose={() => closeModal()} />,
-      customSize: 500,
-    });
-  };
   return (
     <Flex align="center" justify="start" gap="3" className="pe-4">
       {role && allowEdit.includes(role) && <EventEdit event={event} />}
@@ -340,14 +303,13 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
           <PiMicrosoftExcelLogo className="h-4 w-4" />
         </ActionIcon>
       </Tooltip>
-      {role && allowEdit.includes(role) && (
+      {/* {role && allowEdit.includes(role) && (
         <Tooltip
           size="sm"
           content={'Client Update'}
           placement="top"
           color="invert"
         >
-          {/* router.push('/event-management/vendors') */}
           <ActionIcon
             as="span"
             size="sm"
@@ -360,7 +322,7 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
             <RiUserFollowFill className="h-4 w-4" />
           </ActionIcon>
         </Tooltip>
-      )}
+      )} */}
       {role == 'operationHead' && (
         <Tooltip
           size="sm"
@@ -379,7 +341,22 @@ const Action = ({ event, role }: { event: EventDataType; role?: string }) => {
           </ActionIcon>
         </Tooltip>
       )}
-      <UploadButton id={'event.id'} />
+      <Tooltip size="sm" content={'Extend Job'} placement="top" color="invert">
+        <ActionIcon
+          as="span"
+          size="sm"
+          variant="outline"
+          aria-label={'Extend Job'}
+          onClick={() =>
+            router.push(
+              `/event-management/create-event/extend-event/${event.id}`
+            )
+          }
+        >
+          <PiLink className="h-4 w-4" />
+        </ActionIcon>
+      </Tooltip>
+      {/* <UploadButton id={'event.id'} /> */}
     </Flex>
   );
 };
@@ -672,3 +649,7 @@ export function UploadSampleModalView({ id }: { id: string }) {
     </div>
   );
 }
+
+const handleExtend = () => {
+  alert('Extend Job clicked');
+};

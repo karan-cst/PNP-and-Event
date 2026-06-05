@@ -149,22 +149,22 @@ export default function CreateDivisin({
                   name="team"
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      label="Team"
+                      label="Business Head"
                       inPortal={false}
                       labelClassName="text-sm font-medium text-gray-900"
                       dropdownClassName="h-auto top-[43px]"
                       placeholder="Select..."
                       options={[
-                        { label: 'Team 1', value: 'team1' },
-                        { label: 'Team 2', value: 'team2' },
+                        { label: 'Business Head 1', value: 'businessHead1' },
+                        { label: 'Business Head 2', value: 'businessHead2' },
                       ]}
                       onChange={onChange}
                       value={value}
                       getOptionValue={(option) => option.value}
                       displayValue={(selected) =>
                         [
-                          { label: 'Team 1', value: 'team1' },
-                          { label: 'Team 2', value: 'team2' },
+                          { label: 'Business Head 1', value: 'businessHead1' },
+                          { label: 'Business Head 2', value: 'businessHead2' },
                         ]?.find((r) => r.value === selected)?.label ?? ''
                       }
                       error={errors?.isActive?.message as string}

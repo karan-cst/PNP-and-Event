@@ -36,7 +36,7 @@ export const DivisionData = [
     ccCode: '1199',
     createdAt: '2026-02-10T16:01:40.021Z',
     isActive: 'active',
-    team: 'team1',
+    team: 'businessHead1',
   },
   {
     id: 'DV002',
@@ -45,7 +45,7 @@ export const DivisionData = [
     ccCode: '1198',
     createdAt: '2026-02-10T16:01:40.021Z',
     isActive: 'inactive',
-    team: 'team1',
+    team: 'businessHead2',
   },
 ];
 export const DivisionClientData = [

@@ -160,7 +160,7 @@ export default function EventClient({ className }: { className?: string }) {
         render={({ field, fieldState }) => (
           <FileInput
             label="Upload Email File"
-            accept=".eml"
+            accept=".jpeg,.jpg,.pdf"
             onChange={(file) => {
               field.onChange(file);
             }}

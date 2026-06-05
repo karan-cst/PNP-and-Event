@@ -128,6 +128,7 @@ export default function EventSummary({ className }: { className?: string }) {
         {...register('sideOpen')}
         type="number"
         error={errors?.sideOpen?.message as string}
+        min={0}
       />
     </FormGroup>
   );

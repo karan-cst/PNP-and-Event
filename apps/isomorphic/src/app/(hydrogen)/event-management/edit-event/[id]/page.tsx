@@ -4,11 +4,16 @@ import { routes } from '@/config/routes';
 import CreateEditEvent from '@/app/shared/event-management/create-edit';
 
 export const metadata = {
-  ...metaObject('Create Product'),
+  ...metaObject('Edit Event'),
 };
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
 const pageHeader = {
-  title: 'Create Event',
+  title: 'Edit Event',
   breadcrumb: [
     {
       href: '#',
@@ -19,12 +24,14 @@ const pageHeader = {
       name: 'Events',
     },
     {
-      name: 'Create',
+      name: 'Edit',
     },
   ],
 };
 
-export default function CreateProductPage() {
+export default function EditEventPage({ params }: PageProps) {
+  const { id } = params;
+  // const event = dummyEvents.find((item) => item.id === id);
   return (
     <>
       <PageHeader
@@ -32,7 +39,7 @@ export default function CreateProductPage() {
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
 
-      <CreateEditEvent />
+      <CreateEditEvent slug={id} />
     </>
   );
 }

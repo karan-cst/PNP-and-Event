@@ -90,16 +90,24 @@ export function eventDefaultValues(event?: CreateEventInput) {
 
 export const typeOption = [
   {
-    value: 'Stall',
-    label: 'Stall',
-  },
-  {
     value: 'Conference',
     label: 'Conference',
   },
   {
+    value: 'CME',
+    label: 'CME',
+  },
+  {
     value: 'briefing meeting',
     label: 'Briefing Meeting',
+  },
+  {
+    value: 'activities',
+    label: 'Activities',
+  },
+  {
+    value: 'other',
+    label: 'Other',
   },
 ];
 export const stateOption = [

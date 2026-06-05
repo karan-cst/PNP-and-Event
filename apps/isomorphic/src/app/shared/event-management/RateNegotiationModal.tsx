@@ -23,9 +23,7 @@ type NegotiationRow = {
 
 export default function RateNegotiationModal() {
   const { closeModal } = useModal();
-  const [grandNegotiationTotal, setGrandNegotiationTotal] = useState<
-    number | ''
-  >('');
+  const [discountAmount, setDiscountAmount] = useState<number | ''>('');
   const [hasGrandTotal, setHasGrandTotal] = useState(false);
 
   const data: NegotiationRow[] = useMemo(
@@ -126,10 +124,8 @@ export default function RateNegotiationModal() {
 
   // check if total has value
   useEffect(() => {
-    setHasGrandTotal(
-      grandNegotiationTotal !== '' && Number(grandNegotiationTotal) > 0
-    );
-  }, [grandNegotiationTotal]);
+    setHasGrandTotal(discountAmount !== '' && Number(discountAmount) > 0);
+  }, [discountAmount]);
 
   // const handleInputField = (value: number | '', rowId: string) => {
   //   setData((prev: NegotiationRow[]) =>
@@ -146,7 +142,7 @@ export default function RateNegotiationModal() {
 
   const handleInputField = (value: number | '', rowId: string) => {
     // if row input used -> clear grand total
-    setGrandNegotiationTotal('');
+    setDiscountAmount('');
 
     setData((prev: NegotiationRow[]) =>
       prev.map((row) =>
@@ -160,10 +156,10 @@ export default function RateNegotiationModal() {
     );
   };
 
-  const handleGrandTotalChange = (value: string) => {
+  const handleDiscount = (value: string) => {
     const numValue = value === '' ? '' : Number(value);
 
-    setGrandNegotiationTotal(numValue);
+    setDiscountAmount(numValue);
 
     // if grand total entered -> clear row values
     if (numValue !== '') {
@@ -188,16 +184,16 @@ export default function RateNegotiationModal() {
 
       <Table table={table} variant="modern" />
 
-      <div className="mt-5 flex items-center justify-end gap-3">
-        <Text>Total Negotiation</Text>
-
+      <div className="mt-5 flex items-center justify-start gap-3 border-t pt-5">
         <Input
+          label="Discount Total"
+          placeholder="Enter Discount Total"
           type="number"
           disabled={hasRowNegotiation}
-          value={grandNegotiationTotal}
+          value={discountAmount}
           onChange={
-            (e) => handleGrandTotalChange(e.target.value)
-            // setGrandNegotiationTotal(
+            (e) => handleDiscount(e.target.value)
+            // setDiscountAmount(
             //   e.target.value === '' ? '' : Number(e.target.value)
             // )
           }

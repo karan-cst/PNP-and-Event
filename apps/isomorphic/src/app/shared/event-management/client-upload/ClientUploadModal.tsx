@@ -1,35 +1,21 @@
 // components/modals/VendorUploadModal.tsx
 'use client';
-import {
-  Modal,
-  Button,
-  Select,
-  FileInput,
-  Title,
-  ActionIcon,
-  Input,
-} from 'rizzui';
+import { Button, FileInput, Title, ActionIcon } from 'rizzui';
 import { useState } from 'react';
 import { PiXBold } from 'react-icons/pi';
-import { renderOptionDisplayValue } from '../../invoice/form-utils';
 
 interface ClientUploadModalProps {
-  rowData: any;
-  onClose: () => void;
+  id: number; // Assuming you need an ID to associate the upload with a specific event or client
 }
 
-export default function ClientUploadModal({
-  rowData,
-  onClose,
-}: ClientUploadModalProps) {
+export default function ClientUploadModal({ id }: ClientUploadModalProps) {
   const [client, setClient] = useState<string | null>(null);
   const [quotationFile, setQuotationFile] = useState<File | null>(null);
   const [emailFile, setEmailFile] = useState<File | null>(null);
-  const [clientToal, setClientTotal] = useState<number | 0>(0);
 
   const handleSubmit = () => {
     if (!client) {
-      alert('Please select vendor');
+      alert('Please select client');
       return;
     }
 
@@ -37,13 +23,11 @@ export default function ClientUploadModal({
     formData.append('client', client);
     if (quotationFile) formData.append('quotationFile', quotationFile);
     if (emailFile) formData.append('emailFile', emailFile);
-    formData.append('rowId', rowData._id);
+    formData.append('rowId', String(id));
 
     console.log('FormData Ready', formData);
 
     // call your API here
-
-    onClose();
   };
 
   return (
@@ -52,29 +36,8 @@ export default function ClientUploadModal({
         <Title as="h4" className="font-semibold">
           Update Client
         </Title>
-        <ActionIcon size="sm" variant="text" onClick={onClose}>
-          <PiXBold className="h-auto w-5" />
-        </ActionIcon>
       </div>
-      <div className="space-y-4">
-        {/* Vendor Selection */}
-        {/* <Select
-          label="Select Client"
-          options={[
-            { label: 'Client A', value: 'clientA' },
-            { label: 'Client B', value: 'clientB' },
-          ]}
-          value={client}
-          getOptionDisplayValue={(option: { value: any }) =>
-            renderOptionDisplayValue(option.value as string)
-          }
-          displayValue={(selected: string) =>
-            renderOptionDisplayValue(selected)
-          }
-          onChange={(value: string) => setClient(value || 'clientA')}
-          placeholder="Choose client"
-        /> */}
-
+      <div className="space-y-4 md:flex md:items-center md:gap-4">
         {/* Excel Upload */}
         <FileInput
           label="Upload Quotation (Excel)"
@@ -99,18 +62,9 @@ export default function ClientUploadModal({
               setEmailFile(null);
             }
           }}
+          className="mt-4 md:!mt-0"
         />
-        <Input
-          label="Cliet Total"
-          type="number"
-          value={clientToal}
-          onChange={(e) => setClientTotal(Number(e.target.value) || 0)}
-        />
-
-        <div className="flex justify-end gap-3 pt-3">
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
+        <div className="flex justify-end gap-3">
           <Button onClick={handleSubmit}>Submit</Button>
         </div>
       </div>

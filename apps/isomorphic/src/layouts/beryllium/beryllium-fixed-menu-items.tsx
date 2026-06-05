@@ -532,30 +532,14 @@ export const berylliumMenuItems: MenuItemsType[] = [
     name: 'Invoice',
     title: 'Invoice',
     icon: AiTwotoneFileText,
-    roles: [
-      'financeExecutive',
-      'financeManager',
-      'financeHead',
-      'eventHead',
-      // 'eventUser',
-      // 'operationHead',
-      // 'eventHead',
-    ],
+    roles: ['eventUser', 'operationHead', 'eventHead', 'businessHead'],
     isExpnad: false,
     menuItems: [
       {
         name: 'Invoice Management',
         href: routes.InvoiceManagement.invoice,
         icon: AiTwotoneFileText,
-        roles: [
-          'financeExecutive',
-          'financeManager',
-          'financeHead',
-          'eventHead',
-          // 'eventUser',
-          // 'operationHead',
-          //
-        ],
+        roles: ['eventUser', 'operationHead', 'eventHead', 'businessHead'],
       },
     ],
   },

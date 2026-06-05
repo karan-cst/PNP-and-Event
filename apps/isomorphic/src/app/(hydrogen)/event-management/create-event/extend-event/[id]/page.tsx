@@ -4,11 +4,16 @@ import { routes } from '@/config/routes';
 import CreateEditEvent from '@/app/shared/event-management/create-edit';
 
 export const metadata = {
-  ...metaObject('Create Product'),
+  ...metaObject('Extend Event'),
 };
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
 const pageHeader = {
-  title: 'Create Event',
+  title: 'Extend Event',
   breadcrumb: [
     {
       href: '#',
@@ -19,12 +24,14 @@ const pageHeader = {
       name: 'Events',
     },
     {
-      name: 'Create',
+      name: 'Extend',
     },
   ],
 };
 
-export default function CreateProductPage() {
+export default function ExtendEventPage({ params }: PageProps) {
+  const { id } = params;
+  // call event based on id and pass it to CreateEditEvent component to prefill the form and then allow user to edit and create a new event based on that, same for extend job
   return (
     <>
       <PageHeader
@@ -32,7 +39,7 @@ export default function CreateProductPage() {
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
 
-      <CreateEditEvent />
+      <CreateEditEvent slug={id} />
     </>
   );
 }

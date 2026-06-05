@@ -12,8 +12,9 @@ import { useEffect, useState } from 'react';
 import { POData } from '@/data/po.data';
 import InvoicePageHeader from './Invoice-page-header';
 import { useSession } from 'next-auth/react';
+import { InvoiceData } from '@/data/invoice.data';
 
-export type PODataType = (typeof POData)[number];
+export type InvoiceDataType = (typeof InvoiceData)[number];
 
 export default function InvoiceTable({
   pageSize = 5,
@@ -48,9 +49,11 @@ export default function InvoiceTable({
     ],
   };
 
-  const { table, setData } = useTanStackTable<PODataType>({
+  const { table, setData } = useTanStackTable<InvoiceDataType>({
     tableData:
-      type == 'all' ? POData : POData.filter((job) => job.isPharma === type),
+      type == 'all'
+        ? InvoiceData
+        : InvoiceData.filter((job) => job.isPharma === type),
     columnConfig: getInvoiceColumns(role),
     options: {
       initialState: {
@@ -74,7 +77,9 @@ export default function InvoiceTable({
 
   useEffect(() => {
     const filteredData =
-      type == 'all' ? POData : POData.filter((job) => job.isPharma === type);
+      type == 'all'
+        ? InvoiceData
+        : InvoiceData.filter((job) => job.isPharma === type);
 
     setData(filteredData);
 

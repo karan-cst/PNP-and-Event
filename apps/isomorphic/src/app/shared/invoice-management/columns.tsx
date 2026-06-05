@@ -2,7 +2,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { ActionIcon, Flex, Text, Title, Tooltip } from 'rizzui';
 import cn from '@core/utils/class-names';
-import { PODataType } from './table';
+import { InvoiceDataType } from './table';
 import { AiOutlineExport } from 'react-icons/ai';
 import {
   PiCheckFatDuotone,
@@ -14,7 +14,7 @@ import {
 import { formatPrice } from '@/config/format-pricing';
 import { useModal } from '../modal-views/use-modal';
 
-const columnHelper = createColumnHelper<PODataType>();
+const columnHelper = createColumnHelper<InvoiceDataType>();
 
 export const getInvoiceColumns = (role?: string) => [
   columnHelper.accessor('clientName', {
@@ -81,58 +81,30 @@ export const getInvoiceColumns = (role?: string) => [
       </div>
     ),
   }),
-  columnHelper.accessor('firstLevelStatus', {
-    id: 'firstLevelStatus',
+  columnHelper.accessor('operationHeadHistory', {
+    id: 'operationHeadHistory',
     size: 150,
-    header: '1st Level Status (FM)',
+    header: '1st Level Status (OH)',
     cell: ({ row }) => (
-      <ShowComment history={row.original?.firstLevelHistory} />
-      // <div className={cn('grid gap-1')}>
-      //   <Tooltip
-      //     size="sm"
-      //     content={'View Comment'}
-      //     placement="top"
-      //     color="invert"
-      //   >
-      //     <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-      //       {row.original?.firstLevelStatus}{' '}
-      //       <span>
-      //         <AiOutlineExport />
-      //       </span>
-      //     </Text>
-      //   </Tooltip>
-      //   <Text className="text-sm">{row.original?.firstLevelBy}</Text>
-      // </div>
+      <ShowComment history={row.original?.operationHeadHistory} />
     ),
   }),
-  columnHelper.accessor('secondLevelStatus', {
-    id: 'secondLevelStatus',
+  columnHelper.accessor('eventHeadHistory', {
+    id: 'eventHeadHistory',
     size: 150,
-    header: '2nd Level Status (FH)',
+    header: '2nd Level Status (EH)',
+    cell: ({ row }) => <ShowComment history={row.original?.eventHeadHistory} />,
+  }),
+  columnHelper.accessor('businessHeadHistory', {
+    id: 'businessHeadHistory',
+    size: 150,
+    header: '3rd Level Status (BH)',
     cell: ({ row }) => (
-      <ShowComment history={row.original?.secondLevelHistory} />
-      // <div className={cn('grid gap-1')}>
-      //   {row.original?.secondLevelStatus && (
-      //     <Tooltip
-      //       size="sm"
-      //       content={'View Comment'}
-      //       placement="top"
-      //       color="invert"
-      //     >
-      //       <Text className="flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
-      //         {row.original?.secondLevelStatus}
-      //         <span>
-      //           <AiOutlineExport />
-      //         </span>
-      //       </Text>
-      //     </Tooltip>
-      //   )}
-      //   <Text className="text-sm">{row.original?.secondLevelBy}</Text>
-      // </div>
+      <ShowComment history={row.original?.businessHeadHistory} />
     ),
   }),
-  columnHelper.accessor('poStatus', {
-    id: 'poStatus',
+  columnHelper.accessor('invoiceStatus', {
+    id: 'invoiceStatus',
     size: 150,
     header: 'Invoice',
     cell: ({ row }) => (
@@ -153,7 +125,7 @@ export const getInvoiceColumns = (role?: string) => [
             <PiDownloadDuotone className="h-4 w-4" />
           </ActionIcon>
         </Tooltip>
-        {role && ['financeExecutive'].includes(role) && (
+        {role && ['eventUser'].includes(role) && (
           <Tooltip
             size="sm"
             content={'Upload Invoice'}
@@ -174,26 +146,38 @@ export const getInvoiceColumns = (role?: string) => [
       </Flex>
     ),
   }),
-  ...(role && ['financeManager', 'financeHead'].includes(role)
+  ...(role && ['operationHead', 'eventHead', 'businessHead'].includes(role)
     ? [
-        columnHelper.accessor('poStatus', {
+        columnHelper.accessor('invoiceStatus', {
           id: 'action',
           size: 150,
           header: 'Action',
           cell: ({ row }) => {
-            const firstHistory = row.original?.firstLevelHistory || [];
-            const secondHistory = row.original?.secondLevelHistory || [];
+            const operationHistory = row.original?.operationHeadHistory || [];
+            const eventHistory = row.original?.eventHeadHistory || [];
+            const businessHistory = row.original?.businessHeadHistory || [];
 
-            const lastFirst = firstHistory[firstHistory.length - 1];
-            const lastSecond = secondHistory[secondHistory.length - 1];
+            const lastOperation = operationHistory[operationHistory.length - 1];
+            const lastEvent = eventHistory[eventHistory.length - 1];
+            const lastBusiness = businessHistory[businessHistory.length - 1];
+            let disabled = false;
 
-            const managerDisabled =
-              role === 'financeManager' && lastFirst?.status === 'approve';
-            const headDisabled =
-              role === 'financeHead' &&
-              (lastFirst?.status !== 'approve' ||
-                lastSecond?.status === 'approve');
-            const disabled = managerDisabled || headDisabled;
+            if (role === 'operationHead') {
+              disabled = lastOperation?.status === 'approve';
+            }
+
+            if (role === 'eventHead') {
+              disabled =
+                lastOperation?.status !== 'approve' || // not approved or rejected
+                !!lastEvent; // already acted
+            }
+
+            if (role === 'businessHead') {
+              disabled =
+                lastOperation?.status !== 'approve' ||
+                lastEvent?.status !== 'approve' ||
+                !!lastBusiness; // already acted
+            }
 
             return (
               <Flex align="center" justify="start" gap="3" className="pe-4">
@@ -237,53 +221,53 @@ export const getInvoiceColumns = (role?: string) => [
           },
         }),
       ]
-    : role && ['eventHead'].includes(role)
-      ? [
-          columnHelper.accessor('poStatus', {
-            id: 'action',
-            size: 150,
-            header: 'Event Head Approval',
-            cell: ({ row }) => {
-              return (
-                <Flex align="center" justify="start" gap="3" className="pe-4">
-                  <Tooltip
-                    size="sm"
-                    content="Approve Invoice"
-                    placement="top"
-                    color="invert"
-                  >
-                    <ActionIcon
-                      as="span"
-                      size="sm"
-                      variant="outline"
-                      aria-label="Approve Invoice"
-                      onClick={() => {}}
-                    >
-                      <PiCheckFatDuotone className="h-4 w-4" />
-                    </ActionIcon>
-                  </Tooltip>
-                  <Tooltip
-                    size="sm"
-                    content="Reject Invoice"
-                    placement="top"
-                    color="invert"
-                  >
-                    <ActionIcon
-                      as="span"
-                      size="sm"
-                      variant="outline"
-                      aria-label="Reject Invoice"
-                      onClick={() => {}}
-                    >
-                      <PiXLogoDuotone className="h-4 w-4" />
-                    </ActionIcon>
-                  </Tooltip>
-                </Flex>
-              );
-            },
-          }),
-        ]
-      : []),
+    : // : role && ['eventHead'].includes(role)
+      //   ? [
+      //       columnHelper.accessor('invoiceStatus', {
+      //         id: 'action',
+      //         size: 150,
+      //         header: 'Event Head Approval',
+      //         cell: ({ row }) => {
+      //           return (
+      //             <Flex align="center" justify="start" gap="3" className="pe-4">
+      //               <Tooltip
+      //                 size="sm"
+      //                 content="Approve Invoice"
+      //                 placement="top"
+      //                 color="invert"
+      //               >
+      //                 <ActionIcon
+      //                   as="span"
+      //                   size="sm"
+      //                   variant="outline"
+      //                   aria-label="Approve Invoice"
+      //                   onClick={() => {}}
+      //                 >
+      //                   <PiCheckFatDuotone className="h-4 w-4" />
+      //                 </ActionIcon>
+      //               </Tooltip>
+      //               <Tooltip
+      //                 size="sm"
+      //                 content="Reject Invoice"
+      //                 placement="top"
+      //                 color="invert"
+      //               >
+      //                 <ActionIcon
+      //                   as="span"
+      //                   size="sm"
+      //                   variant="outline"
+      //                   aria-label="Reject Invoice"
+      //                   onClick={() => {}}
+      //                 >
+      //                   <PiXLogoDuotone className="h-4 w-4" />
+      //                 </ActionIcon>
+      //               </Tooltip>
+      //             </Flex>
+      //           );
+      //         },
+      //       }),
+      //     ]
+      []),
 ];
 
 export type ApprovalHistory = {

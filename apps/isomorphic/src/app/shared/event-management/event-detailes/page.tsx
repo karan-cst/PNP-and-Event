@@ -19,6 +19,7 @@ import { PiPlusBold } from 'react-icons/pi';
 import { formatPrice } from '@/config/format-pricing';
 import { useState } from 'react';
 import DetailLogTable from '../../job-management/job-view/detailLog';
+import ClientUploadModal from '../client-upload/ClientUploadModal';
 
 export type EventApproveDataType = (typeof EventApproveData)[number];
 
@@ -27,9 +28,9 @@ export default function EventDetailesPage() {
   const event = dummyEventViewData;
   const { data: session } = useSession();
   const role = session?.user.role;
-  const [activeTab, setActiveTab] = useState<'elements' | 'vendors' | 'logs'>(
-    'elements'
-  );
+  const [activeTab, setActiveTab] = useState<
+    'elements' | 'vendors' | 'logs' | 'client'
+  >('elements');
   const pageHeader = {
     title: 'Events',
     breadcrumb: [
@@ -97,6 +98,7 @@ export default function EventDetailesPage() {
           {[
             { key: 'elements', label: 'Elements' },
             { key: 'vendors', label: 'Vendors' },
+            { key: 'client', label: 'Client Upload' },
             { key: 'logs', label: 'Logs' },
           ].map((tab) => (
             <button
@@ -237,6 +239,7 @@ export default function EventDetailesPage() {
           </>
         )}
         {activeTab === 'logs' && <DetailLogTable />}
+        {activeTab === 'client' && <ClientUploadModal id={event._id} />}
       </div>
     </>
   );
